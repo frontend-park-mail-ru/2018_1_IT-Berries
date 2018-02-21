@@ -12,6 +12,7 @@
 
         <section id="menu">
             <h1>Menu</h1>
+            <h2 class="js-profile-subheader"></h2> <!-- TODO: Profile section separate from menu? -->
             <ul>
                 <li><a href="#" data-section="gameSettings">Start game</a></li>
                 <li><a href="#" data-section="signin">Sign in</a></li>
@@ -24,10 +25,12 @@
         <section id="signup">
             <h1>Sign Up</h1>
             <form class="js-signup-form">
+                <input required type="text" name="username" id="username" placeholder="Username">
                 <input required type="email" name="email" id="email" placeholder="Email">
                 <input required type="password" name="password" id="password" placeholder="Password">
                 <input required type="password" name="password_repeat" id="password_repeat"
                        placeholder="Repeat password">
+                <div class="js-signup-validation"></div>
                 <input class="js-signup-submit" type="submit">
             </form>
             <a href="#" data-section="menu">Back</a>
@@ -38,6 +41,7 @@
             <form class="js-signin-form">
                 <input required type="email" name="email" id="email" placeholder="Email">
                 <input required type="password" name="password" id="password" placeholder="Password">
+                <div class="js-signin-validation"></div>
                 <input class="js-signin-submit" type="submit">
             </form>
             <a href="#" data-section="signup">Sign up</a>
@@ -46,11 +50,14 @@
 
         <section id="profile">
             <h1>Your profile</h1>
+            <h2 class="js-profile-subheader"></h2>
             <form class="js-profile-form">
+                <input required type="text" name="username" id="username" placeholder="Username">
                 <input required type="email" name="email" id="email" placeholder="Email">
                 <input required type="password" name="password" id="password" placeholder="New password">
                 <input required type="password" name="password_repeat" id="password_repeat"
                        placeholder="Repeat new password">
+                <div class="js-profile-validation"></div>
                 <input class="js-profile-submit" type="submit">
             </form>
             <a href="#" data-section="menu">Back</a>
