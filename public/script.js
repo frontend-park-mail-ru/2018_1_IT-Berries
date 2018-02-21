@@ -117,7 +117,7 @@ function openScoreboard() {
 			const trow = document.createElement('tr');
 
 			const tdUsername = document.createElement('td');
-			tdUsername.textContent = user.email;
+			tdUsername.textContent = user.username;
 
 			const tdScore = document.createElement('td');
 			tdScore.textContent = user.score;
@@ -150,7 +150,7 @@ function onSubmitSigninForm(evt) {
 
 	signinUser(formdata, function (err, response) {
 		if (err) {
-			signupForm.reset();
+			signinForm.reset();
 			alert('Неверно!');
 			return;
 		}
@@ -198,7 +198,7 @@ function onSubmitSignupForm(evt) {
 
 		checkAuth();
 		openSection('menu');
-	}, false); // TODO: do request to change profile data. API method for profile?
+	}, true); // TODO: do request to change profile data. API method for profile?
 }
 
 function onSubmitProfileForm(evt) {
@@ -300,7 +300,7 @@ function checkAuth() {
 
 		console.dir('Проверка авторизации', me);
 		Array.prototype.forEach.call(profileSubheaders, function(profileSubheader) {
-			profileSubheader.textContent = '${me.username}!!!';
+			profileSubheader.textContent = `Вы авторизованы как ${me.username}!!!`;
 		});
 
 	}, false);

@@ -20,22 +20,26 @@ app.use(cookie());
 
 
 const users = {
-	'i.nemshilov@park.mail.ru': {
+	'ivan.nemshilov@park.mail.ru': {
+		username: 'Ivan',
 		email: 'ivan.nemshilov@park.mail.ru',
 		password: 'password',
 		score: 72
 	},
-	'i.drujinin@park.mail.ru': {
+	'igor.drujinin@park.mail.ru': {
+		username: 'Igor',
 		email: 'igor.drujinin@park.mail.ru',
 		password: 'password',
 		score: 100500
 	},
-	'a.puchina@park.mail.ru': {
+	'anastasia.puchina@park.mail.ru': {
+		username: 'Anastasia',
 		email: 'anastasia.puchina@park.mail.ru',
 		password: 'password',
 		score: 72
 	},
-	'e.oshkina@park.mail.ru': {
+	'elena.oshkina@park.mail.ru': {
+		username: 'Elena',
 		email: 'elena.oshkina@park.mail.ru',
 		password: 'password',
 		score: 72
@@ -46,19 +50,21 @@ const ids = {};
 app.post('/signup', function (req, res) {
 	const password = req.body.password;
 	const email = req.body.email;
+	const username = req.body.username;
 	if (
+		!username ||
 		!password || !email ||
 		!password.match(/^\S{4,}$/) ||
 		!email.match(/@/)
 	) {
 		return res.status(400).json({error: 'Не валидные данные пользователя'});
 	}
-	if (users[email]) {
+	if (users[username]) {
 		return res.status(400).json({error: 'Пользователь уже существует'});
 	}
 
 	const id = uuid();
-	const user = {password, email, score: 0};
+	const user = {username, password, email, score: 0};
 	ids[id] = email;
 	users[email] = user;
 
@@ -92,7 +98,7 @@ app.get('/me', function (req, res) {
 
 	users[email].score += 1;
 
-	res.json(users[email]);
+	res.json({username: users[email].username});
 });
 
 app.get('/users', function (req, res) {
@@ -100,6 +106,7 @@ app.get('/users', function (req, res) {
 		.sort((l, r) => r.score - l.score)
 		.map(user => {
 			return {
+				username: user.username,
 				email: user.email,
 				score: user.score
 			};
