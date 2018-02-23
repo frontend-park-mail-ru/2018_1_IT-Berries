@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="wclassth=device-wclassth, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MagicalPoints</title>
 </head>
 <body>
 
-    <main id="application">
+    <main class="application">
 
-        <section id="menu">
+        <section class="menu">
             <h1>Menu</h1>
             <h2 class="js-profile-subheader"></h2> <!-- TODO: Profile section separate from menu? -->
             <ul>
@@ -23,48 +23,52 @@
             </ul>
         </section>
 
-        <section id="signup">
+        <section class="signup">
+
             <h1>Sign Up</h1>
+
             <form class="js-signup-form">
-                <input required type="text" name="username" id="username" placeholder="Username">
-                <input required type="email" name="email" id="email" placeholder="Email">
-                <input required type="password" name="password" id="password" placeholder="Password">
-                <input required type="password" name="password_repeat" id="password_repeat"
+                <input required type="text" name="username" class="username" placeholder="Username">
+                <input required type="email" name="email" class="email" placeholder="Email">
+                <input required type="password" name="password" class="password" placeholder="Password">
+                <input required type="password" name="password_repeat" class="password_repeat"
                        placeholder="Repeat password">
-                <div class="js-signup-validation"></div>
+                <div class="js-signup-valclassation"></div>
                 <input class="js-signup-submit" type="submit">
             </form>
+
             <a href="#" data-section="menu">Back</a>
+
         </section>
 
-        <section id="signin">
+        <section class="signin">
             <h1>Sign In</h1>
             <form class="js-signin-form">
-                <input required type="email" name="email" id="email" placeholder="Email">
-                <input required type="password" name="password" id="password" placeholder="Password">
-                <div class="js-signin-validation"></div>
+                <input required type="email" name="email" class="email" placeholder="Email">
+                <input required type="password" name="password" class="password" placeholder="Password">
+                <div class="js-signin-valclassation"></div>
                 <input class="js-signin-submit" type="submit">
             </form>
             <a href="#" data-section="signup">Sign up</a>
             <a href="#" data-section="menu">Back</a>
         </section>
 
-        <section id="profile">
+        <section class="profile">
             <h1>Your profile</h1>
             <h2 class="js-profile-subheader"></h2>
             <form class="js-profile-form">
-                <input required type="text" name="username" id="username" placeholder="Username">
-                <input required type="email" name="email" id="email" placeholder="Email">
-                <input required type="password" name="password" id="password" placeholder="New password">
-                <input required type="password" name="password_repeat" id="password_repeat"
+                <input required type="text" name="username" class="username" placeholder="Username">
+                <input required type="email" name="email" class="email" placeholder="Email">
+                <input required type="password" name="password" class="password" placeholder="New password">
+                <input required type="password" name="password_repeat" class="password_repeat"
                        placeholder="Repeat new password">
-                <div class="js-profile-validation"></div>
+                <div class="js-profile-valclassation"></div>
                 <input class="js-profile-submit" type="submit">
             </form>
             <a href="#" data-section="menu">Back</a>
         </section>
 
-        <section id="game-settings">
+        <section class="game-settings">
             <h1>Game settings</h1>
             <div class="js-game-settings-container">
 
@@ -72,7 +76,7 @@
             <a href="#" data-section="menu">Back</a>
         </section>
 
-        <section id="scoreboard">
+        <section class="scoreboard">
             <h1>Scoreboard</h1>
             <div class="js-scoreboard-container">
 
@@ -80,7 +84,7 @@
             <a href="#" data-section="menu">Back</a>
         </section>
 
-        <section id="about">
+        <section class="about">
             <h1>About</h1>
             <div class="js-about-container">
                 It will be very cool game ヽ(^◇^*)/
@@ -89,7 +93,9 @@
         </section>
 
     </main>
-
-<script src="script.js"></script>
+<script src="/js/modules/http.js"></script>
+    <script src="/js/components/Scoreboard/Scoreboard.tmpl.js"></script>
+    <script src="/js/components/Scoreboard/Scoreboard.js"></script>
+<script src="/js/script.js"></script>
 </body>
 </html>
