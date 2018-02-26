@@ -32,9 +32,9 @@
             xhr.send();
         }
 
-        doPost({url = '/', callback = noop, data = {}} = {}) {
+        doPost({url = '/', callback = noop, formData = {}} = {}) {
             const xhr = new XMLHttpRequest();
-            xhr.open('POST', url, true);
+            xhr.open('POST', url);
 
             xhr.onreadystatechange = function () {
                 if (xhr.readyState != 4) {
@@ -56,10 +56,7 @@
                 }
             };
 
-            xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-            xhr.withCredentials = true;
-
-            xhr.send(JSON.stringify(data));
+            xhr.send(formData);
         }
     }
 

@@ -7,6 +7,7 @@ const cookie = require('cookie-parser');
 const morgan = require('morgan');
 const debug = require('debug');
 const uuid = require('uuid/v4');
+const fileUpload = require('express-fileupload');
 
 const logger = debug('mylogger');
 logger('Starting app');
@@ -17,6 +18,7 @@ app.use(morgan('dev'));
 app.use(express.static(path.resolve(__dirname, '..', 'public')));
 app.use(body.json());
 app.use(cookie());
+app.use(fileUpload());
 
 
 const users = {
@@ -24,55 +26,81 @@ const users = {
 		username: 'Ivan',
 		email: 'ivan.nemshilov@park.mail.ru',
 		password: 'password',
-		score: 72
+		score: 72,
+		avatar: 'Ivan.jpg'
 	},
 	'igor.drujinin@park.mail.ru': {
 		username: 'Igor',
 		email: 'igor.drujinin@park.mail.ru',
 		password: 'password',
-		score: 100500
+		score: 100500,
+    avatar: 'Igor.jpg'
 	},
 	'anastasia.puchina@park.mail.ru': {
 		username: 'Anastasia',
 		email: 'anastasia.puchina@park.mail.ru',
 		password: 'password',
-		score: 72
+		score: 72,
+		avatar: 'Anastasia.jpg'
 	},
 	'elena.oshkina@park.mail.ru': {
 		username: 'Elena',
 		email: 'elena.oshkina@park.mail.ru',
 		password: 'password',
-		score: 72
+		score: 72,
+		avatar: 'Elena.jpg'
 	}
 };
 const ids = {};
 
 app.post('/signup', function (req, res) {
+
+	logger('Body:');
+	logger(req.body);
+	logger('Files:');
+	logger(req.files);
+
 	const password = req.body.password;
 	const email = req.body.email;
 	const username = req.body.username;
+
 	if (
 		!username ||
 		!password || !email ||
 		!password.match(/^\S{4,}$/) ||
 		!email.match(/@/)
 	) {
+    logger('Не валидные данные пользователя');
 		return res.status(400).json({error: 'Не валидные данные пользователя'});
 	}
 	if (users[username]) {
+    logger('Пользователь уже существует');
 		return res.status(400).json({error: 'Пользователь уже существует'});
 	}
-
+	logger('Avatar saving');
+  const avatar = req.files.avatar;
+  let avatarName = '';
+  try {
+  	avatarName = avatar.name;
+    avatar.mv('./server/avatars/' + avatar.name, function(err) {
+      if (err)
+        logger(err);
+    });
+	} catch(err) {
+  	avatarName = 'noavatar.png';
+	}
+  logger('Добавление пользователя');
 	const id = uuid();
-	const user = {username, password, email, score: 0};
+	const user = {username: username, password: password, email: email, score: 0, avatar: avatarName};
 	ids[id] = email;
 	users[email] = user;
 
-	res.cookie('frontend', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
+  res.cookie('frontend', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
 	res.status(201).json({id});
 });
 
 app.post('/login', function (req, res) {
+	logger(req.body);
 	const password = req.body.password;
 	const email = req.body.email;
 	if (!password || !email) {
@@ -101,6 +129,18 @@ app.get('/me', function (req, res) {
 	res.json({username: users[email].username});
 });
 
+app.get('/avatar', function (req, res) {
+  const id = req.cookies['frontend'];
+  const email = ids[id];
+  if (!email || !users[email]) {
+    return res.status(401).end();
+  }
+
+  const avatar = users[email].avatar;
+
+  res.sendFile(path.resolve(__dirname, 'avatars', avatar));
+});
+
 app.get('/users', function (req, res) {
 	const scorelist = Object.values(users)
 		.sort((l, r) => r.score - l.score)
@@ -113,6 +153,30 @@ app.get('/users', function (req, res) {
 		});
 
 	res.json(scorelist);
+});
+
+app.get('/logout', function (req, res) {
+	logger("Выход пользователя");
+  let id = req.cookies['frontend'];
+  const email = ids[id];
+  if (!email || !users[email]) {
+    return res.status(401).end();
+  }
+  logger("Пользователь вышел");
+  ids[id] = '';
+  id = uuid();
+  ids[id] = email;
+  res.status(202).end();
+});
+
+app.get('/profile', function (req, res) {
+  const id = req.cookies['frontend'];
+  const email = ids[id];
+  if (!email || !users[email]) {
+    return res.status(401).end();
+  }
+
+  res.json({username: users[email].username, email: email, score: users[email].score});
 });
 
 const port = process.env.PORT || 8080;

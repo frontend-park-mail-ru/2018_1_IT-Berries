@@ -12,12 +12,14 @@
 
         <section class="menu">
             <h1>Menu</h1>
-            <h2 class="js-profile-subheader"></h2> <!-- TODO: Profile section separate from menu? -->
+            <!--<h2 class="menu__js-profile-subheader"></h2> --> <!-- TODO: Profile section separate from menu? -->
+            <div class="menu__js-profile-subheader"></div>
+            <div class="js-profile-container"></div>
             <ul>
                 <li><a href="#" data-section="gameSettings">Start game</a></li>
-                <li><a href="#" data-section="signin">Sign in</a></li>
-                <li><a href="#" data-section="signup">Sign up</a></li>
-                <li><a href="#" data-section="profile">Profile</a></li>
+                <li class="menu__signin-link"><a href="#" data-section="signin">Sign in</a></li>
+                <li class="menu__signup-link"><a href="#" data-section="signup">Sign up</a></li>
+                <li class="menu__profile-link"><a href="#" data-section="profile">Profile</a></li>
                 <li><a href="#" data-section="scoreboard">Scoreboard</a></li>
                 <li><a href="#" data-section="about">About</a></li>
             </ul>
@@ -27,14 +29,15 @@
 
             <h1>Sign Up</h1>
 
-            <form class="js-signup-form">
-                <input required type="text" name="username" class="username" placeholder="Username">
-                <input required type="email" name="email" class="email" placeholder="Email">
-                <input required type="password" name="password" class="password" placeholder="Password">
-                <input required type="password" name="password_repeat" class="password_repeat"
+            <form class="js-signup-form" enctype="multipart/form-data" method="post" name="fileinfo">
+                <input required type="text" name="username" class="js-signup-form__username" placeholder="Username">
+                <input required type="email" name="email" class="js-signup-form__email" placeholder="Email">
+                <input required type="password" name="password" class="js-signup-form__password" placeholder="Password">
+                <input required type="password" name="password_repeat" class="js-signup-form__password_repeat"
                        placeholder="Repeat password">
+                <input type="file" name="avatar" class="js-signup-form__avatar" placeholder="path" accept="image/jpeg,image/png"/>
                 <div class="js-signup-valclassation"></div>
-                <input class="js-signup-submit" type="submit">
+                <input class="js-signup-form__js-signup-submit" type="submit">
             </form>
 
             <a href="#" data-section="menu">Back</a>
@@ -44,10 +47,10 @@
         <section class="signin">
             <h1>Sign In</h1>
             <form class="js-signin-form">
-                <input required type="email" name="email" class="email" placeholder="Email">
-                <input required type="password" name="password" class="password" placeholder="Password">
-                <div class="js-signin-valclassation"></div>
-                <input class="js-signin-submit" type="submit">
+                <input required type="email" name="email" class="js-signin-form__email" placeholder="Email">
+                <input required type="password" name="password" class="js-signin-form__password" placeholder="Password">
+                <div class="js-signin-form__js-signin-valclassation"></div>
+                <input class="js-signin-form__js-signin-submit" type="submit">
             </form>
             <a href="#" data-section="signup">Sign up</a>
             <a href="#" data-section="menu">Back</a>
@@ -55,22 +58,23 @@
 
         <section class="profile">
             <h1>Your profile</h1>
-            <h2 class="js-profile-subheader"></h2>
+            <h2 class="profile__js-profile-subheader">Your Profile</h2>
+            <div class="js-profile-container"></div>
             <form class="js-profile-form">
-                <input required type="text" name="username" class="username" placeholder="Username">
-                <input required type="email" name="email" class="email" placeholder="Email">
-                <input required type="password" name="password" class="password" placeholder="New password">
-                <input required type="password" name="password_repeat" class="password_repeat"
+                <input required type="text" name="username" class="js-profile-form__username" placeholder="Username">
+                <input required type="email" name="email" class="js-profile-form__email" placeholder="Email">
+                <input required type="password" name="password" class="js-profile-form__password" placeholder="New password">
+                <input required type="password" name="password_repeat" class="js-profile-form__password_repeat"
                        placeholder="Repeat new password">
-                <div class="js-profile-valclassation"></div>
-                <input class="js-profile-submit" type="submit">
+                <div class="js-profile-form__js-profile-valclassation"></div>
+                <input class="js-profile-form__js-profile-submit" type="submit">
             </form>
             <a href="#" data-section="menu">Back</a>
         </section>
 
         <section class="game-settings">
             <h1>Game settings</h1>
-            <div class="js-game-settings-container">
+            <div class="game-settings__js-container">
 
             </div>
             <a href="#" data-section="menu">Back</a>
@@ -91,11 +95,13 @@
             </div>
             <a href="#" data-section="menu">Back</a>
         </section>
-
+        <a class="quit-link" href="#">Quit</a>
     </main>
 <script src="/js/modules/http.js"></script>
-    <script src="/js/components/Scoreboard/Scoreboard.tmpl.js"></script>
-    <script src="/js/components/Scoreboard/Scoreboard.js"></script>
+<script src="/js/components/Scoreboard/Scoreboard.tmpl.js"></script>
+<script src="/js/components/Scoreboard/Scoreboard.js"></script>
+<script src="/js/components/Profile/Profile.tmpl.js"></script>
+<script src="/js/components/Profile/Profile.js"></script>
 <script src="/js/script.js"></script>
 </body>
 </html>
