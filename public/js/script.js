@@ -200,7 +200,7 @@ function onSubmitSignupForm(evt) {
   const formData = new FormData(signupForm);
 
   validateProfileFormData(formData, function(err) {
-    const signupValidationField = document.getElementsByClassName('js-signup-validation')[0];
+    const signupValidationField = document.getElementsByClassName('js-signup-form__validation')[0];
     signupValidationField.textContent = err;
   });
 
@@ -230,7 +230,7 @@ function onSubmitProfileForm(evt) {
   }, {});
 
   validateProfileFormData(formdata, function(err) {
-    const profileValidationField = document.getElementsByClassName('js-profile-validation')[0];
+    const profileValidationField = document.getElementsByClassName('js-profile-form__validation')[0];
     profileValidationField.textContent = err;
   });
 
