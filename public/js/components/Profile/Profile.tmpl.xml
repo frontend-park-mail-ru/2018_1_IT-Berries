@@ -1,5 +1,5 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
-    <table class="scoreboard__table">
+    <table class="profile__table">
         <tbody>
             <tr class="profile__row">
                 <td><img src="/avatar" height="100" width="100"></img></td>
