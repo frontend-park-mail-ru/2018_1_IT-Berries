@@ -4,8 +4,8 @@ const httpModule = new window.HttpModule();
 
 // Application components
 
-const scoreboardComponent = new window.ScoreboardComponent('.js-scoreboard-container');
-const profileComponent = new window.ProfileComponent('js-profile-container');
+const scoreboardComponent = new window.ScoreboardComponent('.scoreboard-container');
+const profileComponent = new window.ProfileComponent('profile-container');
 
 // Application sections
 
@@ -18,38 +18,40 @@ const gameSettingsSection = document.getElementsByClassName('game-settings')[0];
 const scoreboardSection = document.getElementsByClassName('scoreboard')[0];
 const aboutSection = document.getElementsByClassName('about')[0];
 
-const sections = {
-  menu: menuSection,
-  signup: signupSection,
-  signin: signinSection,
-  profile: profileSection,
-  gameSettings: gameSettingsSection,
-  scoreboard: scoreboardSection,
-  about: aboutSection
-};
+const sections = new Map([
+  ['menu',  menuSection],
+  ['signup', signupSection],
+  ['signin', signinSection],
+  ['profile', profileSection],
+  ['gameSettings', gameSettingsSection],
+  ['scoreboard', scoreboardSection],
+  ['about', aboutSection],
+]);
 
 
 // Sections elements
 
-const profileSubheaders = document.getElementsByClassName('menu__js-profile-subheader');
-const signinForm = document.getElementsByClassName('js-signin-form')[0];
-const signupForm = document.getElementsByClassName('js-signup-form')[0];
+const profileSubheaders = document.getElementsByClassName('menu__profile-subheader');
+const signinForm = document.getElementsByClassName('signin-form')[0];
+const signupForm = document.getElementsByClassName('signup-form')[0];
 const quit = document.getElementsByClassName('quit-link')[0];
 
 // Sections functions
 
-function openSection(sectionName) {
-  Object.keys(sections).forEach(function (key) {
-    if (key === sectionName) {
-      sections[key].hidden = false;
-    } else {
-      sections[key].hidden = true;
-    }
-  });
-
-  if (openFunctions[sectionName]) {
-    openFunctions[sectionName]();
+function hideAllSections() {
+  console.log('hideAll');
+  for(let section of sections.values()) {
+    section.hidden = true;
   }
+}
+
+function openSections(sectionsNamesArr) {
+  sectionsNamesArr.forEach(function (sectionName, i, arr) {
+    sections.get(sectionName).hidden = false;
+    if (openFunctions[sectionName]) {
+      openFunctions[sectionName]();
+    }
+  })
 }
 
 const openFunctions = {
@@ -77,7 +79,8 @@ const openFunctions = {
   out: function() {
     logOut(() => {
       checkAuth();
-      openSection('menu');
+      hideAllSections();
+      openSections(['menu']);
     });
   }
 };
@@ -93,49 +96,10 @@ application.addEventListener('click', function (evt) {
 
   const section = target.getAttribute('data-section');
   console.log('Open section: ', section);
-  openSection(section);
+  hideAllSections();
+  openSections([ section ]);
 });
 
-// TODO: check that all ok and delete this
-/*function openScoreboard() {
-  console.log('in open function for scoreboard');
-  scoreboardContainer.innerHTML = '';
-
-  loadUsers(function (err, users) {
-    if (err) {
-      // can not load users
-      console.error(err);
-      return;
-    }
-
-    console.dir(users);
-
-    // add users to scoreboard
-
-    const table = document.createElement('table');
-    const tbody = document.createElement('tbody');
-    table.appendChild(tbody);
-
-    users.forEach(function (user) {
-      const trow = document.createElement('tr');
-
-      const tdUsername = document.createElement('td');
-      tdUsername.textContent = user.username;
-
-      const tdScore = document.createElement('td');
-      tdScore.textContent = user.score;
-
-      trow.appendChild(tdUsername);
-      trow.appendChild(tdScore);
-
-      tbody.appendChild(trow);
-    });
-
-    scoreboardContainer.appendChild(table);
-
-    table.style.fontSize = '18px';
-  });
-}*/
 
 function openMenu() {
   console.info('in open function for menu');
@@ -179,7 +143,8 @@ function onSubmitSigninForm(evt) {
     }
 
     checkAuth();
-    openSection('menu');
+    hideAllSections();
+    openSections(['menu']);
   });
 }
 
@@ -200,7 +165,7 @@ function onSubmitSignupForm(evt) {
   const formData = new FormData(signupForm);
 
   validateProfileFormData(formData, function(err) {
-    const signupValidationField = document.getElementsByClassName('js-signup-form__validation')[0];
+    const signupValidationField = document.getElementsByClassName('signup-form__validation')[0];
     signupValidationField.textContent = err;
   });
 
@@ -213,7 +178,8 @@ function onSubmitSignupForm(evt) {
       return;
     }
 
-    openSection('menu');
+    hideAllSections();
+    openSections(['menu']);
   }, true); // TODO: do request to change profile data. API method for profile?
 }
 
@@ -230,7 +196,7 @@ function onSubmitProfileForm(evt) {
   }, {});
 
   validateProfileFormData(formdata, function(err) {
-    const profileValidationField = document.getElementsByClassName('js-profile-form__validation')[0];
+    const profileValidationField = document.getElementsByClassName('profile-form__errors')[0];
     profileValidationField.textContent = err;
   });
 
@@ -244,39 +210,13 @@ function onSubmitProfileForm(evt) {
     }
 
     checkAuth();
-    openSection('menu');
+    hideAllSections();
+    openSections(['menu']);
   }, false); // TODO: do request to change profile data. API method for profile?
 }
 
 
 // Authorization functions
-
-// TODO: Delete this if all fine (the functional was divided between loadUsers and loadMe
-/*function loadUsers(callback, isAllUsersLoad = true) {
-  const xhr = new XMLHttpRequest();
-  const apiPath = isAllUsersLoad ? '/users' : '/me';
-  xhr.open('GET', apiPath, true);
-
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState != 4) { // If not Done status of request
-      return;
-    }
-
-    if (xhr.status === 200) {
-      const responseText = xhr.responseText;
-      const response = JSON.parse(responseText);
-      callback(null, response);
-    } else {
-      callback(xhr);
-    }
-  };
-
-  if (isAllUsersLoad == false) {
-    xhr.withCredentials = true;
-  }
-
-  xhr.send();
-}*/
 
 function loadProfile(callback) {
   httpModule.doGet({
@@ -298,33 +238,6 @@ function loadMe(callback) {
     callback
   });
 }
-
-
-// TODO: one function for signupUser and signinUser. What about function and flag names?
-/*function signinUser(user, callback, isSignup = false) {
-  const xhr = new XMLHttpRequest();
-  const apiPath = isSignup ? '/signup' : '/login';
-  xhr.open('POST', apiPath, true);
-
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState != 4) { // If not Done status of request
-      return;
-    }
-
-    if (xhr.status < 300) {
-      const responseText = xhr.responseText;
-      const response = JSON.parse(responseText);
-      callback(null, response);
-    } else {
-      callback(xhr);
-    }
-  };
-
-  xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-  xhr.withCredentials = true;
-
-  xhr.send(JSON.stringify(user));
-}*/
 
 function signupUser(user, callback) {
   httpModule.doPost({
@@ -416,6 +329,7 @@ function checkAuth() {
   }, false);
 }
 
+
 quit.addEventListener('click', function() {
 
 });
@@ -425,11 +339,13 @@ quit.addEventListener('click', function (evt) {
 
   logOut(() => {
     checkAuth();
-    openSection('menu');
+    hideAllSections();
+    openSections(['menu']);
   });
 });
 
 // Initialize application
 
-openSection('menu');
+hideAllSections();
+openSections(['menu']);
 checkAuth();
