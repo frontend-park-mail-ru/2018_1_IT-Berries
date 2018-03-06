@@ -46,7 +46,7 @@ function hideAllSections() {
 }
 
 function openSections(sectionsNamesArr) {
-  sectionsNamesArr.forEach(function (sectionName, i, arr) {
+  sectionsNamesArr.forEach( (sectionName, i, arr)  => {
     sections.get(sectionName).hidden = false;
     if (openFunctions[sectionName]) {
       openFunctions[sectionName]();
@@ -56,41 +56,39 @@ function openSections(sectionsNamesArr) {
 
 const openFunctions = {
   menu: openMenu,
-  signin: function () {
+  signin: () => {
     console.log('in open function for signin');
     signinForm.removeEventListener('submit', onSubmitSigninForm);
     signinForm.reset();
     signinForm.addEventListener('submit', onSubmitSigninForm);
   },
   profile: openProfile,
-  signup: function () {
+  signup: () => {
     console.log('in open function for signup');
     signupForm.removeEventListener('submit', onSubmitSignupForm);
     signupForm.reset();
     signupForm.addEventListener('submit', onSubmitSignupForm);
   },
-  gameSettings: function () {
+  gameSettings: () => {
     console.log('in open function for game settings');
   },
   scoreboard: openScoreboard,
-  about: function () {
+  about: () => {
     console.log('in open function for about');
   },
-  out: function() {
-    logOut(() => {
-      checkAuth();
-      hideAllSections();
-      openSections(['menu']);
-    });
+  out: () => { // logout function
+    checkAuth();
+    hideAllSections();
+    openSections(['menu']);
   }
 };
 
-application.addEventListener('click', function (evt) {
+// Proccess click on page link (for SPA)
+application.addEventListener('click', (evt) => {
   const target = evt.target;
   if (target.tagName.toLowerCase() !== 'a') {
     return;
   }
-  // Proccess click on link
   // Prevent default link behavior: do not go to target page
   evt.preventDefault();
 
@@ -109,7 +107,7 @@ function openScoreboard() {
 
   scoreboardComponent.clear();
 
-  loadUsers(function (err, users) {
+  loadUsers( (err, users) => {
     if (err) {
       console.error(err);
       return;
@@ -135,7 +133,7 @@ function onSubmitSigninForm(evt) {
 
   console.log('Авторизация пользователя', formData);
 
-  loginUser(formData, function (err) {
+  loginUser(formData, (err) => {
     if (err) {
       signinForm.reset();
       alert('Неверно!');
@@ -164,14 +162,14 @@ function onSubmitSignupForm(evt) {
   //const form = document.forms.namedItem("fileinfo");
   const formData = new FormData(signupForm);
 
-  validateProfileFormData(formData, function(err) {
+  validateProfileFormData(formData, (err) => {
     const signupValidationField = document.getElementsByClassName('signup-form__validation')[0];
     signupValidationField.textContent = err;
   });
 
   console.info('Регистрация пользователя', formData);
 
-  signupUser(formData, function (err) {
+  signupUser(formData, (err) => {
     if (err) {
       signupForm.reset();
       alert('Неверно!');
@@ -190,19 +188,19 @@ function onSubmitProfileForm(evt) {
   const form = evt.currentTarget;
   const formElements = form.elements;
 
-  const formdata = fields.reduce(function (allfields, fieldname) {
+  const formdata = fields.reduce( (allfields, fieldname) => {
     allfields[fieldname] = formElements[fieldname].value;
     return allfields;
   }, {});
 
-  validateProfileFormData(formdata, function(err) {
+  validateProfileFormData(formdata, (err) => {
     const profileValidationField = document.getElementsByClassName('profile-form__errors')[0];
     profileValidationField.textContent = err;
   });
 
   console.info('Регистрация пользователя', formdata);
 
-  loginUser(formdata, function (err) {
+  loginUser(formdata, (err) => {
     if (err) {
       signupForm.reset();
       alert('Неверно!');
@@ -212,7 +210,7 @@ function onSubmitProfileForm(evt) {
     checkAuth();
     hideAllSections();
     openSections(['menu']);
-  }, false); // TODO: do request to change profile data. API method for profile?
+  }, false);
 }
 
 
@@ -274,7 +272,7 @@ function loadProfileCallback(err, user) {
 }
 
 function checkAuth() {
-  loadMe(function (err, me) {
+  loadMe( (err, me) => {
     // Fill textContent for array of profile subheaders: in menu and profile sections
     const profileLinks = document.getElementsByClassName('menu__profile-link');
     const quitLinks = document.getElementsByClassName('menu__quit-link');
@@ -282,23 +280,23 @@ function checkAuth() {
     const signupLinks = document.getElementsByClassName('menu__signup-link');
     if (err) {
       profileComponent.clear();
-      Array.prototype.forEach.call(profileSubheaders, function(profileSubheader) {
+      Array.prototype.forEach.call(profileSubheaders, (profileSubheader) => {
         profileSubheader.textContent = 'Guest';
       });
 
-      Array.prototype.forEach.call(profileLinks, function(profileLink) {
+      Array.prototype.forEach.call(profileLinks, (profileLink) => {
         profileLink.hidden = true;
       });
 
-      Array.prototype.forEach.call(quitLinks, function(quitLink) {
+      Array.prototype.forEach.call(quitLinks, (quitLink) => {
         quitLink.hidden = true;
       });
 
-      Array.prototype.forEach.call(signinLinks, function(signinLink) {
+      Array.prototype.forEach.call(signinLinks, (signinLink) => {
         signinLink.hidden = false;
       });
 
-      Array.prototype.forEach.call(signupLinks, function(signupLink) {
+      Array.prototype.forEach.call(signupLinks, (signupLink) => {
         signupLink.hidden = false;
       });
       quit.hidden = true;
@@ -306,35 +304,35 @@ function checkAuth() {
     }
     loadProfile(loadProfileCallback);
     console.dir('Проверка авторизации', me);
-    Array.prototype.forEach.call(profileSubheaders, function(profileSubheader) {
+    Array.prototype.forEach.call(profileSubheaders, (profileSubheader) => {
       profileSubheader.textContent = `Вы авторизованы как ${me.username}!!!`;
     });
 
-    Array.prototype.forEach.call(profileLinks, function(profileLink) {
+    Array.prototype.forEach.call(profileLinks, (profileLink) => {
       profileLink.hidden = false;
     });
 
-    Array.prototype.forEach.call(quitLinks, function(quitLink) {
+    Array.prototype.forEach.call(quitLinks, (quitLink) => {
       quitLink.hidden = false;
     });
 
-    Array.prototype.forEach.call(signinLinks, function(signinLink) {
+    Array.prototype.forEach.call(signinLinks, (signinLink) => {
       signinLink.hidden = true;
     });
 
-    Array.prototype.forEach.call(signupLinks, function(signupLink) {
+    Array.prototype.forEach.call(signupLinks, (signupLink) => {
       signupLink.hidden = true;
     });
     quit.hidden = false;
   }, false);
 }
 
-
-quit.addEventListener('click', function() {
+// TODO: спросить Ваню, зачем здесь это
+quit.addEventListener('click', () => {
 
 });
 
-quit.addEventListener('click', function (evt) {
+quit.addEventListener('click', (evt) => {
   evt.preventDefault();
 
   logOut(() => {
@@ -346,6 +344,7 @@ quit.addEventListener('click', function (evt) {
 
 // Initialize application
 
+// TODO: устранить дублирование этого везде, вынести в openMenu?
+checkAuth();
 hideAllSections();
 openSections(['menu']);
-checkAuth();
