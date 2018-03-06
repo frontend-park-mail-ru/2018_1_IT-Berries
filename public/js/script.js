@@ -75,11 +75,6 @@ const openFunctions = {
   scoreboard: openScoreboard,
   about: () => {
     console.log('in open function for about');
-  },
-  out: () => { // logout function
-    checkAuth();
-    hideAllSections();
-    openSections(['menu']);
   }
 };
 
