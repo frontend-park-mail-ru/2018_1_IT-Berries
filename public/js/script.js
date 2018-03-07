@@ -58,16 +58,12 @@ const openFunctions = {
   menu: openMenu,
   signin: () => {
     console.log('in open function for signin');
-    signinForm.removeEventListener('submit', onSubmitSigninForm);
-    signinForm.reset();
-    signinForm.addEventListener('submit', onSubmitSigninForm);
+    resetForm(signinForm, 'signin-form__validation', onSubmitSigninForm);
   },
   profile: openProfile,
   signup: () => {
     console.log('in open function for signup');
-    signupForm.removeEventListener('submit', onSubmitSignupForm);
-    signupForm.reset();
-    signupForm.addEventListener('submit', onSubmitSignupForm);
+    resetForm(signupForm, 'signup-form__validation', onSubmitSignupForm);
   },
   gameSettings: () => {
     console.log('in open function for game settings');
@@ -131,7 +127,8 @@ function onSubmitSigninForm(evt) {
   loginUser(formData, (err) => {
     if (err) {
       signinForm.reset();
-      alert('Неверно!');
+      const signinValidationField = document.getElementsByClassName('signin-form__validation')[0];
+      signinValidationField.textContent = 'Wrong email or password! Try again...';
       return;
     }
 
@@ -147,6 +144,14 @@ function validateProfileFormData(formdata, callback) {
   // TODO: if validation error, do callback(err)
 
   return true;
+}
+
+function resetForm(form, validationFieldSelector, onSubmitFormCallback) {
+  form.removeEventListener('submit', onSubmitFormCallback);
+  form.reset();
+  const validationField = document.getElementsByClassName(validationFieldSelector)[0];
+  validationField.textContent = '';
+  form.addEventListener('submit', onSubmitFormCallback);
 }
 
 // TODO: Is it duplication of submit functions?
@@ -166,8 +171,7 @@ function onSubmitSignupForm(evt) {
 
   signupUser(formData, (err) => {
     if (err) {
-      signupForm.reset();
-      alert('Неверно!');
+      resetForm(signupForm, 'signup-form__validation', onSubmitSignupForm);
       return;
     }
 
@@ -197,8 +201,7 @@ function onSubmitProfileForm(evt) {
 
   loginUser(formdata, (err) => {
     if (err) {
-      signupForm.reset();
-      alert('Неверно!');
+      resetForm(signupForm, 'signup-form__validation', onSubmitSignupForm());
       return;
     }
 
