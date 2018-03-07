@@ -39,7 +39,6 @@ const quit = document.getElementsByClassName('quit-link')[0];
 // Sections functions
 
 function hideAllSections() {
-  console.log('hideAll');
   for(let section of sections.values()) {
     section.hidden = true;
   }
@@ -55,22 +54,22 @@ function openSections(sectionsNamesArr) {
 }
 
 const openFunctions = {
-  menu: openMenu,
+  menu: () => {
+
+  },
   signin: () => {
-    console.log('in open function for signin');
     resetForm(signinForm, 'signin-form__validation', onSubmitSigninForm);
   },
   profile: openProfile,
   signup: () => {
-    console.log('in open function for signup');
     resetForm(signupForm, 'signup-form__validation', onSubmitSignupForm);
   },
   gameSettings: () => {
-    console.log('in open function for game settings');
+
   },
   scoreboard: openScoreboard,
   about: () => {
-    console.log('in open function for about');
+
   }
 };
 
@@ -84,15 +83,9 @@ application.addEventListener('click', (evt) => {
   evt.preventDefault();
 
   const section = target.getAttribute('data-section');
-  console.log('Open section: ', section);
   hideAllSections();
   openSections([ section ]);
 });
-
-
-function openMenu() {
-  console.info('in open function for menu');
-}
 
 function openScoreboard() {
 
@@ -104,7 +97,6 @@ function openScoreboard() {
       return;
     }
 
-    console.dir(users);
     scoreboardComponent.data = users;
     scoreboardComponent.renderTmpl();
   });
@@ -121,8 +113,6 @@ function onSubmitSigninForm(evt) {
   evt.preventDefault();
 
   const formData = new FormData(signinForm);
-
-  console.log('Авторизация пользователя', formData);
 
   loginUser(formData, (err) => {
     if (err) {
@@ -167,8 +157,6 @@ function onSubmitSignupForm(evt) {
     signupValidationField.textContent = err;
   });
 
-  console.info('Регистрация пользователя', formData);
-
   signupUser(formData, (err) => {
     if (err) {
       resetForm(signupForm, 'signup-form__validation', onSubmitSignupForm);
@@ -196,8 +184,6 @@ function onSubmitProfileForm(evt) {
     const profileValidationField = document.getElementsByClassName('profile-form__errors')[0];
     profileValidationField.textContent = err;
   });
-
-  console.info('Регистрация пользователя', formdata);
 
   loginUser(formdata, (err) => {
     if (err) {
@@ -264,7 +250,6 @@ function loadProfileCallback(err, user) {
     return;
   }
 
-  console.dir(user);
   profileComponent.data = user;
   profileComponent.renderTmpl();
 }
@@ -301,7 +286,6 @@ function checkAuth() {
       return;
     }
     loadProfile(loadProfileCallback);
-    console.dir('Проверка авторизации', me);
     Array.prototype.forEach.call(profileSubheaders, (profileSubheader) => {
       profileSubheader.textContent = `Вы авторизованы как ${me.username}!!!`;
     });
