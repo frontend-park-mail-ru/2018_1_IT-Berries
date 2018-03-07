@@ -4,8 +4,8 @@ const httpModule = new window.HttpModule();
 
 // Application components
 
-const scoreboardComponent = new window.ScoreboardComponent('.js-scoreboard-container');
-const profileComponent = new window.ProfileComponent('js-profile-container');
+const scoreboardComponent = new window.ScoreboardComponent('.scoreboard-container');
+const profileComponent = new window.ProfileComponent('profile-container');
 
 // Application sections
 
@@ -18,140 +18,85 @@ const gameSettingsSection = document.getElementsByClassName('game-settings')[0];
 const scoreboardSection = document.getElementsByClassName('scoreboard')[0];
 const aboutSection = document.getElementsByClassName('about')[0];
 
-const sections = {
-  menu: menuSection,
-  signup: signupSection,
-  signin: signinSection,
-  profile: profileSection,
-  gameSettings: gameSettingsSection,
-  scoreboard: scoreboardSection,
-  about: aboutSection
-};
+const sections = new Map([
+  ['menu',  menuSection],
+  ['signup', signupSection],
+  ['signin', signinSection],
+  ['profile', profileSection],
+  ['gameSettings', gameSettingsSection],
+  ['scoreboard', scoreboardSection],
+  ['about', aboutSection],
+]);
 
 
 // Sections elements
 
-const profileSubheaders = document.getElementsByClassName('menu__js-profile-subheader');
-const signinForm = document.getElementsByClassName('js-signin-form')[0];
-const signupForm = document.getElementsByClassName('js-signup-form')[0];
+const profileSubheaders = document.getElementsByClassName('menu__profile-subheader');
+const signinForm = document.getElementsByClassName('signin-form')[0];
+const signupForm = document.getElementsByClassName('signup-form')[0];
 const quit = document.getElementsByClassName('quit-link')[0];
 
 // Sections functions
 
-function openSection(sectionName) {
-  Object.keys(sections).forEach(function (key) {
-    if (key === sectionName) {
-      sections[key].hidden = false;
-    } else {
-      sections[key].hidden = true;
-    }
-  });
-
-  if (openFunctions[sectionName]) {
-    openFunctions[sectionName]();
+function hideAllSections() {
+  for(let section of sections.values()) {
+    section.hidden = true;
   }
 }
 
+function openSections(sectionsNamesArr) {
+  sectionsNamesArr.forEach( (sectionName, i, arr)  => {
+    sections.get(sectionName).hidden = false;
+    if (openFunctions[sectionName]) {
+      openFunctions[sectionName]();
+    }
+  })
+}
+
 const openFunctions = {
-  menu: openMenu,
-  signin: function () {
-    console.log('in open function for signin');
-    signinForm.removeEventListener('submit', onSubmitSigninForm);
-    signinForm.reset();
-    signinForm.addEventListener('submit', onSubmitSigninForm);
+  menu: () => {
+
+  },
+  signin: () => {
+    resetForm(signinForm, 'signin-form__validation', onSubmitSigninForm);
   },
   profile: openProfile,
-  signup: function () {
-    console.log('in open function for signup');
-    signupForm.removeEventListener('submit', onSubmitSignupForm);
-    signupForm.reset();
-    signupForm.addEventListener('submit', onSubmitSignupForm);
+  signup: () => {
+    resetForm(signupForm, 'signup-form__validation', onSubmitSignupForm);
   },
-  gameSettings: function () {
-    console.log('in open function for game settings');
+  gameSettings: () => {
+
   },
   scoreboard: openScoreboard,
-  about: function () {
-    console.log('in open function for about');
-  },
-  out: function() {
-    logOut(() => {
-      checkAuth();
-      openSection('menu');
-    });
+  about: () => {
+
   }
 };
 
-application.addEventListener('click', function (evt) {
+// Proccess click on page link (for SPA)
+application.addEventListener('click', (evt) => {
   const target = evt.target;
   if (target.tagName.toLowerCase() !== 'a') {
     return;
   }
-  // Proccess click on link
   // Prevent default link behavior: do not go to target page
   evt.preventDefault();
 
   const section = target.getAttribute('data-section');
-  console.log('Open section: ', section);
-  openSection(section);
+  hideAllSections();
+  openSections([ section ]);
 });
-
-// TODO: check that all ok and delete this
-/*function openScoreboard() {
-  console.log('in open function for scoreboard');
-  scoreboardContainer.innerHTML = '';
-
-  loadUsers(function (err, users) {
-    if (err) {
-      // can not load users
-      console.error(err);
-      return;
-    }
-
-    console.dir(users);
-
-    // add users to scoreboard
-
-    const table = document.createElement('table');
-    const tbody = document.createElement('tbody');
-    table.appendChild(tbody);
-
-    users.forEach(function (user) {
-      const trow = document.createElement('tr');
-
-      const tdUsername = document.createElement('td');
-      tdUsername.textContent = user.username;
-
-      const tdScore = document.createElement('td');
-      tdScore.textContent = user.score;
-
-      trow.appendChild(tdUsername);
-      trow.appendChild(tdScore);
-
-      tbody.appendChild(trow);
-    });
-
-    scoreboardContainer.appendChild(table);
-
-    table.style.fontSize = '18px';
-  });
-}*/
-
-function openMenu() {
-  console.info('in open function for menu');
-}
 
 function openScoreboard() {
 
   scoreboardComponent.clear();
 
-  loadUsers(function (err, users) {
+  loadUsers( (err, users) => {
     if (err) {
       console.error(err);
       return;
     }
 
-    console.dir(users);
     scoreboardComponent.data = users;
     scoreboardComponent.renderTmpl();
   });
@@ -169,17 +114,17 @@ function onSubmitSigninForm(evt) {
 
   const formData = new FormData(signinForm);
 
-  console.log('Авторизация пользователя', formData);
-
-  loginUser(formData, function (err) {
+  loginUser(formData, (err) => {
     if (err) {
       signinForm.reset();
-      alert('Неверно!');
+      const signinValidationField = document.getElementsByClassName('signin-form__validation')[0];
+      signinValidationField.textContent = 'Wrong email or password! Try again...';
       return;
     }
 
     checkAuth();
-    openSection('menu');
+    hideAllSections();
+    openSections(['menu']);
   });
 }
 
@@ -191,6 +136,14 @@ function validateProfileFormData(formdata, callback) {
   return true;
 }
 
+function resetForm(form, validationFieldSelector, onSubmitFormCallback) {
+  form.removeEventListener('submit', onSubmitFormCallback);
+  form.reset();
+  const validationField = document.getElementsByClassName(validationFieldSelector)[0];
+  validationField.textContent = '';
+  form.addEventListener('submit', onSubmitFormCallback);
+}
+
 // TODO: Is it duplication of submit functions?
 
 function onSubmitSignupForm(evt) {
@@ -199,21 +152,19 @@ function onSubmitSignupForm(evt) {
   //const form = document.forms.namedItem("fileinfo");
   const formData = new FormData(signupForm);
 
-  validateProfileFormData(formData, function(err) {
-    const signupValidationField = document.getElementsByClassName('js-signup-form__validation')[0];
+  validateProfileFormData(formData, (err) => {
+    const signupValidationField = document.getElementsByClassName('signup-form__validation')[0];
     signupValidationField.textContent = err;
   });
 
-  console.info('Регистрация пользователя', formData);
-
-  signupUser(formData, function (err) {
+  signupUser(formData, (err) => {
     if (err) {
-      signupForm.reset();
-      alert('Неверно!');
+      resetForm(signupForm, 'signup-form__validation', onSubmitSignupForm);
       return;
     }
 
-    openSection('menu');
+    hideAllSections();
+    openSections(['menu']);
   }, true); // TODO: do request to change profile data. API method for profile?
 }
 
@@ -224,59 +175,30 @@ function onSubmitProfileForm(evt) {
   const form = evt.currentTarget;
   const formElements = form.elements;
 
-  const formdata = fields.reduce(function (allfields, fieldname) {
+  const formdata = fields.reduce( (allfields, fieldname) => {
     allfields[fieldname] = formElements[fieldname].value;
     return allfields;
   }, {});
 
-  validateProfileFormData(formdata, function(err) {
-    const profileValidationField = document.getElementsByClassName('js-profile-form__validation')[0];
+  validateProfileFormData(formdata, (err) => {
+    const profileValidationField = document.getElementsByClassName('profile-form__errors')[0];
     profileValidationField.textContent = err;
   });
 
-  console.info('Регистрация пользователя', formdata);
-
-  loginUser(formdata, function (err) {
+  loginUser(formdata, (err) => {
     if (err) {
-      signupForm.reset();
-      alert('Неверно!');
+      resetForm(signupForm, 'signup-form__validation', onSubmitSignupForm());
       return;
     }
 
     checkAuth();
-    openSection('menu');
-  }, false); // TODO: do request to change profile data. API method for profile?
+    hideAllSections();
+    openSections(['menu']);
+  }, false);
 }
 
 
 // Authorization functions
-
-// TODO: Delete this if all fine (the functional was divided between loadUsers and loadMe
-/*function loadUsers(callback, isAllUsersLoad = true) {
-  const xhr = new XMLHttpRequest();
-  const apiPath = isAllUsersLoad ? '/users' : '/me';
-  xhr.open('GET', apiPath, true);
-
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState != 4) { // If not Done status of request
-      return;
-    }
-
-    if (xhr.status === 200) {
-      const responseText = xhr.responseText;
-      const response = JSON.parse(responseText);
-      callback(null, response);
-    } else {
-      callback(xhr);
-    }
-  };
-
-  if (isAllUsersLoad == false) {
-    xhr.withCredentials = true;
-  }
-
-  xhr.send();
-}*/
 
 function loadProfile(callback) {
   httpModule.doGet({
@@ -298,33 +220,6 @@ function loadMe(callback) {
     callback
   });
 }
-
-
-// TODO: one function for signupUser and signinUser. What about function and flag names?
-/*function signinUser(user, callback, isSignup = false) {
-  const xhr = new XMLHttpRequest();
-  const apiPath = isSignup ? '/signup' : '/login';
-  xhr.open('POST', apiPath, true);
-
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState != 4) { // If not Done status of request
-      return;
-    }
-
-    if (xhr.status < 300) {
-      const responseText = xhr.responseText;
-      const response = JSON.parse(responseText);
-      callback(null, response);
-    } else {
-      callback(xhr);
-    }
-  };
-
-  xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-  xhr.withCredentials = true;
-
-  xhr.send(JSON.stringify(user));
-}*/
 
 function signupUser(user, callback) {
   httpModule.doPost({
@@ -355,13 +250,12 @@ function loadProfileCallback(err, user) {
     return;
   }
 
-  console.dir(user);
   profileComponent.data = user;
   profileComponent.renderTmpl();
 }
 
 function checkAuth() {
-  loadMe(function (err, me) {
+  loadMe( (err, me) => {
     // Fill textContent for array of profile subheaders: in menu and profile sections
     const profileLinks = document.getElementsByClassName('menu__profile-link');
     const quitLinks = document.getElementsByClassName('menu__quit-link');
@@ -369,67 +263,70 @@ function checkAuth() {
     const signupLinks = document.getElementsByClassName('menu__signup-link');
     if (err) {
       profileComponent.clear();
-      Array.prototype.forEach.call(profileSubheaders, function(profileSubheader) {
+      Array.prototype.forEach.call(profileSubheaders, (profileSubheader) => {
         profileSubheader.textContent = 'Guest';
       });
 
-      Array.prototype.forEach.call(profileLinks, function(profileLink) {
+      Array.prototype.forEach.call(profileLinks, (profileLink) => {
         profileLink.hidden = true;
       });
 
-      Array.prototype.forEach.call(quitLinks, function(quitLink) {
+      Array.prototype.forEach.call(quitLinks, (quitLink) => {
         quitLink.hidden = true;
       });
 
-      Array.prototype.forEach.call(signinLinks, function(signinLink) {
+      Array.prototype.forEach.call(signinLinks, (signinLink) => {
         signinLink.hidden = false;
       });
 
-      Array.prototype.forEach.call(signupLinks, function(signupLink) {
+      Array.prototype.forEach.call(signupLinks, (signupLink) => {
         signupLink.hidden = false;
       });
       quit.hidden = true;
       return;
     }
     loadProfile(loadProfileCallback);
-    console.dir('Проверка авторизации', me);
-    Array.prototype.forEach.call(profileSubheaders, function(profileSubheader) {
+    Array.prototype.forEach.call(profileSubheaders, (profileSubheader) => {
       profileSubheader.textContent = `Вы авторизованы как ${me.username}!!!`;
     });
 
-    Array.prototype.forEach.call(profileLinks, function(profileLink) {
+    Array.prototype.forEach.call(profileLinks, (profileLink) => {
       profileLink.hidden = false;
     });
 
-    Array.prototype.forEach.call(quitLinks, function(quitLink) {
+    Array.prototype.forEach.call(quitLinks, (quitLink) => {
       quitLink.hidden = false;
     });
 
-    Array.prototype.forEach.call(signinLinks, function(signinLink) {
+    Array.prototype.forEach.call(signinLinks, (signinLink) => {
       signinLink.hidden = true;
     });
 
-    Array.prototype.forEach.call(signupLinks, function(signupLink) {
+    Array.prototype.forEach.call(signupLinks, (signupLink) => {
       signupLink.hidden = true;
     });
     quit.hidden = false;
   }, false);
 }
 
-quit.addEventListener('click', function() {
+// TODO: спросить Ваню, зачем здесь это
+quit.addEventListener('click', () => {
 
 });
 
-quit.addEventListener('click', function (evt) {
+quit.addEventListener('click', (evt) => {
   evt.preventDefault();
 
   logOut(() => {
     checkAuth();
-    openSection('menu');
+    hideAllSections();
+    openSections(['menu']);
   });
 });
 
 // Initialize application
 
-openSection('menu');
+// TODO: устранить дублирование этого везде, вынести в openMenu?
 checkAuth();
+hideAllSections();
+openSections(['menu']);
