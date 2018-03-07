@@ -22,111 +22,111 @@ app.use(fileUpload());
 
 
 const users = {
-	'ivan.nemshilov@park.mail.ru': {
-		username: 'Ivan',
-		email: 'ivan.nemshilov@park.mail.ru',
-		password: 'password',
-		score: 72,
-		avatar: 'Ivan.jpg'
-	},
-	'igor.drujinin@park.mail.ru': {
-		username: 'Igor',
-		email: 'igor.drujinin@park.mail.ru',
-		password: 'password',
-		score: 100500,
+  'ivan.nemshilov@park.mail.ru': {
+    username: 'Ivan',
+    email: 'ivan.nemshilov@park.mail.ru',
+    password: 'password',
+    score: 72,
+    avatar: 'Ivan.jpg'
+  },
+  'igor.drujinin@park.mail.ru': {
+    username: 'Igor',
+    email: 'igor.drujinin@park.mail.ru',
+    password: 'password',
+    score: 100500,
     avatar: 'Igor.jpg'
-	},
-	'anastasia.puchina@park.mail.ru': {
-		username: 'Anastasia',
-		email: 'anastasia.puchina@park.mail.ru',
-		password: 'password',
-		score: 72,
-		avatar: 'Anastasia.jpg'
-	},
-	'elena.oshkina@park.mail.ru': {
-		username: 'Elena',
-		email: 'elena.oshkina@park.mail.ru',
-		password: 'password',
-		score: 72,
-		avatar: 'Elena.jpg'
-	}
+  },
+  'anastasia.puchina@park.mail.ru': {
+    username: 'Anastasia',
+    email: 'anastasia.puchina@park.mail.ru',
+    password: 'password',
+    score: 72,
+    avatar: 'Anastasia.jpg'
+  },
+  'elena.oshkina@park.mail.ru': {
+    username: 'Elena',
+    email: 'elena.oshkina@park.mail.ru',
+    password: 'password',
+    score: 72,
+    avatar: 'Elena.jpg'
+  }
 };
 const ids = {};
 
 app.post('/signup', function (req, res) {
 
-	logger('Body:');
-	logger(req.body);
-	logger('Files:');
-	logger(req.files);
+  logger('Body:');
+  logger(req.body);
+  logger('Files:');
+  logger(req.files);
 
-	const password = req.body.password;
-	const email = req.body.email;
-	const username = req.body.username;
+  const password = req.body.password;
+  const email = req.body.email;
+  const username = req.body.username;
 
-	if (
-		!username ||
-		!password || !email ||
-		!password.match(/^\S{4,}$/) ||
-		!email.match(/@/)
-	) {
+  if (
+    !username ||
+    !password || !email ||
+    !password.match(/^\S{4,}$/) ||
+    !email.match(/@/)
+  ) {
     logger('Не валидные данные пользователя');
-		return res.status(400).json({error: 'Не валидные данные пользователя'});
-	}
-	if (users[username]) {
+    return res.status(400).json({error: 'Не валидные данные пользователя'});
+  }
+  if (users[username]) {
     logger('Пользователь уже существует');
-		return res.status(400).json({error: 'Пользователь уже существует'});
-	}
-	logger('Avatar saving');
+    return res.status(400).json({error: 'Пользователь уже существует'});
+  }
+  logger('Avatar saving');
   const avatar = req.files.avatar;
   let avatarName = '';
   try {
-  	avatarName = avatar.name;
+    avatarName = avatar.name;
     avatar.mv('./server/avatars/' + avatar.name, function(err) {
       if (err)
         logger(err);
     });
-	} catch(err) {
-  	avatarName = 'noavatar.png';
-	}
+  } catch(err) {
+    avatarName = 'noavatar.png';
+  }
   logger('Добавление пользователя');
-	const id = uuid();
-	const user = {username: username, password: password, email: email, score: 0, avatar: avatarName};
-	ids[id] = email;
-	users[email] = user;
+  const id = uuid();
+  const user = {username: username, password: password, email: email, score: 0, avatar: avatarName};
+  ids[id] = email;
+  users[email] = user;
 
   res.cookie('frontend', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-	res.status(201).json({id});
+  res.status(201).json({id});
 });
 
 app.post('/login', function (req, res) {
-	logger(req.body);
-	const password = req.body.password;
-	const email = req.body.email;
-	if (!password || !email) {
-		return res.status(400).json({error: 'Не указан E-Mail или пароль'});
-	}
-	if (!users[email] || users[email].password !== password) {
-		return res.status(400).json({error: 'Не верный E-Mail и/или пароль'});
-	}
+  logger(req.body);
+  const password = req.body.password;
+  const email = req.body.email;
+  if (!password || !email) {
+    return res.status(400).json({error: 'Не указан E-Mail или пароль'});
+  }
+  if (!users[email] || users[email].password !== password) {
+    return res.status(400).json({error: 'Не верный E-Mail и/или пароль'});
+  }
 
-	const id = uuid();
-	ids[id] = email;
+  const id = uuid();
+  ids[id] = email;
 
-	res.cookie('frontend', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-	res.status(201).json({id});
+  res.cookie('frontend', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
+  res.status(201).json({id});
 });
 
 app.get('/me', function (req, res) {
-	const id = req.cookies['frontend'];
-	const email = ids[id];
-	if (!email || !users[email]) {
-		return res.status(401).end();
-	}
+  const id = req.cookies['frontend'];
+  const email = ids[id];
+  if (!email || !users[email]) {
+    return res.status(401).end();
+  }
 
-	users[email].score += 1;
+  users[email].score += 1;
 
-	res.json({username: users[email].username});
+  res.json({username: users[email].username});
 });
 
 app.get('/avatar', function (req, res) {
@@ -142,21 +142,21 @@ app.get('/avatar', function (req, res) {
 });
 
 app.get('/users', function (req, res) {
-	const scorelist = Object.values(users)
-		.sort((l, r) => r.score - l.score)
-		.map(user => {
-			return {
-				username: user.username,
-				email: user.email,
-				score: user.score
-			};
-		});
+  const scorelist = Object.values(users)
+    .sort((l, r) => r.score - l.score)
+    .map(user => {
+      return {
+        username: user.username,
+        email: user.email,
+        score: user.score
+      };
+    });
 
-	res.json(scorelist);
+  res.json(scorelist);
 });
 
 app.get('/logout', function (req, res) {
-	logger("Выход пользователя");
+  logger("Выход пользователя");
   let id = req.cookies['frontend'];
   const email = ids[id];
   if (!email || !users[email]) {
@@ -182,5 +182,5 @@ app.get('/profile', function (req, res) {
 const port = process.env.PORT || 8080;
 
 app.listen(port, function () {
-	logger(`Server listening port ${port}`);
+  logger(`Server listening port ${port}`);
 });

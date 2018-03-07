@@ -1,64 +1,64 @@
 (function () {
 
-    const noop = () => null;
+  const noop = () => null;
 
-    class HttpModule {
+  class HttpModule {
 
-        doGet({url = '/', callback = noop} = {}) {
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', url, true);
+    doGet({url = '/', callback = noop} = {}) {
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', url, true);
 
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState != 4) {
-                    return;
-                }
-
-                if (xhr.status === 200) {
-                    const responseText = xhr.responseText;
-                    try {
-                        const response = JSON.parse(responseText);
-                        callback(null, response);
-                    } catch (err) {
-                        console.error('doGet error: ', err);
-                        callback(err);
-                    }
-                } else {
-                    callback(xhr);
-                }
-            };
-
-            xhr.withCredentials = true;
-
-            xhr.send();
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState != 4) {
+          return;
         }
 
-        doPost({url = '/', callback = noop, formData = {}} = {}) {
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', url);
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState != 4) {
-                    return;
-                }
-
-                if (xhr.status < 300) {
-                    const responseText = xhr.responseText;
-
-                    try {
-                        const response = JSON.parse(responseText);
-                        callback(null, response);
-                    } catch (err) {
-                        console.error('doPost error: ', err);
-                        callback(err);
-                    }
-                } else {
-                    callback(xhr);
-                }
-            };
-
-            xhr.send(formData);
+        if (xhr.status === 200) {
+          const responseText = xhr.responseText;
+          try {
+            const response = JSON.parse(responseText);
+            callback(null, response);
+          } catch (err) {
+            console.error('doGet error: ', err);
+            callback(err);
+          }
+        } else {
+          callback(xhr);
         }
+      };
+
+      xhr.withCredentials = true;
+
+      xhr.send();
     }
 
-    window.HttpModule = HttpModule;
+    doPost({url = '/', callback = noop, formData = {}} = {}) {
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', url);
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState != 4) {
+          return;
+        }
+
+        if (xhr.status < 300) {
+          const responseText = xhr.responseText;
+
+          try {
+            const response = JSON.parse(responseText);
+            callback(null, response);
+          } catch (err) {
+            console.error('doPost error: ', err);
+            callback(err);
+          }
+        } else {
+          callback(xhr);
+        }
+      };
+
+      xhr.send(formData);
+    }
+  }
+
+  window.HttpModule = HttpModule;
 })();
