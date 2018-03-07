@@ -1,5 +1,5 @@
 (function () {
-  
+
   class ProfileComponent {
     constructor(selector = 'body') {
       this._el = document.getElementsByClassName(selector);
@@ -32,5 +32,5 @@
 
   }
   window.ProfileComponent = ProfileComponent;
-  
+
 })();

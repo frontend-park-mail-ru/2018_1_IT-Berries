@@ -143,14 +143,14 @@ app.get('/avatar', function (req, res) {
 
 app.get('/users', function (req, res) {
   const scorelist = Object.values(users)
-    .sort((l, r) => r.score - l.score)
-    .map(user => {
-      return {
-        username: user.username,
-        email: user.email,
-        score: user.score
-      };
-    });
+  .sort((l, r) => r.score - l.score)
+  .map(user => {
+    return {
+      username: user.username,
+      email: user.email,
+      score: user.score
+    };
+  });
 
   res.json(scorelist);
 });

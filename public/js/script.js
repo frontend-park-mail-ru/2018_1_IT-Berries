@@ -79,7 +79,6 @@ application.addEventListener('click', (evt) => {
   if (target.tagName.toLowerCase() !== 'a') {
     return;
   }
-
   // Prevent default link behavior: do not go to target page
   evt.preventDefault();
 
