@@ -21,8 +21,8 @@
       if (!this._data) {
         return;
       }
-
-      const template = window.fest['js/components/Scoreboard/Scoreboard.tmpl'](this._data);
+      const data = {'data' : this._data};
+      const template = window.scoreboardTmplTemplate(data);
       this._el.innerHTML = template;
     }
 

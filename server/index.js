@@ -13,6 +13,14 @@ const logger = debug('mylogger');
 logger('Starting app');
 const app = express();
 
+/*
+* const fs = require('fs');
+const pug = require('pug');
+logger(path.resolve(__dirname, '/views/index.pug'));
+const jsFunctionString = pug.compileFileClient(path.resolve(__dirname, '..', 'public/views/index.pug'), {name: "fancyTemplateFun"});
+fs.writeFileSync("templates.js", jsFunctionString);
+* */
+
 
 app.use(morgan('dev'));
 app.use(express.static(path.resolve(__dirname, '..', 'public')));
@@ -20,22 +28,21 @@ app.use(body.json());
 app.use(cookie());
 app.use(fileUpload());
 
-
 const users = {
-	'ivan.nemshilov@park.mail.ru': {
-		username: 'Ivan',
-		email: 'ivan.nemshilov@park.mail.ru',
-		password: 'password',
-		score: 72,
-		avatar: 'Ivan.jpg'
-	},
-	'igor.drujinin@park.mail.ru': {
-		username: 'Igor',
-		email: 'igor.drujinin@park.mail.ru',
-		password: 'password',
-		score: 100500,
+  'ivan.nemshilov@park.mail.ru': {
+    username: 'Ivan',
+    email: 'ivan.nemshilov@park.mail.ru',
+    password: 'password',
+    score: 72,
+    avatar: 'Ivan.jpg'
+  },
+  'igor.drujinin@park.mail.ru': {
+    username: 'Igor',
+    email: 'igor.drujinin@park.mail.ru',
+    password: 'password',
+    score: 100500,
     avatar: 'Igor.jpg'
-	},
+  },
 	'anastasia.puchina@park.mail.ru': {
 		username: 'Anastasia',
 		email: 'anastasia.puchina@park.mail.ru',
@@ -142,17 +149,17 @@ app.get('/avatar', function (req, res) {
 });
 
 app.get('/users', function (req, res) {
-	const scorelist = Object.values(users)
-		.sort((l, r) => r.score - l.score)
-		.map(user => {
-			return {
-				username: user.username,
-				email: user.email,
-				score: user.score
-			};
-		});
+  const scorelist = Object.values(users)
+    .sort((l, r) => r.score - l.score)
+    .map(user => {
+      return {
+        username: user.username,
+        email: user.email,
+        score: user.score
+      };
+    });
 
-	res.json(scorelist);
+  res.json(scorelist);
 });
 
 app.get('/logout', function (req, res) {

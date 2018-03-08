@@ -2,7 +2,7 @@
 
 const httpModule = new window.HttpModule();
 
-// Application components
+// Application common.blocks
 
 const scoreboardComponent = new window.ScoreboardComponent('.scoreboard-container');
 const profileComponent = new window.ProfileComponent('profile-container');
@@ -50,7 +50,7 @@ function openSections(sectionsNamesArr) {
     if (openFunctions[sectionName]) {
       openFunctions[sectionName]();
     }
-  })
+  });
 }
 
 const openFunctions = {
@@ -79,6 +79,7 @@ application.addEventListener('click', (evt) => {
   if (target.tagName.toLowerCase() !== 'a') {
     return;
   }
+
   // Prevent default link behavior: do not go to target page
   evt.preventDefault();
 
@@ -256,6 +257,7 @@ function loadProfileCallback(err, user) {
 
 function checkAuth() {
   loadMe( (err, me) => {
+
     // Fill textContent for array of profile subheaders: in menu and profile sections
     const profileLinks = document.getElementsByClassName('menu__profile-link');
     const quitLinks = document.getElementsByClassName('menu__quit-link');
