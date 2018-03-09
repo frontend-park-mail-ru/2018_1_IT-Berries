@@ -1,11 +1,10 @@
 ;
 import noop from '../utils/noop.js';
-import HttpModule from './http.js';
 
 export default class ApiModule {
 
-  constructor() {
-    this._httpModule = new HttpModule();
+  constructor(httpModule) {
+    this._httpModule = httpModule;
   }
 
   get httpModule() {

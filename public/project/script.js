@@ -1,14 +1,20 @@
 ;
+
+// Import modules
 import ApiModule from './modules/api.js';
+import HttpModule from './modules/http.js';
+
+// Import components and blocks
 import ScoreboardComponent from './common.blocks/scoreboard/scoreboard.js';
 import ProfileComponent from './common.blocks/profile-data/profile-data.js';
 import ProfileForm from './common.blocks/profile-form/profile-form.js';
 
-// Application modules
+// Initialize application modules
 
-const apiModule = new ApiModule();
+const httpModule = new HttpModule();
+const apiModule = new ApiModule(httpModule);
 
-// Application common.blocks
+// Inialize application components and blocks
 
 const scoreboardComponent = new ScoreboardComponent('.scoreboard__container');
 const profileComponent = new ProfileComponent('profile-data');
