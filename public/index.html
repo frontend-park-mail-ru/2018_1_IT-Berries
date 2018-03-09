@@ -55,7 +55,7 @@
         <section class="profile">
             <h1>Your profile</h1>
             <h2 class="profile__subheader">Your Profile</h2>
-            <div class="profile-container"></div>
+            <div class="profile__container"></div>
             <form class="profile-form">
                 <input required type="text" name="username" class="profile-form__username" placeholder="Username">
                 <input required type="email" name="email" class="profile-form__email" placeholder="Email">
@@ -78,9 +78,7 @@
 
         <section class="scoreboard">
             <h1>Scoreboard</h1>
-            <div class="scoreboard-container">
-
-            </div>
+            <div class="scoreboard__container"></div>
             <a href="" data-section="menu">Back</a>
         </section>
 
@@ -95,12 +93,12 @@
     </main>
 
     <!-- TODO: change common.blocks to modules -->
-    <script src="/js/components/Scoreboard/Scoreboard.tmpl.js"></script>
-    <script src="/js/components/Scoreboard/Scoreboard.js"></script>
-    <script src="/js/components/Profile/Profile.tmpl.js"></script>
-    <script src="/js/components/Profile/Profile.js"></script>
-    <script type="module" src="/js/script.js"></script>
-
+    <script src="/runtime.js"></script>
+    <script src="/project/common.blocks/scoreboard/scoreboard.tmpl.js"></script>
+    <script src="/project/common.blocks/scoreboard/scoreboard.js"></script>
+    <script src="/project/common.blocks/profile/profile.tmpl.js"></script>
+    <script src="/project/common.blocks/profile/profile.js"></script>
+    <script type="module" src="/project/script.js"></script>
     </body>
 
 </html>

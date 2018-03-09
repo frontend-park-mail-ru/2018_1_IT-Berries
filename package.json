@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "fest-build --dir=public",
+    "build": "pug -c public --name-after-file",
     "start": "npm run build && DEBUG=mylogger node server",
     "start:raw": "node server",
     "eslint": "eslint src/script.js || true"
@@ -27,6 +27,9 @@
     "morgan": "^1.9.0",
     "mylogger": "^1.1.5",
     "parse-formdata": "^1.0.2",
+    "pug": "^2.0.0",
+    "pug-cli": "^1.0.0-alpha6",
+    "pug-client-template": "^2.0.2",
     "uuid": "^3.2.1"
   },
   "devDependencies": {

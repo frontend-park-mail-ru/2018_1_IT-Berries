@@ -21,8 +21,8 @@
       if (!this._data) {
         return;
       }
-
-      const template = window.fest['project/common.blocks/scoreboard/scoreboard.tmpl'](this._data);
+      const data = {'data' : this._data};
+      const template = window.scoreboardTmplTemplate(data);
       this._el.innerHTML = template;
     }
 

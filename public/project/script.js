@@ -7,8 +7,8 @@ const apiModule = new ApiModule();
 
 // Application common.blocks
 
-const scoreboardComponent = new window.ScoreboardComponent('.scoreboard-container');
-const profileComponent = new window.ProfileComponent('profile-container');
+const scoreboardComponent = new window.ScoreboardComponent('.scoreboard__container');
+const profileComponent = new window.ProfileComponent('profile__container');
 
 // Application sections
 
@@ -87,6 +87,7 @@ application.addEventListener('click', (evt) => {
   if (target.tagName.toLowerCase() !== 'a') {
     return;
   }
+
   // Prevent default link behavior: do not go to target page
   evt.preventDefault();
 
@@ -169,7 +170,6 @@ function onSubmitSignupForm(evt) {
       return;
     }
 
-    checkAuth();
     hideAllSections();
     openSections(['menu']);
   }, true);
