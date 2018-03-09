@@ -1,0 +1,8 @@
+table.scoreboard__table
+    tbody
+        each val, index in data
+            tr.scoreboard__row
+                td= index + 1
+                td= val.username
+                td= val.email
+                td= val.score

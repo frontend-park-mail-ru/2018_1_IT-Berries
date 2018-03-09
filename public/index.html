@@ -1,17 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  <link rel="stylesheet" href="/main.css">
-</head>
-<body>
-  <div id="text">
-    IT-berries :) 
-  </div>
-  <button id="button">Translate</button>
-  <script src="/script.js"></script>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>MagicalPoints</title>
+    </head>
+    <body>
+
+    <main class="application">
+
+        <section class="menu">
+            <h1>Menu</h1>
+            <div class="menu__profile-subheader"></div>
+            <ul>
+                <li class="menu__gamesettings-link"><a href="" data-section="gameSettings">Start game</a></li>
+                <li class="menu__signin-link"><a href="" data-section="signin">Sign in</a></li>
+                <li class="menu__signup-link"><a href="" data-section="signup">Sign up</a></li>
+                <li class="menu__profile-link"><a href="" data-section="profile">Profile</a></li>
+                <li class="menu__scoreboard-link"><a href="" data-section="scoreboard">Scoreboard</a></li>
+                <li class="menu__about-link"><a href="" data-section="about">About</a></li>
+            </ul>
+        </section>
+
+        <section class="signup">
+            <h1>Sign Up</h1>
+            <form class="signup-form" enctype="multipart/form-data" method="post" name="fileinfo">
+                <input required type="text" name="username" class="signup-form__username" placeholder="Username">
+                <input required type="email" name="email" class="signup-form__email" placeholder="Email">
+                <input required type="password" name="password" class="signup-form__password" placeholder="Password">
+                <input required type="password" name="password_repeat" class="signup-form__password_repeat"
+                       placeholder="Repeat password">
+                <input type="file" name="avatar" class="signup-form__avatar" placeholder="path"
+                       accept="image/jpeg,image/png"/>
+                <div class="signup-form__validation"></div>
+                <input class="signup-form__submit" type="submit">
+            </form>
+            <a href="" data-section="menu">Back</a>
+
+        </section>
+
+        <section class="signin">
+            <h1>Sign In</h1>
+            <form class="signin-form">
+                <input required type="email" name="email" class="signin-form__email" placeholder="Email">
+                <input required type="password" name="password" class="signin-form__password" placeholder="Password">
+                <div class="signin-form__validation"></div>
+                <input class="signin-form__submit" type="submit">
+            </form>
+            <a href="" data-section="signup">Sign up</a>
+            <a href="" data-section="menu">Back</a>
+        </section>
+
+        <section class="profile">
+            <h1 class="profile__subheader">Your Profile</h1>
+            <div class="profile-data"></div>
+            <form class="profile-form">
+                <input required type="text" name="username" class="profile-form__username" placeholder="Username">
+                <input required type="email" name="email" class="profile-form__email" placeholder="Email">
+                <input required type="password" name="password" class="profile-form__password" placeholder="New password">
+                <input required type="password" name="password_repeat" class="profile-form__password_repeat"
+                       placeholder="Repeat new password">
+                <input type="file" name="avatar" class="profile-form__avatar" placeholder="path"
+                       accept="image/jpeg,image/png"/>
+                <div class="profile-form__validation"></div>
+                <input class="profile-form__submit" type="submit">
+            </form>
+            <a href="" data-section="menu">Back</a>
+        </section>
+
+        <section class="game-settings">
+            <h1>Game settings</h1>
+            <div class="game-settings-container">
+
+            </div>
+            <a href="" data-section="menu">Back</a>
+        </section>
+
+        <section class="scoreboard">
+            <h1>Scoreboard</h1>
+            <div class="scoreboard__container"></div>
+            <a href="" data-section="menu">Back</a>
+        </section>
+
+        <section class="about">
+            <h1>About</h1>
+            <div class="about-container">
+                It will be very cool game ヽ(^◇^*)/
+            </div>
+            <a href="" data-section="menu">Back</a>
+        </section>
+        <a class="quit-link" data-section="menu" href="">Quit</a>
+    </main>
+
+    <!-- TODO: change common.blocks to modules -->
+    <script src="/runtime.js"></script>
+    <script src="/project/common.blocks/scoreboard/scoreboard.tmpl.js"></script>
+    <script src="/project/common.blocks/profile-data/profile-data.tmpl.js"></script>
+    <script type="module" src="/project/script.js"></script>
+    </body>
+
 </html>
