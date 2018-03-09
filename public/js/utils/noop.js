@@ -1,7 +1,3 @@
 ;
-(function () {
-
-  const noop = () => null;
-
-  window.noop = noop;
-})();
+const noop = () => null;
+export default noop;

@@ -1,10 +1,13 @@
+;
+import ApiModule from './modules/api.js';
+
 // Application modules
 
-const apiModule = new window.ApiModule();
+const apiModule = new ApiModule();
 
 // Application components
 
-const scoreboardComponent = new window.ScoreboardComponent('.scoreboard-container');
+const scoreboardComponent = new ScoreboardComponent('.scoreboard-container');
 const profileComponent = new window.ProfileComponent('profile-container');
 
 // Application sections
