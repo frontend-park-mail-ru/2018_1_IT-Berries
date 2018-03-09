@@ -22,7 +22,7 @@
         return;
       }
 
-      const template = window.fest['js/components/Scoreboard/Scoreboard.tmpl'](this._data);
+      const template = window.fest['project/common.blocks/scoreboard/scoreboard.tmpl'](this._data);
       this._el.innerHTML = template;
     }
 

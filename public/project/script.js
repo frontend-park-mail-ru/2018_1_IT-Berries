@@ -5,7 +5,7 @@ import ApiModule from './modules/api.js';
 
 const apiModule = new ApiModule();
 
-// Application components
+// Application common.blocks
 
 const scoreboardComponent = new window.ScoreboardComponent('.scoreboard-container');
 const profileComponent = new window.ProfileComponent('profile-container');

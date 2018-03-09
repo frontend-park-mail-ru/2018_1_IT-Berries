@@ -24,7 +24,7 @@
         return;
       }
 
-      const template = window.fest['js/components/Profile/Profile.tmpl'](this._data);
+      const template = window.fest['project/common.blocks/profile/profile.tmpl'](this._data);
       Array.prototype.forEach.call(this._el, function(profile) {
         profile.innerHTML = template;
       });
