@@ -186,6 +186,10 @@ app.get('/profile', function (req, res) {
   res.json({username: users[email].username, email: email, score: users[email].score});
 });
 
+app.get('/runtime.js', function (req, res) {
+  res.sendFile(path.resolve(__dirname, '..', 'node_modules', 'regenerator-runtime', 'runtime.js'));
+});
+
 const port = process.env.PORT || 8080;
 
 app.listen(port, function () {

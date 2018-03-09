@@ -4,8 +4,8 @@ const httpModule = new window.HttpModule();
 
 // Application common.blocks
 
-const scoreboardComponent = new window.ScoreboardComponent('.scoreboard-container');
-const profileComponent = new window.ProfileComponent('profile-container');
+const scoreboardComponent = new window.ScoreboardComponent('.scoreboard__container');
+const profileComponent = new window.ProfileComponent('profile__container');
 
 // Application sections
 
