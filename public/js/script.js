@@ -152,8 +152,6 @@ function resetForm(form, validationFieldSelector, onSubmitFormCallback) {
   form.addEventListener('submit', onSubmitFormCallback);
 }
 
-// TODO: Is it duplication of submit functions?
-
 function onSubmitSignupForm(evt) {
   evt.preventDefault();
 
@@ -171,9 +169,10 @@ function onSubmitSignupForm(evt) {
       return;
     }
 
+    checkAuth();
     hideAllSections();
     openSections(['menu']);
-  }, true); // TODO: do request to change profile data. API method for profile?
+  }, true);
 }
 
 function onSubmitProfileForm(evt) {
