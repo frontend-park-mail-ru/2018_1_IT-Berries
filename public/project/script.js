@@ -1,6 +1,9 @@
+;
+import ApiModule from './modules/api.js';
+
 // Application modules
 
-const httpModule = new window.HttpModule();
+const apiModule = new ApiModule();
 
 // Application common.blocks
 
@@ -46,11 +49,16 @@ function hideAllSections() {
 
 function openSections(sectionsNamesArr) {
   sectionsNamesArr.forEach( (sectionName, i, arr)  => {
-    sections.get(sectionName).hidden = false;
+    let section = sections.get(sectionName);
+    if (section === undefined) {
+      console.error(sectionName);
+      return;
+    }
+    section.hidden = false;
     if (openFunctions[sectionName]) {
       openFunctions[sectionName]();
     }
-  });
+  })
 }
 
 const openFunctions = {
@@ -92,7 +100,7 @@ function openScoreboard() {
 
   scoreboardComponent.clear();
 
-  loadUsers( (err, users) => {
+  apiModule.loadUsers( (err, users) => {
     if (err) {
       console.error(err);
       return;
@@ -106,7 +114,7 @@ function openScoreboard() {
 function openProfile() {
   profileComponent.clear();
 
-  loadProfile(loadProfileCallback);
+  apiModule.loadProfile(loadProfileCallback);
 }
 
 
@@ -115,7 +123,7 @@ function onSubmitSigninForm(evt) {
 
   const formData = new FormData(signinForm);
 
-  loginUser(formData, (err) => {
+  apiModule.loginUser(formData, (err) => {
     if (err) {
       signinForm.reset();
       const signinValidationField = document.getElementsByClassName('signin-form__validation')[0];
@@ -145,8 +153,6 @@ function resetForm(form, validationFieldSelector, onSubmitFormCallback) {
   form.addEventListener('submit', onSubmitFormCallback);
 }
 
-// TODO: Is it duplication of submit functions?
-
 function onSubmitSignupForm(evt) {
   evt.preventDefault();
 
@@ -158,7 +164,7 @@ function onSubmitSignupForm(evt) {
     signupValidationField.textContent = err;
   });
 
-  signupUser(formData, (err) => {
+  apiModule.signupUser(formData, (err) => {
     if (err) {
       resetForm(signupForm, 'signup-form__validation', onSubmitSignupForm);
       return;
@@ -166,7 +172,7 @@ function onSubmitSignupForm(evt) {
 
     hideAllSections();
     openSections(['menu']);
-  }, true); // TODO: do request to change profile data. API method for profile?
+  }, true);
 }
 
 function onSubmitProfileForm(evt) {
@@ -186,7 +192,7 @@ function onSubmitProfileForm(evt) {
     profileValidationField.textContent = err;
   });
 
-  loginUser(formdata, (err) => {
+  apiModule.loginUser(formdata, (err) => {
     if (err) {
       resetForm(signupForm, 'signup-form__validation', onSubmitSignupForm());
       return;
@@ -196,53 +202,6 @@ function onSubmitProfileForm(evt) {
     hideAllSections();
     openSections(['menu']);
   }, false);
-}
-
-
-// Authorization functions
-
-function loadProfile(callback) {
-  httpModule.doGet({
-    url: '/profile',
-    callback: callback
-  });
-}
-
-function loadUsers(callback) {
-  httpModule.doGet({
-    url: '/users',
-    callback
-  });
-}
-
-function loadMe(callback) {
-  httpModule.doGet({
-    url: '/me',
-    callback
-  });
-}
-
-function signupUser(user, callback) {
-  httpModule.doPost({
-    url: '/signup',
-    callback: callback,
-    formData: user
-  });
-}
-
-function loginUser(user, callback) {
-  httpModule.doPost({
-    url: '/login',
-    callback: callback,
-    formData: user
-  });
-}
-
-function logOut(callback) {
-  httpModule.doGet({
-    url: '/logout',
-    callback: callback
-  });
 }
 
 function loadProfileCallback(err, user) {
@@ -256,8 +215,7 @@ function loadProfileCallback(err, user) {
 }
 
 function checkAuth() {
-  loadMe( (err, me) => {
-
+  apiModule.loadMe( (err, me) => {
     // Fill textContent for array of profile subheaders: in menu and profile sections
     const profileLinks = document.getElementsByClassName('menu__profile-link');
     const quitLinks = document.getElementsByClassName('menu__quit-link');
@@ -287,7 +245,7 @@ function checkAuth() {
       quit.hidden = true;
       return;
     }
-    loadProfile(loadProfileCallback);
+    apiModule.loadProfile(loadProfileCallback);
     Array.prototype.forEach.call(profileSubheaders, (profileSubheader) => {
       profileSubheader.textContent = `Вы авторизованы как ${me.username}!!!`;
     });
@@ -319,7 +277,7 @@ quit.addEventListener('click', () => {
 quit.addEventListener('click', (evt) => {
   evt.preventDefault();
 
-  logOut(() => {
+  apiModule.logOut(() => {
     checkAuth();
     hideAllSections();
     openSections(['menu']);

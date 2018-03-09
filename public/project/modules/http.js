@@ -1,64 +1,60 @@
-(function () {
+;
+import noop from '../utils/noop.js';
 
-    const noop = () => null;
+export default class HttpModule {
 
-    class HttpModule {
+  doGet({url = '/', callback = noop} = {}) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
 
-        doGet({url = '/', callback = noop} = {}) {
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', url, true);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState != 4) {
+        return;
+      }
 
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState != 4) {
-                    return;
-                }
-
-                if (xhr.status === 200) {
-                    const responseText = xhr.responseText;
-                    try {
-                        const response = JSON.parse(responseText);
-                        callback(null, response);
-                    } catch (err) {
-                        console.error('doGet error: ', err);
-                        callback(err);
-                    }
-                } else {
-                    callback(xhr);
-                }
-            };
-
-            xhr.withCredentials = true;
-
-            xhr.send();
+      if (xhr.status === 200) {
+        const responseText = xhr.responseText;
+        try {
+          const response = JSON.parse(responseText);
+          callback(null, response);
+        } catch (err) {
+          console.error('doGet error: ', err);
+          callback(err);
         }
+      } else {
+        callback(xhr);
+      }
+    };
 
-        doPost({url = '/', callback = noop, formData = {}} = {}) {
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', url);
+    xhr.withCredentials = true;
 
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState != 4) {
-                    return;
-                }
+    xhr.send();
+  }
 
-                if (xhr.status < 300) {
-                    const responseText = xhr.responseText;
+  doPost({url = '/', callback = noop, formData = {}} = {}) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', url);
 
-                    try {
-                        const response = JSON.parse(responseText);
-                        callback(null, response);
-                    } catch (err) {
-                        console.error('doPost error: ', err);
-                        callback(err);
-                    }
-                } else {
-                    callback(xhr);
-                }
-            };
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState != 4) {
+        return;
+      }
 
-            xhr.send(formData);
+      if (xhr.status < 300) {
+        const responseText = xhr.responseText;
+
+        try {
+          const response = JSON.parse(responseText);
+          callback(null, response);
+        } catch (err) {
+          console.error('doPost error: ', err);
+          callback(err);
         }
-    }
+      } else {
+        callback(xhr);
+      }
+    };
 
-    window.HttpModule = HttpModule;
-})();
+    xhr.send(formData);
+  }
+};
