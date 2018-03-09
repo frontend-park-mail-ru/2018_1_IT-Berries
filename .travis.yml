@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+- '9'
+deploy:
+  provider: heroku
+  app: itberries-frontend
+  on:
+    repo: frontend-park-mail-ru/2018_1_IT-Berries
+    branch: develop
+  api_key:
+    secure: H7T/wzxhf3weh1o19bjROJbehcb+ik16E5LKeLOquzX5c12WnRSTC97CcI/TfySFYoYopm8fXzHCilyWejwexsHOTUBnROY5cj5JDSuBvI0M09esjBueJq8X+N+9uOi65zX9keDfhsRxpiYtilfYU46lODRvzG7ziCcUY4gAk19VLVEO3D9iDCIs1YPpaVRQS9mByI3gMK00oEYANB4MAwOw84BIKg2yxI41oyrcylBObC7EC++rzWoFhiK+HCOgPGIbjxJNmwKqZYSCWSpDaboRkPqkYdhULv4mjyy7q4wzjAber6rmMLb3Z9hET791gE0NixSxtigSPOsCh4ZdMk/9jd7mwbpDLWLW2J+p4/AF6JLhlPAE6Rb+7fPB7FEgfl8jnJ5wU1fwYuWXquUKuSKcLTcY6YlkivnMlaHl8TssnkR3rJ9aFsIsINyimPbRIFwnj6kwuow0+cAFtmCuiNlrFB1mRNPvvbM3CLB8FNRaCjdw4kmFOVMf+eS89tM7hEunT06S0YbiIF2CEY7xwHJpMgY0w+3fjQFqZUDP2uTjnPQZpcI33KGpDRrQ4w62I75z86MgsGGQsP9emuMOhD5LaxacBPIrZX/h5VC/oOlZz8jJ7Tw7cOolkPklznQGdbvhVF8JAsb0sbMaQoWv1HQxotZnniK7cYtfAySr6lM=
+script:
+  - npm run eslint
