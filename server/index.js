@@ -176,7 +176,7 @@ app.get('/logout', function (req, res) {
   res.status(202).end();
 });
 
-app.get('/profile', function (req, res) {
+app.get('/profile-data', function (req, res) {
   const id = req.cookies['frontend'];
   const email = ids[id];
   if (!email || !users[email]) {
@@ -188,6 +188,56 @@ app.get('/profile', function (req, res) {
 
 app.get('/runtime.js', function (req, res) {
   res.sendFile(path.resolve(__dirname, '..', 'node_modules', 'regenerator-runtime', 'runtime.js'));
+});
+
+app.post('/changeUserData', function (req, res) {
+
+  const id = req.cookies['frontend'];
+  const oldEmail = ids[id];
+
+  if (!oldEmail || !users[oldEmail]) {
+    return res.status(401).end();
+  }
+
+  const password = req.body.password;
+  const username = req.body.username;
+  const newEmail = req.body.email;
+
+  if (
+    !username ||
+    !password || !newEmail ||
+    !password.match(/^\S{4,}$/) ||
+    !newEmail.match(/@/)
+  ) {
+    logger('Не валидные данные пользователя');
+    return res.status(400).json({error: 'Не валидные данные пользователя'});
+  }
+  if (users[newEmail] && newEmail != oldEmail) {
+    logger('Пользователь уже существует');
+    return res.status(400).json({error: 'Пользователь уже существует'});
+  }
+
+  const avatar = req.files.avatar;
+  let avatarName = '';
+  try {
+    avatarName = avatar.name;
+    avatar.mv('./server/avatars/' + avatar.name, function(err) {
+      if (err) {
+        logger(err);
+      }
+    });
+  } catch(err) {
+    avatarName = users[oldEmail].avatar;
+  }
+  logger('Change User Data');
+  const user = {username: username, password: password, email: newEmail, score: users[oldEmail].score, avatar: avatarName};
+  delete users[oldEmail];
+  ids[id] = newEmail;
+  users[newEmail] = user;
+
+  res.cookie('frontend', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
+  res.status(201).json({id});
+
 });
 
 const port = process.env.PORT || 8080;

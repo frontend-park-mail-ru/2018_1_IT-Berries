@@ -23,7 +23,7 @@ export default class ProfileComponent {
       return;
     }
 
-    const template = window.profileTmplTemplate(this._data);
+    const template = window.profileDataTmplTemplate(this._data);
     Array.prototype.forEach.call(this._el, function(profile) {
       profile.innerHTML = template;
     });

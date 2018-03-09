@@ -1,7 +1,8 @@
 ;
 import ApiModule from './modules/api.js';
 import ScoreboardComponent from './common.blocks/scoreboard/scoreboard.js';
-import ProfileComponent from './common.blocks/profile/profile.js';
+import ProfileComponent from './common.blocks/profile-data/profile-data.js';
+import ProfileForm from './common.blocks/profile-form/profile-form.js';
 
 // Application modules
 
@@ -10,7 +11,8 @@ const apiModule = new ApiModule();
 // Application common.blocks
 
 const scoreboardComponent = new ScoreboardComponent('.scoreboard__container');
-const profileComponent = new ProfileComponent('profile__container');
+const profileComponent = new ProfileComponent('profile-data');
+const profileFormComponent = new ProfileForm();
 
 // Application sections
 
@@ -39,6 +41,7 @@ const sections = new Map([
 const profileSubheaders = document.getElementsByClassName('menu__profile-subheader');
 const signinForm = document.getElementsByClassName('signin-form')[0];
 const signupForm = document.getElementsByClassName('signup-form')[0];
+const profileForm = document.getElementsByClassName('profile-form')[0];
 const quit = document.getElementsByClassName('quit-link')[0];
 
 // Sections functions
@@ -70,7 +73,10 @@ const openFunctions = {
   signin: () => {
     resetForm(signinForm, 'signin-form__validation', onSubmitSigninForm);
   },
-  profile: openProfile,
+  profile: () => {
+    resetForm(profileForm, 'profile-form__validation', onSubmitProfileForm);
+    openProfile();
+  },
   signup: () => {
     resetForm(signupForm, 'signup-form__validation', onSubmitSignupForm);
   },
@@ -115,6 +121,7 @@ function openScoreboard() {
 
 function openProfile() {
   profileComponent.clear();
+  profileFormComponent.clear();
 
   apiModule.loadProfile(loadProfileCallback);
 }
@@ -141,8 +148,36 @@ function onSubmitSigninForm(evt) {
 
 function validateProfileFormData(formdata, callback) {
 
-  // TODO: add validation of formdata
-  // TODO: if validation error, do callback(err)
+  let password = '';
+  let rep_password = '';
+  let email = '';
+
+  Array.prototype.forEach.call(formdata.elements, function(element) {
+    if (element.name == 'password') {
+      password = element.value;
+    }
+    else if (element.name == 'password_repeat') {
+      rep_password = element.value;
+    }
+    else if (element.name == 'email') {
+      email = element.value;
+    }
+  });
+
+  if (password != rep_password) {
+    callback('Passwords do not match');
+    return false;
+  }
+
+  if (!password.match(/^\S{4,}$/)) {
+    callback('Password is invalid');
+    return false;
+  }
+
+  if (email != '' && !email.match(/@/)) {
+    callback('Email is invalid');
+    return false;
+  }
 
   return true;
 }
@@ -161,49 +196,41 @@ function onSubmitSignupForm(evt) {
   //const form = document.forms.namedItem("fileinfo");
   const formData = new FormData(signupForm);
 
-  validateProfileFormData(formData, (err) => {
+  if (validateProfileFormData(signupForm, (err) => {
     const signupValidationField = document.getElementsByClassName('signup-form__validation')[0];
     signupValidationField.textContent = err;
-  });
+    return;
+  })) {
+    apiModule.signupUser(formData, (err) => {
+      if (err) {
+        resetForm(signupForm, 'signup-form__validation', onSubmitSignupForm);
+        return;
+      }
 
-  apiModule.signupUser(formData, (err) => {
-    if (err) {
-      resetForm(signupForm, 'signup-form__validation', onSubmitSignupForm);
-      return;
-    }
-
-    hideAllSections();
-    openSections(['menu']);
-  }, true);
+      hideAllSections();
+      openSections(['menu']);
+    }, true);
+  }
 }
 
 function onSubmitProfileForm(evt) {
   evt.preventDefault();
-  const fields = ['username', 'email', 'password', 'password_repeat'];
+  const formData = new FormData(profileForm);
 
-  const form = evt.currentTarget;
-  const formElements = form.elements;
-
-  const formdata = fields.reduce( (allfields, fieldname) => {
-    allfields[fieldname] = formElements[fieldname].value;
-    return allfields;
-  }, {});
-
-  validateProfileFormData(formdata, (err) => {
-    const profileValidationField = document.getElementsByClassName('profile-form__errors')[0];
+  if (validateProfileFormData(profileForm, (err) => {
+    const profileValidationField = document.getElementsByClassName('profile-form__validation')[0];
     profileValidationField.textContent = err;
-  });
+    return;
+  })) {
+    apiModule.changeUserData(formData, (err) => {
+      if (err) {
+        resetForm(signupForm, 'profile-form__validation', onSubmitProfileForm());
+        return;
+      }
 
-  apiModule.loginUser(formdata, (err) => {
-    if (err) {
-      resetForm(signupForm, 'signup-form__validation', onSubmitSignupForm());
-      return;
-    }
-
-    checkAuth();
-    hideAllSections();
-    openSections(['menu']);
-  }, false);
+      apiModule.loadProfile(loadProfileCallback);
+    }, false);
+  }
 }
 
 function loadProfileCallback(err, user) {
@@ -213,12 +240,15 @@ function loadProfileCallback(err, user) {
   }
 
   profileComponent.data = user;
+  profileFormComponent.data = user;
   profileComponent.renderTmpl();
+  profileFormComponent.setOldValue();
 }
 
 function checkAuth() {
   apiModule.loadMe( (err, me) => {
-    // Fill textContent for array of profile subheaders: in menu and profile sections
+
+    // Fill textContent for array of profile-data subheaders: in menu and profile-data sections
     const profileLinks = document.getElementsByClassName('menu__profile-link');
     const quitLinks = document.getElementsByClassName('menu__quit-link');
     const signinLinks = document.getElementsByClassName('menu__signin-link');
