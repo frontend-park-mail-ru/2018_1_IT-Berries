@@ -1,5 +1,7 @@
 ;
 import ApiModule from './modules/api.js';
+import ScoreboardComponent from './common.blocks/scoreboard/scoreboard.js';
+import ProfileComponent from './common.blocks/profile/profile.js';
 
 // Application modules
 
@@ -7,8 +9,8 @@ const apiModule = new ApiModule();
 
 // Application common.blocks
 
-const scoreboardComponent = new window.ScoreboardComponent('.scoreboard__container');
-const profileComponent = new window.ProfileComponent('profile__container');
+const scoreboardComponent = new ScoreboardComponent('.scoreboard__container');
+const profileComponent = new ProfileComponent('profile__container');
 
 // Application sections
 
