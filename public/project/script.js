@@ -204,6 +204,9 @@ function onSubmitSignupForm(evt) {
     apiModule.signupUser(formData, (err) => {
       if (err) {
         resetForm(signupForm, 'signup-form__validation', onSubmitSignupForm);
+        const response = JSON.parse(err.responseText);
+        const signupValidationField = document.getElementsByClassName('signup-form__validation')[0];
+        signupValidationField.textContent = response.error;
         return;
       }
 
@@ -224,7 +227,10 @@ function onSubmitProfileForm(evt) {
   })) {
     apiModule.changeUserData(formData, (err) => {
       if (err) {
-        resetForm(signupForm, 'profile-form__validation', onSubmitProfileForm());
+        resetForm(signupForm, 'profile-form__validation', onSubmitProfileForm);
+        const response = JSON.parse(err.responseText);
+        const profileValidationField = document.getElementsByClassName('profile-form__validation')[0];
+        profileValidationField.textContent = response.error;
         return;
       }
 
