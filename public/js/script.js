@@ -7,7 +7,7 @@ const apiModule = new ApiModule();
 
 // Application components
 
-const scoreboardComponent = new ScoreboardComponent('.scoreboard-container');
+const scoreboardComponent = new window.ScoreboardComponent('.scoreboard-container');
 const profileComponent = new window.ProfileComponent('profile-container');
 
 // Application sections
@@ -49,7 +49,12 @@ function hideAllSections() {
 
 function openSections(sectionsNamesArr) {
   sectionsNamesArr.forEach( (sectionName, i, arr)  => {
-    sections.get(sectionName).hidden = false;
+    let section = sections.get(sectionName);
+    if (section === undefined) {
+      console.error(sectionName);
+      return;
+    }
+    section.hidden = false;
     if (openFunctions[sectionName]) {
       openFunctions[sectionName]();
     }
