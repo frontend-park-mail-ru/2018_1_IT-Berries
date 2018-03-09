@@ -31,7 +31,7 @@
                 <input required type="password" name="password" class="signup-form__password" placeholder="Password">
                 <input required type="password" name="password_repeat" class="signup-form__password_repeat"
                        placeholder="Repeat password">
-                <input type="file" name="avatar" class="js-signup-form__avatar" placeholder="path"
+                <input type="file" name="avatar" class="signup-form__avatar" placeholder="path"
                        accept="image/jpeg,image/png"/>
                 <div class="signup-form__validation"></div>
                 <input class="signup-form__submit" type="submit">
@@ -54,13 +54,15 @@
 
         <section class="profile">
             <h1 class="profile__subheader">Your Profile</h1>
-            <div class="profile__container"></div>
+            <div class="profile-data"></div>
             <form class="profile-form">
                 <input required type="text" name="username" class="profile-form__username" placeholder="Username">
                 <input required type="email" name="email" class="profile-form__email" placeholder="Email">
                 <input required type="password" name="password" class="profile-form__password" placeholder="New password">
                 <input required type="password" name="password_repeat" class="profile-form__password_repeat"
                        placeholder="Repeat new password">
+                <input type="file" name="avatar" class="profile-form__avatar" placeholder="path"
+                       accept="image/jpeg,image/png"/>
                 <div class="profile-form__validation"></div>
                 <input class="profile-form__submit" type="submit">
             </form>
@@ -94,7 +96,7 @@
     <!-- TODO: change common.blocks to modules -->
     <script src="/runtime.js"></script>
     <script src="/project/common.blocks/scoreboard/scoreboard.tmpl.js"></script>
-    <script src="/project/common.blocks/profile/profile.tmpl.js"></script>
+    <script src="/project/common.blocks/profile-data/profile-data.tmpl.js"></script>
     <script type="module" src="/project/script.js"></script>
     </body>
 

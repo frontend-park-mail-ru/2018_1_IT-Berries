@@ -24,7 +24,7 @@ export default class ApiModule {
     }
 
     this._httpModule.doGet({
-      url: '/profile',
+      url: '/profile-data',
       callback: callback
     });
   }
@@ -83,6 +83,18 @@ export default class ApiModule {
     this.httpModule.doGet({
       url: '/logout',
       callback: callback
+    });
+  }
+
+  changeUserData(user = {}, callback = noop) {
+    if (!this._httpModule) {
+      return;
+    }
+
+    this.httpModule.doPost({
+      url: '/changeUserData',
+      callback: callback,
+      formData: user
     });
   }
 
