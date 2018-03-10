@@ -6,6 +6,14 @@ export default class HttpModule {
     this._baseUrl = baseUrl;
   }
 
+  get baseUrl() {
+    return this._baseUrl;
+  }
+
+  set baseUrl(baseUrl) {
+    this._baseUrl = baseUrl;
+  }
+
   checkStatus(response) {
     if (response.status >= 200 && response.status < 300) {
       return response;
