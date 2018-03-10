@@ -1,60 +1,60 @@
 ;
-import noop from '../utils/noop.js';
 
 export default class HttpModule {
 
-  doGet({url = '/', callback = noop} = {}) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState != 4) {
-        return;
-      }
-
-      if (xhr.status === 200) {
-        const responseText = xhr.responseText;
-        try {
-          const response = JSON.parse(responseText);
-          callback(null, response);
-        } catch (err) {
-          console.error('doGet error: ', err);
-          callback(err);
-        }
-      } else {
-        callback(xhr);
-      }
-    };
-
-    xhr.withCredentials = true;
-
-    xhr.send();
+  constructor(baseUrl = '') {
+    this._baseUrl = baseUrl;
   }
 
-  doPost({url = '/', callback = noop, formData = {}} = {}) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', url);
+  checkStatus(response) {
+    if (response.status >= 200 && response.status < 300) {
+      return response;
+    } else {
+      let error = new Error(response.statusText);
+      error.response = response;
+      throw error;
+    }
+  }
 
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState != 4) {
-        return;
-      }
+  parseJSON(response) {
+    const contentType = response.headers.get('content-type');
+    if (contentType && contentType.indexOf('application/json') !== -1) {
+      return response.json();
+    } else {
+      return response.text();
+    }
+  }
 
-      if (xhr.status < 300) {
-        const responseText = xhr.responseText;
-
-        try {
-          const response = JSON.parse(responseText);
-          callback(null, response);
-        } catch (err) {
-          console.error('doPost error: ', err);
-          callback(err);
-        }
-      } else {
-        callback(xhr);
-      }
+  fetchGet(path = '/') {
+    const url = this._baseUrl + path;
+    const options = {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include'
     };
 
-    xhr.send(formData);
+    return fetch(url, options)
+      .then(this.checkStatus)
+      .then(this.parseJSON)
+      .catch( error => {
+        throw error;
+      });
+
+  }
+
+  fetchPost({path = '/', formData = {}}) {
+    const url = this._baseUrl + path;
+    const options = {
+      method: 'POST',
+      mode: 'cors',
+      credentials: 'include',
+      body: formData
+    };
+    return fetch(url, options)
+      .then(this.checkStatus)
+      .then(this.parseJSON)
+      .catch( error => {
+        throw error;
+      });
   }
 };

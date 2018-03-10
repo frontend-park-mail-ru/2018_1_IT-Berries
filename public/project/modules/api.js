@@ -1,5 +1,4 @@
 ;
-import noop from '../utils/noop.js';
 
 export default class ApiModule {
 
@@ -17,82 +16,66 @@ export default class ApiModule {
 
   // Authorization and Users API methods
 
-  loadProfile(callback = noop) {
+  loadProfile() {
     if (!this._httpModule) {
       return;
     }
 
-    this._httpModule.doGet({
-      url: '/profile-data',
-      callback: callback
-    });
+    return this._httpModule.fetchGet('/profile-data');
   }
 
-  loadUsers(callback = noop) {
+  loadUsers() {
     if (!this._httpModule) {
       return;
     }
 
-    this.httpModule.doGet({
-      url: '/users',
-      callback
-    });
+    return this._httpModule.fetchGet('/users');
   }
 
-  loadMe(callback = noop) {
+  loadMe() {
     if (!this._httpModule) {
       return;
     }
 
-    this.httpModule.doGet({
-      url: '/me',
-      callback
-    });
+    return this._httpModule.fetchGet('/me');
   }
 
-  signupUser(user = {}, callback = noop) {
+  signupUser(user = {}) {
     if (!this._httpModule) {
       return;
     }
 
-    this.httpModule.doPost({
-      url: '/signup',
-      callback: callback,
+    return this._httpModule.fetchPost({
+      path: '/signup',
       formData: user
     });
   }
 
-  loginUser(user = {}, callback = noop) {
+  loginUser(user = {}) {
     if (!this._httpModule) {
       return;
     }
 
-    this.httpModule.doPost({
-      url: '/login',
-      callback: callback,
+    return this._httpModule.fetchPost({
+      path: '/login',
       formData: user
     });
   }
 
-  logOut(callback = noop) {
+  logOut() {
     if (!this._httpModule) {
       return;
     }
-
-    this.httpModule.doGet({
-      url: '/logout',
-      callback: callback
-    });
+    return this._httpModule.fetchGet('/logout');
   }
 
-  changeUserData(user = {}, callback = noop) {
+  changeUserData(user = {}) {
     if (!this._httpModule) {
       return;
     }
 
-    this.httpModule.doPost({
-      url: '/changeUserData',
-      callback: callback,
+    return this._httpModule.fetchPost({
+      path: '/changeUserData',
       formData: user
     });
   }
