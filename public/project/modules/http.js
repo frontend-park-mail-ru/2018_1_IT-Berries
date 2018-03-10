@@ -10,10 +10,16 @@ export default class HttpModule {
 
   /**
    * Create an HTTP module.
-   * @param {string} baseUrl='' - The base url for http requests.
    */
-  constructor(baseUrl = '') {
-    this._baseUrl = baseUrl;
+  constructor() {
+    switch (window.location.hostname) {
+    case 'localhost':
+      this._baseUrl = 'http://localhost:8080';
+      break;
+    case 'itberries-frontend.herokuapp.com':
+      this._baseUrl = '//itberries-frontend.herokuapp.com';
+      break;
+    }
   }
 
   /**
@@ -67,10 +73,11 @@ export default class HttpModule {
   /**
    * Provides async HTTP GET request with CORS supported.
    * @access public
-   * @param {string} path='/' - path for http request.
+   * @param {Object} object={} - the object of request params.
+   * @param {string} object.path='/' - path for http request.
    * @return {Promise} A promise that resolves with the result of HTTP GET request.
    */
-  fetchGet(path = '/') {
+  fetchGet({ path = '/' } = {}) {
     const url = this._baseUrl + path;
     const options = {
       method: 'GET',

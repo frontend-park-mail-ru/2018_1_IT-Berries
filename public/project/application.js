@@ -14,15 +14,6 @@ import ProfileForm from './common.blocks/profile-form/profile-form.js';
 const httpModule = new HttpModule();
 const apiModule = new ApiModule(httpModule);
 
-switch (window.location.hostname) {
-case 'localhost':
-  httpModule.baseUrl = 'http://localhost:8080';
-  break;
-case 'itberries-frontend.herokuapp.com':
-  httpModule.baseUrl = '//itberries-frontend.herokuapp.com';
-  break;
-}
-
 // Initialize application components and blocks
 const scoreboardComponent = new ScoreboardComponent('.scoreboard__container');
 const scoreboardPaginator = new ScoreboardPaginator();
@@ -68,17 +59,17 @@ function hideAllSections() {
 }
 
 function openSections(sectionsNamesArr) {
-  sectionsNamesArr.forEach( (sectionName, i, arr)  => {
+  sectionsNamesArr.forEach( (sectionName)  => {
     let section = sections.get(sectionName);
-    if (section === undefined) {
-      console.error(sectionName);
+    if (section) {
+      section.hidden = false;
+      if (openFunctions[sectionName]) {
+        openFunctions[sectionName]();
+      }
       return;
     }
-    section.hidden = false;
-    if (openFunctions[sectionName]) {
-      openFunctions[sectionName]();
-    }
-  })
+    console.error(sectionName);
+  });
 }
 
 const openFunctions = {
@@ -157,7 +148,7 @@ function validateLoginFormData(formdata, callback) {
     }
   });
 
-  if (email == '' || !email.match(/@/)) {
+  if (email == '') {
     callback('Email is invalid');
     return false;
   }
@@ -224,7 +215,7 @@ function validateRegistrationFormData(formdata, callback) {
     return false;
   }
 
-  if (email == '' || !email.match(/@/)) {
+  if (email == '') {
     callback('Email is invalid');
     return false;
   }
@@ -244,7 +235,7 @@ function validateRegistrationFormData(formdata, callback) {
 
 function validateProfileFormData(formdata, callback) {
 
-  let password = document.getElementsByClassName('profile-form__current_password')[0];
+  let password = document.getElementsByClassName('profile-form__current-password')[0];
   let newPassword = '';
   let newPasswordRepeat = '';
   let email = '';

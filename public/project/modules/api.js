@@ -44,7 +44,9 @@ export default class ApiModule {
       return;
     }
 
-    return this._httpModule.fetchGet('/profile-data');
+    return this._httpModule.fetchGet({
+      path: '/profile-data'
+    });
   }
 
   /**
@@ -57,7 +59,9 @@ export default class ApiModule {
       return;
     }
 
-    return this._httpModule.fetchGet('/users?listSize=' + listSize + '&listNumber=' + listNumber);
+    return this._httpModule.fetchGet({
+      path: '/users?listSize=' + listSize + '&listNumber=' + listNumber
+    });
   }
 
   /**
@@ -70,7 +74,9 @@ export default class ApiModule {
       return;
     }
 
-    return this._httpModule.fetchGet('/me');
+    return this._httpModule.fetchGet({
+      path: '/me'
+    });
   }
 
   /**
@@ -116,7 +122,9 @@ export default class ApiModule {
     if (!this._httpModule) {
       return;
     }
-    return this._httpModule.fetchGet('/logout');
+    return this._httpModule.fetchGet({
+      path: '/logout'
+    });
   }
 
   /**
