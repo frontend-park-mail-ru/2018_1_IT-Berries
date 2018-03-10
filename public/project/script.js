@@ -11,8 +11,17 @@ import ProfileComponent from './common.blocks/profile-data/profile-data.js';
 import ProfileForm from './common.blocks/profile-form/profile-form.js';
 
 // Initialize application modules
-const httpModule = new HttpModule('http://localhost:8080');
+const httpModule = new HttpModule();
 const apiModule = new ApiModule(httpModule);
+
+switch (window.location.hostname) {
+case 'localhost':
+  httpModule.baseUrl = 'http://localhost:8080';
+  break;
+case 'itberries-frontend.herokuapp.com':
+  httpModule.baseUrl = '//itberries-frontend.herokuapp.com';
+  break;
+}
 
 // Initialize application components and blocks
 const scoreboardComponent = new ScoreboardComponent('.scoreboard__container');
