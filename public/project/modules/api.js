@@ -24,12 +24,12 @@ export default class ApiModule {
     return this._httpModule.fetchGet('/profile-data');
   }
 
-  loadUsers() {
+  loadUsers(listSize = 5, listNumber = 1) {
     if (!this._httpModule) {
       return;
     }
 
-    return this._httpModule.fetchGet('/users');
+    return this._httpModule.fetchGet('/users?listSize=' + listSize + '&listNumber=' + listNumber);
   }
 
   loadMe() {

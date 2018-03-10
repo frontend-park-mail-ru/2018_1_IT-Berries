@@ -5,7 +5,8 @@ import ApiModule from './modules/api.js';
 import HttpModule from './modules/http.js';
 
 // Import components and blocks
-import ScoreboardComponent from './common.blocks/scoreboard/scoreboard.js';
+import ScoreboardComponent from './common.blocks/scoreboard/__container/scoreboard__container.js';
+import ScoreboardPaginator from './common.blocks/scoreboard/__paginator/scoreboard__paginator.js';
 import ProfileComponent from './common.blocks/profile-data/profile-data.js';
 import ProfileForm from './common.blocks/profile-form/profile-form.js';
 
@@ -15,6 +16,7 @@ const apiModule = new ApiModule(httpModule);
 
 // Initialize application components and blocks
 const scoreboardComponent = new ScoreboardComponent('.scoreboard__container');
+const scoreboardPaginator = new ScoreboardPaginator();
 const profileComponent = new ProfileComponent('profile-data');
 const profileFormComponent = new ProfileForm();
 
@@ -96,7 +98,7 @@ const openFunctions = {
 // Proccess click on page link (for SPA)
 application.addEventListener('click', (evt) => {
   const target = evt.target;
-  if (target.tagName.toLowerCase() !== 'a') {
+  if (target.tagName.toLowerCase() !== 'a' || target.name == 'paginator-link') {
     return;
   }
 
@@ -108,9 +110,10 @@ application.addEventListener('click', (evt) => {
   openSections([ section ]);
 });
 
-function openScoreboard() {
+function openScoreboard(listSize = 1, listNumber = 1) {
 
   scoreboardComponent.clear();
+  scoreboardPaginator.clear();
 
   apiModule.loadUsers()
     .then(users => {
@@ -120,7 +123,13 @@ function openScoreboard() {
     .catch(err => {
       console.error(err);
       return;
-    });
+    }
+
+    scoreboardComponent.data = users.scorelist;
+    scoreboardComponent.renderTmpl();
+    scoreboardPaginator.usersCount = users.length;
+    scoreboardPaginator.renderTmpl(listSize, listNumber, openScoreboard);
+  }, listSize, listNumber);
 }
 
 function openProfile() {
