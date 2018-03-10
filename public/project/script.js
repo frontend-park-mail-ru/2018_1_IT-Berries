@@ -115,21 +115,16 @@ function openScoreboard(listSize = 1, listNumber = 1) {
   scoreboardComponent.clear();
   scoreboardPaginator.clear();
 
-  apiModule.loadUsers()
+  apiModule.loadUsers(listSize, listNumber)
     .then(users => {
-      scoreboardComponent.data = users;
+      scoreboardComponent.data = users.scorelist;
       scoreboardComponent.renderTmpl();
+      scoreboardPaginator.usersCount = users.length;
+      scoreboardPaginator.renderTmpl(listSize, listNumber, openScoreboard);
     })
     .catch(err => {
       console.error(err);
-      return;
-    }
-
-    scoreboardComponent.data = users.scorelist;
-    scoreboardComponent.renderTmpl();
-    scoreboardPaginator.usersCount = users.length;
-    scoreboardPaginator.renderTmpl(listSize, listNumber, openScoreboard);
-  }, listSize, listNumber);
+    });
 }
 
 function openProfile() {
@@ -156,7 +151,6 @@ function onSubmitSigninForm(evt) {
       signinForm.reset();
       const signinValidationField = document.getElementsByClassName('signin-form__validation')[0];
       signinValidationField.textContent = 'Wrong email or password! Try again...';
-      return;
     });
 }
 
@@ -213,7 +207,6 @@ function onSubmitSignupForm(evt) {
   if (validateProfileFormData(signupForm, (err) => {
     const signupValidationField = document.getElementsByClassName('signup-form__validation')[0];
     signupValidationField.textContent = err;
-    return;
   })) {
     apiModule.signupUser(formData)
       .then( () => {
@@ -225,7 +218,6 @@ function onSubmitSignupForm(evt) {
         const response = JSON.parse(err.responseText);
         const signupValidationField = document.getElementsByClassName('signup-form__validation')[0];
         signupValidationField.textContent = response.error;
-        return;
       });
   }
 }
@@ -237,7 +229,6 @@ function onSubmitProfileForm(evt) {
   if (validateProfileFormData(profileForm, (err) => {
     const profileValidationField = document.getElementsByClassName('profile-form__validation')[0];
     profileValidationField.textContent = err;
-    return;
   })) {
     apiModule.changeUserData(formData)
       .then( () => {
@@ -320,7 +311,6 @@ function checkAuth() {
         signupLink.hidden = false;
       });
       quit.hidden = true;
-      return;
     });
 }
 
