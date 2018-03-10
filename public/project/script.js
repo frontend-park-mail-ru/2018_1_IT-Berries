@@ -33,8 +33,8 @@ const profileFormComponent = new ProfileForm();
 
 const application = document.getElementsByClassName('application')[0];
 const menuSection = document.getElementsByClassName('menu')[0];
-const signupSection = document.getElementsByClassName('signup')[0];
-const signinSection = document.getElementsByClassName('signin')[0];
+const registrationSection = document.getElementsByClassName('registration')[0];
+const loginSection = document.getElementsByClassName('login')[0];
 const profileSection = document.getElementsByClassName('profile')[0];
 const gameSettingsSection = document.getElementsByClassName('game-settings')[0];
 const scoreboardSection = document.getElementsByClassName('scoreboard')[0];
@@ -42,8 +42,8 @@ const aboutSection = document.getElementsByClassName('about')[0];
 
 const sections = new Map([
   ['menu',  menuSection],
-  ['signup', signupSection],
-  ['signin', signinSection],
+  ['registration', registrationSection],
+  ['login', loginSection],
   ['profile', profileSection],
   ['gameSettings', gameSettingsSection],
   ['scoreboard', scoreboardSection],
@@ -53,9 +53,9 @@ const sections = new Map([
 
 // Sections elements
 
-const profileSubheaders = document.getElementsByClassName('menu__profile-subheader');
-const signinForm = document.getElementsByClassName('signin-form')[0];
-const signupForm = document.getElementsByClassName('signup-form')[0];
+const profileSubheader = document.getElementsByClassName('menu__profile-subheader')[0];
+const loginForm = document.getElementsByClassName('login-form')[0];
+const registrationForm = document.getElementsByClassName('registration-form')[0];
 const profileForm = document.getElementsByClassName('profile-form')[0];
 const quit = document.getElementsByClassName('quit-link')[0];
 
@@ -85,15 +85,15 @@ const openFunctions = {
   menu: () => {
 
   },
-  signin: () => {
-    resetForm(signinForm, 'signin-form__validation', onSubmitSigninForm);
+  login: () => {
+    resetForm(loginForm, 'login-form__validation', onSubmitLoginForm);
   },
   profile: () => {
     resetForm(profileForm, 'profile-form__validation', onSubmitProfileForm);
     openProfile();
   },
-  signup: () => {
-    resetForm(signupForm, 'signup-form__validation', onSubmitSignupForm);
+  registration: () => {
+    resetForm(registrationForm, 'registration-form__validation', onSubmitRegistrationForm);
   },
   gameSettings: () => {
 
@@ -143,31 +143,64 @@ function openProfile() {
   updateProfile();
 }
 
+function validateLoginFormData(formdata, callback) {
 
-function onSubmitSigninForm(evt) {
-  evt.preventDefault();
+  let password = '';
+  let email = '';
 
-  const formData = new FormData(signinForm);
+  Array.prototype.forEach.call(formdata.elements, function(element) {
+    if (element.name == 'password') {
+      password = element.value;
+    }
+    else if (element.name == 'email') {
+      email = element.value;
+    }
+  });
 
-  apiModule.loginUser(formData)
-    .then( () => {
-      checkAuth();
-      hideAllSections();
-      openSections(['menu']);
-    })
-    .catch( err => {
-      console.log(err);
-      signinForm.reset();
-      const signinValidationField = document.getElementsByClassName('signin-form__validation')[0];
-      signinValidationField.textContent = 'Wrong email or password! Try again...';
-    });
+  if (email == '' || !email.match(/@/)) {
+    callback('Email is invalid');
+    return false;
+  }
+
+  if (!password.match(/^\S{4,}$/)) {
+    callback('Password must be longer than 3 characters');
+    return false;
+  }
+
+  return true;
 }
 
-function validateProfileFormData(formdata, callback) {
+function onSubmitLoginForm(evt) {
+  evt.preventDefault();
+
+  const formData = new FormData(loginForm);
+
+  if (validateLoginFormData(loginForm, (err) => {
+    const loginValidationField = document.getElementsByClassName('login-form__validation')[0];
+    loginValidationField.textContent = err;
+  })) {
+
+    apiModule.loginUser(formData)
+      .then(() => {
+        checkAuth();
+        hideAllSections();
+        openSections(['menu']);
+      })
+      .catch(err => {
+        console.log(err);
+        loginForm.reset();
+        const loginValidationField = document.getElementsByClassName('login-form__validation')[0];
+        loginValidationField.textContent = 'Wrong email or password! Try again...';
+      });
+  }
+}
+
+function validateRegistrationFormData(formdata, callback) {
 
   let password = '';
   let rep_password = '';
   let email = '';
+  let username = '';
 
   Array.prototype.forEach.call(formdata.elements, function(element) {
     if (element.name == 'password') {
@@ -179,7 +212,20 @@ function validateProfileFormData(formdata, callback) {
     else if (element.name == 'email') {
       email = element.value;
     }
+    else if (element.name == 'username') {
+      username = element.value;
+    }
   });
+
+  if (username == '') {
+    callback('Username is invalid');
+    return false;
+  }
+
+  if (email == '' || !email.match(/@/)) {
+    callback('Email is invalid');
+    return false;
+  }
 
   if (password != rep_password) {
     callback('Passwords do not match');
@@ -187,13 +233,50 @@ function validateProfileFormData(formdata, callback) {
   }
 
   if (!password.match(/^\S{4,}$/)) {
-    callback('Password is invalid');
+    callback('Password must be longer than 3 characters');
     return false;
   }
+
+  return true;
+}
+
+function validateProfileFormData(formdata, callback) {
+
+  let password = document.getElementsByClassName('profile-form__current_password')[0];
+  let newPassword = '';
+  let newPasswordRepeat = '';
+  let email = '';
+
+  Array.prototype.forEach.call(formdata.elements, function(element) {
+    if (element.name == 'new_password') {
+      newPassword = element.value;
+    } else if (element.name == 'new_password_repeat') {
+      newPasswordRepeat = element.value;
+    } else if (element.name == 'email') {
+      email = element.value;
+    }
+  });
 
   if (email != '' && !email.match(/@/)) {
     callback('Email is invalid');
     return false;
+  }
+
+  if (newPassword != '' && !newPassword.match(/^\S{4,}$/)) {
+    callback('New password must be longer than 3 characters');
+    return false;
+  }
+
+  if (newPassword != newPasswordRepeat) {
+    callback('New passwords do not match');
+    return false;
+  }
+
+  if (password.hidden == false) {
+    if (!password.value.match(/^\S{4,}$/)) {
+      callback('Current password must be longer than 3 characters');
+      return false;
+    }
   }
 
   return true;
@@ -207,26 +290,28 @@ function resetForm(form, validationFieldSelector, onSubmitFormCallback) {
   form.addEventListener('submit', onSubmitFormCallback);
 }
 
-function onSubmitSignupForm(evt) {
+function onSubmitRegistrationForm(evt) {
   evt.preventDefault();
 
   //const form = document.forms.namedItem("fileinfo");
-  const formData = new FormData(signupForm);
+  const formData = new FormData(registrationForm);
 
-  if (validateProfileFormData(signupForm, (err) => {
-    const signupValidationField = document.getElementsByClassName('signup-form__validation')[0];
-    signupValidationField.textContent = err;
+  if (validateRegistrationFormData(registrationForm, (err) => {
+    const registrationValidationField = document.getElementsByClassName('registration-form__validation')[0];
+    registrationValidationField.textContent = err;
   })) {
-    apiModule.signupUser(formData)
+    apiModule.registrationUser(formData)
       .then( () => {
         hideAllSections();
+        checkAuth();
         openSections(['menu']);
       })
       .catch( err => {
-        resetForm(signupForm, 'signup-form__validation', onSubmitSignupForm);
-        const response = JSON.parse(err.responseText);
-        const signupValidationField = document.getElementsByClassName('signup-form__validation')[0];
-        signupValidationField.textContent = response.error;
+        resetForm(registrationForm, 'registration-form__validation', onSubmitRegistrationForm);
+        err.response.json().then(function(json) {
+          const registrationValidationField = document.getElementsByClassName('registration-form__validation')[0];
+          registrationValidationField.textContent = json.error;
+        });
       });
   }
 }
@@ -241,13 +326,17 @@ function onSubmitProfileForm(evt) {
   })) {
     apiModule.changeUserData(formData)
       .then( () => {
+        const profileValidationField = document.getElementsByClassName('profile-form__validation')[0];
+        profileValidationField.textContent = '';
         updateProfile();
       })
       .catch( err => {
-        resetForm(signupForm, 'profile-form__validation', onSubmitProfileForm);
-        const response = JSON.parse(err.responseText);
-        const profileValidationField = document.getElementsByClassName('profile-form__validation')[0];
-        profileValidationField.textContent = response.error;
+        resetForm(profileForm, 'profile-form__validation', onSubmitProfileForm);
+        profileFormComponent.setOldValue();
+        err.response.json().then(function(json) {
+          const profileValidationField = document.getElementsByClassName('profile-form__validation')[0];
+          profileValidationField.textContent = json.error;
+        });
       });
   }
 }
@@ -268,58 +357,35 @@ function updateProfile() {
 function checkAuth() {
 
   // Fill textContent for array of profile-data subheaders: in menu and profile-data sections
-  const profileLinks = document.getElementsByClassName('menu__profile-link');
-  const quitLinks = document.getElementsByClassName('menu__quit-link');
-  const signinLinks = document.getElementsByClassName('menu__signin-link');
-  const signupLinks = document.getElementsByClassName('menu__signup-link');
+  const unAuth = document.getElementsByClassName('unAuth');
+  const auth = document.getElementsByClassName('auth');
 
   apiModule.loadMe()
     .then( me => {
       updateProfile();
-      Array.prototype.forEach.call(profileSubheaders, (profileSubheader) => {
-        profileSubheader.textContent = `Вы авторизованы как ${me.username}!!!`;
+      profileSubheader.textContent = `Вы авторизованы как ${me.username}!!!`;
+
+      Array.prototype.forEach.call(unAuth, (unAuthObject) => {
+        unAuthObject.hidden = true;
       });
 
-      Array.prototype.forEach.call(profileLinks, (profileLink) => {
-        profileLink.hidden = false;
+      Array.prototype.forEach.call(auth, (authObject) => {
+        authObject.hidden = false;
       });
-
-      Array.prototype.forEach.call(quitLinks, (quitLink) => {
-        quitLink.hidden = false;
-      });
-
-      Array.prototype.forEach.call(signinLinks, (signinLink) => {
-        signinLink.hidden = true;
-      });
-
-      Array.prototype.forEach.call(signupLinks, (signupLink) => {
-        signupLink.hidden = true;
-      });
-      quit.hidden = false;
     })
     .catch( err => {
       console.log('Ошибка авторизации: ', err);
       profileComponent.clear();
-      Array.prototype.forEach.call(profileSubheaders, (profileSubheader) => {
-        profileSubheader.textContent = 'Guest';
+
+      profileSubheader.textContent = 'Guest';
+
+      Array.prototype.forEach.call(unAuth, (unAuthObject) => {
+        unAuthObject.hidden = false;
       });
 
-      Array.prototype.forEach.call(profileLinks, (profileLink) => {
-        profileLink.hidden = true;
+      Array.prototype.forEach.call(auth, (authObject) => {
+        authObject.hidden = true;
       });
-
-      Array.prototype.forEach.call(quitLinks, (quitLink) => {
-        quitLink.hidden = true;
-      });
-
-      Array.prototype.forEach.call(signinLinks, (signinLink) => {
-        signinLink.hidden = false;
-      });
-
-      Array.prototype.forEach.call(signupLinks, (signupLink) => {
-        signupLink.hidden = false;
-      });
-      quit.hidden = true;
     });
 }
 

@@ -40,13 +40,13 @@ export default class ApiModule {
     return this._httpModule.fetchGet('/me');
   }
 
-  signupUser(user = {}) {
+  registrationUser(user = {}) {
     if (!this._httpModule) {
       return;
     }
 
     return this._httpModule.fetchPost({
-      path: '/signup',
+      path: '/registration',
       formData: user
     });
   }
