@@ -43,9 +43,9 @@ const users = {
     score: 100500,
     avatar: 'Igor.jpg'
   },
-	'anastasia.puchina@park.mail.ru': {
+	'anastasia.puchnina@park.mail.ru': {
 		username: 'Anastasia',
-		email: 'anastasia.puchina@park.mail.ru',
+		email: 'anastasia.puchnina@park.mail.ru',
 		password: 'password',
 		score: 72,
 		avatar: 'Anastasia.jpg'
@@ -232,7 +232,7 @@ app.post('/changeUserData', function (req, res) {
         logger('Не валидный email');
         return res.status(400).json({error: 'Не валидный email'});
       }
-      if ( newEmail != oldEmail) {
+      if ( newEmail != oldEmail && (newEmail in users)) {
         logger('Пользователь уже существует');
         return res.status(400).json({error: 'Пользователь уже существует'});
       }

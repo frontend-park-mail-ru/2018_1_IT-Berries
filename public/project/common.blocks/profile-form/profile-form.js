@@ -5,7 +5,7 @@ export default class ProfileForm {
     this.email = document.querySelector('.profile-form__email');
     this.newPassword = document.querySelector('.profile-form__new-password');
     this.newPasswordRepeat = document.querySelector('.profile-form__new-password-repeat');
-    this.currentPassword = document.querySelector('.profile-form__current_password');
+    this.currentPassword = document.querySelector('.profile-form__current-password');
     this.currentPassword.hidden = true;
     this.fields = document.getElementsByClassName('profile-form__input');
     Array.prototype.forEach.call(this.fields, (field) => {
@@ -36,6 +36,9 @@ export default class ProfileForm {
   clear() {
     this.name.value = '';
     this.email.value = '';
+    this.newPassword.value = '';
+    this.newPasswordRepeat.value = '';
+    this.currentPassword.value = '';
   }
 
   setOldValue() {

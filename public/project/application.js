@@ -14,15 +14,6 @@ import ProfileForm from './common.blocks/profile-form/profile-form.js';
 const httpModule = new HttpModule();
 const apiModule = new ApiModule(httpModule);
 
-switch (window.location.hostname) {
-case 'localhost':
-  httpModule.baseUrl = 'http://localhost:8080';
-  break;
-case 'itberries-frontend.herokuapp.com':
-  httpModule.baseUrl = '//itberries-frontend.herokuapp.com';
-  break;
-}
-
 // Initialize application components and blocks
 const scoreboardComponent = new ScoreboardComponent('.scoreboard__container');
 const scoreboardPaginator = new ScoreboardPaginator();
@@ -68,17 +59,17 @@ function hideAllSections() {
 }
 
 function openSections(sectionsNamesArr) {
-  sectionsNamesArr.forEach( (sectionName, i, arr)  => {
+  sectionsNamesArr.forEach( (sectionName)  => {
     let section = sections.get(sectionName);
-    if (section === undefined) {
-      console.error(sectionName);
+    if (section) {
+      section.hidden = false;
+      if (openFunctions[sectionName]) {
+        openFunctions[sectionName]();
+      }
       return;
     }
-    section.hidden = false;
-    if (openFunctions[sectionName]) {
-      openFunctions[sectionName]();
-    }
-  })
+    console.error(sectionName);
+  });
 }
 
 const openFunctions = {
@@ -157,7 +148,7 @@ function validateLoginFormData(formdata, callback) {
     }
   });
 
-  if (email == '' || !email.match(/@/)) {
+  if (email == '') {
     callback('Email is invalid');
     return false;
   }
@@ -183,6 +174,8 @@ function onSubmitLoginForm(evt) {
     apiModule.loginUser(formData)
       .then(() => {
         checkAuth();
+      })
+      .then(() => {
         hideAllSections();
         openSections(['menu']);
       })
@@ -222,7 +215,7 @@ function validateRegistrationFormData(formdata, callback) {
     return false;
   }
 
-  if (email == '' || !email.match(/@/)) {
+  if (email == '') {
     callback('Email is invalid');
     return false;
   }
@@ -242,7 +235,7 @@ function validateRegistrationFormData(formdata, callback) {
 
 function validateProfileFormData(formdata, callback) {
 
-  let password = document.getElementsByClassName('profile-form__current_password')[0];
+  let password = document.getElementsByClassName('profile-form__current-password')[0];
   let newPassword = '';
   let newPasswordRepeat = '';
   let email = '';
@@ -302,8 +295,10 @@ function onSubmitRegistrationForm(evt) {
   })) {
     apiModule.registrationUser(formData)
       .then( () => {
-        hideAllSections();
         checkAuth();
+      })
+      .then( () => {
+        hideAllSections();
         openSections(['menu']);
       })
       .catch( err => {
@@ -328,6 +323,8 @@ function onSubmitProfileForm(evt) {
       .then( () => {
         const profileValidationField = document.getElementsByClassName('profile-form__validation')[0];
         profileValidationField.textContent = '';
+      })
+      .then( () => {
         updateProfile();
       })
       .catch( err => {
@@ -342,9 +339,10 @@ function onSubmitProfileForm(evt) {
 }
 
 function updateProfile() {
-  apiModule.loadProfile()
+  return apiModule.loadProfile()
     .then(user => {
       profileComponent.data = user;
+      profileFormComponent.clear();
       profileFormComponent.data = user;
       profileComponent.renderTmpl();
       profileFormComponent.setOldValue();
@@ -360,9 +358,8 @@ function checkAuth() {
   const unAuth = document.getElementsByClassName('unAuth');
   const auth = document.getElementsByClassName('auth');
 
-  apiModule.loadMe()
+  return apiModule.loadMe()
     .then( me => {
-      updateProfile();
       profileSubheader.textContent = `Вы авторизованы как ${me.username}!!!`;
 
       Array.prototype.forEach.call(unAuth, (unAuthObject) => {
@@ -372,6 +369,9 @@ function checkAuth() {
       Array.prototype.forEach.call(auth, (authObject) => {
         authObject.hidden = false;
       });
+    })
+    .then( () => {
+      updateProfile();
     })
     .catch( err => {
       console.log('Ошибка авторизации: ', err);
@@ -395,6 +395,8 @@ quit.addEventListener('click', (evt) => {
   apiModule.logOut()
     .then( () => {
       checkAuth();
+    })
+    .then( () => {
       hideAllSections();
       openSections(['menu']);
     });
@@ -402,6 +404,8 @@ quit.addEventListener('click', (evt) => {
 
 // Initialize application
 
-checkAuth();
-hideAllSections();
-openSections(['menu']);
+checkAuth()
+  .then(() => {
+    hideAllSections();
+    openSections(['menu']);
+  })
