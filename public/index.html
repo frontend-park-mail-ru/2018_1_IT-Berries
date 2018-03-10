@@ -15,40 +15,40 @@
             <div class="menu__profile-subheader"></div>
             <ul>
                 <li class="menu__gamesettings-link"><a href="" data-section="gameSettings">Start game</a></li>
-                <li class="menu__signin-link"><a href="" data-section="signin">Sign in</a></li>
-                <li class="menu__signup-link"><a href="" data-section="signup">Sign up</a></li>
-                <li class="menu__profile-link"><a href="" data-section="profile">Profile</a></li>
+                <li class="menu__login-link unAuth"><a href="" data-section="login">Login</a></li>
+                <li class="menu__registration-link unAuth"><a href="" data-section="registration">Registration</a></li>
+                <li class="menu__profile-link auth"><a href="" data-section="profile">Profile</a></li>
                 <li class="menu__scoreboard-link"><a href="" data-section="scoreboard">Scoreboard</a></li>
                 <li class="menu__about-link"><a href="" data-section="about">About</a></li>
             </ul>
         </section>
 
-        <section class="signup">
+        <section class="registration">
             <h1>Sign Up</h1>
-            <form class="signup-form" enctype="multipart/form-data" method="post" name="fileinfo">
-                <input required type="text" name="username" class="signup-form__username" placeholder="Username">
-                <input required type="email" name="email" class="signup-form__email" placeholder="Email">
-                <input required type="password" name="password" class="signup-form__password" placeholder="Password">
-                <input required type="password" name="password_repeat" class="signup-form__password_repeat"
+            <form class="registration-form" enctype="multipart/form-data" method="post" name="fileinfo">
+                <input type="text" name="username" class="registration-form__username" placeholder="Username">
+                <input type="email" name="email" class="registration-form__email" placeholder="Email">
+                <input type="password" name="password" class="registration-form__password" placeholder="Password">
+                <input type="password" name="password_repeat" class="registration-form__password_repeat"
                        placeholder="Repeat password">
-                <input type="file" name="avatar" class="signup-form__avatar" placeholder="path"
+                <input type="file" name="avatar" class="registration-form__avatar" placeholder="path"
                        accept="image/jpeg,image/png"/>
-                <div class="signup-form__validation"></div>
-                <input class="signup-form__submit" type="submit">
+                <div class="registration-form__validation"></div>
+                <input class="registration-form__submit" type="submit">
             </form>
             <a href="" data-section="menu">Back</a>
 
         </section>
 
-        <section class="signin">
+        <section class="login">
             <h1>Sign In</h1>
-            <form class="signin-form">
-                <input required type="email" name="email" class="signin-form__email" placeholder="Email">
-                <input required type="password" name="password" class="signin-form__password" placeholder="Password">
-                <div class="signin-form__validation"></div>
-                <input class="signin-form__submit" type="submit">
+            <form class="login-form">
+                <input type="email" name="email" class="login-form__email" placeholder="Email">
+                <input type="password" name="password" class="login-form__password" placeholder="Password">
+                <div class="login-form__validation"></div>
+                <input class="login-form__submit" type="submit">
             </form>
-            <a href="" data-section="signup">Sign up</a>
+            <a href="" data-section="registration">Sign up</a>
             <a href="" data-section="menu">Back</a>
         </section>
 
@@ -56,15 +56,16 @@
             <h1 class="profile__subheader">Your Profile</h1>
             <div class="profile-data"></div>
             <form class="profile-form">
-                <input required type="text" name="username" class="profile-form__username" placeholder="Username">
-                <input required type="email" name="email" class="profile-form__email" placeholder="Email">
-                <input required type="password" name="password" class="profile-form__password" placeholder="New password">
-                <input required type="password" name="password_repeat" class="profile-form__password_repeat"
+                <input type="text" name="username" class="profile-form__username profile-form__input" placeholder="Username">
+                <input type="email" name="email" class="profile-form__email profile-form__input" placeholder="Email">
+                <input type="password" name="new_password" class="profile-form__new-password profile-form__input" placeholder="New password">
+                <input type="password" name="new_password_repeat" class="profile-form__new-password-repeat profile-form__input"
                        placeholder="Repeat new password">
                 <input type="file" name="avatar" class="profile-form__avatar" placeholder="path"
                        accept="image/jpeg,image/png"/>
                 <div class="profile-form__validation"></div>
                 <input class="profile-form__submit" type="submit">
+                <input type="password" name="current_password" class="profile-form__current_password" placeholder="Current password">
             </form>
             <a href="" data-section="menu">Back</a>
         </section>
@@ -91,7 +92,7 @@
             </div>
             <a href="" data-section="menu">Back</a>
         </section>
-        <a class="quit-link" data-section="menu" href="">Quit</a>
+        <a class="quit-link auth" data-section="menu" href="">Quit</a>
     </main>
 
     <!-- TODO: change common.blocks to modules -->

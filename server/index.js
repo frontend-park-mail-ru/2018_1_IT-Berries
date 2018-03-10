@@ -60,7 +60,7 @@ const users = {
 };
 const ids = {};
 
-app.post('/signup', function (req, res) {
+app.post('/registration', function (req, res) {
 
 	logger('Body:');
 	logger(req.body);
@@ -80,9 +80,9 @@ app.post('/signup', function (req, res) {
     logger('Не валидные данные пользователя');
 		return res.status(400).json({error: 'Не валидные данные пользователя'});
 	}
-	if (users[username]) {
+	if (users[email]) {
     logger('Пользователь уже существует');
-		return res.status(400).json({error: 'Пользователь уже существует'});
+		return res.status(400).json({error: 'Данный email уже зарегистрированн'});
 	}
 	logger('Avatar saving');
   const avatar = req.files.avatar;
@@ -201,27 +201,59 @@ app.post('/changeUserData', function (req, res) {
 
   const id = req.cookies['frontend'];
   const oldEmail = ids[id];
+  const userData = users[oldEmail];
+
+  logger('Old User:');
+  logger(userData);
+
 
   if (!oldEmail || !users[oldEmail]) {
     return res.status(401).end();
   }
-
-  const password = req.body.password;
-  const username = req.body.username;
+  logger('Body:');
+  logger(req.body);
+  const password = req.body.current_password;
+  const newUsername = req.body.username;
   const newEmail = req.body.email;
+  const newPassword = req.body.new_password;
+  const newPasswordRepeat = req.body.new_password_repeat;
 
   if (
-    !username ||
-    !password || !newEmail ||
-    !password.match(/^\S{4,}$/) ||
-    !newEmail.match(/@/)
-  ) {
-    logger('Не валидные данные пользователя');
-    return res.status(400).json({error: 'Не валидные данные пользователя'});
-  }
-  if (users[newEmail] && newEmail != oldEmail) {
-    logger('Пользователь уже существует');
-    return res.status(400).json({error: 'Пользователь уже существует'});
+    (newEmail != '' && newEmail != oldEmail) ||
+    (newUsername != '' && newUsername != userData.username) ||
+    (newPassword != '' && newPassword != userData.password) ||
+    (newPasswordRepeat != '' && newPasswordRepeat != userData.password)) {
+    if (password != userData.password) {
+      logger('Неверный пароль');
+      return res.status(400).json({error: 'Неверный пароль'});
+    }
+    if (newEmail != '') {
+      if (!newEmail.match(/@/)) {
+        logger('Не валидный email');
+        return res.status(400).json({error: 'Не валидный email'});
+      }
+      if ( newEmail != oldEmail) {
+        logger('Пользователь уже существует');
+        return res.status(400).json({error: 'Пользователь уже существует'});
+      }
+      userData.email = newEmail;
+    }
+
+    if (newPassword != '') {
+      if (!newPassword.match(/^\S{4,}$/)) {
+        logger('New password must be longer than 3 characters');
+        return res.status(400).json({error: 'New password must be longer than 3 characters'});
+      }
+      if (newPassword != newPasswordRepeat) {
+        logger('New passwords do not match');
+        return res.status(400).json({error: 'New passwords do not match'});
+      }
+      userData.password = newPassword;
+    }
+
+    if (newUsername != '') {
+      userData.username = newUsername;
+    }
   }
 
   const avatar = req.files.avatar;
@@ -237,10 +269,13 @@ app.post('/changeUserData', function (req, res) {
     avatarName = users[oldEmail].avatar;
   }
   logger('Change User Data');
-  const user = {username: username, password: password, email: newEmail, score: users[oldEmail].score, avatar: avatarName};
+  userData.avatar = avatarName;
   delete users[oldEmail];
-  ids[id] = newEmail;
-  users[newEmail] = user;
+  ids[id] = userData.email;
+  users[userData.email] = userData;
+
+  logger('New user data:');
+  logger(userData);
 
   res.cookie('frontend', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
   res.status(201).json({id});

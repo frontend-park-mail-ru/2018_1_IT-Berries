@@ -79,13 +79,13 @@ export default class ApiModule {
    * @param {FormData} user={} - New user data.
    * @return {Promise} A promise that resolves with the result of API request.
    */
-  signupUser(user = {}) {
+  registrationUser(user = {}) {
     if (!this._httpModule) {
       return;
     }
 
     return this._httpModule.fetchPost({
-      path: '/signup',
+      path: '/registration',
       formData: user
     });
   }
