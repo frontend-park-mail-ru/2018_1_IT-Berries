@@ -1,8 +1,9 @@
 ;
 import ApiModule from './modules/api.js';
-import ScoreboardComponent from './common.blocks/scoreboard/scoreboard.js';
+import ScoreboardComponent from './common.blocks/scoreboard/__container/scoreboard__container.js';
 import ProfileComponent from './common.blocks/profile-data/profile-data.js';
 import ProfileForm from './common.blocks/profile-form/profile-form.js';
+import ScoreboardPaginator from './common.blocks/scoreboard/__paginator/scoreboard__paginator.js';
 
 // Application modules
 
@@ -11,6 +12,7 @@ const apiModule = new ApiModule();
 // Application common.blocks
 
 const scoreboardComponent = new ScoreboardComponent('.scoreboard__container');
+const scoreboardPaginator = new ScoreboardPaginator();
 const profileComponent = new ProfileComponent('profile-data');
 const profileFormComponent = new ProfileForm();
 
@@ -92,7 +94,7 @@ const openFunctions = {
 // Proccess click on page link (for SPA)
 application.addEventListener('click', (evt) => {
   const target = evt.target;
-  if (target.tagName.toLowerCase() !== 'a') {
+  if (target.tagName.toLowerCase() !== 'a' || target.name == 'paginator-link') {
     return;
   }
 
@@ -104,9 +106,10 @@ application.addEventListener('click', (evt) => {
   openSections([ section ]);
 });
 
-function openScoreboard() {
+function openScoreboard(listSize = 1, listNumber = 1) {
 
   scoreboardComponent.clear();
+  scoreboardPaginator.clear();
 
   apiModule.loadUsers( (err, users) => {
     if (err) {
@@ -114,9 +117,11 @@ function openScoreboard() {
       return;
     }
 
-    scoreboardComponent.data = users;
+    scoreboardComponent.data = users.scorelist;
     scoreboardComponent.renderTmpl();
-  });
+    scoreboardPaginator.usersCount = users.length;
+    scoreboardPaginator.renderTmpl(listSize, listNumber, openScoreboard);
+  }, listSize, listNumber);
 }
 
 function openProfile() {
@@ -306,11 +311,6 @@ function checkAuth() {
     quit.hidden = false;
   }, false);
 }
-
-// TODO: спросить Ваню, зачем здесь это
-quit.addEventListener('click', () => {
-
-});
 
 quit.addEventListener('click', (evt) => {
   evt.preventDefault();

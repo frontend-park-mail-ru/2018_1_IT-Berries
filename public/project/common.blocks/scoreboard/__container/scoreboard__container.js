@@ -21,7 +21,7 @@ export default class ScoreboardComponent {
       return;
     }
     const data = {'data' : this._data};
-    const template = window.scoreboardTmplTemplate(data);
+    const template = window.scoreboardContainerTmplTemplate(data);
     this._el.innerHTML = template;
   }
 

@@ -29,14 +29,14 @@ export default class ApiModule {
     });
   }
 
-  loadUsers(callback = noop) {
+  loadUsers(callback = noop, listSize = 5, listNumber = 1) {
     if (!this._httpModule) {
       return;
     }
 
     this.httpModule.doGet({
-      url: '/users',
-      callback
+      url: '/users?listSize=' + listSize + '&listNumber=' + listNumber,
+      callback: callback
     });
   }
 
