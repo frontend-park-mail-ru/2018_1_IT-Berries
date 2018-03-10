@@ -10,7 +10,7 @@
 
     <main class="application">
 
-        <section class="menu">
+        <section class="menu" hidden="true">
             <h1>Menu</h1>
             <div class="menu__profile-subheader"></div>
             <ul>
@@ -23,7 +23,7 @@
             </ul>
         </section>
 
-        <section class="registration">
+        <section class="registration" hidden="true">
             <h1>Registration</h1>
             <form class="registration-form" enctype="multipart/form-data" method="post" name="fileinfo">
                 <input type="text" name="username" class="registration-form__username" placeholder="Username">
@@ -40,7 +40,7 @@
 
         </section>
 
-        <section class="login">
+        <section class="login" hidden="true">
             <h1>Login</h1>
             <form class="login-form">
                 <input type="email" name="email" class="login-form__email" placeholder="Email">
@@ -52,7 +52,7 @@
             <a href="" data-section="menu">Back</a>
         </section>
 
-        <section class="profile">
+        <section class="profile" hidden="true">
             <h1 class="profile__subheader">Your Profile</h1>
             <div class="profile-data"></div>
             <form class="profile-form">
@@ -70,7 +70,7 @@
             <a href="" data-section="menu">Back</a>
         </section>
 
-        <section class="game-settings">
+        <section class="game-settings" hidden="true">
             <h1>Game settings</h1>
             <div class="game-settings-container">
 
@@ -78,21 +78,21 @@
             <a href="" data-section="menu">Back</a>
         </section>
 
-        <section class="scoreboard">
+        <section class="scoreboard" hidden="true">
             <h1>Scoreboard</h1>
             <div class="scoreboard__container"></div>
             <div class="scoreboard__paginator"></div>
             <a href="" data-section="menu">Back</a>
         </section>
 
-        <section class="about">
+        <section class="about" hidden="true">
             <h1>About</h1>
             <div class="about-container">
                 It will be very cool game ヽ(^◇^*)/
             </div>
             <a href="" data-section="menu">Back</a>
         </section>
-        <a class="quit-link auth" data-section="menu" href="">Quit</a>
+        <a class="quit-link auth" data-section="menu" href="" hidden="true">Quit</a>
     </main>
 
     <!-- TODO: change common.blocks to modules -->
