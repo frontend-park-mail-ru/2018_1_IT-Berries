@@ -1,16 +1,20 @@
 ;
+
+// Import modules
 import ApiModule from './modules/api.js';
+import HttpModule from './modules/http.js';
+
+// Import components and blocks
 import ScoreboardComponent from './common.blocks/scoreboard/__container/scoreboard__container.js';
+import ScoreboardPaginator from './common.blocks/scoreboard/__paginator/scoreboard__paginator.js';
 import ProfileComponent from './common.blocks/profile-data/profile-data.js';
 import ProfileForm from './common.blocks/profile-form/profile-form.js';
-import ScoreboardPaginator from './common.blocks/scoreboard/__paginator/scoreboard__paginator.js';
 
-// Application modules
+// Initialize application modules
+const httpModule = new HttpModule('http://localhost:8080');
+const apiModule = new ApiModule(httpModule);
 
-const apiModule = new ApiModule();
-
-// Application common.blocks
-
+// Initialize application components and blocks
 const scoreboardComponent = new ScoreboardComponent('.scoreboard__container');
 const scoreboardPaginator = new ScoreboardPaginator();
 const profileComponent = new ProfileComponent('profile-data');
@@ -111,8 +115,12 @@ function openScoreboard(listSize = 1, listNumber = 1) {
   scoreboardComponent.clear();
   scoreboardPaginator.clear();
 
-  apiModule.loadUsers( (err, users) => {
-    if (err) {
+  apiModule.loadUsers()
+    .then(users => {
+      scoreboardComponent.data = users;
+      scoreboardComponent.renderTmpl();
+    })
+    .catch(err => {
       console.error(err);
       return;
     }
@@ -128,7 +136,7 @@ function openProfile() {
   profileComponent.clear();
   profileFormComponent.clear();
 
-  apiModule.loadProfile(loadProfileCallback);
+  updateProfile();
 }
 
 
@@ -137,18 +145,19 @@ function onSubmitSigninForm(evt) {
 
   const formData = new FormData(signinForm);
 
-  apiModule.loginUser(formData, (err) => {
-    if (err) {
+  apiModule.loginUser(formData)
+    .then( () => {
+      checkAuth();
+      hideAllSections();
+      openSections(['menu']);
+    })
+    .catch( err => {
+      console.log(err);
       signinForm.reset();
       const signinValidationField = document.getElementsByClassName('signin-form__validation')[0];
       signinValidationField.textContent = 'Wrong email or password! Try again...';
       return;
-    }
-
-    checkAuth();
-    hideAllSections();
-    openSections(['menu']);
-  });
+    });
 }
 
 function validateProfileFormData(formdata, callback) {
@@ -206,18 +215,18 @@ function onSubmitSignupForm(evt) {
     signupValidationField.textContent = err;
     return;
   })) {
-    apiModule.signupUser(formData, (err) => {
-      if (err) {
+    apiModule.signupUser(formData)
+      .then( () => {
+        hideAllSections();
+        openSections(['menu']);
+      })
+      .catch( err => {
         resetForm(signupForm, 'signup-form__validation', onSubmitSignupForm);
         const response = JSON.parse(err.responseText);
         const signupValidationField = document.getElementsByClassName('signup-form__validation')[0];
         signupValidationField.textContent = response.error;
         return;
-      }
-
-      hideAllSections();
-      openSections(['menu']);
-    }, true);
+      });
   }
 }
 
@@ -230,41 +239,66 @@ function onSubmitProfileForm(evt) {
     profileValidationField.textContent = err;
     return;
   })) {
-    apiModule.changeUserData(formData, (err) => {
-      if (err) {
+    apiModule.changeUserData(formData)
+      .then( () => {
+        updateProfile();
+      })
+      .catch( err => {
         resetForm(signupForm, 'profile-form__validation', onSubmitProfileForm);
         const response = JSON.parse(err.responseText);
         const profileValidationField = document.getElementsByClassName('profile-form__validation')[0];
         profileValidationField.textContent = response.error;
-        return;
-      }
-
-      apiModule.loadProfile(loadProfileCallback);
-    }, false);
+      });
   }
 }
 
-function loadProfileCallback(err, user) {
-  if (err) {
-    console.error(err);
-    return;
-  }
-
-  profileComponent.data = user;
-  profileFormComponent.data = user;
-  profileComponent.renderTmpl();
-  profileFormComponent.setOldValue();
+function updateProfile() {
+  apiModule.loadProfile()
+    .then(user => {
+      profileComponent.data = user;
+      profileFormComponent.data = user;
+      profileComponent.renderTmpl();
+      profileFormComponent.setOldValue();
+    })
+    .catch(err => {
+      console.error(err);
+    });
 }
 
 function checkAuth() {
-  apiModule.loadMe( (err, me) => {
 
-    // Fill textContent for array of profile-data subheaders: in menu and profile-data sections
-    const profileLinks = document.getElementsByClassName('menu__profile-link');
-    const quitLinks = document.getElementsByClassName('menu__quit-link');
-    const signinLinks = document.getElementsByClassName('menu__signin-link');
-    const signupLinks = document.getElementsByClassName('menu__signup-link');
-    if (err) {
+  // Fill textContent for array of profile-data subheaders: in menu and profile-data sections
+  const profileLinks = document.getElementsByClassName('menu__profile-link');
+  const quitLinks = document.getElementsByClassName('menu__quit-link');
+  const signinLinks = document.getElementsByClassName('menu__signin-link');
+  const signupLinks = document.getElementsByClassName('menu__signup-link');
+
+  apiModule.loadMe()
+    .then( me => {
+      updateProfile();
+      Array.prototype.forEach.call(profileSubheaders, (profileSubheader) => {
+        profileSubheader.textContent = `Вы авторизованы как ${me.username}!!!`;
+      });
+
+      Array.prototype.forEach.call(profileLinks, (profileLink) => {
+        profileLink.hidden = false;
+      });
+
+      Array.prototype.forEach.call(quitLinks, (quitLink) => {
+        quitLink.hidden = false;
+      });
+
+      Array.prototype.forEach.call(signinLinks, (signinLink) => {
+        signinLink.hidden = true;
+      });
+
+      Array.prototype.forEach.call(signupLinks, (signupLink) => {
+        signupLink.hidden = true;
+      });
+      quit.hidden = false;
+    })
+    .catch( err => {
+      console.log('Ошибка авторизации: ', err);
       profileComponent.clear();
       Array.prototype.forEach.call(profileSubheaders, (profileSubheader) => {
         profileSubheader.textContent = 'Guest';
@@ -287,44 +321,22 @@ function checkAuth() {
       });
       quit.hidden = true;
       return;
-    }
-    apiModule.loadProfile(loadProfileCallback);
-    Array.prototype.forEach.call(profileSubheaders, (profileSubheader) => {
-      profileSubheader.textContent = `Вы авторизованы как ${me.username}!!!`;
     });
-
-    Array.prototype.forEach.call(profileLinks, (profileLink) => {
-      profileLink.hidden = false;
-    });
-
-    Array.prototype.forEach.call(quitLinks, (quitLink) => {
-      quitLink.hidden = false;
-    });
-
-    Array.prototype.forEach.call(signinLinks, (signinLink) => {
-      signinLink.hidden = true;
-    });
-
-    Array.prototype.forEach.call(signupLinks, (signupLink) => {
-      signupLink.hidden = true;
-    });
-    quit.hidden = false;
-  }, false);
 }
 
 quit.addEventListener('click', (evt) => {
   evt.preventDefault();
 
-  apiModule.logOut(() => {
-    checkAuth();
-    hideAllSections();
-    openSections(['menu']);
-  });
+  apiModule.logOut()
+    .then( () => {
+      checkAuth();
+      hideAllSections();
+      openSections(['menu']);
+    });
 });
 
 // Initialize application
 
-// TODO: устранить дублирование этого везде, вынести в openMenu?
 checkAuth();
 hideAllSections();
 openSections(['menu']);
