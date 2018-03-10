@@ -148,18 +148,25 @@ app.get('/avatar', function (req, res) {
   res.sendFile(path.resolve(__dirname, 'avatars', avatar));
 });
 
-app.get('/users', function (req, res) {
-  const scorelist = Object.values(users)
-    .sort((l, r) => r.score - l.score)
-    .map(user => {
-      return {
-        username: user.username,
-        email: user.email,
-        score: user.score
-      };
-    });
-
-  res.json(scorelist);
+app.get('/users/', function (req, res) {
+  logger(req.query);
+  const listSize = Number(req.query.listSize);
+  const listNumber = Number(req.query.listNumber);
+  const startPosition = (listNumber - 1) * listSize;
+  logger('startPosition=' + startPosition);
+  logger('listSize=' + listSize);
+  let scorelist = Object.values(users).sort((l, r) => r.score - l.score);
+  const length = scorelist.length;
+  scorelist = scorelist.map((user, index) => {
+    return {
+      id: index,
+      username: user.username,
+      email: user.email,
+      score: user.score
+    };
+  }).slice(startPosition, startPosition + listSize);
+  logger('scorelist: ' + scorelist);
+  res.json({scorelist: scorelist, length: length});
 });
 
 app.get('/logout', function (req, res) {
