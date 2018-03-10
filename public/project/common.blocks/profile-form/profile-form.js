@@ -36,6 +36,9 @@ export default class ProfileForm {
   clear() {
     this.name.value = '';
     this.email.value = '';
+    this.newPassword.value = '';
+    this.newPasswordRepeat.value = '';
+    this.currentPassword.value = '';
   }
 
   setOldValue() {

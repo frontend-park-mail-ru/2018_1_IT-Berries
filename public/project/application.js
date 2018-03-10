@@ -183,6 +183,8 @@ function onSubmitLoginForm(evt) {
     apiModule.loginUser(formData)
       .then(() => {
         checkAuth();
+      })
+      .then(() => {
         hideAllSections();
         openSections(['menu']);
       })
@@ -302,8 +304,10 @@ function onSubmitRegistrationForm(evt) {
   })) {
     apiModule.registrationUser(formData)
       .then( () => {
-        hideAllSections();
         checkAuth();
+      })
+      .then( () => {
+        hideAllSections();
         openSections(['menu']);
       })
       .catch( err => {
@@ -328,6 +332,8 @@ function onSubmitProfileForm(evt) {
       .then( () => {
         const profileValidationField = document.getElementsByClassName('profile-form__validation')[0];
         profileValidationField.textContent = '';
+      })
+      .then( () => {
         updateProfile();
       })
       .catch( err => {
@@ -342,9 +348,10 @@ function onSubmitProfileForm(evt) {
 }
 
 function updateProfile() {
-  apiModule.loadProfile()
+  return apiModule.loadProfile()
     .then(user => {
       profileComponent.data = user;
+      profileFormComponent.clear();
       profileFormComponent.data = user;
       profileComponent.renderTmpl();
       profileFormComponent.setOldValue();
@@ -360,9 +367,8 @@ function checkAuth() {
   const unAuth = document.getElementsByClassName('unAuth');
   const auth = document.getElementsByClassName('auth');
 
-  apiModule.loadMe()
+  return apiModule.loadMe()
     .then( me => {
-      updateProfile();
       profileSubheader.textContent = `Вы авторизованы как ${me.username}!!!`;
 
       Array.prototype.forEach.call(unAuth, (unAuthObject) => {
@@ -372,6 +378,9 @@ function checkAuth() {
       Array.prototype.forEach.call(auth, (authObject) => {
         authObject.hidden = false;
       });
+    })
+    .then( () => {
+      updateProfile();
     })
     .catch( err => {
       console.log('Ошибка авторизации: ', err);
@@ -395,6 +404,8 @@ quit.addEventListener('click', (evt) => {
   apiModule.logOut()
     .then( () => {
       checkAuth();
+    })
+    .then( () => {
       hideAllSections();
       openSections(['menu']);
     });
@@ -402,6 +413,8 @@ quit.addEventListener('click', (evt) => {
 
 // Initialize application
 
-checkAuth();
-hideAllSections();
-openSections(['menu']);
+checkAuth()
+  .then(() => {
+    hideAllSections();
+    openSections(['menu']);
+  })
