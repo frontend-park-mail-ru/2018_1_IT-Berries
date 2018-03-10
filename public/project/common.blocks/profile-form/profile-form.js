@@ -1,5 +1,12 @@
 ;
+
+/** Class representing a profile form component. */
 export default class ProfileForm {
+
+  /**
+   * Create a profile form component.
+   * Constructor set event listener for hidden current password field.
+   */
   constructor() {
     this.name = document.querySelector('.profile-form__username');
     this.email = document.querySelector('.profile-form__email');
@@ -25,14 +32,25 @@ export default class ProfileForm {
 
   }
 
+  /**
+   * Get the profile data.
+   * @return {Object} The data value.
+   */
   get data() {
     return this._data;
   }
 
-  set data(data = []) {
+  /**
+   * Set the profile data.
+   * @param {Object} data - The data value.
+   */
+  set data(data = {}) {
     this._data = data;
   }
 
+  /**
+   * Clear input fields of profile form.
+   */
   clear() {
     this.name.value = '';
     this.email.value = '';
@@ -41,6 +59,9 @@ export default class ProfileForm {
     this.currentPassword.value = '';
   }
 
+  /**
+   * Set current username and email in profile form.
+   */
   setOldValue() {
     this.name.value = this.data.username;
     this.email.value = this.data.email;

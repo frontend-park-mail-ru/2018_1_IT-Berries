@@ -1,4 +1,5 @@
 ;
+
 export default class ScoreboardPaginator {
   constructor() {
     this._el = document.querySelector('.scoreboard__paginator');
