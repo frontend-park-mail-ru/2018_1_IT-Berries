@@ -76,6 +76,7 @@ export default class HttpModule {
    * @param {Object} object={} - the object of request params.
    * @param {string} object.method='GET' - http method of request.
    * @param {string} object.path='/' - path of http request.
+   * @param {FormData} object.formData={} - the form data for request body.
    * @return {Promise} A promise that resolves with the result of HTTP request.
    */
   _fetchHttpRequest({method = 'GET', path = '/', formData = {}}) {
@@ -117,7 +118,7 @@ export default class HttpModule {
    * @access public
    * @param {Object} object={} - the object of request params.
    * @param {string} object.path='/' - path of http request.
-   * @param {string} object.formData={} - the form data for request body.
+   * @param {FormData} object.formData={} - the form data for request body.
    * @return {Promise} A promise that resolves with the result of HTTP POST request.
    */
   fetchPost({path = '/', formData = {}} = {}) {
@@ -133,7 +134,7 @@ export default class HttpModule {
    * @access public
    * @param {Object} object={} - the object of request params.
    * @param {string} object.path='/' - path of http request.
-   * @param {string} object.formData={} - the form data for request body.
+   * @param {FormData} object.formData={} - the form data for request body.
    * @return {Promise} A promise that resolves with the result of HTTP PUT request.
    */
   fetchPut({path = '/', formData = {}} = {}) {
@@ -149,7 +150,7 @@ export default class HttpModule {
    * @access public
    * @param {Object} object={} - the object of request params.
    * @param {string} object.path='/' - path of http request.
-   * @param {string} object.formData={} - the form data for request body.
+   * @param {FormData} object.formData={} - the form data for request body.
    * @return {Promise} A promise that resolves with the result of HTTP PATCH request.
    */
   fetchPatch({path = '/', formData = {}} = {}) {
