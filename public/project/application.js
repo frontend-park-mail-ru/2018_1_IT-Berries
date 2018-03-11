@@ -135,7 +135,7 @@ function validateLoginFormData(formdata, callback) {
   let password = '';
   let email = '';
 
-  Array.prototype.forEach.call(formdata.elements, function(element) {
+  [...formdata.elements].forEach((element) => {
     if (element.name === 'password') {
       password = element.value;
     } else if (element.name === 'email') {
@@ -187,7 +187,7 @@ function validateRegistrationFormData(formdata, callback) {
   let email = '';
   let username = '';
 
-  Array.prototype.forEach.call(formdata.elements, function(element) {
+  [...formdata.elements].forEach((element) => {
     if (element.name === 'password') {
       password = element.value;
     } else if (element.name === 'password_repeat') {
@@ -229,7 +229,7 @@ function validateProfileFormData(formdata, callback) {
   let newPasswordRepeat = '';
   let email = '';
 
-  Array.prototype.forEach.call(formdata.elements, function(element) {
+  [...formdata.elements].forEach((element) => {
     if (element.name === 'new_password') {
       newPassword = element.value;
     } else if (element.name === 'new_password_repeat') {
@@ -346,11 +346,11 @@ function checkAuth() {
     .then(me => {
       profileSubheader.textContent = `Вы авторизованы как ${me.username}!!!`;
 
-      Array.prototype.forEach.call(unAuth, (unAuthObject) => {
+      [...unAuth].forEach((unAuthObject) => {
         unAuthObject.hidden = true;
       });
 
-      Array.prototype.forEach.call(auth, (authObject) => {
+      [...auth].forEach((authObject) => {
         authObject.hidden = false;
       });
     })
@@ -360,11 +360,11 @@ function checkAuth() {
 
       profileSubheader.textContent = 'Guest';
 
-      Array.prototype.forEach.call(unAuth, (unAuthObject) => {
+      [...unAuth].forEach((unAuthObject) => {
         unAuthObject.hidden = false;
       });
 
-      Array.prototype.forEach.call(auth, (authObject) => {
+      [...auth].forEach((authObject) => {
         authObject.hidden = true;
       });
     });

@@ -42,7 +42,7 @@ export default class ProfileComponent {
     }
 
     const template = window.profileDataTmplTemplate(this._data);
-    Array.prototype.forEach.call(this._el, function(profile) {
+    [...this._el].forEach((profile) => {
       profile.innerHTML = template;
     });
   }
