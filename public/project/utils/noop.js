@@ -1,5 +1,3 @@
-;
-
 /**
  * Utils module.
  * @module utils/

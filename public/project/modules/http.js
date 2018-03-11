@@ -1,5 +1,3 @@
-;
-
 /**
  * HTTP module.
  * @module modules/http
@@ -175,4 +173,4 @@ export default class HttpModule {
     });
   }
 
-};
+}

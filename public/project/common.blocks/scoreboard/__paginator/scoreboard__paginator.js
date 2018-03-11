@@ -1,5 +1,3 @@
-;
-
 /** Class representing a scoreboard paginator component. */
 export default class ScoreboardPaginator {
 
@@ -46,8 +44,7 @@ export default class ScoreboardPaginator {
     }
     if (this._usersCount <= listSize) {
       listCount = 0;
-    }
-    else {
+    } else {
       listCount = Math.ceil(this._usersCount / listSize);
     }
     const count = {listCount : listCount, listNumber : listNumber};
@@ -63,14 +60,14 @@ export default class ScoreboardPaginator {
       });
     });
     const arrowLeft = document.getElementsByClassName('scoreboard__paginator-left');
-    if (arrowLeft.length != 0) {
+    if (arrowLeft.length !== 0) {
       arrowLeft[0].addEventListener('click', (evt) => {
         evt.preventDefault();
         callback(listSize, listNumber - 1);
       });
     }
     const arrowRight = document.getElementsByClassName('scoreboard__paginator-right');
-    if (arrowRight.length != 0) {
+    if (arrowRight.length !== 0) {
       arrowRight[0].addEventListener('click', (evt) => {
         evt.preventDefault();
         callback(listSize, listNumber + 1);
@@ -78,4 +75,4 @@ export default class ScoreboardPaginator {
     }
   }
 
-};
+}

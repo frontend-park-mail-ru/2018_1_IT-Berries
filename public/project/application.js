@@ -1,5 +1,3 @@
-;
-
 // Import modules
 import ApiModule from './modules/api.js';
 import HttpModule from './modules/http.js';
@@ -68,7 +66,6 @@ function openSections(sectionsNamesArr) {
       }
       return;
     }
-    console.error(sectionName);
   });
 }
 
@@ -98,7 +95,7 @@ const openFunctions = {
 // Proccess click on page link (for SPA)
 application.addEventListener('click', (evt) => {
   const target = evt.target;
-  if (target.tagName.toLowerCase() !== 'a' || target.name == 'paginator-link') {
+  if (target.tagName.toLowerCase() !== 'a' || target.name === 'paginator-link') {
     return;
   }
 
@@ -122,8 +119,7 @@ function openScoreboard(listSize = 1, listNumber = 1) {
       scoreboardPaginator.usersCount = users.length;
       scoreboardPaginator.renderTmpl(listSize, listNumber, openScoreboard);
     })
-    .catch(err => {
-      console.error(err);
+    .catch(() => {
     });
 }
 
@@ -139,16 +135,15 @@ function validateLoginFormData(formdata, callback) {
   let password = '';
   let email = '';
 
-  Array.prototype.forEach.call(formdata.elements, function(element) {
-    if (element.name == 'password') {
+  [...formdata.elements].forEach((element) => {
+    if (element.name === 'password') {
       password = element.value;
-    }
-    else if (element.name == 'email') {
+    } else if (element.name === 'email') {
       email = element.value;
     }
   });
 
-  if (email == '') {
+  if (email === '') {
     callback('Email is invalid');
     return false;
   }
@@ -177,8 +172,7 @@ function onSubmitLoginForm(evt) {
         hideAllSections();
         openSections(['menu']);
       })
-      .catch(err => {
-        console.log(err);
+      .catch(() => {
         loginForm.reset();
         const loginValidationField = document.getElementsByClassName('login-form__validation')[0];
         loginValidationField.textContent = 'Wrong email or password! Try again...';
@@ -193,32 +187,29 @@ function validateRegistrationFormData(formdata, callback) {
   let email = '';
   let username = '';
 
-  Array.prototype.forEach.call(formdata.elements, function(element) {
-    if (element.name == 'password') {
+  [...formdata.elements].forEach((element) => {
+    if (element.name === 'password') {
       password = element.value;
-    }
-    else if (element.name == 'password_repeat') {
+    } else if (element.name === 'password_repeat') {
       rep_password = element.value;
-    }
-    else if (element.name == 'email') {
+    } else if (element.name === 'email') {
       email = element.value;
-    }
-    else if (element.name == 'username') {
+    } else if (element.name === 'username') {
       username = element.value;
     }
   });
 
-  if (username == '') {
+  if (username === '') {
     callback('Username is invalid');
     return false;
   }
 
-  if (email == '') {
+  if (email === '') {
     callback('Email is invalid');
     return false;
   }
 
-  if (password != rep_password) {
+  if (password !== rep_password) {
     callback('Passwords do not match');
     return false;
   }
@@ -238,32 +229,32 @@ function validateProfileFormData(formdata, callback) {
   let newPasswordRepeat = '';
   let email = '';
 
-  Array.prototype.forEach.call(formdata.elements, function(element) {
-    if (element.name == 'new_password') {
+  [...formdata.elements].forEach((element) => {
+    if (element.name === 'new_password') {
       newPassword = element.value;
-    } else if (element.name == 'new_password_repeat') {
+    } else if (element.name === 'new_password_repeat') {
       newPasswordRepeat = element.value;
-    } else if (element.name == 'email') {
+    } else if (element.name === 'email') {
       email = element.value;
     }
   });
 
-  if (email != '' && !email.match(/@/)) {
+  if (email !== '' && !email.match(/@/)) {
     callback('Email is invalid');
     return false;
   }
 
-  if (newPassword != '' && !newPassword.match(/^\S{4,}$/)) {
+  if (newPassword !== '' && !newPassword.match(/^\S{4,}$/)) {
     callback('New password must be longer than 3 characters');
     return false;
   }
 
-  if (newPassword != newPasswordRepeat) {
+  if (newPassword !== newPasswordRepeat) {
     callback('New passwords do not match');
     return false;
   }
 
-  if (password.hidden == false) {
+  if (password.hidden === false) {
     if (!password.value.match(/^\S{4,}$/)) {
       callback('Current password must be longer than 3 characters');
       return false;
@@ -341,8 +332,7 @@ function updateProfile() {
       profileComponent.renderTmpl();
       profileFormComponent.setOldValue();
     })
-    .catch(err => {
-      console.error(err);
+    .catch(() => {
     });
 }
 
@@ -356,26 +346,25 @@ function checkAuth() {
     .then(me => {
       profileSubheader.textContent = `Вы авторизованы как ${me.username}!!!`;
 
-      Array.prototype.forEach.call(unAuth, (unAuthObject) => {
+      [...unAuth].forEach((unAuthObject) => {
         unAuthObject.hidden = true;
       });
 
-      Array.prototype.forEach.call(auth, (authObject) => {
+      [...auth].forEach((authObject) => {
         authObject.hidden = false;
       });
     })
     .then(() => updateProfile())
-    .catch(err => {
-      console.log('Ошибка авторизации: ', err);
+    .catch(() => {
       profileComponent.clear();
 
       profileSubheader.textContent = 'Guest';
 
-      Array.prototype.forEach.call(unAuth, (unAuthObject) => {
+      [...unAuth].forEach((unAuthObject) => {
         unAuthObject.hidden = false;
       });
 
-      Array.prototype.forEach.call(auth, (authObject) => {
+      [...auth].forEach((authObject) => {
         authObject.hidden = true;
       });
     });

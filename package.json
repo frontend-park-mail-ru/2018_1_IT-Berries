@@ -7,7 +7,7 @@
     "build": "pug -c public --name-after-file",
     "start": "npm run build && DEBUG=mylogger node server",
     "start:raw": "node server",
-    "eslint": "eslint src/script.js || true"
+    "eslint": "eslint 'public/**/*.js'"
   },
   "contributors": [
     "Anastasia Pushnina",
