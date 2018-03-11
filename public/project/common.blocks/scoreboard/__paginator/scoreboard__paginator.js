@@ -1,22 +1,44 @@
 ;
 
+/** Class representing a scoreboard paginator component. */
 export default class ScoreboardPaginator {
+
+  /**
+   * Create a scoreboard paginator component.
+   */
   constructor() {
     this._el = document.querySelector('.scoreboard__paginator');
   }
 
+  /**
+   * Get the number of users in pagination list.
+   * @return {Number} The usersCount value.
+   */
   get usersCount() {
     return this._usersCount;
   }
 
-  set usersCount(count = []) {
+  /**
+   * Set the number of users in pagination list.
+   * @param {Object} count - The number of users.
+   */
+  set usersCount(count = 0) {
     this._usersCount = count;
   }
 
+  /**
+   * Clear HTML component's body.
+   */
   clear() {
     this._el.innerHTML = '';
   }
 
+  /**
+   * Render scoreboard paginator template in HTML component's body.
+   * @param {Number} listSize - The number of rows on list.
+   * @param {Number} listNumber - Current page.
+   * @param {Function} callback - Callback function for paginator's links.
+   */
   renderTmpl(listSize = 5, listNumber = 1, callback) {
     let listCount = 0;
     if (!this._usersCount) {
