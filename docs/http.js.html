@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: http.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: http.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>;
+
+/**
+ * HTTP module.
+ * @module modules/http
+ */
+
+/** Class representing an HTTP module. */
+export default class HttpModule {
+
+  /**
+   * Create an HTTP module.
+   */
+  constructor() {
+    switch (window.location.hostname) {
+    case 'localhost':
+      this._baseUrl = 'http://localhost:8080';
+      break;
+    case 'itberries-frontend.herokuapp.com':
+      this._baseUrl = '//itberries-frontend.herokuapp.com';
+      break;
+    }
+  }
+
+  /**
+   * Get the baseUrl value.
+   * @return {string} The baseUrl value.
+   */
+  get baseUrl() {
+    return this._baseUrl;
+  }
+
+  /**
+   * Set the baseUrl value.
+   * @param {string} baseUrl - The base url for http requests.
+   */
+  set baseUrl(baseUrl) {
+    this._baseUrl = baseUrl;
+  }
+
+  /**
+   * Check status of http response.
+   * @access private
+   * @param {Response} response - fetch api response object to check.
+   * @return {Response} The response value.
+   * @throws {Error} Will throw an error if the response status is not Success (2xx).
+   */
+  _checkStatus(response) {
+    if (response.status >= 200 &amp;&amp; response.status &lt; 300) {
+      return response;
+    } else {
+      let error = new Error(response.statusText);
+      error.response = response;
+      throw error;
+    }
+  }
+
+  /**
+   * Parse response body.
+   * @access private
+   * @param {Response} response - fetch api response object to parse.
+   * @return {Promise} A promise that resolves with the result of parsing the response text as JSON or text.
+   */
+  _parseResponseBody(response) {
+    const contentType = response.headers.get('content-type');
+    if (contentType &amp;&amp; contentType.indexOf('application/json') !== -1) {
+      return response.json();
+    } else {
+      return response.text();
+    }
+  }
+
+  /**
+   * Provides async HTTP request with CORS supported.
+   * @access public
+   * @param {Object} object={} - the object of request params.
+   * @param {string} object.method='GET' - http method of request.
+   * @param {string} object.path='/' - path of http request.
+   * @param {FormData} object.formData={} - the form data for request body.
+   * @return {Promise} A promise that resolves with the result of HTTP request.
+   */
+  _fetchHttpRequest({method = 'GET', path = '/', formData = {}}) {
+    const url = this._baseUrl + path;
+    const options = {
+      method: method,
+      mode: 'cors',
+      credentials: 'include',
+    };
+
+    if (method === 'POST' || method === 'PUT') {
+      options.body = formData;
+    }
+
+    return fetch(url, options)
+      .then(this._checkStatus)
+      .then(this._parseResponseBody)
+      .catch( error => {
+        throw error;
+      });
+  }
+
+  /**
+   * Provides async HTTP GET request.
+   * @access public
+   * @param {Object} object={} - the object of request params.
+   * @param {string} object.path='/' - path of http request.
+   * @return {Promise} A promise that resolves with the result of HTTP GET request.
+   */
+  fetchGet({ path = '/' } = {}) {
+    return this._fetchHttpRequest({
+      method: 'GET',
+      path: path
+    });
+  }
+
+  /**
+   * Provides async HTTP POST request.
+   * @access public
+   * @param {Object} object={} - the object of request params.
+   * @param {string} object.path='/' - path of http request.
+   * @param {FormData} object.formData={} - the form data for request body.
+   * @return {Promise} A promise that resolves with the result of HTTP POST request.
+   */
+  fetchPost({path = '/', formData = {}} = {}) {
+    return this._fetchHttpRequest({
+      method: 'POST',
+      path: path,
+      formData: formData
+    });
+  }
+
+  /**
+   * Provides async HTTP PUT request.
+   * @access public
+   * @param {Object} object={} - the object of request params.
+   * @param {string} object.path='/' - path of http request.
+   * @param {FormData} object.formData={} - the form data for request body.
+   * @return {Promise} A promise that resolves with the result of HTTP PUT request.
+   */
+  fetchPut({path = '/', formData = {}} = {}) {
+    return this._fetchHttpRequest({
+      method: 'PUT',
+      path: path,
+      formData: formData
+    });
+  }
+
+  /**
+   * Provides async HTTP PATCH request.
+   * @access public
+   * @param {Object} object={} - the object of request params.
+   * @param {string} object.path='/' - path of http request.
+   * @param {FormData} object.formData={} - the form data for request body.
+   * @return {Promise} A promise that resolves with the result of HTTP PATCH request.
+   */
+  fetchPatch({path = '/', formData = {}} = {}) {
+    return this._fetchHttpRequest({
+      method: 'PATCH',
+      path: path,
+      formData: formData
+    });
+  }
+
+  /**
+   * Provides async HTTP DELETE request.
+   * @access public
+   * @param {Object} object={} - the object of request params.
+   * @param {string} object.path='/' - path of http request.
+   * @return {Promise} A promise that resolves with the result of HTTP DELETE request.
+   */
+  fetchDelete({path = '/'} = {}) {
+    return this._fetchHttpRequest({
+      method: 'DELETE',
+      path: path
+    });
+  }
+
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-modules_api.html">modules/api</a></li><li><a href="module-modules_http.html">modules/http</a></li></ul><h3>Classes</h3><ul><li><a href="module-modules_api.html">modules/api</a></li><li><a href="module-modules_http.html">modules/http</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Mar 11 2018 19:34:52 GMT+0300 (MSK)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
