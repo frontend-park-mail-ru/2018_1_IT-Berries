@@ -71,19 +71,24 @@ export default class HttpModule {
   }
 
   /**
-   * Provides async HTTP GET request with CORS supported.
+   * Provides async HTTP request with CORS supported.
    * @access public
    * @param {Object} object={} - the object of request params.
-   * @param {string} object.path='/' - path for http request.
-   * @return {Promise} A promise that resolves with the result of HTTP GET request.
+   * @param {string} object.method='GET' - http method of request.
+   * @param {string} object.path='/' - path of http request.
+   * @return {Promise} A promise that resolves with the result of HTTP request.
    */
-  fetchGet({ path = '/' } = {}) {
+  _fetchHttpRequest({method = 'GET', path = '/', formData = {}}) {
     const url = this._baseUrl + path;
     const options = {
-      method: 'GET',
+      method: method,
       mode: 'cors',
-      credentials: 'include'
+      credentials: 'include',
     };
+
+    if (method === 'POST' || method === 'PUT') {
+      options.body = formData;
+    }
 
     return fetch(url, options)
       .then(this._checkStatus)
@@ -91,30 +96,82 @@ export default class HttpModule {
       .catch( error => {
         throw error;
       });
-
   }
 
   /**
-   * Provides async HTTP POST request with CORS supported.
+   * Provides async HTTP GET request.
    * @access public
    * @param {Object} object={} - the object of request params.
-   * @param {string} object.path='/' - path for http request.
+   * @param {string} object.path='/' - path of http request.
+   * @return {Promise} A promise that resolves with the result of HTTP GET request.
+   */
+  fetchGet({ path = '/' } = {}) {
+    return this._fetchHttpRequest({
+      method: 'GET',
+      path: path
+    });
+  }
+
+  /**
+   * Provides async HTTP POST request.
+   * @access public
+   * @param {Object} object={} - the object of request params.
+   * @param {string} object.path='/' - path of http request.
    * @param {string} object.formData={} - the form data for request body.
    * @return {Promise} A promise that resolves with the result of HTTP POST request.
    */
-  fetchPost({path = '/', formData = {}}) {
-    const url = this._baseUrl + path;
-    const options = {
+  fetchPost({path = '/', formData = {}} = {}) {
+    return this._fetchHttpRequest({
       method: 'POST',
-      mode: 'cors',
-      credentials: 'include',
-      body: formData
-    };
-    return fetch(url, options)
-      .then(this._checkStatus)
-      .then(this._parseResponseBody)
-      .catch( error => {
-        throw error;
-      });
+      path: path,
+      formData: formData
+    });
   }
+
+  /**
+   * Provides async HTTP PUT request.
+   * @access public
+   * @param {Object} object={} - the object of request params.
+   * @param {string} object.path='/' - path of http request.
+   * @param {string} object.formData={} - the form data for request body.
+   * @return {Promise} A promise that resolves with the result of HTTP PUT request.
+   */
+  fetchPut({path = '/', formData = {}} = {}) {
+    return this._fetchHttpRequest({
+      method: 'PUT',
+      path: path,
+      formData: formData
+    });
+  }
+
+  /**
+   * Provides async HTTP PATCH request.
+   * @access public
+   * @param {Object} object={} - the object of request params.
+   * @param {string} object.path='/' - path of http request.
+   * @param {string} object.formData={} - the form data for request body.
+   * @return {Promise} A promise that resolves with the result of HTTP PATCH request.
+   */
+  fetchPatch({path = '/', formData = {}} = {}) {
+    return this._fetchHttpRequest({
+      method: 'PATCH',
+      path: path,
+      formData: formData
+    });
+  }
+
+  /**
+   * Provides async HTTP DELETE request.
+   * @access public
+   * @param {Object} object={} - the object of request params.
+   * @param {string} object.path='/' - path of http request.
+   * @return {Promise} A promise that resolves with the result of HTTP DELETE request.
+   */
+  fetchDelete({path = '/'} = {}) {
+    return this._fetchHttpRequest({
+      method: 'DELETE',
+      path: path
+    });
+  }
+
 };
