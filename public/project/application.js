@@ -95,7 +95,7 @@ const openFunctions = {
 // Proccess click on page link (for SPA)
 application.addEventListener('click', (evt) => {
   const target = evt.target;
-  if (target.tagName.toLowerCase() !== 'a' || target.name == 'paginator-link') {
+  if (target.tagName.toLowerCase() !== 'a' || target.name === 'paginator-link') {
     return;
   }
 
@@ -136,14 +136,14 @@ function validateLoginFormData(formdata, callback) {
   let email = '';
 
   Array.prototype.forEach.call(formdata.elements, function(element) {
-    if (element.name == 'password') {
+    if (element.name === 'password') {
       password = element.value;
-    } else if (element.name == 'email') {
+    } else if (element.name === 'email') {
       email = element.value;
     }
   });
 
-  if (email == '') {
+  if (email === '') {
     callback('Email is invalid');
     return false;
   }
@@ -188,28 +188,28 @@ function validateRegistrationFormData(formdata, callback) {
   let username = '';
 
   Array.prototype.forEach.call(formdata.elements, function(element) {
-    if (element.name == 'password') {
+    if (element.name === 'password') {
       password = element.value;
-    } else if (element.name == 'password_repeat') {
+    } else if (element.name === 'password_repeat') {
       rep_password = element.value;
-    } else if (element.name == 'email') {
+    } else if (element.name === 'email') {
       email = element.value;
-    } else if (element.name == 'username') {
+    } else if (element.name === 'username') {
       username = element.value;
     }
   });
 
-  if (username == '') {
+  if (username === '') {
     callback('Username is invalid');
     return false;
   }
 
-  if (email == '') {
+  if (email === '') {
     callback('Email is invalid');
     return false;
   }
 
-  if (password != rep_password) {
+  if (password !== rep_password) {
     callback('Passwords do not match');
     return false;
   }
@@ -230,31 +230,31 @@ function validateProfileFormData(formdata, callback) {
   let email = '';
 
   Array.prototype.forEach.call(formdata.elements, function(element) {
-    if (element.name == 'new_password') {
+    if (element.name === 'new_password') {
       newPassword = element.value;
-    } else if (element.name == 'new_password_repeat') {
+    } else if (element.name === 'new_password_repeat') {
       newPasswordRepeat = element.value;
-    } else if (element.name == 'email') {
+    } else if (element.name === 'email') {
       email = element.value;
     }
   });
 
-  if (email != '' && !email.match(/@/)) {
+  if (email !== '' && !email.match(/@/)) {
     callback('Email is invalid');
     return false;
   }
 
-  if (newPassword != '' && !newPassword.match(/^\S{4,}$/)) {
+  if (newPassword !== '' && !newPassword.match(/^\S{4,}$/)) {
     callback('New password must be longer than 3 characters');
     return false;
   }
 
-  if (newPassword != newPasswordRepeat) {
+  if (newPassword !== newPasswordRepeat) {
     callback('New passwords do not match');
     return false;
   }
 
-  if (password.hidden == false) {
+  if (password.hidden === false) {
     if (!password.value.match(/^\S{4,}$/)) {
       callback('Current password must be longer than 3 characters');
       return false;
