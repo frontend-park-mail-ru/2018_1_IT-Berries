@@ -1,5 +1,3 @@
-;
-
 // Import modules
 import ApiModule from './modules/api.js';
 import HttpModule from './modules/http.js';
@@ -68,7 +66,6 @@ function openSections(sectionsNamesArr) {
       }
       return;
     }
-    console.error(sectionName);
   });
 }
 
@@ -122,8 +119,7 @@ function openScoreboard(listSize = 1, listNumber = 1) {
       scoreboardPaginator.usersCount = users.length;
       scoreboardPaginator.renderTmpl(listSize, listNumber, openScoreboard);
     })
-    .catch(err => {
-      console.error(err);
+    .catch(() => {
     });
 }
 
@@ -142,8 +138,7 @@ function validateLoginFormData(formdata, callback) {
   Array.prototype.forEach.call(formdata.elements, function(element) {
     if (element.name == 'password') {
       password = element.value;
-    }
-    else if (element.name == 'email') {
+    } else if (element.name == 'email') {
       email = element.value;
     }
   });
@@ -177,8 +172,7 @@ function onSubmitLoginForm(evt) {
         hideAllSections();
         openSections(['menu']);
       })
-      .catch(err => {
-        console.log(err);
+      .catch(() => {
         loginForm.reset();
         const loginValidationField = document.getElementsByClassName('login-form__validation')[0];
         loginValidationField.textContent = 'Wrong email or password! Try again...';
@@ -196,14 +190,11 @@ function validateRegistrationFormData(formdata, callback) {
   Array.prototype.forEach.call(formdata.elements, function(element) {
     if (element.name == 'password') {
       password = element.value;
-    }
-    else if (element.name == 'password_repeat') {
+    } else if (element.name == 'password_repeat') {
       rep_password = element.value;
-    }
-    else if (element.name == 'email') {
+    } else if (element.name == 'email') {
       email = element.value;
-    }
-    else if (element.name == 'username') {
+    } else if (element.name == 'username') {
       username = element.value;
     }
   });
@@ -341,8 +332,7 @@ function updateProfile() {
       profileComponent.renderTmpl();
       profileFormComponent.setOldValue();
     })
-    .catch(err => {
-      console.error(err);
+    .catch(() => {
     });
 }
 
@@ -365,8 +355,7 @@ function checkAuth() {
       });
     })
     .then(() => updateProfile())
-    .catch(err => {
-      console.log('Ошибка авторизации: ', err);
+    .catch(() => {
       profileComponent.clear();
 
       profileSubheader.textContent = 'Guest';

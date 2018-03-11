@@ -1,5 +1,3 @@
-;
-
 /** Class representing a profile data component. */
 export default class ProfileComponent {
 
@@ -48,4 +46,4 @@ export default class ProfileComponent {
       profile.innerHTML = template;
     });
   }
-};
+}

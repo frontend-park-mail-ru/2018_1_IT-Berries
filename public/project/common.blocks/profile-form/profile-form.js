@@ -1,5 +1,3 @@
-;
-
 /** Class representing a profile form component. */
 export default class ProfileForm {
 
@@ -69,4 +67,4 @@ export default class ProfileForm {
     this.currentEmail = this.data.email;
     this.currentPassword.hidden = true;
   }
-};
+}

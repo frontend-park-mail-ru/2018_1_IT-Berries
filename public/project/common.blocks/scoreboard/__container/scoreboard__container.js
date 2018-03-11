@@ -1,5 +1,3 @@
-;
-
 /** Class representing a scoreboard component. */
 export default class ScoreboardComponent {
 
@@ -46,4 +44,4 @@ export default class ScoreboardComponent {
     this._el.innerHTML = template;
   }
 
-};
+}

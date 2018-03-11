@@ -1,5 +1,3 @@
-;
-
 /**
  * API module.
  * @module modules/api
@@ -144,4 +142,4 @@ export default class ApiModule {
     });
   }
 
-};
+}

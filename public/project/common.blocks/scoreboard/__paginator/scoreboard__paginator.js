@@ -1,5 +1,3 @@
-;
-
 /** Class representing a scoreboard paginator component. */
 export default class ScoreboardPaginator {
 
@@ -46,8 +44,7 @@ export default class ScoreboardPaginator {
     }
     if (this._usersCount <= listSize) {
       listCount = 0;
-    }
-    else {
+    } else {
       listCount = Math.ceil(this._usersCount / listSize);
     }
     const count = {listCount : listCount, listNumber : listNumber};
@@ -78,4 +75,4 @@ export default class ScoreboardPaginator {
     }
   }
 
-};
+}
