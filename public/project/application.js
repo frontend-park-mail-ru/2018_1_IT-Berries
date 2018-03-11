@@ -172,9 +172,7 @@ function onSubmitLoginForm(evt) {
   })) {
 
     apiModule.loginUser(formData)
-      .then(() => {
-        checkAuth();
-      })
+      .then(() => checkAuth())
       .then(() => {
         hideAllSections();
         openSections(['menu']);
@@ -294,14 +292,12 @@ function onSubmitRegistrationForm(evt) {
     registrationValidationField.textContent = err;
   })) {
     apiModule.registrationUser(formData)
-      .then( () => {
-        checkAuth();
-      })
-      .then( () => {
+      .then(() => checkAuth())
+      .then(() => {
         hideAllSections();
         openSections(['menu']);
       })
-      .catch( err => {
+      .catch(err => {
         resetForm(registrationForm, 'registration-form__validation', onSubmitRegistrationForm);
         err.response.json().then(function(json) {
           const registrationValidationField = document.getElementsByClassName('registration-form__validation')[0];
@@ -320,14 +316,12 @@ function onSubmitProfileForm(evt) {
     profileValidationField.textContent = err;
   })) {
     apiModule.changeUserData(formData)
-      .then( () => {
+      .then(() => {
         const profileValidationField = document.getElementsByClassName('profile-form__validation')[0];
         profileValidationField.textContent = '';
       })
-      .then( () => {
-        updateProfile();
-      })
-      .catch( err => {
+      .then(() => updateProfile())
+      .catch(err => {
         resetForm(profileForm, 'profile-form__validation', onSubmitProfileForm);
         profileFormComponent.setOldValue();
         err.response.json().then(function(json) {
@@ -359,7 +353,7 @@ function checkAuth() {
   const auth = document.getElementsByClassName('auth');
 
   return apiModule.loadMe()
-    .then( me => {
+    .then(me => {
       profileSubheader.textContent = `Вы авторизованы как ${me.username}!!!`;
 
       Array.prototype.forEach.call(unAuth, (unAuthObject) => {
@@ -370,10 +364,8 @@ function checkAuth() {
         authObject.hidden = false;
       });
     })
-    .then( () => {
-      updateProfile();
-    })
-    .catch( err => {
+    .then(() => updateProfile())
+    .catch(err => {
       console.log('Ошибка авторизации: ', err);
       profileComponent.clear();
 
@@ -393,10 +385,8 @@ quit.addEventListener('click', (evt) => {
   evt.preventDefault();
 
   apiModule.logOut()
-    .then( () => {
-      checkAuth();
-    })
-    .then( () => {
+    .then(() => checkAuth())
+    .then(() => {
       hideAllSections();
       openSections(['menu']);
     });
@@ -408,4 +398,4 @@ checkAuth()
   .then(() => {
     hideAllSections();
     openSections(['menu']);
-  })
+  });
