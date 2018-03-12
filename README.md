@@ -17,6 +17,8 @@
 ### Backend
 - [Repository](https://github.com/java-park-mail-ru/IT-Berries-02-2018)
 - [Web](http://itberries-backend.herokuapp.com)
+### Documentation
+- [Docs](http://frontend.tech-mail.ru/2018_1_IT-Berries/index.html)
 
 ## How to install locally
 ### 1. Frontend installation
@@ -26,6 +28,7 @@
 - Start frontend server: `$ npm run start`
 ### 2. Backend installation
 - Clone or download frontend [repository](https://github.com/java-park-mail-ru/IT-Berries-02-2018)
+- Go to backend local repository directory: `$ cd .../IT-Berries-02-2018`
 - Start backend server with [Maven](https://maven.apache.org): `$ mvn spring-boot:run`
 ### 3. Run
 - Open in browser *url([http://localhost:8080](http://localhost:8080))*
