@@ -28,7 +28,7 @@
 - Install dependencies with [NPM](https://www.npmjs.com): `$ npm install`
 - Start frontend server: `$ npm run start`
 ### 2. Backend installation
-- Clone or download frontend [repository](https://github.com/java-park-mail-ru/IT-Berries-02-2018)
+- Clone or download backend [repository](https://github.com/java-park-mail-ru/IT-Berries-02-2018)
 - Go to backend local repository directory: `$ cd .../IT-Berries-02-2018`
 - Start backend server with [Maven](https://maven.apache.org): `$ mvn spring-boot:run`
 ### 3. Run
