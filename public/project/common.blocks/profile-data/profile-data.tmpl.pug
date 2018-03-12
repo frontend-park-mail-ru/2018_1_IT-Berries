@@ -2,7 +2,7 @@ table.profile__table
     tbody
         tr.profile__row
             td
-                img(src='/avatar?'+Math.random() height='100' width='100')
+                img(src='/avatar?'+Math.random() + '&avatar=' + avatar height='100' width='100')
         tr.profile__row
             td Username:
             td #{username}

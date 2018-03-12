@@ -43,7 +43,7 @@ export default class ApiModule {
     }
 
     return this._httpModule.fetchGet({
-      path: '/profile-data'
+      path: '/me/profile'
     });
   }
 
@@ -58,7 +58,7 @@ export default class ApiModule {
     }
 
     return this._httpModule.fetchGet({
-      path: '/users?listSize=' + listSize + '&listNumber=' + listNumber
+      path: '/users/scoreboard?listSize=' + listSize + '&listNumber=' + listNumber
     });
   }
 
@@ -137,7 +137,7 @@ export default class ApiModule {
     }
 
     return this._httpModule.fetchPost({
-      path: '/changeUserData',
+      path: '/me/profile',
       formData: user
     });
   }

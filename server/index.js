@@ -137,13 +137,18 @@ app.get('/me', function (req, res) {
 });
 
 app.get('/avatar', function (req, res) {
+
+  logger('query:')
+  logger(req.query);
+
+  /*
   const id = req.cookies['frontend'];
   const email = ids[id];
   if (!email || !users[email]) {
     return res.status(401).end();
-  }
+  }*/
 
-  const avatar = users[email].avatar;
+  const avatar = req.query.avatar;
 
   res.sendFile(path.resolve(__dirname, 'avatars', avatar));
 });
@@ -282,7 +287,7 @@ app.post('/changeUserData', function (req, res) {
 
 });
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8081;
 
 app.listen(port, function () {
 	logger(`Server listening port ${port}`);
