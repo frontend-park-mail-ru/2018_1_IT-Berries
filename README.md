@@ -18,7 +18,8 @@
 - [Repository](https://github.com/java-park-mail-ru/IT-Berries-02-2018)
 - [Web](http://itberries-backend.herokuapp.com)
 ### Documentation
-- [Docs](http://frontend.tech-mail.ru/2018_1_IT-Berries/index.html)
+- [Backend API Swagger](https://app.swaggerhub.com/apis/IT-Berries2/IT-Berries/2.1.0#/)
+- [Frontend JS modules docs](http://frontend.tech-mail.ru/2018_1_IT-Berries/index.html)
 
 ## How to install locally
 ### 1. Frontend installation
