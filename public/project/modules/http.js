@@ -15,7 +15,7 @@ export default class HttpModule {
       this._baseUrl = 'http://localhost:8080';
       break;
     case 'itberries-frontend.herokuapp.com':
-      this._baseUrl = '//itberries-frontend.herokuapp.com';
+      this._baseUrl = 'https://itberries-backend.herokuapp.com';
       break;
     }
   }
