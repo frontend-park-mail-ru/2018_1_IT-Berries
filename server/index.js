@@ -195,7 +195,7 @@ app.get('/me/profile', function (req, res) {
     return res.status(401).end();
   }
 
-  res.json({username: users[email].username, email: email, score: users[email].score});
+  res.json({username: users[email].username, email: email, score: users[email].score, avatar: users[email].avatar});
 });
 
 app.get('/runtime.js', function (req, res) {
