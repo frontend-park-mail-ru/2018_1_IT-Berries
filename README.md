@@ -4,6 +4,7 @@
 - [Nemshilov Ivan](https://github.com/Rikud) (fullstack)
 - [Puchnina Anastasia](https://github.com/puchninanastya) (frontend)
 - [Oshkina Elena](https://github.com/ElenaOshkina) (backend)
+- [Drujinin Igor](https://github.com/Drujininii) (super mentor)
 
 ## Travis CI statuses
  Master: [![Build Status](https://travis-ci.org/frontend-park-mail-ru/2018_1_IT-Berries.svg?branch=master)](https://travis-ci.org/frontend-park-mail-ru/2018_1_IT-Berries/)
