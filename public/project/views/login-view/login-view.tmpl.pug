@@ -1,0 +1,21 @@
+section.view.login-view
+    header.view__header.view-header
+        div.view-header__controls
+            a(href='/') Back
+        h1.view-header__head Log in
+    div.view__content
+        div.login-view__form.js-login-form
+            include ../../common.blocks/form/form.tmpl.pug
+
+//
+    <section class="login" hidden="true">
+        <h1>Login</h1>
+        <form class="login-form">
+            <input type="email" name="email" class="login-form__email" placeholder="Email">
+            <input type="password" name="password" class="login-form__password" placeholder="Password">
+            <div class="login-form__validation"></div>
+            <input class="login-form__submit" type="submit">
+        </form>
+        <a href="" data-section="registration">Registration</a>
+        <a href="" data-section="menu">Back</a>
+    </section>

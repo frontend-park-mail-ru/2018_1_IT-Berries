@@ -1,8 +1,8 @@
-/** Class representing a scoreboard component. */
-export default class ScoreboardComponent {
+/** Class representing a scoreboard table block. */
+export default class ScoreboardTableBlock {
 
   /**
-   * Create a scoreboard component.
+   * Create a scoreboard table block.
    * @param {string} selector - selector of element where scoreboard will be created.
    */
   constructor(selector = 'body') {
@@ -33,7 +33,7 @@ export default class ScoreboardComponent {
   }
 
   /**
-   * Render scoreboard data template in HTML component's body.
+   * Render scoreboard data template in HTML block's body.
    */
   renderTmpl() {
     if (!this._data) {

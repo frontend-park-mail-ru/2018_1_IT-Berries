@@ -1,0 +1,25 @@
+section.view.menu-view
+    header.view__header.view-header
+        div.view-header__controls
+        h1.view-header__head Catch the Alien!
+        div.view-header__profile-bar
+    div.view__content
+        nav.menu-view__navigation
+            ul.menu-navigation
+                each item in data.navItems
+                    li.menu-navigation__item
+                        a(href=item.href) item.title
+
+//
+    <section class="menu" hidden="true">
+        <h1>Menu</h1>
+        <div class="menu__profile-subheader"></div>
+        <ul>
+            <li class="menu__gamesettings-link"><a href="" data-section="gameSettings">Start game</a></li>
+            <li class="menu__login-link unAuth"><a href="" data-section="login">Login</a></li>
+            <li class="menu__registration-link unAuth"><a href="" data-section="registration">Registration</a></li>
+            <li class="menu__profile-link auth"><a href="" data-section="profile">Profile</a></li>
+            <li class="menu__scoreboard-link"><a href="" data-section="scoreboard">Scoreboard</a></li>
+            <li class="menu__about-link"><a href="" data-section="about">About</a></li>
+        </ul>
+    </section>

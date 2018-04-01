@@ -1,0 +1,18 @@
+form.form.js-form
+    div.form__fields
+        each field in data.fields
+            label.form__field
+                span.form__field-label field.labelText
+                input(
+                    class='form__field-input'
+                    type=field.inputType
+                    name=field.inputName
+                    placeholder=field.inputPlaceholder
+                    required=field.inputRequired
+                )
+    div.form__controls
+        button(
+            class='form__control'
+            type='submit'
+            value=data.submitText
+        )

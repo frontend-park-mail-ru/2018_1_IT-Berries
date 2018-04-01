@@ -3,7 +3,7 @@ import ApiModule from './modules/api.js';
 import HttpModule from './modules/http.js';
 
 // Import components and blocks
-import ScoreboardComponent from './common.blocks/scoreboard/__container/scoreboard__container.js';
+import ScoreboardComponent from './common.blocks/scoreboard/__table/scoreboard__table.js';
 import ScoreboardPaginator from './common.blocks/scoreboard/__paginator/scoreboard__paginator.js';
 import ProfileComponent from './common.blocks/profile-data/profile-data.js';
 import ProfileForm from './common.blocks/profile-form/profile-form.js';
