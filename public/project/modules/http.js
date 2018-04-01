@@ -12,7 +12,7 @@ export default class HttpModule {
   constructor() {
     switch (window.location.hostname) {
     case 'localhost':
-      this._baseUrl = 'http://localhost:8080';
+      this._baseUrl = 'http://localhost:8081';
       break;
     case 'itberries-frontend.herokuapp.com':
       this._baseUrl = 'https://itberries-backend.herokuapp.com';
