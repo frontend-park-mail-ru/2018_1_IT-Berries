@@ -1,3 +1,64 @@
+(function() {
+
+  document.addEventListener('DOMContentLoaded', () => {
+
+    const UsersModel = require('UsersModel');
+    const Router = require('Router');
+    const bus = require('bus');
+
+    const MenuView = require('MenuView');
+    const GameModeView = require('GameModeView');
+    const LoginView = require('LoginView');
+    const SignupView = require('SignupView');
+    const ProfileView = require('ProfileView');
+    const ScoreboardView = require('ScoreboardView');
+    const SettingsView = require('SettingsView');
+    const AboutView = require('AboutView');
+
+    const application = document.getElementsByClassName('application')[0];
+
+    UsersModel.auth()
+      .then(function (currentUser) {
+
+        new Router(application)
+          .add('/', MenuView)
+          .add('/game-mode', GameModeView)
+          .add('/login', LoginView)
+          .add('/signup', SignupView)
+          .add('/profile', ProfileView)
+          .add('/scoreboard', ScoreboardView)
+          .add('/settings', SettingsView)
+          .add('/about', AboutView)
+          .start();
+      })
+      .catch(console.error);
+
+    bus.on('login', function (userdata) {
+      UsersModel.login(userdata.email, userdata.password)
+        .then(function (user) {
+          new Router().open('/');
+        })
+        .catch(function (error) {
+          bus.emit('login-error', error);
+        });
+    });
+
+    bus.on('signup', function (userdata) {
+      UsersModel.signup(userdata)
+        .then(function (user) {
+          new Router().open('/');
+        })
+        .catch(function (error) {
+          bus.emit('signup-error', error);
+        });
+    });
+
+  });
+
+})();
+
+
+/*
 // Import modules
 import ApiModule from './modules/api.js';
 import HttpModule from './modules/http.js';
@@ -388,3 +449,4 @@ checkAuth()
     hideAllSections();
     openSections(['menu']);
   });
+  */

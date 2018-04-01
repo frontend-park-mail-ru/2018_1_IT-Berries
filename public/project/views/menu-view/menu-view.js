@@ -29,7 +29,7 @@ define('MenuView', function (require) {
           {
             title: 'Settings',
             href: '/settings'
-          }
+          },
           {
             title: 'About',
             href: '/about'
@@ -52,7 +52,7 @@ define('MenuView', function (require) {
           {
             title: 'Settings',
             href: '/settings'
-          }
+          },
           {
             title: 'About',
             href: '/about'
