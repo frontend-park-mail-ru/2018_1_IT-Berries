@@ -1,11 +1,25 @@
 section.view.profile-view
     header.view__header.view-header
         div.view-header__controls
-
+            a(href='/') Back
         h1.view-header__head Your profile
     div.view-content
-        div.profile-view__data.js-profile-data
-        div.profile-view__form.js-profile-form
+        div.profile-view__data
+            div.profile-view__datarow
+                img(src='/avatar?'+Math.random() + '&avatar=' + profile.avatar height='100' width='100')
+            div.profile-view__datarow
+                p Username: #{profile.username}
+            div.profile-view__datarow
+                p Email: #{profile.email}
+            div.profile-view__datarow
+                p Score: #{profile.score}
+            div.profile-view__datarow
+                button(
+                    class='profile-view__button-exit'
+                    type='submit'
+                    value=form.logoutText
+                ) #{form.logoutText}
+        div.profile-view__form
             include ../../common.blocks/form/form.tmpl.pug
 
 //

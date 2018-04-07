@@ -10,25 +10,38 @@ define('SignupView', function (require) {
         form: {
           fields: [
             {
-              labelText: 'Введите ваш email',
+              inputType: 'text',
+              inputName: 'username',
+              inputPlaceholder: 'Your username'
+            },
+            {
               inputType: 'email',
               inputName: 'email',
-              inputPlaceholder: 'Ваш email'
+              inputPlaceholder: 'Your email'
             },
             {
-              labelText: 'Сколько вам лет?',
-              inputType: 'number',
-              inputName: 'age',
-              inputPlaceholder: 'Возраст'
-            },
-            {
-              labelText: 'Придумайте пароль',
               inputType: 'password',
               inputName: 'password',
-              inputPlaceholder: 'Ваш пароль'
+              inputPlaceholder: 'Your password'
+            },
+            {
+              inputType: 'password',
+              inputName: 'password_repeat',
+              inputPlaceholder: 'Repeat your password'
+            },
+            {
+              inputType: 'file',
+              inputName: 'avatar',
+              inputPlaceholder: 'Path to your avatar'
             }
           ],
-          submitText: 'Зарегистрироваться'
+          submitText: 'Sign up',
+          additional_links: [
+            {
+              title: 'I already have an account',
+              href: '/login'
+            }
+          ]
         }
       };
 
@@ -51,7 +64,12 @@ define('SignupView', function (require) {
 
     onerror(err) {
       if (this.active) {
-        console.error(err);
+        err.response.json().then(function(data) {
+          // const registrationValidationField = document.getElementsByClassName('registration-form__validation')[0];
+          // registrationValidationField.textContent = json.error;
+          console.error('Signup error: ', data.error);
+        });
+
       }
     }
 

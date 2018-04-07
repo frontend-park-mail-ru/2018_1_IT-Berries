@@ -3,10 +3,10 @@
  * @module modules/http
  */
 
-define('HttpModule', function(require) {
+define('httpModule', function(require) {
 
   /** Class representing an HTTP module. */
-  return class HttpModule {
+  return new class HttpModule {
 
     /**
      * Create an HTTP module.
@@ -47,10 +47,12 @@ define('HttpModule', function(require) {
      */
     _checkStatus(response) {
       if (response.status >= 200 && response.status < 300) {
+        console.log('suc st', response);
         return response;
       } else {
         let error = new Error(response.statusText);
         error.response = response;
+        console.log('err st', response);
         throw error;
       }
     }
@@ -64,8 +66,10 @@ define('HttpModule', function(require) {
     _parseResponseBody(response) {
       const contentType = response.headers.get('content-type');
       if (contentType && contentType.indexOf('application/json') !== -1) {
+        console.log('suc parse', response);
         return response.json();
       } else {
+        console.log('err parse', response);
         return response.text();
       }
     }
@@ -91,6 +95,7 @@ define('HttpModule', function(require) {
         options.body = formData;
       }
 
+      console.log('options for request: ', options);
       return fetch(url, options)
         .then(this._checkStatus)
         .then(this._parseResponseBody)

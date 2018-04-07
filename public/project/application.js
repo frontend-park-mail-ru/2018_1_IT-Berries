@@ -2,6 +2,7 @@
 
   document.addEventListener('DOMContentLoaded', () => {
 
+    const HttpModule = require('HttpModule');
     const UsersModel = require('UsersModel');
     const Router = require('Router');
     const bus = require('bus');
@@ -34,7 +35,18 @@
       .catch(console.error);
 
     bus.on('login', function (userdata) {
-      UsersModel.login(userdata.email, userdata.password)
+      console.log('userdata for login: ', userdata);
+      UsersModel.login(userdata)
+        .then(function (user) {
+          new Router().open('/');
+        })
+        .catch(function (error) {
+          bus.emit('login-error', error);
+        });
+    });
+
+    bus.on('logout', function (userdata) {
+      UsersModel.logout(userdata.email, userdata.password)
         .then(function (user) {
           new Router().open('/');
         })
@@ -44,6 +56,7 @@
     });
 
     bus.on('signup', function (userdata) {
+      console.log('userdata for signup: ', userdata);
       UsersModel.signup(userdata)
         .then(function (user) {
           new Router().open('/');
@@ -290,7 +303,7 @@ function validateProfileFormData(formdata, callback) {
   let newPasswordRepeat = '';
   let email = '';
 
-  [...formdata.elements].forEach((element) => {
+  [...formdata.].forEach((element) => {
     if (element.name === 'new_password') {
       newPassword = element.value;
     } else if (element.name === 'new_password_repeat') {

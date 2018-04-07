@@ -15,13 +15,8 @@ define('FormBlock', function (require) {
       this.form.addEventListener('submit', function (evt) {
         evt.preventDefault();
 
-        const formdata = {};
-        this._attrs.fields.forEach(function (field) {
-          const name = field.inputName;
-          formdata[name] = this.form.elements[name].value;
-        }.bind(this));
-
-        this._callback(formdata);
+        const formData = new FormData(this.form);
+        this._callback(formData);
       }.bind(this));
     }
 

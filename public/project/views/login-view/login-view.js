@@ -10,19 +10,23 @@ define('LoginView', function (require) {
         form: {
           fields: [
             {
-              labelText: 'Ваш email',
               inputType: 'email',
               inputName: 'email',
-              inputPlaceholder: 'Ваш email'
+              inputPlaceholder: 'Your email'
             },
             {
-              labelText: 'Ваш пароль',
               inputType: 'password',
               inputName: 'password',
-              inputPlaceholder: 'Ваш пароль'
+              inputPlaceholder: 'Your password'
             }
           ],
-          submitText: 'Войти'
+          submitText: 'Log in',
+          additional_links: [
+            {
+              title: 'Sign up',
+              href: '/signup'
+            }
+          ]
         }
       };
 
@@ -45,7 +49,9 @@ define('LoginView', function (require) {
 
     onerror(err) {
       if (this.active) {
-        console.error(err);
+        err.response.json().then(function(data) {
+          console.error('Login error: ', data.error);
+        });
       }
     }
 

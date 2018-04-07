@@ -6,8 +6,8 @@ define('ScoreboardPaginatorBlock', function(require) {
     /**
      * Create a scoreboard paginator block.
      */
-    constructor() {
-      this._el = document.querySelector('.scoreboard__paginator');
+    constructor({ el = null }) {
+      this._el = el;
     }
 
     /**
@@ -39,7 +39,7 @@ define('ScoreboardPaginatorBlock', function(require) {
      * @param {Number} listNumber - Current page.
      * @param {Function} callback - Callback function for paginator's links.
      */
-    renderTmpl(listSize = 5, listNumber = 1, callback) {
+    render(listSize = 5, listNumber = 1, callback) {
       let listCount = 0;
       if (!this._usersCount) {
         return;

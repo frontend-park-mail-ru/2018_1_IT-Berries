@@ -1,7 +1,7 @@
 define('SettingsView', function (require) {
   const View = require('View');
 
-  return class ProfileView extends View {
+  return class SettingsView extends View {
     constructor() {
       super('settingsViewTmplTemplate');
     }

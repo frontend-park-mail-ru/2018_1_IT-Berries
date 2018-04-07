@@ -7,8 +7,8 @@ define('ScoreboardTableBlock', function(require) {
      * Create a scoreboard table block.
      * @param {string} selector - selector of element where scoreboard will be created.
      */
-    constructor(selector = 'body') {
-      this._el = document.querySelector(selector);
+    constructor({ el = null }) {
+      this._el = el;
     }
 
     /**
@@ -37,12 +37,12 @@ define('ScoreboardTableBlock', function(require) {
     /**
      * Render scoreboard data template in HTML block's body.
      */
-    renderTmpl() {
+    render() {
       if (!this._data) {
         return;
       }
       const data = {'data' : this._data};
-      const template = window.scoreboardContainerTmplTemplate(data);
+      const template = window.scoreboardTableTmplTemplate(data);
       this._el.innerHTML = template;
     }
 

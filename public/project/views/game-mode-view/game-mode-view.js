@@ -1,7 +1,7 @@
 define('GameModeView', function (require) {
   const View = require('View');
 
-  return class ProfileView extends View {
+  return class GameModeView extends View {
     constructor() {
       super('gameModeViewTmplTemplate');
     }

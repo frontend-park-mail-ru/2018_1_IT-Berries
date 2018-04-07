@@ -1,8 +1,9 @@
 form.form.js-form
     div.form__fields
-        each field in data.fields
+        each field in form.fields
             label.form__field
-                span.form__field-label field.labelText
+                //
+                    span.form__field-label #{field.labelText}
                 input(
                     class='form__field-input'
                     type=field.inputType
@@ -10,9 +11,14 @@ form.form.js-form
                     placeholder=field.inputPlaceholder
                     required=field.inputRequired
                 )
+            br
     div.form__controls
+        if form.additional_links
+            each val, index in form.additional_links
+                a(href=val.href) #{val.title}
+            br
         button(
             class='form__control'
             type='submit'
-            value=data.submitText
-        )
+            value=form.submitText
+        ) #{form.submitText}

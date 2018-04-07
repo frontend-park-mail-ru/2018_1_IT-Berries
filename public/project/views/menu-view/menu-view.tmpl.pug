@@ -6,9 +6,9 @@ section.view.menu-view
     div.view__content
         nav.menu-view__navigation
             ul.menu-navigation
-                each item in data.navItems
+                each val, index in navItems
                     li.menu-navigation__item
-                        a(href=item.href) item.title
+                        a(href=val.href) #{val.title}
 
 //
     <section class="menu" hidden="true">
