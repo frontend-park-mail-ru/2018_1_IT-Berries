@@ -1,5 +1,6 @@
 define('UsersModel', function (require) {
   const httpModule = require('httpModule');
+  const bus = require('bus');
 
   let currentUser = null;
 
@@ -9,35 +10,46 @@ define('UsersModel', function (require) {
       this.username = data.username;
       this.email = data.email;
       this.score = data.score;
+      this.avatar = data.avatar;
     }
 
     /**
      * Проверяет авторизацию текущего пользователя
      * если пользователь авторизован, возвращает его модель
      * иначе - возвращает null
-     * @return {Promise<UsersModel|null>}
+     * @return Object response
      */
-    static auth() {
+    static async loadMe() {
+
+      let response = {
+        ok: false,
+        data: null,
+        error: null
+      };
+
       if (currentUser) {
-        return Promise.resolve(currentUser);
+        response.data = currentUser;
+        return response;
       }
 
-      return httpModule.fetchGet({
-        path: '/me/profile'
-      })
-        .then((response) => {
-          currentUser = new UsersModel(response);
-          console.log('current user: ', currentUser);
-          return currentUser;
-        })
-        .catch((err) => {
-          console.log('auth me err: ', err);
-          if (!err.status || err.status === 401) {
-            return null;
-          }
-          console.log('auth err: ', err);
-          throw err;
-        });
+      const resp = await httpModule.fetchGet({
+        path: '/me'
+      });
+      response.data = await resp.json();
+
+      if (resp.status === 401) {
+        currentUser = null;
+        response.ok = true;
+        return response;
+      }
+      else if (resp.status >= 400) {
+        response.error = response.data.error;
+        return response;
+      }
+
+      response.ok = true;
+      currentUser = new UsersModel(response.data);
+      return response;
     }
 
     /**
@@ -59,9 +71,15 @@ define('UsersModel', function (require) {
     /**
      * Авторизация пользователя
      * @param {FormData} formData
-     * @return {Promise<UsersModel>}
+     * @return Object response
      */
-    static login(formData) {
+    static async login(formData) {
+
+      let response = {
+        ok: false,
+        data: null,
+        error: null
+      };
 
       let password = '';
       let email = '';
@@ -75,37 +93,64 @@ define('UsersModel', function (require) {
       }
 
       if (email === '') {
-        throw Error('Email is invalid');
+        response.error = 'Email is invalid';
+        return response;
       }
 
       if (!password.match(/^\S{4,}$/)) {
-        throw Error('Password must be longer than 3 characters');
+        response.error = 'Password must be longer than 3 characters';
+        return response;
       }
 
-      return httpModule.fetchPost({
+      const resp = await httpModule.fetchPost({
         path: '/login',
         formData: formData
-      })
-        .then(() => UsersModel.auth());
+      });
+      response.data = await resp.json();
+
+      if (resp.status >= 400) {
+        response.error = response.data.error;
+        return response;
+      }
+
+      response.ok = true;
+      currentUser = response.data;
+      return response;
+
+      //  .then(() => UsersModel.loadMe());
     }
 
     /**
      * Деавторизация пользователя
      * @return {Promise<UsersModel>}
      */
-    static logout() {
-      return httpModule.fetchGet({
+    static async logout() {
+
+      currentUser = null;
+
+      const resp = await httpModule.fetchGet({
         path: '/logout'
-      })
-        .then(() => UsersModel.auth());
+      });
+
+      /*
+        .then(() => {
+          currentUser = null;
+          bus.emit('logged-out');
+        });*/
     }
 
     /**
      * Регистрация пользователя
      * @param {FormData} formData
-     * @return {Promise<UsersModel>}
+     * @return {Promise<Object>} response
      */
-    static signup(formData) {
+    static async signup(formData) {
+
+      let response = {
+        ok: false,
+        data: null,
+        error: null
+      };
 
       let password = '';
       let password_repeat = '';
@@ -140,22 +185,125 @@ define('UsersModel', function (require) {
         throw Error('Password must be longer than 3 characters');
       }
 
-      return httpModule.fetchPost({
+      const resp = await httpModule.fetchPost({
         path: '/registration',
         formData: formData
-      })
-        .then(() => UsersModel.auth());
+      });
+      response.data = await resp.json();
+
+      if (resp.status >= 400) {
+        response.error = response.data.error;
+        return response;
+      }
+
+      response.ok = true;
+      currentUser = response.data;
+      return response;
+
+      //  .then(() => UsersModel.loadMe());
     }
 
     /**
      * Загружает список всех пользователей
-     * @return {Promise<UsersModel[]>}
+     * @return {Promise<Object>}
      */
-    static loadList(listSize = 5, listNumber = 1) {
-      return httpModule.fetchGet({
+    static async loadList(listSize = 5, listNumber = 1) {
+
+      let response = {
+        ok: false,
+        data: null,
+        error: null
+      };
+
+      const resp = await httpModule.fetchGet({
         path: '/users/scoreboard?listSize=' + listSize + '&listNumber=' + listNumber
+      });
+      response.data = await resp.json();
+
+      if (resp.status >= 400) {
+        response.error = response.data.error;
+        return response;
+      }
+
+      response.ok = true;
+      response.data = response.data.map(item => new UsersModel(item));
+
+      return response;
+
+      //  .then((response) => response.scorelist.map(item => new UsersModel(item)));
+    }
+
+    /**
+     * Изменяет профиль пользователя
+     * @return Object response
+     */
+    static async changeProfile(formData) {
+
+      let response = {
+        ok: false,
+        data: null,
+        error: null
+      };
+
+      let currentPassword = '';
+      let newPassword = '';
+      let newPasswordRepeat = '';
+      let email = '';
+      let username = '';
+
+      for(const dataPair of formData.entries()) {
+        if (dataPair[0] === 'new_password') {
+          newPassword = dataPair[1];
+        } else if (dataPair[0] === 'new_password_repeat') {
+          newPasswordRepeat = dataPair[1];
+        } else if (dataPair[0] === 'email') {
+          email = dataPair[1];
+        } else if (dataPair[0] === 'username') {
+          username = dataPair[1];
+        } else if (dataPair[0] === 'current_password') {
+          currentPassword = dataPair[1];
+        }
+      }
+
+      if (email !== '' && !email.match(/@/)) {
+        response.error = 'Email is invalid';
+        return response;
+      }
+
+      if (newPassword !== '' && !newPassword.match(/^\S{4,}$/)) {
+        response.error = 'New password must be longer than 3 characters';
+        return response;
+      }
+
+      if (newPassword !== newPasswordRepeat) {
+        response.error = 'New passwords do not match';
+        return response;
+      }
+
+      if (email !== currentUser.email ||
+          username !== currentUser.username ||
+          newPassword !== '') {
+        if (currentPassword === '') {
+          response.error = 'You should confirm your current password!';
+          return response;
+        }
+      }
+
+      return httpModule.fetchPut({
+        path: '/me',
+        formData: formData
       })
-        .then((response) => response.scorelist.map(item => new UsersModel(item)));
+        .then((response) => {
+          currentUser = new UsersModel(response);
+          bus.emit('profile-changed');
+          console.log('profile changed, current user: ', currentUser);
+          response.ok = true;
+          response.data = currentUser;
+          return response;
+        })
+        .catch((error) => {
+          response.message = error;
+        });
     }
 
   };

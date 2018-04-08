@@ -50,10 +50,10 @@ define('httpModule', function(require) {
         console.log('suc st', response);
         return response;
       } else {
-        let error = new Error(response.statusText);
-        error.response = response;
-        console.log('err st', response);
-        throw error;
+        //let error = new Error(response.statusText);
+        //error.response = response;
+        //console.log('err st', response);
+        throw response;
       }
     }
 
@@ -96,12 +96,7 @@ define('httpModule', function(require) {
       }
 
       console.log('options for request: ', options);
-      return fetch(url, options)
-        .then(this._checkStatus)
-        .then(this._parseResponseBody)
-        .catch(error => {
-          throw error;
-        });
+      return fetch(url, options);
     }
 
     /**

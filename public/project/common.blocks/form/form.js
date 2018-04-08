@@ -17,6 +17,7 @@ define('FormBlock', function (require) {
 
         const formData = new FormData(this.form);
         this._callback(formData);
+
       }.bind(this));
     }
 

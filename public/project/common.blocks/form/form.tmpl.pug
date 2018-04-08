@@ -1,15 +1,15 @@
 form.form.js-form
     div.form__fields
+        div.form__message.js-form-message
         each field in form.fields
             label.form__field
-                //
-                    span.form__field-label #{field.labelText}
                 input(
                     class='form__field-input'
                     type=field.inputType
                     name=field.inputName
                     placeholder=field.inputPlaceholder
                     required=field.inputRequired
+                    value=field.inputValue
                 )
             br
     div.form__controls

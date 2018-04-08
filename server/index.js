@@ -103,7 +103,7 @@ app.post('/registration', function (req, res) {
   users[email] = user;
 
   res.cookie('frontend', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-  res.status(201).json({id});
+  res.status(201).json({username: users[email].username, email: email, score: users[email].score, avatar: users[email].avatar});
 });
 
 app.post('/login', function (req, res) {
@@ -121,19 +121,20 @@ app.post('/login', function (req, res) {
   ids[id] = email;
 
   res.cookie('frontend', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-  res.status(201).json({id});
+  res.status(200).json({username: users[email].username, email: email, score: users[email].score, avatar: users[email].avatar});
 });
 
 app.get('/me', function (req, res) {
   const id = req.cookies['frontend'];
   const email = ids[id];
+
   if (!email || !users[email]) {
-    return res.status(401).end();
+    return res.status(401).json({error: 'Пользователь не авторизован'});
   }
 
   users[email].score += 1;
 
-  res.json({username: users[email].username});
+  res.json({username: users[email].username, email: email, score: users[email].score, avatar: users[email].avatar});
 });
 
 app.get('/avatar', function (req, res) {
@@ -179,6 +180,7 @@ app.get('/logout', function (req, res) {
   let id = req.cookies['frontend'];
   const email = ids[id];
   if (!email || !users[email]) {
+    logger('А он и не входил');
     return res.status(401).end();
   }
   logger("Пользователь вышел");
@@ -188,21 +190,11 @@ app.get('/logout', function (req, res) {
   res.status(202).end();
 });
 
-app.get('/me/profile', function (req, res) {
-  const id = req.cookies['frontend'];
-  const email = ids[id];
-  if (!email || !users[email]) {
-    return res.status(401).end();
-  }
-
-  res.json({username: users[email].username, email: email, score: users[email].score, avatar: users[email].avatar});
-});
-
 app.get('/runtime.js', function (req, res) {
   res.sendFile(path.resolve(__dirname, '..', 'node_modules', 'regenerator-runtime', 'runtime.js'));
 });
 
-app.post('/me/profile', function (req, res) {
+app.put('/me', function (req, res) {
 
   const id = req.cookies['frontend'];
   const oldEmail = ids[id];
@@ -283,7 +275,7 @@ app.post('/me/profile', function (req, res) {
   logger(userData);
 
   res.cookie('frontend', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-  res.status(201).json({id});
+  res.status(200).json(userData);
 
 });
 

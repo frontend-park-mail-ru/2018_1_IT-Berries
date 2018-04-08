@@ -1,5 +1,7 @@
 define('ProfileView', function (require) {
   const View = require('View');
+  const FormBlock = require('FormBlock');
+  const FormMessageBlock = require('FormMessageBlock');
   const UsersModel = require('UsersModel');
 
   return class ProfileView extends View {
@@ -7,42 +9,47 @@ define('ProfileView', function (require) {
       super('profileViewTmplTemplate');
     }
 
-    allowed() {
-      return UsersModel.isAuthorized();
-    }
-
     render() {
+      const profile = UsersModel.getCurrentUser();
       const attrs = {
         form: {
           fields: [
             {
-              labelText: 'Ваш username',
               inputType: 'username',
               inputName: 'username',
-              inputPlaceholder: 'Ваш username'
+              inputPlaceholder: 'Your username',
+              inputValue: profile.username
             },
             {
-              labelText: 'Ваш email',
               inputType: 'email',
               inputName: 'email',
-              inputPlaceholder: 'Ваш email'
+              inputPlaceholder: 'Your email',
+              inputValue: profile.email
             },
             {
-              labelText: 'Ваш пароль',
               inputType: 'password',
-              inputName: 'password',
-              inputPlaceholder: 'Ваш пароль'
+              inputName: 'new_password',
+              inputPlaceholder: 'Your new password',
             },
             {
-              labelText: 'Повторите ваш пароль',
               inputType: 'password',
-              inputName: 'repeatPassword',
-              inputPlaceholder: 'Повторите ваш пароль'
+              inputName: 'new_password_repeat',
+              inputPlaceholder: 'Repeat your new password'
+            },
+            {
+              inputType: 'password',
+              inputName: 'current_password',
+              inputPlaceholder: 'Current password'
+            },
+            {
+              inputType: 'file',
+              inputName: 'avatar',
+              inputPlaceholder: 'Path to your avatar'
             }
           ],
-          submitText: 'Изменить данные'
+          submitText: 'Change profile'
         },
-        profile: UsersModel.getCurrentUser(),
+        profile: profile,
         logoutLink: {
           title: 'Log out',
           href: '/logout'
@@ -52,23 +59,41 @@ define('ProfileView', function (require) {
       return super.render(attrs);
     }
 
+    allowed() {
+      return UsersModel.isAuthorized();
+    }
+
     create(attrs) {
-      console.log('profile create', attrs);
       super.create(attrs);
-      const profileData = this.el.querySelector('.profile-view__data');
-      UsersModel.loadProfile()
-        .then(function (users) {
-          this.scoreboardTable = new ScoreboardTableBlock({el: scoreboardTableRoot});
-          this.scoreboardTable.data = users;
-          this.scoreboardTable.render();
 
-          this.scoreboardPaginator = new ScoreboardPaginatorBlock({el: scoreboardPaginationRoot});
-          this.scoreboardPaginator.data = users;
-          this.scoreboardPaginator.usersCount = users.length;
-          this.scoreboardPaginator.render(this.listSize, this.listNumber, this.create.bind(this));
+      this.profileFormRoot = this.el.querySelector('.js-profile-form');
+      this.formBlock = new FormBlock(this.profileFormRoot, this.attrs.form, this.onSubmit.bind(this));
+      this.formBlock.init();
 
-        }.bind(this))
-        .catch(console.error);
+      this.profileFormMessageRoot = this.el.querySelector('.js-form-message');
+      this.formMessageBlock = new FormMessageBlock(this.profileFormMessageRoot);
+      this.formMessageBlock.init();
+
+      this.bus.on('profile-changed', function (msg) {
+        this.render();
+        this.formMessageBlock.clear();
+        this.formMessageBlock.hide();
+      }.bind(this));
+
+      this.bus.on('change-profile-error', this.onerror.bind(this));
+      return this;
+    }
+
+    onerror(err) {
+      if (this.active) {
+        this.formMessageBlock.setTextContent(err);
+        this.formMessageBlock.show();
+        console.error('Change profile error: ', err);
+      }
+    }
+
+    onSubmit(formdata) {
+      this.bus.emit('change-profile', formdata);
     }
   };
 });

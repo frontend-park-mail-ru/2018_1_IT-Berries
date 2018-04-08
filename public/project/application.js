@@ -1,8 +1,7 @@
 (function() {
 
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('DOMContentLoaded', async function () {
 
-    const HttpModule = require('HttpModule');
     const UsersModel = require('UsersModel');
     const Router = require('Router');
     const bus = require('bus');
@@ -18,52 +17,60 @@
 
     const application = document.getElementsByClassName('application')[0];
 
-    UsersModel.auth()
-      .then(function (currentUser) {
+    const loadMeResponse = await UsersModel.loadMe();
+    if (loadMeResponse.ok) {
+      new Router(application)
+        .add('/', MenuView)
+        .add('/game-mode', GameModeView)
+        .add('/login', LoginView)
+        .add('/signup', SignupView)
+        .add('/profile', ProfileView)
+        .add('/scoreboard', ScoreboardView)
+        .add('/settings', SettingsView)
+        .add('/about', AboutView)
+        .start();
+    }
+    else {
+      console.log('Опа. Ошибочка: ', loadMeResponse.error);
+    }
 
-        new Router(application)
-          .add('/', MenuView)
-          .add('/game-mode', GameModeView)
-          .add('/login', LoginView)
-          .add('/signup', SignupView)
-          .add('/profile', ProfileView)
-          .add('/scoreboard', ScoreboardView)
-          .add('/settings', SettingsView)
-          .add('/about', AboutView)
-          .start();
-      })
-      .catch(console.error);
-
-    bus.on('login', function (userdata) {
+    bus.on('login', async function (userdata) {
       console.log('userdata for login: ', userdata);
-      UsersModel.login(userdata)
-        .then(function (user) {
-          new Router().open('/');
-        })
-        .catch(function (error) {
-          bus.emit('login-error', error);
-        });
+      const response = await UsersModel.login(userdata);
+      if (response.ok) {
+        new Router().open('/');
+      } else {
+        bus.emit('login-error', response.error);
+      }
     });
 
-    bus.on('logout', function (userdata) {
-      UsersModel.logout(userdata.email, userdata.password)
-        .then(function (user) {
-          new Router().open('/');
-        })
-        .catch(function (error) {
-          bus.emit('login-error', error);
-        });
+    bus.on('logout', async function (userdata) {
+      const response = await UsersModel.logout();
+      if (response.ok) {
+        new Router().open('/');
+      } else {
+        bus.emit('logout-error', response.error);
+      }
     });
 
-    bus.on('signup', function (userdata) {
+    bus.on('signup', async function (userdata) {
       console.log('userdata for signup: ', userdata);
-      UsersModel.signup(userdata)
-        .then(function (user) {
-          new Router().open('/');
-        })
-        .catch(function (error) {
-          bus.emit('signup-error', error);
-        });
+      const response = await UsersModel.signup(userdata);
+      if (response.ok) {
+        new Router().open('/');
+      } else {
+        bus.emit('signup-error', error);
+      }
+    });
+
+    bus.on('change-profile', async function (profile) {
+      console.log('userdata for change profile: ', profile);
+      const response = await UsersModel.changeProfile(profile);
+      if (response.ok) {
+        new Router().open('/profile');
+      } else {
+        bus.emit('change-profile-error', response.error);
+      }
     });
 
   });

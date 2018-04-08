@@ -14,12 +14,8 @@ section.view.profile-view
             div.profile-view__datarow
                 p Score: #{profile.score}
             div.profile-view__datarow
-                button(
-                    class='profile-view__button-exit'
-                    type='submit'
-                    value=form.logoutText
-                ) #{form.logoutText}
-        div.profile-view__form
+                a(href=logoutLink.href) #{logoutLink.title}
+        div.profile-view__form.js-profile-form
             include ../../common.blocks/form/form.tmpl.pug
 
 //

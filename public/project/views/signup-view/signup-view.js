@@ -65,6 +65,7 @@ define('SignupView', function (require) {
     onerror(err) {
       if (this.active) {
         err.response.json().then(function(data) {
+
           // const registrationValidationField = document.getElementsByClassName('registration-form__validation')[0];
           // registrationValidationField.textContent = json.error;
           console.error('Signup error: ', data.error);
