@@ -7,9 +7,9 @@
 - [Drujinin Igor](https://github.com/Drujininii) (super mentor)
 
 ## Travis CI statuses
- Master: [![Build Status](https://travis-ci.org/frontend-park-mail-ru/2018_1_IT-Berries.svg?branch=master)](https://travis-ci.org/frontend-park-mail-ru/2018_1_IT-Berries/)
+ [![Build Status](https://travis-ci.org/frontend-park-mail-ru/2018_1_IT-Berries.svg?branch=master)](https://travis-ci.org/frontend-park-mail-ru/2018_1_IT-Berries/) - master
  
- Develop: [![Build Status](https://travis-ci.org/frontend-park-mail-ru/2018_1_IT-Berries.svg?branch=develop)](https://travis-ci.org/frontend-park-mail-ru/2018_1_IT-Berries/)
+ [![Build Status](https://travis-ci.org/frontend-park-mail-ru/2018_1_IT-Berries.svg?branch=develop)](https://travis-ci.org/frontend-park-mail-ru/2018_1_IT-Berries/) - develop
 
 ## Project links
 ### Frontend
