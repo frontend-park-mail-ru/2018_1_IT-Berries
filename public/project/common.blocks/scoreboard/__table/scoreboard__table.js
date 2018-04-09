@@ -1,4 +1,4 @@
-define('ScoreboardTableBlock', function(require) {
+define('ScoreboardTableBlock', function() {
 
   /** Class representing a scoreboard table block. */
   return class ScoreboardTableBlock {

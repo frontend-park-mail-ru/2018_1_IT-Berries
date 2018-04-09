@@ -4,7 +4,7 @@
  */
 
 
-define('bus', function (require) {
+define('bus', function () {
 
   return new class Bus {
     constructor() {

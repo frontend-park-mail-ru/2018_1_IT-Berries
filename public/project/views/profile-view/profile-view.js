@@ -87,7 +87,6 @@ define('ProfileView', function (require) {
       this.bus.on('change-profile-error', this.onerror.bind(this));
 
       this.additionalLinks = [...this.el.querySelector('.js-additional-links').getElementsByTagName('a')];
-      console.log('additional links: ', this.additionalLinks);
       this.additionalLinks.forEach(function(link) {
         link.addEventListener('click', function (evt) {
           evt.preventDefault();

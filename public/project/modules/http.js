@@ -3,7 +3,7 @@
  * @module modules/http
  */
 
-define('httpModule', function(require) {
+define('httpModule', function() {
 
   /** Class representing an HTTP module. */
   return new class HttpModule {
@@ -39,42 +39,6 @@ define('httpModule', function(require) {
     }
 
     /**
-     * Check status of http response.
-     * @access private
-     * @param {Response} response - fetch api response object to check.
-     * @return {Response} The response value.
-     * @throws {Error} Will throw an error if the response status is not Success (2xx).
-     */
-    _checkStatus(response) {
-      if (response.status >= 200 && response.status < 300) {
-        console.log('suc st', response);
-        return response;
-      } else {
-        //let error = new Error(response.statusText);
-        //error.response = response;
-        //console.log('err st', response);
-        throw response;
-      }
-    }
-
-    /**
-     * Parse response body.
-     * @access private
-     * @param {Response} response - fetch api response object to parse.
-     * @return {Promise} A promise that resolves with the result of parsing the response text as JSON or text.
-     */
-    _parseResponseBody(response) {
-      const contentType = response.headers.get('content-type');
-      if (contentType && contentType.indexOf('application/json') !== -1) {
-        console.log('suc parse', response);
-        return response.json();
-      } else {
-        console.log('err parse', response);
-        return response.text();
-      }
-    }
-
-    /**
      * Provides async HTTP request with CORS supported.
      * @access public
      * @param {Object} object={} - the object of request params.
@@ -95,7 +59,6 @@ define('httpModule', function(require) {
         options.body = formData;
       }
 
-      console.log('options for request: ', options);
       return fetch(url, options);
     }
 

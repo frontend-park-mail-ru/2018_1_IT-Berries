@@ -230,13 +230,8 @@ define('UsersModel', function (require) {
       }
 
       response.ok = true;
-      console.log('fetch response data: ', response.data);
       response.data.scorelist = response.data.scorelist.map(item => new UsersModel(item));
-      console.log('response loadList data: ', response.data);
-
       return response;
-
-      //  .then((response) => response.scorelist.map(item => new UsersModel(item)));
     }
 
     /**
@@ -308,7 +303,6 @@ define('UsersModel', function (require) {
 
       currentUser = new UsersModel(response.data);
       bus.emit('profile-changed');
-      console.log('profile changed, current user: ', currentUser);
       response.ok = true;
       response.data = currentUser;
       return response;

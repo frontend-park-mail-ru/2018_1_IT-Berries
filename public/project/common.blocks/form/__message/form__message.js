@@ -1,5 +1,4 @@
-define('FormMessageBlock', function (require) {
-
+define('FormMessageBlock', function () {
 
   return class FormMessageBlock {
     constructor(el) {

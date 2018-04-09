@@ -13,7 +13,6 @@ define('ScoreboardView', function (require) {
     }
 
     async create(attrs, listSize = this.listSize, listNumber = this.listNumber) {
-      console.log('scoreboard create', attrs);
       super.create(attrs);
       const scoreboardTableRoot = this.el.querySelector('.js-scoreboard-table');
       const scoreboardPaginationRoot = this.el.querySelector('.js-scoreboard-pagination');
