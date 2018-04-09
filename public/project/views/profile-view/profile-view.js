@@ -94,6 +94,7 @@ define('ProfileView', function (require) {
           bus.emit(link.name);
         }.bind(this));
       });
+
       return this;
     }
 
@@ -101,7 +102,6 @@ define('ProfileView', function (require) {
       if (this.active) {
         this.formMessageBlock.setTextContent(err);
         this.formMessageBlock.show();
-        console.error('Change profile error: ', err);
       }
     }
 

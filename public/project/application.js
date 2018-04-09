@@ -55,7 +55,7 @@
       if (response.ok) {
         new Router().open('/');
       } else {
-        bus.emit('signup-error', error);
+        bus.emit('signup-error', response.error);
       }
     });
 

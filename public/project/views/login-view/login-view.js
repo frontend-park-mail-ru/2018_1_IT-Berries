@@ -1,6 +1,7 @@
 define('LoginView', function (require) {
   const View = require('View');
   const FormBlock = require('FormBlock');
+  const FormMessageBlock = require('FormMessageBlock');
   const UsersModel = require('UsersModel');
 
   return class LoginView extends View {
@@ -42,16 +43,21 @@ define('LoginView', function (require) {
 
       this.formRoot = this.el.querySelector('.js-login-form');
       this.FormBlock = new FormBlock(this.formRoot, this.attrs.form, this.onSubmit.bind(this));
-
       this.FormBlock.init();
+
+      this.profileFormMessageRoot = this.el.querySelector('.js-form-message');
+      this.formMessageBlock = new FormMessageBlock(this.profileFormMessageRoot);
+      this.formMessageBlock.init();
+
+      this.bus.on('login-error', this.onerror.bind(this));
+
       return this;
     }
 
     onerror(err) {
       if (this.active) {
-        err.response.json().then(function(data) {
-          console.error('Login error: ', data.error);
-        });
+        this.formMessageBlock.setTextContent(err);
+        this.formMessageBlock.show();
       }
     }
 

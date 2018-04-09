@@ -1,6 +1,7 @@
 define('SignupView', function (require) {
   const View = require('View');
   const FormBlock = require('FormBlock');
+  const FormMessageBlock = require('FormMessageBlock');
   const UsersModel = require('UsersModel');
 
   return class SignupView extends View {
@@ -44,8 +45,6 @@ define('SignupView', function (require) {
           ]
         }
       };
-
-      this.bus.on('signup-error', this.onerror.bind(this));
     }
 
     allowed() {
@@ -57,20 +56,21 @@ define('SignupView', function (require) {
 
       this.formRoot = this.el.querySelector('.js-signup-form');
       this.formBlock = new FormBlock(this.formRoot, this.attrs.form, this.onSubmit.bind(this));
-
       this.formBlock.init();
+
+      this.profileFormMessageRoot = this.el.querySelector('.js-form-message');
+      this.formMessageBlock = new FormMessageBlock(this.profileFormMessageRoot);
+      this.formMessageBlock.init();
+
+      this.bus.on('signup-error', this.onerror.bind(this));
+
       return this;
     }
 
     onerror(err) {
       if (this.active) {
-        err.response.json().then(function(data) {
-
-          // const registrationValidationField = document.getElementsByClassName('registration-form__validation')[0];
-          // registrationValidationField.textContent = json.error;
-          console.error('Signup error: ', data.error);
-        });
-
+        this.formMessageBlock.setTextContent(err);
+        this.formMessageBlock.show();
       }
     }
 

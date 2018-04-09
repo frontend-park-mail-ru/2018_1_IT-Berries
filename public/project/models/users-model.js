@@ -93,12 +93,12 @@ define('UsersModel', function (require) {
       }
 
       if (email === '') {
-        response.error = 'Email is invalid';
+        response.error = 'Enter your email!';
         return response;
       }
 
-      if (!password.match(/^\S{4,}$/)) {
-        response.error = 'Password must be longer than 3 characters';
+      if (password === '') {
+        response.error = 'Enter your password!';
         return response;
       }
 
@@ -170,19 +170,23 @@ define('UsersModel', function (require) {
       }
 
       if (username === '') {
-        throw Error('Username is invalid');
+        response.error = 'Username is invalid';
+        return response;
       }
 
       if (email === '') {
-        throw Error('Email is invalid');
+        response.error = 'Email is invalid';
+        return response;
       }
 
       if (password !== password_repeat) {
-        throw Error('Passwords do not match');
+        response.error = 'Passwords do not match';
+        return response;
       }
 
       if (!password.match(/^\S{4,}$/)) {
-        throw Error('Password must be longer than 3 characters');
+        response.error = 'Password must be longer than 3 characters';
+        return response;
       }
 
       const resp = await httpModule.fetchPost({
