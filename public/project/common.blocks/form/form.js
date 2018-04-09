@@ -1,4 +1,5 @@
 define('FormBlock', function (require) {
+  const bus = require('bus');
 
   return class FormBlock {
     constructor(el, attrs, callback) {

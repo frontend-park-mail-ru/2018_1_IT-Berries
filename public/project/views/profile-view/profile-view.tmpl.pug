@@ -13,8 +13,11 @@ section.view.profile-view
                 p Email: #{profile.email}
             div.profile-view__datarow
                 p Score: #{profile.score}
-            div.profile-view__datarow
-                a(href=logoutLink.href) #{logoutLink.title}
+            div.profile-view__datarow.js-additional-links
+                if additional_links
+                    each val, index in additional_links
+                        a(href=val.href name=val.event) #{val.title}
+                    br
         div.profile-view__form.js-profile-form
             include ../../common.blocks/form/form.tmpl.pug
 

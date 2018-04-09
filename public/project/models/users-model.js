@@ -289,21 +289,23 @@ define('UsersModel', function (require) {
         }
       }
 
-      return httpModule.fetchPut({
+      const resp = await httpModule.fetchPut({
         path: '/me',
         formData: formData
-      })
-        .then((response) => {
-          currentUser = new UsersModel(response);
-          bus.emit('profile-changed');
-          console.log('profile changed, current user: ', currentUser);
-          response.ok = true;
-          response.data = currentUser;
-          return response;
-        })
-        .catch((error) => {
-          response.message = error;
-        });
+      });
+      response.data = await resp.json();
+
+      if (resp.status >= 400) {
+        response.error = response.data.error;
+        return response;
+      }
+
+      currentUser = new UsersModel(response.data);
+      bus.emit('profile-changed');
+      console.log('profile changed, current user: ', currentUser);
+      response.ok = true;
+      response.data = currentUser;
+      return response;
     }
 
   };

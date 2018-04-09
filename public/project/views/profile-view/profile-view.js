@@ -1,5 +1,6 @@
 define('ProfileView', function (require) {
   const View = require('View');
+  const bus = require('bus');
   const FormBlock = require('FormBlock');
   const FormMessageBlock = require('FormMessageBlock');
   const UsersModel = require('UsersModel');
@@ -50,10 +51,13 @@ define('ProfileView', function (require) {
           submitText: 'Change profile'
         },
         profile: profile,
-        logoutLink: {
-          title: 'Log out',
-          href: '/logout'
-        }
+        additional_links: [
+          {
+            title: 'Log out',
+            href: '/logout',
+            event: 'logout'
+          }
+        ]
       };
 
       return super.render(attrs);
@@ -74,13 +78,22 @@ define('ProfileView', function (require) {
       this.formMessageBlock = new FormMessageBlock(this.profileFormMessageRoot);
       this.formMessageBlock.init();
 
-      this.bus.on('profile-changed', function (msg) {
+      this.bus.on('profile-changed', function () {
         this.render();
         this.formMessageBlock.clear();
         this.formMessageBlock.hide();
       }.bind(this));
 
       this.bus.on('change-profile-error', this.onerror.bind(this));
+
+      this.additionalLinks = [...this.el.querySelector('.js-additional-links').getElementsByTagName('a')];
+      console.log('additional links: ', this.additionalLinks);
+      this.additionalLinks.forEach(function(link) {
+        link.addEventListener('click', function (evt) {
+          evt.preventDefault();
+          bus.emit(link.name);
+        }.bind(this));
+      });
       return this;
     }
 

@@ -45,12 +45,8 @@
     });
 
     bus.on('logout', async function (userdata) {
-      const response = await UsersModel.logout();
-      if (response.ok) {
-        new Router().open('/');
-      } else {
-        bus.emit('logout-error', response.error);
-      }
+      await UsersModel.logout();
+      new Router().open('/');
     });
 
     bus.on('signup', async function (userdata) {
