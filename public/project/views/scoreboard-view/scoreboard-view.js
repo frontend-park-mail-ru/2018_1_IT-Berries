@@ -1,5 +1,6 @@
 define('ScoreboardView', function (require) {
   const View = require('View');
+  const bus = require('bus');
   const UsersModel = require('UsersModel');
   const ScoreboardTableBlock = require('ScoreboardTableBlock');
   const ScoreboardPaginatorBlock = require('ScoreboardPaginatorBlock');
@@ -11,24 +12,25 @@ define('ScoreboardView', function (require) {
       this.listNumber = 1;
     }
 
-    create(attrs) {
+    async create(attrs, listSize = this.listSize, listNumber = this.listNumber) {
       console.log('scoreboard create', attrs);
       super.create(attrs);
       const scoreboardTableRoot = this.el.querySelector('.js-scoreboard-table');
       const scoreboardPaginationRoot = this.el.querySelector('.js-scoreboard-pagination');
-      UsersModel.loadList(this.listSize, this.listNumber)
-        .then(function (users) {
-          this.scoreboardTable = new ScoreboardTableBlock({el: scoreboardTableRoot});
-          this.scoreboardTable.data = users;
-          this.scoreboardTable.render();
 
-          this.scoreboardPaginator = new ScoreboardPaginatorBlock({el: scoreboardPaginationRoot});
-          this.scoreboardPaginator.data = users;
-          this.scoreboardPaginator.usersCount = users.length;
-          this.scoreboardPaginator.render(this.listSize, this.listNumber, this.create.bind(this));
+      const response = await UsersModel.loadList(listSize, listNumber);
+      if (response.ok) {
+        this.scoreboardTable = new ScoreboardTableBlock({el: scoreboardTableRoot});
+        this.scoreboardTable.data = response.data.scorelist;
+        this.scoreboardTable.render();
 
-        }.bind(this))
-        .catch(console.error);
+        this.scoreboardPaginator = new ScoreboardPaginatorBlock({el: scoreboardPaginationRoot});
+        this.scoreboardPaginator.data = response.data.scorelist;
+        this.scoreboardPaginator.usersCount = response.data.length;
+        this.scoreboardPaginator.render(listSize, listNumber, this.create.bind(this));
+      } else {
+        console.error('Scoreboard cannot be loaded.');
+      }
 
       return this;
     }

@@ -1,4 +1,4 @@
-define('ScoreboardPaginatorBlock', function(require) {
+define('ScoreboardPaginatorBlock', function() {
 
   /** Class representing a scoreboard paginator block. */
   return class ScoreboardPaginatorBlock {
@@ -58,21 +58,21 @@ define('ScoreboardPaginatorBlock', function(require) {
           evt.preventDefault();
           const target = evt.target;
           const value = Number(target.innerHTML);
-          callback(listSize, value);
+          callback(undefined, listSize, value);
         });
       });
       const arrowLeft = document.getElementsByClassName('scoreboard__paginator-left');
       if (arrowLeft.length !== 0) {
         arrowLeft[0].addEventListener('click', (evt) => {
           evt.preventDefault();
-          callback(listSize, listNumber - 1);
+          callback(undefined, listSize, listNumber - 1);
         });
       }
       const arrowRight = document.getElementsByClassName('scoreboard__paginator-right');
       if (arrowRight.length !== 0) {
         arrowRight[0].addEventListener('click', (evt) => {
           evt.preventDefault();
-          callback(listSize, listNumber + 1);
+          callback(undefined, listSize, listNumber + 1);
         });
       }
     }

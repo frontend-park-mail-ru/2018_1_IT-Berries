@@ -41,7 +41,6 @@ define('Router', function (require) {
       }
 
       if (this.active) {
-        console.log('active: ', this.active);
         this.active.destroy();
         this.active = null;
       }
