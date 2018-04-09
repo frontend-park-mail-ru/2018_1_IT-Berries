@@ -1,19 +1,17 @@
-define('SettingsView', function (require) {
-  const View = require('View');
+import View from '../view/view.js';
 
-  return class SettingsView extends View {
-    constructor() {
-      super('settingsViewTmplTemplate');
-    }
+export default class SettingsView extends View {
+  constructor() {
+    super('settingsViewTmplTemplate');
+  }
 
-    allowed() {
-      return true;
-    }
+  allowed() {
+    return true;
+  }
 
-    render() {
-      const attrs = {};
+  render() {
+    const attrs = {};
 
-      return super.render(attrs);
-    }
-  };
-});
+    return super.render(attrs);
+  }
+}

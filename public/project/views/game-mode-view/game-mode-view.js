@@ -1,19 +1,19 @@
-define('GameModeView', function (require) {
-  const View = require('View');
+import View from '../view/view.js';
 
-  return class GameModeView extends View {
-    constructor() {
-      super('gameModeViewTmplTemplate');
-    }
+export default class GameModeView extends View {
 
-    allowed() {
-      return true;
-    }
+  constructor() {
+    super('gameModeViewTmplTemplate');
+  }
 
-    render() {
-      const attrs = {};
+  allowed() {
+    return true;
+  }
 
-      return super.render(attrs);
-    }
-  };
-});
+  render() {
+    const attrs = {};
+
+    return super.render(attrs);
+  }
+
+}

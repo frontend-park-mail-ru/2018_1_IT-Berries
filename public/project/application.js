@@ -1,71 +1,71 @@
-(function() {
+// Import modules
+import Router from './modules/router.js';
+import { eventBus } from './modules/event-bus.js';
 
-  document.addEventListener('DOMContentLoaded', async function () {
+// Import views
+import MenuView from './views/menu-view/menu-view.js';
+import GameModeView from './views/game-mode-view/game-mode-view.js';
+import LoginView from './views/login-view/login-view.js';
+import SignupView from './views/signup-view/signup-view.js';
+import ProfileView from './views/profile-view/profile-view.js';
+import ScoreboardView from './views/scoreboard-view/scoreboard-view.js';
+import SettingsView from './views/settings-view/settings-view.js';
+import AboutView from './views/about-view/about-view.js';
 
-    const UsersModel = require('UsersModel');
-    const Router = require('Router');
-    const bus = require('bus');
+// Import models
+import UsersModel from './models/users-model.js';
 
-    const MenuView = require('MenuView');
-    const GameModeView = require('GameModeView');
-    const LoginView = require('LoginView');
-    const SignupView = require('SignupView');
-    const ProfileView = require('ProfileView');
-    const ScoreboardView = require('ScoreboardView');
-    const SettingsView = require('SettingsView');
-    const AboutView = require('AboutView');
+document.addEventListener('DOMContentLoaded', async function () {
 
-    const application = document.getElementsByClassName('application')[0];
+  const application = document.getElementsByClassName('application')[0];
 
-    const loadMeResponse = await UsersModel.loadMe();
-    if (loadMeResponse.ok) {
-      await new Router(application)
-        .add('/', MenuView)
-        .add('/game-mode', GameModeView)
-        .add('/login', LoginView)
-        .add('/signup', SignupView)
-        .add('/profile', ProfileView)
-        .add('/scoreboard', ScoreboardView)
-        .add('/settings', SettingsView)
-        .add('/about', AboutView)
-        .start();
-    }
-    else {
-      console.log('Опа. Ошибочка: ', loadMeResponse.error);
-    }
+  const loadMeResponse = await UsersModel.loadMe();
+  if (loadMeResponse.ok) {
+    await new Router(application)
+      .add('/', MenuView)
+      .add('/game-mode', GameModeView)
+      .add('/login', LoginView)
+      .add('/signup', SignupView)
+      .add('/profile', ProfileView)
+      .add('/scoreboard', ScoreboardView)
+      .add('/settings', SettingsView)
+      .add('/about', AboutView)
+      .start();
+  }
+  else {
+    console.log('Опа. Ошибочка: ', loadMeResponse.error);
+  }
 
-    bus.on('login', async function (userdata) {
-      const response = await UsersModel.login(userdata);
-      if (response.ok) {
-        await new Router().open('/');
-      } else {
-        bus.emit('login-error', response.error);
-      }
-    });
-
-    bus.on('logout', async function (userdata) {
-      await UsersModel.logout();
+  eventBus.on('login', async function (userdata) {
+    const response = await UsersModel.login(userdata);
+    if (response.ok) {
       await new Router().open('/');
-    });
-
-    bus.on('signup', async function (userdata) {
-      const response = await UsersModel.signup(userdata);
-      if (response.ok) {
-        await new Router().open('/');
-      } else {
-        bus.emit('signup-error', response.error);
-      }
-    });
-
-    bus.on('change-profile', async function (profile) {
-      const response = await UsersModel.changeProfile(profile);
-      if (response.ok) {
-        await new Router().open('/profile');
-      } else {
-        bus.emit('change-profile-error', response.error);
-      }
-    });
-
+    } else {
+      eventBus.emit('login-error', response.error);
+    }
   });
 
-})();
+  eventBus.on('logout', async function (userdata) {
+    await UsersModel.logout();
+    await new Router().open('/');
+  });
+
+  eventBus.on('signup', async function (userdata) {
+    const response = await UsersModel.signup(userdata);
+    if (response.ok) {
+      await new Router().open('/');
+    } else {
+      eventBus.emit('signup-error', response.error);
+    }
+  });
+
+  eventBus.on('change-profile', async function (profile) {
+    const response = await UsersModel.changeProfile(profile);
+    if (response.ok) {
+      await new Router().open('/profile');
+    } else {
+      eventBus.emit('change-profile-error', response.error);
+    }
+  });
+
+});

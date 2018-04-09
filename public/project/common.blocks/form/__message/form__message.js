@@ -1,31 +1,30 @@
-define('FormMessageBlock', function () {
+export default class FormMessageBlock {
 
-  return class FormMessageBlock {
-    constructor(el) {
-      this._el = el;
-    }
+  constructor(el) {
+    this._el = el;
+  }
 
-    init() {
-      this.clear();
-      this.hide();
-    }
+  init() {
+    this.clear();
+    this.hide();
+  }
 
-    clear() {
-      this._el.innerHTML = '';
-    }
+  clear() {
+    this._el.innerHTML = '';
+  }
 
-    hide() {
-      this._el.setAttribute('hidden', 'true');
-      return this;
-    }
+  hide() {
+    this._el.setAttribute('hidden', 'true');
+    return this;
+  }
 
-    show() {
-      this._el.removeAttribute('hidden');
-      return this;
-    }
+  show() {
+    this._el.removeAttribute('hidden');
+    return this;
+  }
 
-    setTextContent(text) {
-      this._el.textContent = text;
-    }
-  };
-});
+  setTextContent(text) {
+    this._el.textContent = text;
+  }
+
+}

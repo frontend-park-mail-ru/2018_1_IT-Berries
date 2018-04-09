@@ -1,81 +1,79 @@
-define('SignupView', function (require) {
-  const View = require('View');
-  const FormBlock = require('FormBlock');
-  const FormMessageBlock = require('FormMessageBlock');
-  const UsersModel = require('UsersModel');
+import View from '../view/view.js';
+import FormBlock from '../../common.blocks/form/form.js';
+import FormMessageBlock from '../../common.blocks/form/__message/form__message.js';
+import UsersModel from '../../models/users-model.js';
 
-  return class SignupView extends View {
-    constructor() {
-      super('signupViewTmplTemplate');
-      this.attrs = {
-        form: {
-          fields: [
-            {
-              inputType: 'text',
-              inputName: 'username',
-              inputPlaceholder: 'Your username'
-            },
-            {
-              inputType: 'email',
-              inputName: 'email',
-              inputPlaceholder: 'Your email'
-            },
-            {
-              inputType: 'password',
-              inputName: 'password',
-              inputPlaceholder: 'Your password'
-            },
-            {
-              inputType: 'password',
-              inputName: 'password_repeat',
-              inputPlaceholder: 'Repeat your password'
-            },
-            {
-              inputType: 'file',
-              inputName: 'avatar',
-              inputPlaceholder: 'Path to your avatar'
-            }
-          ],
-          submitText: 'Sign up',
-          additional_links: [
-            {
-              title: 'I already have an account',
-              href: '/login'
-            }
-          ]
-        }
-      };
-    }
-
-    allowed() {
-      return !UsersModel.isAuthorized();
-    }
-
-    async create() {
-      super.create();
-
-      this.formRoot = this.el.querySelector('.js-signup-form');
-      this.formBlock = new FormBlock(this.formRoot, this.attrs.form, this.onSubmit.bind(this));
-      this.formBlock.init();
-
-      this.profileFormMessageRoot = this.el.querySelector('.js-form-message');
-      this.formMessageBlock = new FormMessageBlock(this.profileFormMessageRoot);
-      this.formMessageBlock.init();
-
-      this.bus.on('signup-error', this.onerror.bind(this));
-
-      return this;
-    }
-
-    onerror(err) {
-      if (this.active) {
-        this.formMessageBlock.setTextContent(err);
-        this.formMessageBlock.show();
+export default class SignupView extends View {
+  constructor() {
+    super('signupViewTmplTemplate');
+    this.attrs = {
+      form: {
+        fields: [
+          {
+            inputType: 'text',
+            inputName: 'username',
+            inputPlaceholder: 'Your username'
+          },
+          {
+            inputType: 'email',
+            inputName: 'email',
+            inputPlaceholder: 'Your email'
+          },
+          {
+            inputType: 'password',
+            inputName: 'password',
+            inputPlaceholder: 'Your password'
+          },
+          {
+            inputType: 'password',
+            inputName: 'password_repeat',
+            inputPlaceholder: 'Repeat your password'
+          },
+          {
+            inputType: 'file',
+            inputName: 'avatar',
+            inputPlaceholder: 'Path to your avatar'
+          }
+        ],
+        submitText: 'Sign up',
+        additional_links: [
+          {
+            title: 'I already have an account',
+            href: '/login'
+          }
+        ]
       }
-    }
+    };
+  }
 
-    onSubmit(formdata) {
-      this.bus.emit('signup', formdata);
+  allowed() {
+    return !UsersModel.isAuthorized();
+  }
+
+  async create() {
+    super.create();
+
+    this.formRoot = this.el.querySelector('.js-signup-form');
+    this.formBlock = new FormBlock(this.formRoot, this.attrs.form, this.onSubmit.bind(this));
+    this.formBlock.init();
+
+    this.profileFormMessageRoot = this.el.querySelector('.js-form-message');
+    this.formMessageBlock = new FormMessageBlock(this.profileFormMessageRoot);
+    this.formMessageBlock.init();
+
+    this.eventBus.on('signup-error', this.onerror.bind(this));
+
+    return this;
+  }
+
+  onerror(err) {
+    if (this.active) {
+      this.formMessageBlock.setTextContent(err);
+      this.formMessageBlock.show();
     }
-  };
-});
+  }
+
+  onSubmit(formdata) {
+    this.eventBus.emit('signup', formdata);
+  }
+}

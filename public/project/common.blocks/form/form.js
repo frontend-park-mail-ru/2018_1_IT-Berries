@@ -1,34 +1,34 @@
-define('FormBlock', function (require) {
-  const bus = require('bus');
+// import { eventBus } from '../../modules/bus';
 
-  return class FormBlock {
-    constructor(el, attrs, callback) {
-      this._el = el;
-      this._attrs = attrs;
-      this._callback = callback;
+export default class FormBlock {
 
-      this.form = null;
-    }
+  constructor(el, attrs, callback) {
+    this._el = el;
+    this._attrs = attrs;
+    this._callback = callback;
 
-    init() {
-      this.form = this._el.querySelector('.js-form');
+    this.form = null;
+  }
 
-      this.form.addEventListener('submit', function (evt) {
-        evt.preventDefault();
+  init() {
+    this.form = this._el.querySelector('.js-form');
 
-        const formData = new FormData(this.form);
-        this._callback(formData);
+    this.form.addEventListener('submit', function (evt) {
+      evt.preventDefault();
 
-      }.bind(this));
-    }
+      const formData = new FormData(this.form);
+      this._callback(formData);
 
-    clear() {
-      this._el.innerHTML = '';
-    }
+    }.bind(this));
+  }
 
-    render(attrs) {
-      this._attrs = attrs || this._attrs;
-      this._el.innerHTML = window.formTmplTemplate(this._attrs);
-    }
-  };
-});
+  clear() {
+    this._el.innerHTML = '';
+  }
+
+  render(attrs) {
+    this._attrs = attrs || this._attrs;
+    this._el.innerHTML = window.formTmplTemplate(this._attrs);
+  }
+
+}
