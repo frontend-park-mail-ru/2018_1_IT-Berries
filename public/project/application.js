@@ -19,7 +19,7 @@
 
     const loadMeResponse = await UsersModel.loadMe();
     if (loadMeResponse.ok) {
-      new Router(application)
+      await new Router(application)
         .add('/', MenuView)
         .add('/game-mode', GameModeView)
         .add('/login', LoginView)
@@ -38,7 +38,7 @@
       console.log('userdata for login: ', userdata);
       const response = await UsersModel.login(userdata);
       if (response.ok) {
-        new Router().open('/');
+        await new Router().open('/');
       } else {
         bus.emit('login-error', response.error);
       }
@@ -46,14 +46,14 @@
 
     bus.on('logout', async function (userdata) {
       await UsersModel.logout();
-      new Router().open('/');
+      await new Router().open('/');
     });
 
     bus.on('signup', async function (userdata) {
       console.log('userdata for signup: ', userdata);
       const response = await UsersModel.signup(userdata);
       if (response.ok) {
-        new Router().open('/');
+        await new Router().open('/');
       } else {
         bus.emit('signup-error', response.error);
       }
@@ -63,7 +63,7 @@
       console.log('userdata for change profile: ', profile);
       const response = await UsersModel.changeProfile(profile);
       if (response.ok) {
-        new Router().open('/profile');
+        await new Router().open('/profile');
       } else {
         bus.emit('change-profile-error', response.error);
       }

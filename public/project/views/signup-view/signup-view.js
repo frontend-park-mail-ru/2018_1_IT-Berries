@@ -51,7 +51,7 @@ define('SignupView', function (require) {
       return !UsersModel.isAuthorized();
     }
 
-    create() {
+    async create() {
       super.create();
 
       this.formRoot = this.el.querySelector('.js-signup-form');

@@ -34,18 +34,19 @@ define('Router', function (require) {
      * @param {string} path - path to go
      * @return {Router}
      */
-    open(path) {
+    async open(path) {
       const view = this.map[path];
       if (!view || view === this.active || !view.allowed()) {
         return this;
       }
 
       if (this.active) {
+        console.log('active: ', this.active);
         this.active.destroy();
         this.active = null;
       }
 
-      this.active = view.create();
+      this.active = await view.create();
       if (window.location.pathname !== path) {
         window.history.pushState(null, '', path);
       }
@@ -57,19 +58,19 @@ define('Router', function (require) {
      * Start Router
      * @return {Router}
      */
-    start() {
-      window.addEventListener('popstate', function () {
-        this.open(window.location.pathname);
+    async start() {
+      window.addEventListener('popstate', async function () {
+        await this.open(window.location.pathname);
       }.bind(this));
 
-      this.root.addEventListener('click', function (evt) {
+      this.root.addEventListener('click', async function (evt) {
         if (evt.target.tagName.toLowerCase() === 'a') {
           evt.preventDefault();
-          this.open(evt.target.pathname);
+          await this.open(evt.target.pathname);
         }
       }.bind(this));
 
-      this.open(window.location.pathname);
+      await this.open(window.location.pathname);
     }
   };
 

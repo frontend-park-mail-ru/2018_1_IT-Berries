@@ -33,7 +33,7 @@ define('View', function (require) {
       return this;
     }
 
-    create(attrs) {
+    async create(attrs) {
       return this
         .render(attrs)
         .show();

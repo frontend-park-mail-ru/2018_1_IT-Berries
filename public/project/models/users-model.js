@@ -230,7 +230,9 @@ define('UsersModel', function (require) {
       }
 
       response.ok = true;
-      response.data = response.data.map(item => new UsersModel(item));
+      console.log('fetch response data: ', response.data);
+      response.data = response.data.scorelist.map(item => new UsersModel(item));
+      console.log('response scorelist data: ', response.data);
 
       return response;
 

@@ -67,7 +67,7 @@ define('ProfileView', function (require) {
       return UsersModel.isAuthorized();
     }
 
-    create(attrs) {
+    async create(attrs) {
       super.create(attrs);
 
       this.profileFormRoot = this.el.querySelector('.js-profile-form');
