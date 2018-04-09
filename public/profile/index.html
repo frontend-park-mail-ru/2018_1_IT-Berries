@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cath the Alian!</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../login/css/login-form.css">
+    <link rel="stylesheet" type="text/css" href="../registration/css/registration-form.css">
+    <link href="https://fonts.googleapis.com/css?family=Chicle" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./css/profile.css">
+</head>
+<body>
+
+<header>
+    <div class="home"></div>
+    <div class="tittle">Profile</div>
+    <div class="profile">Guest<div class="profile-icon"></div></div>
+</header>
+<article>
+    <div class="content">
+        <div class="profile-box">
+            <div class="profile-data">
+                <div class="avatar-img"></div>
+                <table class="user-data">
+                    <tr>
+                        <td>Nickname</td>
+                        <td>Cat</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>cat@cat-mail.ru</td>
+                    </tr>
+                    <tr>
+                        <td>Score</td>
+                        <td>606</td>
+                    </tr>
+                </table>
+            </div>
+            <form class = "profile-form">
+                <div class="input"><input type="text" class="form-input profile-input" placeholder="Your nickname"></div>
+                <div class="input"><input type="email" class="form-input profile-input" placeholder="Your email"></div>
+                <div class="input"><input type="password" class="form-input profile-input" placeholder="Password"></div>
+                <div class="input"><input type="password" class="form-input profile-input" placeholder="Repeat password"></div>
+                <div class="input"><input type="password" class="form-input profile-input" placeholder="Old password"></div>
+                <div class="avatar profile-form__avatar-choose">
+                    <div class="login-form__button avatar-button profile-form__avatar-button">Choose avatar</div>
+                    <div class="profile-form__avatar-text">No avatar choose!</div>
+                    <div class="hide-input" hidden><input class="hide-input-avatar" type="file"></div>
+                </div>
+                <input type="submit" class="login-form__button profile-form__button" value="Change data">
+            </form>
+        </div>
+    </div>
+</article>
+
+<footer>
+    <div class="footer__fore"></div>
+</footer>
+<script src="../registration/js/avatar.js"></script>
+</body>
+</html>

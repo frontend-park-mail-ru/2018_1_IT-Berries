@@ -1,0 +1,39 @@
+.stars {
+    width: 20vmin;
+    height: 20vmin;
+    display: flex;
+    justify-content: center; /*Центрирование по горизонтали*/
+    align-items: center;     /*Центрирование по вертикали */
+}
+
+.star-icon {
+    background-image: url("../../icons/star.png");
+    height: 7vmin;
+    width: 7vmin;
+    background-size: 100% 100%;
+    position: absolute;
+}
+
+.top-left {
+    transform: translate(-37vmin, -5vmin);
+}
+
+.bottom-right {
+    transform: translate(37vmin, 30vmin) rotate(180deg);
+}
+
+.star-1 {
+    transform: translateY(-20vmin);
+}
+
+.star-2 {
+    transform: rotate(-45deg) translateY(-20vmin);
+    height: 10vmin;
+    width: 10vmin;
+    background-size: 100% 100%;
+}
+
+.star-3 {
+    transform: rotate(-90deg) translateY(-20vmin);
+    background-size: 100% 100%;
+}

@@ -1,0 +1,21 @@
+.playing-field {
+    width: 72vmin;
+    height: 63vmin;
+    padding: 0;
+    position: absolute;
+    margin-top: 15vmin;
+}
+
+.playing-field table {
+    border-spacing: 1vmin;
+    width: 72vmin;
+    height: 9vmin;
+}
+
+.playing-field tr>td {
+    background-color: rgba(147, 92, 173, 0.4);
+}
+
+.playing-field table[class*=playing-field-row]:nth-of-type(2n+1) {
+    margin-left: 4.5vmin;
+}

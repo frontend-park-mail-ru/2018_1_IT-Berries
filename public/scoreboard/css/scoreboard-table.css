@@ -1,0 +1,144 @@
+/*.scoreboard-table {
+    height: 60vmin;
+    width: 80vmin;
+    border-radius: 3vmin;
+    background-color: rgba(152, 95, 194, 0.4);
+    position: absolute;
+    margin-top: 14vmin;
+    border-width: 0.5vmin;
+    border-style: solid;
+    border-color: rgb(124, 0, 255);
+
+
+    !*display: grid;
+    grid-template-rows:  repeat(3, 5vmin);*!
+}*/
+table {
+    height: 60vmin;
+    width: 90vmin;
+    border-radius: 3vmin;
+    background-color: rgba(152, 95, 194, 0.3);
+    position: absolute;
+    margin-top: 14vmin;
+    border-width: 0.5vmin;
+    border-style: solid;
+    border-color: rgb(17, 0, 168);
+    font-size: 4vmin;
+    color: azure;
+
+    border-spacing: 0;
+
+    box-shadow: 0 0 1vmin 0.5vmin rgba(73, 0, 199, 0.55);
+}
+table ,tr td {
+    text-align: center;
+}
+
+thead {
+    background-color: rgba(228, 116, 255, 0.4);
+    border-radius: 2.5vmin 2.5vmin 0 0;
+    border-bottom-color: rgb(68, 0, 168);
+    border-bottom-style: solid;
+    border-bottom-width: 0.3vmin;
+}
+
+tbody tr td {
+    border-bottom-color: rgb(68, 0, 168);
+    border-bottom-style: solid;
+    border-bottom-width: 0.3vmin;
+}
+
+tbody {
+    height:40vmin;
+    overflow-y: auto;
+    color: rgb(255, 231, 113);
+    border-bottom-color: rgb(68, 0, 168);
+    border-bottom-style: solid;
+    border-bottom-width: 0.3vmin;
+}
+
+tfoot {
+    font-size: 6vmin;
+}
+
+thead, tbody, tfoot tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;/* even columns width , fix width of table too*/
+}
+
+thead tr th:nth-child(1) {
+    width: 8vmin;
+}
+
+thead tr th:nth-child(2) {
+    width: 45vmin;
+}
+
+tbody tr td:nth-child(1) {
+    width: 8vmin;
+}
+
+tbody tr td:nth-child(2) {
+    width: 45vmin;
+}
+
+tbody tr td:nth-child(1), td:nth-child(2) {
+    border-right-style: solid;
+    border-right-width: 0.3vmin;
+    border-right-color: rgb(68, 0, 168);
+}
+
+thead tr th:nth-child(1), th:nth-child(2) {
+    border-right-style: solid;
+    border-right-width: 0.3vmin;
+    border-right-color: rgb(68, 0, 168);
+}
+
+tr {
+    height: 5vmin;
+}
+
+tfoot tr {
+    height: 10vmin;
+    font-size: 5vmin;
+}
+
+tfoot tr td {
+    padding-bottom: 3vmin;
+}
+
+tbody tr:hover {
+    background-color: rgba(228, 116, 255, 0.2);
+    cursor: pointer;
+}
+/*
+.scoreboard-table > div {
+    text-align: center;
+    font-size: 4vmin;
+}
+
+.grid-number {
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+.grid-user {
+    grid-column-start: 3;
+    grid-column-end: 9;
+}
+
+.grid-scores {
+    grid-column-start: 9;
+    grid-column-end: 12;
+}
+
+.grid-header {
+    color: azure;
+    background-color: rgba(176, 86, 212, 0.58);
+}
+
+.scoreboard-table-pagination {
+    grid-column-start: 1;
+    grid-column-end: 12;
+}*/
