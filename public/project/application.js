@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   const loadMeResponse = await UsersModel.loadMe();
   if (loadMeResponse.ok) {
-    await new Router(application)
+    await new Router(application, '/login')
       .add('/', MenuView)
       .add('/game-mode', GameModeView)
       .add('/login', LoginView)
