@@ -5,7 +5,7 @@
 
 export default class Router {
 
-  constructor(root) {
+  constructor(root, unallowed = '/') {
     if (Router.__instance) {
       return Router.__instance;
     }
@@ -13,6 +13,7 @@ export default class Router {
     this.root = root;
     this.map = {};
     this.active = null;
+    this.unallowed = unallowed;
 
     Router.__instance = this;
   }
@@ -35,7 +36,12 @@ export default class Router {
    */
   async open(path) {
     const view = this.map[path];
-    if (!view || view === this.active || !view.allowed()) {
+    if (!view || view === this.active) {
+      return this;
+    }
+
+    if (!view.allowed()) {
+      await this.open(this.unallowed);
       return this;
     }
 

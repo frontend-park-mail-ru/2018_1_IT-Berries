@@ -1,5 +1,6 @@
 'use strict';
 
+const fallback = require(`express-history-api-fallback`);
 const path = require('path');
 const express = require('express');
 const body = require('body-parser');
@@ -27,6 +28,9 @@ app.use(express.static(path.resolve(__dirname, '..', 'public')));
 app.use(body.json());
 app.use(cookie());
 app.use(fileUpload());
+
+
+const root = path.resolve(__dirname, '..', 'public');
 
 const users = {
   'ivan.nemshilov@park.mail.ru': {
@@ -278,6 +282,8 @@ app.put('/me', function (req, res) {
   res.status(200).json(userData);
 
 });
+
+app.use(fallback('index.html', {root}));
 
 const port = process.env.PORT || 8081;
 

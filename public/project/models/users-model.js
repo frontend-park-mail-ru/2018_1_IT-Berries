@@ -41,7 +41,7 @@ export default class UsersModel {
       response.ok = true;
       return response;
     }
-    
+
     response.data = await resp.json();
 
     if (resp.status >= 400) {
