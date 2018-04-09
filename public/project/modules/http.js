@@ -138,4 +138,5 @@ class HttpModule {
 
 }
 
-export let httpModule = new HttpModule();
+let httpModule = new HttpModule();
+export default httpModule;

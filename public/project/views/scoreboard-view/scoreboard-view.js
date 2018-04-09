@@ -26,7 +26,8 @@ export default class ScoreboardView extends View {
       this.scoreboardPaginator.usersCount = response.data.length;
       this.scoreboardPaginator.render(listSize, listNumber, this.create.bind(this));
     } else {
-      console.error('Scoreboard cannot be loaded.');
+
+      // console.error('Scoreboard cannot be loaded.');
     }
 
     return this;

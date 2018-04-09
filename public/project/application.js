@@ -1,6 +1,6 @@
 // Import modules
 import Router from './modules/router.js';
-import { eventBus } from './modules/event-bus.js';
+import eventBus from './modules/event-bus.js';
 
 // Import views
 import MenuView from './views/menu-view/menu-view.js';
@@ -32,9 +32,6 @@ document.addEventListener('DOMContentLoaded', async function () {
       .add('/about', AboutView)
       .start();
   }
-  else {
-    console.log('Опа. Ошибочка: ', loadMeResponse.error);
-  }
 
   eventBus.on('login', async function (userdata) {
     const response = await UsersModel.login(userdata);
@@ -45,7 +42,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
   });
 
-  eventBus.on('logout', async function (userdata) {
+  eventBus.on('logout', async function () {
     await UsersModel.logout();
     await new Router().open('/');
   });

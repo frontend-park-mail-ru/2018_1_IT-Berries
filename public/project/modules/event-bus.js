@@ -48,5 +48,6 @@ class EventBus {
   }
 }
 
-export let eventBus = new EventBus();
+let eventBus = new EventBus();
 
+export default eventBus;

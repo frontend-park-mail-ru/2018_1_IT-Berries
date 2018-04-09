@@ -1,5 +1,5 @@
 import Router from '../../modules/router.js';
-import { eventBus } from '../../modules/event-bus.js';
+import eventBus from '../../modules/event-bus.js';
 
 export default class View {
   constructor(templateName) {

@@ -2,7 +2,7 @@ import View from '../view/view.js';
 import FormBlock from '../../common.blocks/form/form.js';
 import FormMessageBlock from '../../common.blocks/form/__message/form__message.js';
 import UsersModel from '../../models/users-model.js';
-import { eventBus } from '../../modules/event-bus.js';
+import eventBus from '../../modules/event-bus.js';
 
 export default class ProfileView extends View {
 

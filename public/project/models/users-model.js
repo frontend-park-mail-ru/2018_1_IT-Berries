@@ -1,5 +1,5 @@
-import { httpModule } from '../modules/http.js';
-import { eventBus } from '../modules/event-bus.js';
+import httpModule from '../modules/http.js';
+import eventBus from '../modules/event-bus.js';
 
 export let currentUser = null;
 
@@ -41,8 +41,7 @@ export default class UsersModel {
       currentUser = null;
       response.ok = true;
       return response;
-    }
-    else if (resp.status >= 400) {
+    } else if (resp.status >= 400) {
       response.error = response.data.error;
       return response;
     }
@@ -128,7 +127,7 @@ export default class UsersModel {
 
     currentUser = null;
 
-    const resp = await httpModule.fetchGet({
+    await httpModule.fetchGet({
       path: '/logout'
     });
   }

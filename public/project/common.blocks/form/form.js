@@ -1,4 +1,4 @@
-// import { eventBus } from '../../modules/bus';
+// import eventBus from '../../modules/bus';
 
 export default class FormBlock {
 
