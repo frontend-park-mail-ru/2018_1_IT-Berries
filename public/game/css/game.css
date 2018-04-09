@@ -3,7 +3,7 @@
     height: 63vmin;
     padding: 0;
     position: absolute;
-    margin-top: 15vmin;
+    margin-top: 12vmin;
 }
 
 .playing-field table {
@@ -14,8 +14,88 @@
 
 .playing-field tr>td {
     background-color: rgba(147, 92, 173, 0.4);
+
+    border-color: #462663;
+    border-style: solid;
+    border-width: 0.2vmin;
+    box-shadow: 0 0 0.8vmin 0.5vmin azure, 0.5vmin 1vmin 1vmin 0.5vmin black,
+    -0.3vmin 1vmin 1vmin 0.5vmin black;
 }
 
 .playing-field table[class*=playing-field-row]:nth-of-type(2n+1) {
     margin-left: 4.5vmin;
+    width: 64vmin;
 }
+
+.ufo {
+    background-image: url("../icons/ufo.png");
+    height: 100%;
+    width: 100%;
+    background-size: 100% 100%;
+}
+
+.rocket {
+    background-image: url("../icons/rocket.png");
+    height: 100%;
+    width: 100%;
+    background-size: 100% 100%;
+}
+
+.game-moves {
+    text-align: center;
+    font-size: 4vmin;
+    color: azure;
+}
+
+.players-tables {
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 5vmin;
+
+    width: 100%;
+}
+
+.player-panel {
+    width: 25vmin;
+    height: 15vmin;
+    background-color: #55018a;
+    color: azure;
+    font-size: 3vmin;
+    padding: 0;
+    display:table;
+    table-layout:fixed;/* even columns width , fix width of table too*/
+
+    border-radius: 3vmin;
+    border-color: #a076ff;
+    border-style: solid;
+    border-width: 0.3vmin;
+    box-shadow: 1vmin 1vmin 0.5vmin 0.1vmin black;
+
+    margin: 5vmin;
+}
+
+.player-panel>tbody, .player-panel>tfoot .player-panel>tr {
+    display: table;
+    table-layout:fixed;/* even columns width , fix width of table too*/
+}
+
+.player-nickname {
+    width: 100%;
+    text-align: center;
+}
+
+.player-1-panel {
+    left: 5vmin;
+}
+
+.player-2-panel {
+    right: 5vmin;
+}
+
+.stretching {
+    width: 72vmin;
+}
+
