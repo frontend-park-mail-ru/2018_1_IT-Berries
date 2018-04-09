@@ -1,11 +1,11 @@
-/** Class representing a scoreboard paginator component. */
-export default class ScoreboardPaginator {
+/** Class representing a scoreboard paginator block. */
+export default class ScoreboardPaginatorBlock {
 
   /**
-   * Create a scoreboard paginator component.
+   * Create a scoreboard paginator block.
    */
-  constructor() {
-    this._el = document.querySelector('.scoreboard__paginator');
+  constructor({ el = null }) {
+    this._el = el;
   }
 
   /**
@@ -37,7 +37,7 @@ export default class ScoreboardPaginator {
    * @param {Number} listNumber - Current page.
    * @param {Function} callback - Callback function for paginator's links.
    */
-  renderTmpl(listSize = 5, listNumber = 1, callback) {
+  render(listSize = 5, listNumber = 1, callback) {
     let listCount = 0;
     if (!this._usersCount) {
       return;
@@ -56,21 +56,21 @@ export default class ScoreboardPaginator {
         evt.preventDefault();
         const target = evt.target;
         const value = Number(target.innerHTML);
-        callback(listSize, value);
+        callback(undefined, listSize, value);
       });
     });
     const arrowLeft = document.getElementsByClassName('scoreboard__paginator-left');
     if (arrowLeft.length !== 0) {
       arrowLeft[0].addEventListener('click', (evt) => {
         evt.preventDefault();
-        callback(listSize, listNumber - 1);
+        callback(undefined, listSize, listNumber - 1);
       });
     }
     const arrowRight = document.getElementsByClassName('scoreboard__paginator-right');
     if (arrowRight.length !== 0) {
       arrowRight[0].addEventListener('click', (evt) => {
         evt.preventDefault();
-        callback(listSize, listNumber + 1);
+        callback(undefined, listSize, listNumber + 1);
       });
     }
   }

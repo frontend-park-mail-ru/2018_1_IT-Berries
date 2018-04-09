@@ -1,0 +1,25 @@
+section.view.signup-view
+    header.view__header.view-header
+        div.view-header__controls
+            a(href='/') Back
+        h1.view-header__head Sign up
+    div.view__content
+        div.signup-view__form.js-signup-form
+            include ../../common.blocks/form/form.tmpl.pug
+//
+    <section class="registration" hidden="true">
+        <h1>Registration</h1>
+        <form class="registration-form" enctype="multipart/form-data" method="post" name="fileinfo">
+            <input type="text" name="username" class="registration-form__username" placeholder="Username">
+            <input type="email" name="email" class="registration-form__email" placeholder="Email">
+            <input type="password" name="password" class="registration-form__password" placeholder="Password">
+            <input type="password" name="password_repeat" class="registration-form__password_repeat"
+                   placeholder="Repeat password">
+            <input type="file" name="avatar" class="registration-form__avatar" placeholder="path"
+                   accept="image/jpeg,image/png"/>
+            <div class="registration-form__validation"></div>
+            <input class="registration-form__submit" type="submit">
+        </form>
+        <a href="" data-section="menu">Back</a>
+
+    </section>
