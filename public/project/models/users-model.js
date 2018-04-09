@@ -35,13 +35,16 @@ export default class UsersModel {
     const resp = await httpModule.fetchGet({
       path: '/me'
     });
-    response.data = await resp.json();
 
     if (resp.status === 401) {
       currentUser = null;
       response.ok = true;
       return response;
-    } else if (resp.status >= 400) {
+    }
+    
+    response.data = await resp.json();
+
+    if (resp.status >= 400) {
       response.error = response.data.error;
       return response;
     }
