@@ -24,23 +24,24 @@
     display: flex;
     justify-content: center; /*Центрирование по горизонтали*/
     align-items: center;     /*Центрирование по вертикали */
+    user-select: none;
 }
 
-.icon {
+.menu-icon {
     opacity: 0.7;
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
 
-.button:hover .icon {
+.menu__button:hover .menu-icon {
     opacity: 1;
 }
 
-.button:hover {
+.menu__button:hover {
     cursor: pointer;
 }
 
-.button:active .icon {
+.menu__button:active .menu-icon {
     opacity: 1;
 }
 
@@ -62,12 +63,13 @@
     inset 0 0 4vmin 1vmin rgb(228, 255, 0);
 }
 
-.play-icon {
+.menu-play-icon {
     background-image: url("../../../images/play.png");
-    width: 40%;
-    height: 40%;
-    margin-left: 6%;
-    margin-top: 2%;
+    width: 12vmin;
+    height: 12vmin;
+    background-size: 100% 100%;
+    margin-left: 2vmin;
+    margin-top: 1vmin;
 }
 
 .about-button {
@@ -108,12 +110,10 @@
     inset 0 0 2vmin rgba(173, 71, 0, 0.7);
 }
 
-.about-icon {
+.menu-about-icon {
     background-image: url("../../../images/about.png");
     width: 40%;
     height: 40%;
-    margin-left: -2%;
-    margin-top: 4%;
 }
 
 .about-button:hover {
@@ -126,11 +126,10 @@
     inset 0 0 3vmin 1vmin rgb(255, 251, 9);
 }
 
-.settings-icon {
+.menu-settings-icon {
     background-image: url("../../../images/settings.png");
-    width: 40%;
-    height: 40%;
-    margin-top: 5%;
+    width: 10vmin;
+    height: 10vmin;
 }
 
 .settings-button:hover {
@@ -143,12 +142,10 @@
     inset 0 0 2vmin 1vmin rgb(0, 204, 255);
 }
 
-.score-board-icon {
+.menu-score-board-icon {
     background-image: url("../../../images/cup.png");
-    width: 40%;
-    height: 40%;
-    margin-left: -1%;
-    margin-top: 5%;
+    width: 10vmin;
+    height: 10vmin;
 }
 
 .score-board-button:hover {
@@ -161,12 +158,10 @@
     inset 0 0 5vmin rgb(255, 1, 255);
 }
 
-.login-icon {
+.menu-login-icon {
     background-image: url("../../../images/singleplayer.png");
     width: 15vmin;
     height: 15vmin;
-    margin-left: -1%;
-    margin-top: 8%;
 }
 
 .login-button:hover {

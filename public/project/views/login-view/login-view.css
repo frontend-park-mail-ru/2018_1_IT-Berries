@@ -1,0 +1,109 @@
+.login-form {
+
+    margin-top: 8vh;
+
+    width: 50vmin;
+    height: 40vmin;
+    background-color: rgba(228, 116, 255, 0.4);
+    border-radius: 5vmin;
+    border-color: rgb(17, 0, 168);
+    box-shadow: 0 0 1vmin 0.5vmin rgba(73, 0, 199, 0.55);
+
+
+    position: absolute;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.login__input {
+    margin: 2vmin;
+}
+
+.form-input {
+    height: 5vmin;
+    width: 40vmin;
+
+    border-radius: 1.5vmin;
+
+    border-color: #8924cc;
+    border-width: 0.4vmin;
+    border-style:solid;
+
+    text-align: center;
+    color: #6636ff;
+
+    font-size: 4vmin;
+    box-shadow: 0 0 2vmin #8924cc;
+    font-family: 'Chicle', cursive, fantasy;
+}
+
+.form-input:focus {
+    outline: none !important;
+    border: 0.4vmin solid violet;
+    box-shadow: 0 0 2vmin violet;
+}
+
+.form-input::placeholder {
+    color: #6636ff;
+    opacity: 0.5;
+}
+
+.form__links {
+    width: 45vmin;
+    font-size: 2.5vmin;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+}
+
+.form__link {
+    color: azure;
+    font-weight: bold;
+    font-family: arial;
+}
+
+.form__link:hover {
+    color: #ee13ff;
+    text-shadow: 1px 1px 1px black, 0 0 3vmin azure;
+}
+
+.form__button {
+    width: 41vmin;
+    height: 7vmin;
+
+    margin: 2vmin;
+    background-color: #560188;
+    color: azure;
+
+    border-radius: 1.5vmin;
+    border: 0.4vmin solid #560188;
+    box-shadow: 0.5vmin 0.5vmin 2vmin  #430171;
+
+    font-family: 'Chicle', cursive, fantasy;
+    font-size: 4.5vmin;
+}
+
+.form__button:hover {
+    cursor: pointer;
+    text-shadow: 0.1vmin 0.1vmin 1vmin black, 0 0 5vmin azure;
+
+    box-shadow: 0 3px 20px rgba(100, 1, 168, 0.6),
+    0 0.1vmin 0 rgb(100, 1, 168),
+    inset 0 0 20px rgb(184, 4, 255);
+}
+
+.form__button:focus {
+    outline: none !important;
+}
+
+.form__button:active {
+    box-shadow:
+    inset 0 0 20px rgba(0, 0, 0, 0.33),
+    0 2px 0 rgb(67, 1, 113),
+    inset 0 2px 0 rgba(0, 0, 0, 0.2);
+    text-shadow: none;
+}

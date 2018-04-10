@@ -1,8 +1,16 @@
 table.scoreboard__table
+    thead
+        tr
+            th #
+            th user
+            th score
     tbody
         each val, index in data
             tr.scoreboard__row
                 td= val.id + 1
                 td= val.username
-                td= val.email
                 td= val.score
+    tfoot
+        tr
+            td
+                div.scoreboard-view__pagination.js-scoreboard-pagination

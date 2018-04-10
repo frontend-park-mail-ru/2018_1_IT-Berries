@@ -1,0 +1,34 @@
+- let i = 0; let j = 0;
+section.view.game-view
+    header.view__header.view-header
+        a(href='/')
+            div.view-header__home
+        div.view-header__head Cath the Alien!
+        div.view-header__profile Guest
+            div.view-header__profile-icon.profile-icon
+    article
+        div.view__content
+            div.game-view__game
+                while i < 7
+                    - j = 0
+                    table(class='playing-field-row-' + i++)
+                        tr
+                            while j < 8
+                                td(class='playing-field-column-' + j++)
+            div.players-tables
+                each val in [1, 2]
+                    table(class='player-panel player-' + val + '-panel')
+                        thead
+                            tr
+                                th(class='player-nickname') Player #{val}
+                        tbody
+                            tr
+                                td Moves:
+                                td.player-moves 0
+                            tr
+                                td Score:
+                                td.player-score 0
+                    if val==1
+                        div.stretching
+    footer
+        div.footer__fore

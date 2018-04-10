@@ -16,32 +16,27 @@ export default class MenuView extends View {
       attrs.navItems = [
         {
           button_style: 'main-button',
-          button_type: 'play-button',
-          icon: 'play-icon',
-          href: '/game-mode'
+          type: 'play',
+          href: '/game'
         },
         {
           button_style: 'secondary-button',
-          button_type: 'login-button',
-          icon: 'login-icon',
+          type: 'login',
           href: '/profile'
         },
         {
           button_style: 'secondary-button',
-          button_type: 'score-board-button',
-          icon: 'score-board-icon',
+          type: 'score-board',
           href: '/scoreboard'
         },
         {
           button_style: 'secondary-button',
-          button_type: 'settings-button',
-          icon: 'settings-icon',
+          type: 'settings',
           href: '/settings'
         },
         {
           button_style: 'secondary-button',
-          button_type: 'about-button',
-          icon: 'about-icon',
+          type: 'about',
           href: '/about'
         }
       ];
@@ -49,32 +44,27 @@ export default class MenuView extends View {
       attrs.navItems = [
         {
           button_style: 'main-button',
-          button_type: 'play-button',
-          icon: 'play-icon',
-          href: '/game-mode'
+          type: 'play',
+          href: '/game'
         },
         {
           button_style: 'secondary-button',
-          button_type: 'login-button',
-          icon: 'login-icon',
+          type: 'login',
           href: '/login'
         },
         {
           button_style: 'secondary-button',
-          button_type: 'score-board-button',
-          icon: 'score-board-icon',
+          type: 'score-board',
           href: '/scoreboard'
         },
         {
           button_style: 'secondary-button',
-          button_type: 'settings-button',
-          icon: 'settings-icon',
+          type: 'settings',
           href: '/settings'
         },
         {
           button_style: 'secondary-button',
-          button_type: 'about-button',
-          icon: 'about-icon',
+          type: 'about',
           href: '/about'
         }
       ];

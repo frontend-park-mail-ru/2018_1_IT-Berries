@@ -13,7 +13,7 @@ export default class ScoreboardView extends View {
   async create(attrs, listSize = this.listSize, listNumber = this.listNumber) {
     super.create(attrs);
     const scoreboardTableRoot = this.el.querySelector('.js-scoreboard-table');
-    const scoreboardPaginationRoot = this.el.querySelector('.js-scoreboard-pagination');
+    /*const scoreboardPaginationRoot = this.el.querySelector('.js-scoreboard-pagination');*/
 
     const response = await UsersModel.loadList(listSize, listNumber);
     if (response.ok) {
@@ -21,6 +21,7 @@ export default class ScoreboardView extends View {
       this.scoreboardTable.data = response.data.scorelist;
       this.scoreboardTable.render();
 
+      const scoreboardPaginationRoot = document.getElementsByClassName('js-scoreboard-pagination')[0];
       this.scoreboardPaginator = new ScoreboardPaginatorBlock({el: scoreboardPaginationRoot});
       this.scoreboardPaginator.data = response.data.scorelist;
       this.scoreboardPaginator.usersCount = response.data.length;

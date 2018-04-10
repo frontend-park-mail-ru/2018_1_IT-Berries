@@ -7,10 +7,10 @@ section.view.menu-view
             div.view-header__profile-icon.profile-icon
         div.view-header__profile-bar
     article
-        div.article__content
+        div.view__content
             each val in navItems
-                div(class=('menu__button ' + val.button_style + ' ' + val.button_type))
+                div(class=('menu__button ' + val.button_style + ' ' + val.type + '-button'))
                     a(href=val.href)
-                        div(class='icon ' + val.icon)
+                        div(class='menu-icon ' + 'menu-' + val.type + '-icon')
     footer
         div.footer__fore

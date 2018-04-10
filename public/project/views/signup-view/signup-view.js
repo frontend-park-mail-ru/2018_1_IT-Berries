@@ -8,6 +8,12 @@ export default class SignupView extends View {
     super('signupViewTmplTemplate');
     this.attrs = {
       form: {
+        type: 'signup',
+        avatar: {
+          inputType: 'file',
+          inputName: 'avatar',
+          inputPlaceholder: 'Path to your avatar'
+        },
         fields: [
           {
             inputType: 'text',
@@ -29,11 +35,6 @@ export default class SignupView extends View {
             inputName: 'password_repeat',
             inputPlaceholder: 'Repeat your password'
           },
-          {
-            inputType: 'file',
-            inputName: 'avatar',
-            inputPlaceholder: 'Path to your avatar'
-          }
         ],
         submitText: 'Sign up',
         additional_links: [

@@ -1,11 +1,16 @@
 section.view.signup-view
     header.view__header.view-header
-        div.view-header__controls
-            a(href='/') Back
-        h1.view-header__head Sign up
-    div.view__content
-        div.signup-view__form.js-signup-form
+        a(href='/')
+            div.view-header__home
+        div.view-header__head Signup
+        div.view-header__profile Guest
+            div.view-header__profile-icon.profile-icon
+    article
+        div.view__content
             include ../../common.blocks/form/form.tmpl.pug
+    footer
+        div.footer__fore
+
 //
     <section class="registration" hidden="true">
         <h1>Registration</h1>

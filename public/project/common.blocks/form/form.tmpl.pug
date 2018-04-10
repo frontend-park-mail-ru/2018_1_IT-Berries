@@ -1,24 +1,32 @@
-form.form.js-form
-    div.form__fields
-        div.form__message.js-form-message
-        each field in form.fields
-            label.form__field
-                input(
-                    class='form__field-input'
-                    type=field.inputType
-                    name=field.inputName
-                    placeholder=field.inputPlaceholder
-                    required=field.inputRequired
-                    value=field.inputValue
-                )
-            br
-    div.form__controls
-        if form.additional_links
+form(class=form.type + '-form')
+    each field in form.fields
+        div(class=form.type + '__input')
+            input(
+                class='form-input ' + form.type + '-input'
+                type=field.inputType
+                name=field.inputName
+                placeholder=field.inputPlaceholder
+                required=field.inputRequired
+                value=field.inputValue
+            )
+    if form.avatar
+        div.avatar
+            div(
+                class='form__button avatar-button'
+            ) Choose avatar
+            div.avatar-text No avatar choose!
+            div(
+                class='hide-input'
+                hidden
+            )
+    if form.additional_links
+        div.form__links
             each val, index in form.additional_links
-                a(href=val.href) #{val.title}
-            br
-        button(
-            class='form__control'
-            type='submit'
-            value=form.submitText
-        ) #{form.submitText}
+                div
+                    a(href=val.href class='form__link') #{val.title}
+    button(
+        class='form__button'
+        type='submit'
+        value=form.submitText
+    ) #{form.submitText}
+div.form__message.js-form-message
