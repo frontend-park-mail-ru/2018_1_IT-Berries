@@ -1,5 +1,6 @@
 'use strict';
 
+const fallback = require(`express-history-api-fallback`);
 const path = require('path');
 const express = require('express');
 const body = require('body-parser');
@@ -28,6 +29,9 @@ app.use(body.json());
 app.use(cookie());
 app.use(fileUpload());
 
+
+const root = path.resolve(__dirname, '..', 'public');
+
 const users = {
   'ivan.nemshilov@park.mail.ru': {
     username: 'Ivan',
@@ -43,97 +47,98 @@ const users = {
     score: 100500,
     avatar: 'Igor.jpg'
   },
-	'anastasia.puchnina@park.mail.ru': {
-		username: 'Anastasia',
-		email: 'anastasia.puchnina@park.mail.ru',
-		password: 'password',
-		score: 72,
-		avatar: 'Anastasia.jpg'
-	},
-	'elena.oshkina@park.mail.ru': {
-		username: 'Elena',
-		email: 'elena.oshkina@park.mail.ru',
-		password: 'password',
-		score: 72,
-		avatar: 'Elena.jpg'
-	}
+  'anastasia.puchnina@park.mail.ru': {
+    username: 'Anastasia',
+    email: 'anastasia.puchnina@park.mail.ru',
+    password: 'password',
+    score: 72,
+    avatar: 'Anastasia.jpg'
+  },
+  'elena.oshkina@park.mail.ru': {
+    username: 'Elena',
+    email: 'elena.oshkina@park.mail.ru',
+    password: 'password',
+    score: 72,
+    avatar: 'Elena.jpg'
+  }
 };
 const ids = {};
 
 app.post('/registration', function (req, res) {
 
-	logger('Body:');
-	logger(req.body);
-	logger('Files:');
-	logger(req.files);
+  logger('Body:');
+  logger(req.body);
+  logger('Files:');
+  logger(req.files);
 
-	const password = req.body.password;
-	const email = req.body.email;
-	const username = req.body.username;
+  const password = req.body.password;
+  const email = req.body.email;
+  const username = req.body.username;
 
-	if (
-		!username ||
-		!password || !email ||
-		!password.match(/^\S{4,}$/) ||
-		!email.match(/@/)
-	) {
+  if (
+    !username ||
+    !password || !email ||
+    !password.match(/^\S{4,}$/) ||
+    !email.match(/@/)
+  ) {
     logger('Не валидные данные пользователя');
-		return res.status(400).json({error: 'Не валидные данные пользователя'});
-	}
-	if (users[email]) {
+    return res.status(400).json({error: 'Не валидные данные пользователя'});
+  }
+  if (users[email]) {
     logger('Пользователь уже существует');
-		return res.status(400).json({error: 'Данный email уже зарегистрированн'});
-	}
-	logger('Avatar saving');
+    return res.status(400).json({error: 'Данный email уже зарегистрированн'});
+  }
+  logger('Avatar saving');
   const avatar = req.files.avatar;
   let avatarName = '';
   try {
-  	avatarName = avatar.name;
+    avatarName = avatar.name;
     avatar.mv('./server/avatars/' + avatar.name, function(err) {
       if (err)
         logger(err);
     });
-	} catch(err) {
-  	avatarName = 'noavatar.png';
-	}
+  } catch(err) {
+    avatarName = 'noavatar.png';
+  }
   logger('Добавление пользователя');
-	const id = uuid();
-	const user = {username: username, password: password, email: email, score: 0, avatar: avatarName};
-	ids[id] = email;
-	users[email] = user;
+  const id = uuid();
+  const user = {username: username, password: password, email: email, score: 0, avatar: avatarName};
+  ids[id] = email;
+  users[email] = user;
 
   res.cookie('frontend', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-	res.status(201).json({id});
+  res.status(201).json({username: users[email].username, email: email, score: users[email].score, avatar: users[email].avatar});
 });
 
 app.post('/login', function (req, res) {
-	logger(req.body);
-	const password = req.body.password;
-	const email = req.body.email;
-	if (!password || !email) {
-		return res.status(400).json({error: 'Не указан E-Mail или пароль'});
-	}
-	if (!users[email] || users[email].password !== password) {
-		return res.status(400).json({error: 'Не верный E-Mail и/или пароль'});
-	}
+  logger(req.body);
+  const password = req.body.password;
+  const email = req.body.email;
+  if (!password || !email) {
+    return res.status(400).json({error: 'Не указан E-Mail или пароль'});
+  }
+  if (!users[email] || users[email].password !== password) {
+    return res.status(400).json({error: 'Не верный E-Mail и/или пароль'});
+  }
 
-	const id = uuid();
-	ids[id] = email;
+  const id = uuid();
+  ids[id] = email;
 
-	res.cookie('frontend', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-	res.status(201).json({id});
+  res.cookie('frontend', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
+  res.status(200).json({username: users[email].username, email: email, score: users[email].score, avatar: users[email].avatar});
 });
 
 app.get('/me', function (req, res) {
-	const id = req.cookies['frontend'];
-	const email = ids[id];
-	if (!email || !users[email]) {
-		return res.status(401).end();
-	}
+  const id = req.cookies['frontend'];
+  const email = ids[id];
 
-	users[email].score += 1;
+  if (!email || !users[email]) {
+    return res.status(401).json({error: 'Пользователь не авторизован'});
+  }
 
-	res.json({username: users[email].username});
+  users[email].score += 1;
+
+  res.json({username: users[email].username, email: email, score: users[email].score, avatar: users[email].avatar});
 });
 
 app.get('/avatar', function (req, res) {
@@ -153,7 +158,7 @@ app.get('/avatar', function (req, res) {
   res.sendFile(path.resolve(__dirname, 'avatars', avatar));
 });
 
-app.get('/users/', function (req, res) {
+app.get('/users/scoreboard/', function (req, res) {
   logger(req.query);
   const listSize = Number(req.query.listSize);
   const listNumber = Number(req.query.listNumber);
@@ -175,10 +180,11 @@ app.get('/users/', function (req, res) {
 });
 
 app.get('/logout', function (req, res) {
-	logger("Выход пользователя");
+  logger("Выход пользователя");
   let id = req.cookies['frontend'];
   const email = ids[id];
   if (!email || !users[email]) {
+    logger('А он и не входил');
     return res.status(401).end();
   }
   logger("Пользователь вышел");
@@ -188,21 +194,11 @@ app.get('/logout', function (req, res) {
   res.status(202).end();
 });
 
-app.get('/profile-data', function (req, res) {
-  const id = req.cookies['frontend'];
-  const email = ids[id];
-  if (!email || !users[email]) {
-    return res.status(401).end();
-  }
-
-  res.json({username: users[email].username, email: email, score: users[email].score});
-});
-
 app.get('/runtime.js', function (req, res) {
   res.sendFile(path.resolve(__dirname, '..', 'node_modules', 'regenerator-runtime', 'runtime.js'));
 });
 
-app.post('/changeUserData', function (req, res) {
+app.put('/me', function (req, res) {
 
   const id = req.cookies['frontend'];
   const oldEmail = ids[id];
@@ -283,12 +279,14 @@ app.post('/changeUserData', function (req, res) {
   logger(userData);
 
   res.cookie('frontend', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-  res.status(201).json({id});
+  res.status(200).json(userData);
 
 });
+
+app.use(fallback('index.html', {root}));
 
 const port = process.env.PORT || 8081;
 
 app.listen(port, function () {
-	logger(`Server listening port ${port}`);
+  logger(`Server listening port ${port}`);
 });

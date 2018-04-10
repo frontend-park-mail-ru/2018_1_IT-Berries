@@ -1,12 +1,12 @@
-/** Class representing a scoreboard component. */
-export default class ScoreboardComponent {
+/** Class representing a scoreboard table block. */
+export default class ScoreboardTableBlock {
 
   /**
-   * Create a scoreboard component.
+   * Create a scoreboard table block.
    * @param {string} selector - selector of element where scoreboard will be created.
    */
-  constructor(selector = 'body') {
-    this._el = document.querySelector(selector);
+  constructor({ el = null }) {
+    this._el = el;
   }
 
   /**
@@ -33,14 +33,14 @@ export default class ScoreboardComponent {
   }
 
   /**
-   * Render scoreboard data template in HTML component's body.
+   * Render scoreboard data template in HTML block's body.
    */
-  renderTmpl() {
+  render() {
     if (!this._data) {
       return;
     }
     const data = {'data' : this._data};
-    const template = window.scoreboardContainerTmplTemplate(data);
+    const template = window.scoreboardTableTmplTemplate(data);
     this._el.innerHTML = template;
   }
 

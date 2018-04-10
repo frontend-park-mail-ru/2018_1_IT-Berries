@@ -1,0 +1,16 @@
+section.view.menu-view
+    header.view__header.view-header
+        div.view-header__controls
+        div.view-header__home
+        div.view-header__head Catch the Alien!
+        div.view-header__profile Guest
+            div.view-header__profile-icon.profile-icon
+        div.view-header__profile-bar
+    article
+        div.article__content
+            each val in navItems
+                div(class=('menu__button ' + val.button_style + ' ' + val.button_type))
+                    a(href=val.href)
+                        div(class='icon ' + val.icon)
+    footer
+        div.footer__fore
