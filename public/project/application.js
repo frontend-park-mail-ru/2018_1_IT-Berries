@@ -15,24 +15,11 @@ import AboutView from './views/about-view/about-view.js';
 // Import models
 import UsersModel from './models/users-model.js';
 
-// Import workers
-// import { addServiceWorker } from './modules/add-sw.js';
-
-// Temporary adding sw is here TODO: import add-sw
-
-(function addServiceWorker() {
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js', {scope: '/'})
-      .then((registration) => {
-        console.log('sw registration on scope:', registration.scope);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }
-})();
+import { addServiceWorker } from './modules/add-sw.js';
 
 document.addEventListener('DOMContentLoaded', async function () {
+
+  addServiceWorker();
 
   const application = document.getElementsByClassName('application')[0];
 
