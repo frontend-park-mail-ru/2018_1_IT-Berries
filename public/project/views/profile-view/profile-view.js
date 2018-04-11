@@ -8,6 +8,8 @@ export default class ProfileView extends View {
 
   constructor() {
     super('profileViewTmplTemplate');
+
+    this.eventBus.on('change-profile-error', this.onError.bind(this));
   }
 
   render() {
@@ -71,7 +73,7 @@ export default class ProfileView extends View {
     super.create(attrs);
 
     this.profileFormRoot = this.el.querySelector('.js-profile-form');
-    this.formBlock = new FormBlock(this.profileFormRoot, this.attrs.form, this.onSubmit.bind(this));
+    this.formBlock = new FormBlock(this.profileFormRoot, this.attrs.form, 'change-profile');
     this.formBlock.init();
 
     this.profileFormMessageRoot = this.el.querySelector('.js-form-message');
@@ -84,8 +86,6 @@ export default class ProfileView extends View {
       this.formMessageBlock.hide();
     }.bind(this));
 
-    this.eventBus.on('change-profile-error', this.onerror.bind(this));
-
     this.additionalLinks = [...this.el.querySelector('.js-additional-links').getElementsByTagName('a')];
     this.additionalLinks.forEach(function(link) {
       link.addEventListener('click', function (evt) {
@@ -97,15 +97,11 @@ export default class ProfileView extends View {
     return this;
   }
 
-  onerror(err) {
+  onError(err) {
     if (this.active) {
       this.formMessageBlock.setTextContent(err);
       this.formMessageBlock.show();
     }
-  }
-
-  onSubmit(formdata) {
-    this.eventBus.emit('change-profile', formdata);
   }
 
 }

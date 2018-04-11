@@ -31,7 +31,7 @@ export default class LoginView extends View {
       }
     };
 
-    this.eventBus.on('login-error', this.onerror.bind(this));
+    this.eventBus.on('login-error', this.onError.bind(this));
   }
 
   allowed() {
@@ -42,27 +42,21 @@ export default class LoginView extends View {
     super.create();
 
     this.formRoot = this.el.querySelector('.js-login-form');
-    this.FormBlock = new FormBlock(this.formRoot, this.attrs.form, this.onSubmit.bind(this));
+    this.FormBlock = new FormBlock(this.formRoot, this.attrs.form, 'login');
     this.FormBlock.init();
 
     this.profileFormMessageRoot = this.el.querySelector('.js-form-message');
     this.formMessageBlock = new FormMessageBlock(this.profileFormMessageRoot);
     this.formMessageBlock.init();
 
-    this.eventBus.on('login-error', this.onerror.bind(this));
-
     return this;
   }
 
-  onerror(err) {
+  onError(err) {
     if (this.active) {
       this.formMessageBlock.setTextContent(err);
       this.formMessageBlock.show();
     }
-  }
-
-  onSubmit(formdata) {
-    this.eventBus.emit('login', formdata);
   }
 
 }

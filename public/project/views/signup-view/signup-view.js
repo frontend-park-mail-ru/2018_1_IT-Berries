@@ -44,6 +44,8 @@ export default class SignupView extends View {
         ]
       }
     };
+
+    this.eventBus.on('signup-error', this.onError.bind(this));
   }
 
   allowed() {
@@ -54,26 +56,20 @@ export default class SignupView extends View {
     super.create();
 
     this.formRoot = this.el.querySelector('.js-signup-form');
-    this.formBlock = new FormBlock(this.formRoot, this.attrs.form, this.onSubmit.bind(this));
+    this.formBlock = new FormBlock(this.formRoot, this.attrs.form, 'signup');
     this.formBlock.init();
 
     this.profileFormMessageRoot = this.el.querySelector('.js-form-message');
     this.formMessageBlock = new FormMessageBlock(this.profileFormMessageRoot);
     this.formMessageBlock.init();
 
-    this.eventBus.on('signup-error', this.onerror.bind(this));
-
     return this;
   }
 
-  onerror(err) {
+  onError(err) {
     if (this.active) {
       this.formMessageBlock.setTextContent(err);
       this.formMessageBlock.show();
     }
-  }
-
-  onSubmit(formdata) {
-    this.eventBus.emit('signup', formdata);
   }
 }
