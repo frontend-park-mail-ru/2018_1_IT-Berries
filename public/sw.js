@@ -10,7 +10,6 @@ this.addEventListener('fetch', function(event) {
         });
       });
     }).catch(function() {
-      console.error('you are offline and no cache for this: ', event);
       return caches.match('/');
     })
   );
