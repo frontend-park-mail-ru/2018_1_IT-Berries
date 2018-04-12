@@ -1,4 +1,4 @@
-form(class=form.type + '-form').js-form
+form(class=form.type + '-form')
     each field in form.fields
         div(class=form.type + '__input')
             input(
@@ -19,6 +19,10 @@ form(class=form.type + '-form').js-form
                 class='hide-input'
                 hidden
             )
+                input(
+                    class="hide-input-avatar"
+                    type="file"
+                )
     if form.additional_links
         div.form__links
             each val, index in form.additional_links

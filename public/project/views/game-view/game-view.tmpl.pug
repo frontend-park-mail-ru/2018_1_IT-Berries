@@ -8,13 +8,6 @@ section.view.game-view
             div.view-header__profile-icon.profile-icon
     article
         div.view__content
-            div.game-view__game
-                while i < 7
-                    - j = 0
-                    table(class='playing-field-row-' + i++)
-                        tr
-                            while j < 8
-                                td(class='playing-field-column-' + j++)
             div.players-tables
                 each val in [1, 2]
                     table(class='player-panel player-' + val + '-panel')
@@ -30,5 +23,6 @@ section.view.game-view
                                 td.player-score 0
                     if val==1
                         div.stretching
+            div.game-view__game
     footer
         div.footer__fore
