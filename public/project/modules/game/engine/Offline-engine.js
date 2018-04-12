@@ -22,7 +22,7 @@ export default class OfflineEngine extends Engine{
   onPlayer1Turn(evt) {
     const ufoX = this.bot.getPosition().x;
     const ufoY = this.bot.getPosition().y;
-    if (ufoX === 0 || ufoX + 1 === this.gameScene.getX() || ufoY === 0 || ufoY + 1 === this.gameScene.getY()) {
+    if (ufoX === 0 || ufoX === this.gameScene.getX() || ufoY === 0 || ufoY === this.gameScene.getY()) {
       this.eventBus.emit(this.events.FINISH_GAME);
     } else {
       this.gameScene.playerOneTurn();
