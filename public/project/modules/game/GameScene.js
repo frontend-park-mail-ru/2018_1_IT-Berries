@@ -45,7 +45,7 @@ export default class GameScene {
   }
 
   async playerTwoTurn(event) {
-    if (this.player_turn == 1) {
+    if (this.player_turn == 1 && !event.target.classList.contains('ufo')) {
       this.gameField._el.classList.remove('player_1_turn');
       this.setRocket(event.target);
       this.eventsBus.emit(gameEvents.PLAYER_2_TURN, event.target);
