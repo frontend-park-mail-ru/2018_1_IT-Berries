@@ -33,7 +33,7 @@ class EventBus {
     } else {
       this.listeners[event] = [];
     }
-    return this;
+    return listener;
   }
 
   /**

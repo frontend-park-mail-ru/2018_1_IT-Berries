@@ -17,7 +17,7 @@ import UsersModel from './models/users-model.js';
 
 import { addServiceWorker } from './modules/add-sw.js';
 
-document.addEventListener('DOMContentLoaded', async function () {
+document.addEventListener('DOMContentLoaded', async () => {
 
   addServiceWorker();
 
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       .start();
   }
 
-  eventBus.on('login', async function (userdata) {
+  eventBus.on('login', async (userdata) => {
     const response = await UsersModel.login(userdata);
     if (response.ok) {
       await new Router().open('/');
@@ -46,12 +46,12 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
   });
 
-  eventBus.on('logout', async function () {
+  eventBus.on('logout', async () => {
     await UsersModel.logout();
     await new Router().open('/');
   });
 
-  eventBus.on('signup', async function (userdata) {
+  eventBus.on('signup', async (userdata) => {
     const response = await UsersModel.signup(userdata);
     if (response.ok) {
       await new Router().open('/');
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
   });
 
-  eventBus.on('change-profile', async function (profile) {
+  eventBus.on('change-profile', async (profile) => {
     const response = await UsersModel.changeProfile(profile);
     if (response.ok) {
       await new Router().open('/profile');
