@@ -16,6 +16,12 @@ export default class ProfileView extends View {
     const profile = UsersModel.getCurrentUser();
     const attrs = {
       form: {
+        type: 'profile',
+        avatar: {
+          inputType: 'file',
+          inputName: 'avatar',
+          inputPlaceholder: 'Path to your avatar'
+        },
         fields: [
           {
             inputType: 'username',
@@ -44,11 +50,6 @@ export default class ProfileView extends View {
             inputName: 'current_password',
             inputPlaceholder: 'Current password'
           },
-          {
-            inputType: 'file',
-            inputName: 'avatar',
-            inputPlaceholder: 'Path to your avatar'
-          }
         ],
         submitText: 'Change profile'
       },
@@ -71,6 +72,18 @@ export default class ProfileView extends View {
 
   async create(attrs) {
     super.create(attrs);
+
+    const avatar_input = document.getElementsByClassName('hide-input-avatar')[0];
+    const avatar_button = document.getElementsByClassName('avatar-button')[0];
+    const avatar_text = document.getElementsByClassName('avatar-text')[0];
+
+    avatar_button.addEventListener('click', () => {
+      avatar_input.click();
+    });
+
+    avatar_input.addEventListener('change', () => {
+      avatar_text.innerHTML = avatar_input.value.split(/(\\|\/)/g).pop();
+    });
 
     this.profileFormRoot = this.el.querySelector('.js-profile-form');
     this.formBlock = new FormBlock(this.profileFormRoot, this.attrs.form, 'change-profile');

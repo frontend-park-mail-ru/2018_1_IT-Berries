@@ -1,6 +1,6 @@
 import Engine from './engine.js';
-import Map from './Map.js';
-import Bot from './Bot.js';
+import Map from './map.js';
+import Bot from './bot.js';
 
 export default class OfflineEngine extends Engine{
   constructor(gameScene, eventBus) {
