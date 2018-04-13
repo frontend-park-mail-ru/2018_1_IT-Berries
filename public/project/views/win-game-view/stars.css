@@ -1,0 +1,45 @@
+.end-game-board__stars {
+    position: absolute;
+    height: 15vmin;
+    width: 15vmin;
+
+}
+
+.end-game-board__star {
+    height: 100%;
+    width: 100%;
+}
+
+.dark-star {
+    position: absolute;
+    background-size: 100% 100%;
+    background-image: url("../../../images/dark-star.png");
+}
+
+.light-star {
+    height: 13.5vmin;
+    width: 13.5vmin;
+    position: absolute;
+    background-size: 100% 100%;
+    background-image: url("../../../images/star.png");
+}
+
+.end-game-board__star-1 {
+    transform: translateX(-12vmin) rotate(-20deg) translateY(-18vmin);
+}
+
+.end-game-board__star-2 {
+    transform: translateY(-20vmin);
+}
+
+.end-game-board__star-3 {
+    transform: translateX(12vmin) rotate(20deg) translateY(-18vmin);
+}
+
+.end-game-board__star-4 {
+    transform: translateX(-11.5vmin) rotate(-20deg) translateY(-17.14vmin);
+}
+
+.end-game-board__star-5 {
+    transform: translateY(-19.2vmin) translateX(0.75vmin);
+}

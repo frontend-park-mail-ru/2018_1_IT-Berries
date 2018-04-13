@@ -4,5 +4,5 @@ while i < y
     table(class='playing-field-row-' + i++ + ' game-view__game-table')
         tr
             while j < x + (i + 1)%2
-                td(class='playing-field-column-' + j++)
+                td(class='playing-field-column-' + j++ + ' empty_cell')
                     div.cell.empty-cell

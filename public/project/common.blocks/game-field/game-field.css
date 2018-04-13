@@ -44,11 +44,19 @@
     background-size: 100% 100%;
 }
 
+.rocket {
+    opacity: 1;
+    background-image: url("../../../images/rocket.png");
+    height: 100%;
+    width: 100%;
+    background-size: 100% 100%;
+}
+
 .player_1_turn table tbody tr td:hover .empty-cell:hover {
     opacity: 0.8;
 }
 
-.player_1_turn table tbody tr td:hover {
+.player_1_turn table tbody tr .empty_cell:hover {
     box-shadow: 0 0 2vmin 1vmin azure;
     cursor: pointer;
 }

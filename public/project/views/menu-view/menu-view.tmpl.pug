@@ -1,7 +1,5 @@
 section.view.menu-view
     header.view__header.view-header
-        div.view-header__controls
-        div.view-header__home
         div.view-header__head Catch the Alien!
         div.view-header__profile Guest
             div.view-header__profile-icon.profile-icon
@@ -10,7 +8,7 @@ section.view.menu-view
         div.view__content
             each val in navItems
                 div(class=('menu__button ' + val.button_style + ' ' + val.type + '-button'))
+                    div(class='menu-icon ' + 'menu-' + val.type + '-icon')
                     a(href=val.href)
-                        div(class='menu-icon ' + 'menu-' + val.type + '-icon')
     footer
         div.footer__fore

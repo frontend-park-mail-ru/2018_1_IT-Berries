@@ -15,6 +15,7 @@ export default class GameView extends View {
   async create(attrs) {
     super.create(attrs);
     this.doGame(attrs);
+    return this;
   }
 
   doGame(pathname) {

@@ -8,8 +8,6 @@ export default class Game {
     let GameEngine = null;
     switch (mode) {
     case GAME_MODES.ONLINE: {
-      
-      /*ONLINE MODE*/
       break;
     }
     case GAME_MODES.OFFLINE: {

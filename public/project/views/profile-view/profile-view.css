@@ -21,6 +21,11 @@
     width: 25vmin;
 }
 
+.profile__input {
+    margin: 2vmin;
+    width: 25vmin;
+}
+
 .profile-data {
     width: 35vmin;
     height: 60vmin;
@@ -67,16 +72,14 @@
     padding-left: 2vmin;
 }
 
-
-
-.profile-view-form {
+.profile-form {
     width: 30vmin;
     margin-bottom: 7vmin;
 }
 
 .avatar-img {
-    max-width: 30vmin;
-    max-height: 30vmin;
+    width: 30vmin;
+    height: 30vmin;
     background-size: 100% 100%;
     border-radius: 2vmin;
     margin-top: 1vmin;
