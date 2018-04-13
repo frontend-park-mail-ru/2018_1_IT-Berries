@@ -1,5 +1,24 @@
 section.view.scoreboard-view
     header.view__header.view-header
+        a(href='/')
+            div.view-header__home
+        div.view-header__head Scoreboard
+        div.view-header__profile Guest
+            div.view-header__profile-icon.profile-icon
+    article
+        div.view__content
+            div.stars.top-left
+                each val in [1, 2, 3]
+                    div(class='star-icon star-' + val)
+            div.scoreboard-view__table.js-scoreboard-table
+            div.stars.bottom-right
+                each val in [1, 2, 3]
+                    div(class='star-icon star-' + val)
+    footer
+        div.footer__fore
+        
+//
+  Тут то, что было до встраивания верстки. Поломалось
         div.view-header__controls
             a(href='/') Back
         h1.view-header__head Scoreboard
@@ -7,11 +26,3 @@ section.view.scoreboard-view
     div.view__content
         div.scoreboard-view__table.js-scoreboard-table
         div.scoreboard-view__pagination.js-scoreboard-pagination
-
-//
-    <section class="scoreboard" hidden="true">
-       <h1>Scoreboard</h1>
-       <div class="scoreboard__container"></div>
-       <div class="scoreboard__paginator"></div>
-       <a href="" data-section="menu">Back</a>
-    </section>

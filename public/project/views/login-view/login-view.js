@@ -9,6 +9,7 @@ export default class LoginView extends View {
     super('loginViewTmplTemplate');
     this.attrs = {
       form: {
+        type: 'login',
         fields: [
           {
             inputType: 'email',
@@ -24,7 +25,11 @@ export default class LoginView extends View {
         submitText: 'Log in',
         additional_links: [
           {
-            title: 'Sign up',
+            title: 'Signup',
+            href: '/signup'
+          },
+          {
+            title: 'Forget password?',
             href: '/signup'
           }
         ]

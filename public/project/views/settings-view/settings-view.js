@@ -10,7 +10,18 @@ export default class SettingsView extends View {
   }
 
   render() {
-    const attrs = {};
+    const attrs = {
+      navItems: [
+        {
+          setup_name: 'Sound:',
+          type: 'sound'
+        },
+        {
+          setup_name: 'Music::',
+          type: 'music'
+        }
+      ]
+    };
 
     return super.render(attrs);
   }
