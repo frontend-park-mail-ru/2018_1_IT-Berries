@@ -4,7 +4,6 @@ import eventBus from './modules/event-bus.js';
 
 // Import views
 import MenuView from './views/menu-view/menu-view.js';
-import GameModeView from './views/game-mode-view/game-mode-view.js';
 import GameView from './views/game-view/game-view.js';
 import LoginView from './views/login-view/login-view.js';
 import SignupView from './views/signup-view/signup-view.js';

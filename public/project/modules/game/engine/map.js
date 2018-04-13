@@ -1,4 +1,4 @@
-import Cell from './Cell.js';
+import Cell from './cell.js';
 
 export default class Map {
   constructor(x, y) {
@@ -27,8 +27,7 @@ export default class Map {
             this.map[i][j].setCell4( this.map[i - 1][j]);
             this.map[i][j].setCell5( this.map[i - 1][j + 1]);
           }
-        }
-        else {
+        } else {
           if ((i + 1 < y)) {
             if (j + 1 < x + 1) {
               this.map[i][j].setCell1( this.map[i + 1][j]);
