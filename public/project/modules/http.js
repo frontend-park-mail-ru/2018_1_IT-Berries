@@ -15,7 +15,9 @@ class HttpModule {
       this._baseUrl = 'http://localhost:8081';
       break;
     case 'itberries-frontend.herokuapp.com':
-      this._baseUrl = 'https://itberries-backend.herokuapp.com';
+      this._baseUrl = 'https://itberries-frontend.herokuapp.com:8081';
+
+      //this._baseUrl = 'https://itberries-backend.herokuapp.com';
       break;
     }
   }
