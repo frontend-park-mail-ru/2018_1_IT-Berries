@@ -13,8 +13,7 @@ export default function settingsEffects() {
     if (soundOn) {
       soundIcon.style.backgroundImage = 'url(../../../images/audioOff.png)';
       soundOn = false;
-    }
-    else {
+    } else {
       soundOn = true;
       checkAudeo();
     }
@@ -24,8 +23,7 @@ export default function settingsEffects() {
     if (musicOn) {
       musicIcon.style.backgroundImage = 'url(../../../images/musicOff.png)';
       musicOn = false;
-    }
-    else {
+    } else {
       musicOn = true;
       musicIcon.style.backgroundImage = 'url(../../../images/musicOn.png)';
     }
@@ -54,11 +52,9 @@ export default function settingsEffects() {
       const value = soundInput.value;
       if (value <= 33) {
         soundIcon.style.backgroundImage = 'url(../../../images/audioOn-1.png)';
-      }
-      else if (value >= 33 && value <= 66) {
+      } else if (value >= 33 && value <= 66) {
         soundIcon.style.backgroundImage = 'url(../../../images/audioOn-2.png)';
-      }
-      else {
+      } else {
         soundIcon.style.backgroundImage = 'url(../../../images/audioOn-3.png)';
       }
     }

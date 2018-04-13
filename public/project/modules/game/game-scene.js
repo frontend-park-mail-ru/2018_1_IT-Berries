@@ -29,10 +29,10 @@ export default class GameScene {
 
   stepUfoTo(cell) {
     this.removeCallImgClass(this.ufoStartPosition.x, this.ufoStartPosition.y, 'ufo');
-    this.addCallClassImgClass(this.ufoStartPosition.x, this.ufoStartPosition.y, 'empty_cell', 'empty-cell')
+    this.addCallClassImgClass(this.ufoStartPosition.x, this.ufoStartPosition.y, 'empty_cell', 'empty-cell');
     this.removeCallClassImgClass(cell.x, cell.y, 'empty_cell', 'empty-cell');
     this.addCallImgClass(cell.x, cell.y, 'ufo');
-    this.ufoStartPosition = {x: cell.x, y: cell.y}
+    this.ufoStartPosition = {x: cell.x, y: cell.y};
   }
 
   reset() {
@@ -63,9 +63,9 @@ export default class GameScene {
   }
 
   async setUfoPosition(x, y) {
-    this.ufoStartPosition = {x: x, y: y}
+    this.ufoStartPosition = {x: x, y: y};
     this.addCallImgClass(x, y, 'ufo');
-    this.removeCallClassImgClass(x, y,'empty_cell', 'empty-cell');
+    this.removeCallClassImgClass(x, y, 'empty_cell', 'empty-cell');
   }
 
   turnOnCellIlluminationOnHover(x, y) {

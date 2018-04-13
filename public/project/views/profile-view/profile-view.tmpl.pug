@@ -23,6 +23,7 @@ section.view.profile-view
                         if additional_links
                             each val, index in additional_links
                                 a(href=val.href name=val.event) #{val.title}
-                include ../../common.blocks/form/form.tmpl.pug
+                div.js-profile-form
+                        include ../../common.blocks/form/form.tmpl.pug
     footer
         div.footer__fore
