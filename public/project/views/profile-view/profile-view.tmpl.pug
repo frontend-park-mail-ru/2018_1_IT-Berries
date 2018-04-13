@@ -20,22 +20,3 @@ section.view.profile-view
                     br
         div.profile-view__form.js-profile-form
             include ../../common.blocks/form/form.tmpl.pug
-
-//
-    <section class="profile" hidden="true">
-        <h1 class="profile__subheader">Your Profile</h1>
-        <div class="profile-data"></div>
-        <form class="profile-form">
-            <input type="text" name="username" class="profile-form__username profile-form__input" placeholder="Username">
-            <input type="email" name="email" class="profile-form__email profile-form__input" placeholder="Email">
-            <input type="password" name="new_password" class="profile-form__new-password profile-form__input" placeholder="New password">
-            <input type="password" name="new_password_repeat" class="profile-form__new-password-repeat profile-form__input"
-                   placeholder="Repeat new password">
-            <input type="file" name="avatar" class="profile-form__avatar" placeholder="path"
-                   accept="image/jpeg,image/png"/>
-            <div class="profile-form__validation"></div>
-            <input class="profile-form__submit" type="submit">
-            <input type="password" name="current_password" class="profile-form__current-password" placeholder="Current password">
-        </form>
-        <a href="" data-section="menu">Back</a>
-    </section>
