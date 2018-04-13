@@ -1,4 +1,5 @@
 import View from '../view/view.js';
+import settingsEffects from './settings.js';
 
 export default class SettingsView extends View {
   constructor() {
@@ -22,7 +23,8 @@ export default class SettingsView extends View {
         }
       ]
     };
-
-    return super.render(attrs);
+    const reternParam = super.render(attrs);
+    settingsEffects();
+    return reternParam;
   }
 }

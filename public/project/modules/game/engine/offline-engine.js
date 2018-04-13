@@ -52,6 +52,6 @@ export default class OfflineEngine extends Engine{
 
   onPlayer2Win(evt) {
     alert('You lose!');
-    window.location = '/win';
+    window.location = '/lose';
   }
 }
