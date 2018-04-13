@@ -82,7 +82,7 @@ footer {
     background-size: 100% 100%;
 }
 
-.view-header__home {
+.view-header__home > a {
     position: absolute;
     width: 7vmin;
     height: 7vmin;
