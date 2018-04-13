@@ -1,0 +1,59 @@
+.game-moves {
+    text-align: center;
+    font-size: 4vmin;
+    color: azure;
+}
+
+.players-tables {
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 5vmin;
+
+    width: 100%;
+}
+
+.player-panel {
+    width: 25vmin;
+    height: 15vmin;
+    background-color: #8b21b7;
+    color: azure;
+    font-size: 3vmin;
+    padding: 0;
+    display:table;
+    table-layout:fixed;/* even columns width , fix width of table too*/
+
+    border-radius: 3vmin;
+    border-color: #a076ff;
+    border-style: solid;
+    border-width: 0.3vmin;
+    box-shadow: 1vmin 1vmin 0.5vmin 0.1vmin black;
+
+    margin: 5vmin;
+    z-index: 2;
+}
+
+.player-panel>tbody, .player-panel>tfoot .player-panel>tr {
+    display: table;
+    table-layout:fixed;/* even columns width , fix width of table too*/
+}
+
+.player-nickname {
+    width: 100%;
+    text-align: center;
+}
+
+.player-1-panel {
+    left: 5vmin;
+}
+
+.player-2-panel {
+    right: 5vmin;
+}
+
+.stretching {
+    width: 72vmin;
+}
+

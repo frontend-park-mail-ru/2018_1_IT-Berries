@@ -1,0 +1,54 @@
+.game-view__game {
+    width: 72vmin;
+    height: 63vmin;
+    padding: 0;
+    position: absolute;
+    margin-top: 12vmin;
+    z-index: 1;
+}
+
+.game-view__game tr>td {
+    background-color: rgba(147, 92, 173, 0.4);
+
+    border-color: #462663;
+    border-style: solid;
+    border-width: 0.2vmin;
+    box-shadow: 0 0 0.8vmin 0.5vmin azure, 0.5vmin 1vmin 1vmin 0.5vmin black,
+    -0.3vmin 1vmin 1vmin 0.5vmin black;
+}
+
+.game-view__game table[class*=playing-field-row]:nth-of-type(2n+1) {
+    margin-left: 4.5vmin;
+    width: 64vmin;
+}
+
+.game-view__game-table {
+    border-spacing: 1vmin;
+    width: 72vmin;
+    height: 8vmin;
+}
+
+.ufo {
+    position: relative;
+    background-image: url("../../../images/ufo.png");
+    height: 100%;
+    width: 100%;
+    background-size: 100% 100%;
+}
+
+.empty-cell {
+    opacity: 0;
+    background-image: url("../../../images/rocket.png");
+    height: 100%;
+    width: 100%;
+    background-size: 100% 100%;
+}
+
+.player_1_turn table tbody tr td:hover .empty-cell:hover {
+    opacity: 0.8;
+}
+
+.player_1_turn table tbody tr td:hover {
+    box-shadow: 0 0 2vmin 1vmin azure;
+    cursor: pointer;
+}

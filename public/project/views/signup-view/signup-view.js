@@ -8,6 +8,12 @@ export default class SignupView extends View {
     super('signupViewTmplTemplate');
     this.attrs = {
       form: {
+        type: 'signup',
+        avatar: {
+          inputType: 'file',
+          inputName: 'avatar',
+          inputPlaceholder: 'Path to your avatar'
+        },
         fields: [
           {
             inputType: 'text',
@@ -29,11 +35,6 @@ export default class SignupView extends View {
             inputName: 'password_repeat',
             inputPlaceholder: 'Repeat your password'
           },
-          {
-            inputType: 'file',
-            inputName: 'avatar',
-            inputPlaceholder: 'Path to your avatar'
-          }
         ],
         submitText: 'Sign up',
         additional_links: [
@@ -54,9 +55,21 @@ export default class SignupView extends View {
 
   async create() {
     super.create();
+    
+    const avatar_input = document.getElementsByClassName('hide-input-avatar')[0];
+    const avatar_button = document.getElementsByClassName('avatar-button')[0];
+    const avatar_text = document.getElementsByClassName('avatar-text')[0];
+
+    avatar_button.addEventListener('click', () => {
+      avatar_input.click();
+    });
+
+    avatar_input.addEventListener('change', () => {
+      avatar_text.innerHTML = avatar_input.value.split(/(\\|\/)/g).pop();
+    });
 
     this.formRoot = this.el.querySelector('.js-signup-form');
-    this.formBlock = new FormBlock(this.formRoot, this.attrs.form, 'signup');
+    this.formBlock = new FormBlock(this.formRoot, this.attrs.form, this.onSubmit.bind(this));
     this.formBlock.init();
 
     this.profileFormMessageRoot = this.el.querySelector('.js-form-message');
@@ -72,4 +85,5 @@ export default class SignupView extends View {
       this.formMessageBlock.show();
     }
   }
+
 }

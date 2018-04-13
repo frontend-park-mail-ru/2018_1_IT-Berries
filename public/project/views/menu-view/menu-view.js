@@ -15,46 +15,56 @@ export default class MenuView extends View {
     if (UsersModel.isAuthorized()) {
       attrs.navItems = [
         {
-          title: 'Start game',
-          href: '/game-mode'
+          button_style: 'main-button',
+          type: 'play',
+          href: '/game'
         },
         {
-          title: 'Profile',
+          button_style: 'secondary-button',
+          type: 'login',
           href: '/profile'
         },
         {
-          title: 'Scoreboard',
+          button_style: 'secondary-button',
+          type: 'score-board',
           href: '/scoreboard'
         },
         {
-          title: 'Settings',
+          button_style: 'secondary-button',
+          type: 'settings',
           href: '/settings'
         },
         {
-          title: 'About',
+          button_style: 'secondary-button',
+          type: 'about',
           href: '/about'
         }
       ];
     } else {
       attrs.navItems = [
         {
-          title: 'Start game',
-          href: '/game-mode'
+          button_style: 'main-button',
+          type: 'play',
+          href: '/game'
         },
         {
-          title: 'Log in',
+          button_style: 'secondary-button',
+          type: 'login',
           href: '/login'
         },
         {
-          title: 'Scoreboard',
+          button_style: 'secondary-button',
+          type: 'score-board',
           href: '/scoreboard'
         },
         {
-          title: 'Settings',
+          button_style: 'secondary-button',
+          type: 'settings',
           href: '/settings'
         },
         {
-          title: 'About',
+          button_style: 'secondary-button',
+          type: 'about',
           href: '/about'
         }
       ];

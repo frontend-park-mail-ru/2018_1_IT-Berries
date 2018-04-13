@@ -1,5 +1,29 @@
 section.view.settings-view
     header.view__header.view-header
+        a(href='/')
+            div.view-header__home
+        div.view-header__head Settings
+        div.view-header__profile Guest
+            div.view-header__profile-icon.profile-icon
+    article
+        div.view__content
+            div.settings-view__settings
+                each val in navItems
+                    div.settings__point
+                        div.settings__text.range-text #{val.setup_name}
+                        div.input-range
+                            input(type='range' class=(val.type + '-input'))
+                        div(class='settings-icon ' + val.type + '-icon')
+                div.settings__point Theme
+                    div.swither
+                        label.switch
+                            input(type='checkbox' class='checker')
+                            span.slider.round
+    footer
+        div.footer__fore
+        
+//
+  Тут то, что было до встраивания верстки. Поломалось
         div.view-header__controls
             a(href='/') Back
         h1.view-header__head Settings

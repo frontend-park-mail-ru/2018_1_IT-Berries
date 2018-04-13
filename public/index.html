@@ -1,10 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <title>Cath the Alien!</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>MagicalPoints</title>
+
+        <!--styles-->
+        <link href="https://fonts.googleapis.com/css?family=Chicle" rel="stylesheet">
+        <!--menu-->
+        <link rel="stylesheet" type="text/css" href="/project/views/style.css">
+        <link rel="stylesheet" type="text/css" href="/project/views/menu-view/menu.css">
+        <!--settings-->
+        <link rel="stylesheet" type="text/css" href="/project/views/settings-view/css/settings.css">
+        <link rel="stylesheet" type="text/css" href="/project/views/settings-view/css/scrollBar.css">
+        <!--login-->
+        <link rel="stylesheet" type="text/css" href="/project/views/login-view/login-view.css">
+        <!--signup-->
+        <link rel="stylesheet" type="text/css" href="/project/views/signup-view/signup-view.css">
+        <!--scoreboard-table-->
+        <link rel="stylesheet" type="text/css" href="/project/common.blocks/scoreboard/__table/scoreboard__table.css">
+        <link rel="stylesheet" type="text/css" href="/project/views/scoreboard-view/scoreboard-stars.css">
+        <!--game-->
+        <link rel="stylesheet" type="text/css" href="/project/views/game-view/game-view.css">
+        <link rel="stylesheet" type="text/css" href="/project/common.blocks/game-field/game-field.css">
     </head>
     <body>
 
@@ -21,14 +40,17 @@
     <script src="/project/views/scoreboard-view/scoreboard-view.tmpl.js" charset="UTF-8"></script>
     <script src="/project/views/settings-view/settings-view.tmpl.js" charset="UTF-8"></script>
     <script src="/project/views/about-view/about-view.tmpl.js" charset="UTF-8"></script>
-
+    <script src="/project/views/game-view/game-view.tmpl.js" charset="UTF-8"></script>
+  
     <!-- Blocks templates -->
     <script src="/project/common.blocks/form/form.tmpl.js" charset="UTF-8"></script>
     <script src="/project/common.blocks/scoreboard/__table/scoreboard__table.tmpl.js" charset="UTF-8"></script>
     <script src="/project/common.blocks/scoreboard/__paginator/scoreboard__paginator.tmpl.js" charset="UTF-8"></script>
-
+    <script src="/project/common.blocks/game-field/game-field.tmpl.js" charset="UTF-8"></script>
     <script type="module" src="/project/application.js" charset="UTF-8"></script>
-    
+
+    <script type="module" src="/project/modules/game/engine/Cell.js" charset="UTF-8"></script>
+  
     </body>
 
 </html>

@@ -1,0 +1,8 @@
+- let i = 0; let j = 0;
+while i < y
+    - j = 0
+    table(class='playing-field-row-' + i++ + ' game-view__game-table')
+        tr
+            while j < x + (i + 1)%2
+                td(class='playing-field-column-' + j++)
+                    div.cell.empty-cell
