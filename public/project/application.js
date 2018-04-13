@@ -15,7 +15,7 @@ import AboutView from './views/about-view/about-view.js';
 // Import models
 import UsersModel from './models/users-model.js';
 
-import { addServiceWorker } from './modules/add-sw.js';
+// import { addServiceWorker } from './modules/add-sw.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
 
