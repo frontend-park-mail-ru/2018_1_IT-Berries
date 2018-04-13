@@ -54,6 +54,11 @@ export default class LoginView extends View {
     this.formMessageBlock = new FormMessageBlock(this.profileFormMessageRoot);
     this.formMessageBlock.init();
 
+    if (!navigator.onLine) {
+      this.formMessageBlock.setTextContent('You are offline!');
+      this.formMessageBlock.show();
+    }
+
     return this;
   }
 
