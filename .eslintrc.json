@@ -121,6 +121,12 @@
     */
     "no-var": [
       "error"
+    ],
+
+    "no-unused-vars": [
+      "error", {
+        "args": "none"
+      }
     ]
 
   }

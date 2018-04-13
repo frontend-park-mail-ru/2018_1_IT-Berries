@@ -32,7 +32,7 @@ export default class GameScene {
     this.addCallImgClass(this.ufoStartPosition.x, this.ufoStartPosition.y, 'empty-cell');
     this.addCallImgClass(cell.x, cell.y, 'ufo');
     this.removeCallImgClass(cell.x, cell.y, 'empty-cell');
-    this.ufoStartPosition = {x: cell.x, y: cell.y}
+    this.ufoStartPosition = {x: cell.x, y: cell.y};
   }
 
   reset() {
@@ -59,7 +59,7 @@ export default class GameScene {
   }
 
   setUfoPosition(x, y) {
-    this.ufoStartPosition = {x: x, y: y}
+    this.ufoStartPosition = {x: x, y: y};
     this.addCallImgClass(x, y, 'ufo');
     this.removeCallImgClass(x, y, 'empty-cell');
   }

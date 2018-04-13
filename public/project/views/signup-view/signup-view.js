@@ -69,7 +69,7 @@ export default class SignupView extends View {
     });
 
     this.formRoot = this.el.querySelector('.js-signup-form');
-    this.formBlock = new FormBlock(this.formRoot, this.attrs.form, this.onSubmit.bind(this));
+    this.formBlock = new FormBlock(this.formRoot, this.attrs.form, 'signup');
     this.formBlock.init();
 
     this.profileFormMessageRoot = this.el.querySelector('.js-form-message');

@@ -1,6 +1,6 @@
 import View from '../view/view.js';
-import Game from '../../modules/game/game.js'
-import GAME_MODES from '../../modules/game/modes.js'
+import Game from '../../modules/game/game.js';
+import GAME_MODES from '../../modules/game/modes.js';
 
 export default class GameView extends View {
 
