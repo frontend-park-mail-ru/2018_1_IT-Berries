@@ -4,6 +4,10 @@ export default class WinGameView extends View {
 
   constructor() {
     super('winGameViewTmplTemplate');
+    this.attrs = {};
+    this.eventBus.on('WIN_TOTALS', async (gameTotals) => {
+      this.attrs = gameTotals;
+    });
   }
 
   allowed() {
@@ -11,8 +15,7 @@ export default class WinGameView extends View {
   }
 
   render() {
-    const attrs = {};
-    let returnValue = super.render(attrs);
+    let returnValue = super.render(this.attrs);
     document.getElementsByClassName('end-game-board__control')[0].addEventListener('click', () => {
       document.getElementsByClassName('toMenu')[0].click();
     });

@@ -5,6 +5,7 @@ export default class GameScene {
   constructor(x = 8, y = 7, eventBus) {
     this.eventsBus = eventBus;
     const gameFieldRoot = document.getElementsByClassName('game-view__game')[0];
+    this.panels = document.getElementsByClassName('player-panel');
     this.gameField = new gameFieldBlock(gameFieldRoot, x, y);
     this.gameField.render();
     this.x = x;
@@ -13,6 +14,13 @@ export default class GameScene {
     for (let i = 0; i < this.cells.length; i++) {
       this.cells[i].addEventListener('click', this.playerTwoTurn.bind(this));
     }
+  }
+
+  addmove(index) {
+    let moves = this.panels[index].getElementsByClassName('player-moves')[0];
+    moves.innerHTML = Number(moves.innerHTML) + 1;
+    let score = this.panels[index].getElementsByClassName('player-score')[0];
+    score.innerHTML = Number(score.innerHTML) + 10;
   }
 
   getX() {
@@ -60,6 +68,12 @@ export default class GameScene {
     cell.parentNode.classList.remove('empty_cell');
     cell.classList.add('rocket');
     this.player_turn = 2;
+  }
+
+  setRocketByCoordinates(x, y) {
+    const row = this.gameField._el.getElementsByClassName('playing-field-row-' + y)[0];
+    const cell = row.getElementsByClassName('playing-field-column-' + x)[0];
+    this.setRocket(cell.firstChild);
   }
 
   async setUfoPosition(x, y) {
