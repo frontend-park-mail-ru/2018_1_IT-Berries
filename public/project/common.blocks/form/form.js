@@ -1,11 +1,11 @@
-// import eventBus from '../../modules/bus';
+import eventBus from '../../modules/event-bus.js';
 
 export default class FormBlock {
 
-  constructor(el, attrs, callback) {
+  constructor(el, attrs, onSubmitEvent) {
     this._el = el;
     this._attrs = attrs;
-    this._callback = callback;
+    this._onSubmitEvent = onSubmitEvent;
 
     this.form = null;
   }
@@ -17,7 +17,7 @@ export default class FormBlock {
       evt.preventDefault();
 
       const formData = new FormData(this.form);
-      this._callback(formData);
+      eventBus.emit(this._onSubmitEvent, formData);
 
     }.bind(this));
   }

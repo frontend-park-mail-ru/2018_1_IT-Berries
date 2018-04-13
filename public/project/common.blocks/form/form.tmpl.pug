@@ -34,3 +34,31 @@ form(class=form.type + '-form')
         value=form.submitText
     ) #{form.submitText}
 div.form__message.js-form-message
+
+/*
+Тут то что было до встраивания верстки, поломалось
+form.form.js-form
+    div.form__fields
+        div.form__message.js-form-message
+        each field in form.fields
+            label.form__field
+                input(
+                    class='form__field-input'
+                    type=field.inputType
+                    name=field.inputName
+                    placeholder=field.inputPlaceholder
+                    required=field.inputRequired
+                    value=field.inputValue
+                )
+            br
+    div.form__controls
+        if form.additional_links
+            each val, index in form.additional_links
+                a(href=val.href) #{val.title}
+            br
+        button(
+            class='form__control'
+            type='submit'
+            value=form.submitText
+        ) #{form.submitText}
+*/
