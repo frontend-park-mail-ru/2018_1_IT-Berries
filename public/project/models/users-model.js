@@ -152,6 +152,7 @@ export default class UsersModel {
     let password_repeat = '';
     let email = '';
     let username = '';
+    let avatar = '';
 
     for(const dataPair of formData.entries()) {
       if (dataPair[0] === 'password') {
@@ -162,6 +163,8 @@ export default class UsersModel {
         email = dataPair[1];
       } else if (dataPair[0] === 'username') {
         username = dataPair[1];
+      } else if (dataPair[0] === 'avatar') {
+        avatar = dataPair[1].name;
       }
     }
 
@@ -184,6 +187,9 @@ export default class UsersModel {
       response.error = 'Password must be longer than 3 characters';
       return response;
     }
+
+    // Отправляем в виде поля avatar имя аватара
+    formData.append('avatar', avatar);
 
     const resp = await httpModule.fetchPost({
       path: '/registration',
@@ -247,6 +253,7 @@ export default class UsersModel {
     let newPasswordRepeat = '';
     let email = '';
     let username = '';
+    let avatar = '';
 
     for(const dataPair of formData.entries()) {
       if (dataPair[0] === 'new_password') {
@@ -259,6 +266,8 @@ export default class UsersModel {
         username = dataPair[1];
       } else if (dataPair[0] === 'current_password') {
         currentPassword = dataPair[1];
+      } else if (dataPair[0] === 'avatar') {
+        avatar = dataPair[1].name;
       }
     }
 
@@ -278,13 +287,16 @@ export default class UsersModel {
     }
 
     if (email !== currentUser.email ||
-        username !== currentUser.username ||
-        newPassword !== '') {
+      username !== currentUser.username ||
+      newPassword !== '') {
       if (currentPassword === '') {
         response.error = 'You should confirm your current password!';
         return response;
       }
     }
+
+    // Отправляем в виде поля avatar имя аватара
+    formData.append('avatar', avatar);
 
     const resp = await httpModule.fetchPut({
       path: '/me',
