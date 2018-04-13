@@ -16,6 +16,10 @@ export default class GameScene {
     }
   }
 
+  setPanelName(index, name) {
+    this.panels[index].getElementsByClassName('player-nickname')[0].innerHTML = name;
+  }
+
   addmove(index) {
     let moves = this.panels[index].getElementsByClassName('player-moves')[0];
     moves.innerHTML = Number(moves.innerHTML) + 1;
