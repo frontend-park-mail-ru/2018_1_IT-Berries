@@ -1,0 +1,26 @@
+.about-view__about {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+
+    width: 50vmin;
+    height: 50vmin;
+    background-color: rgba(228, 116, 255, 0.4);
+    border-color: rgb(17, 0, 168);
+    box-shadow: 0 0 1vmin 0.5vmin rgba(73, 0, 199, 0.55);
+
+    margin-top: 10vh;
+
+    border-radius: 10%;
+    border-style: solid;
+    border-width: 0.3vmin;
+    position: absolute;
+
+    color: whitesmoke;
+    font-size: 5vmin;
+}
+
+.about-view__about p {
+    text-align: center;
+}
