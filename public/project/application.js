@@ -19,7 +19,7 @@ import { addServiceWorker } from './modules/add-sw.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-  addServiceWorker();
+  // addServiceWorker();
 
   const application = document.getElementsByClassName('application')[0];
 
