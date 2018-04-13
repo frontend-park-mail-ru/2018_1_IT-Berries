@@ -12,6 +12,7 @@ import ScoreboardView from './views/scoreboard-view/scoreboard-view.js';
 import SettingsView from './views/settings-view/settings-view.js';
 import AboutView from './views/about-view/about-view.js';
 import WinGameView from './views/win-game-view/win-game-view.js';
+import LoseGameView from './views/lose-game-view/lose-game-view.js';
 
 // Import models
 import UsersModel from './models/users-model.js';
@@ -36,6 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       .add('/settings', SettingsView)
       .add('/about', AboutView)
       .add('/win', WinGameView)
+      .add('/lose', LoseGameView)
       .start();
   }
 
