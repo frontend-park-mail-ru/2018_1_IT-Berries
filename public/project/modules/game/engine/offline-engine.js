@@ -19,26 +19,25 @@ export default class OfflineEngine extends Engine{
     this.eventBus.emit(this.events.PLAYER_1_TURN);
   }
 
-  onPlayer1Turn(evt) {
+  async onPlayer1Turn(evt) {
     const ufoX = this.bot.getPosition().x;
     const ufoY = this.bot.getPosition().y;
-    if (ufoX === 0 || ufoX === this.gameScene.getX() || ufoY === 0 || ufoY === this.gameScene.getY()) {
-      this.eventBus.emit(this.events.FINISH_GAME);
+    if (ufoX === 0 || ufoX === this.gameScene.getX() || ufoY === 0 || ufoY + 1 === this.gameScene.getY()) {
+      this.eventBus.emit(this.events.PLAYER_2_WIN);
     } else {
       this.gameScene.playerOneTurn();
     }
   }
 
-  onPlayer2Turn(evt) {
+  async onPlayer2Turn(evt) {
     let rocketcolumn = evt.parentNode.className.match(/\d+/g)[0];
     let rocketrow = evt.parentNode.parentNode.parentNode.parentNode.classList[0].match(/\d+/g)[0];
     this.map[rocketrow][rocketcolumn].isRocket = true;
     let newStep = this.bot.searchWay();
     if (newStep === 'No way!') {
-      alert('You win!');
-      window.location = '/game';
+      this.eventBus.emit(this.events.PLAYER_1_WIN);
     }
-    this.gameScene.stepUfoTo(newStep);
+    await this.gameScene.stepUfoTo(newStep);
     this.eventBus.emit(this.events.PLAYER_1_TURN);
   }
 
@@ -46,7 +45,13 @@ export default class OfflineEngine extends Engine{
     this.eventBus.emit('CLOSE_GAME');
   }
 
-  onGameStateChanged(evt) {
-    this.gameScene.setState(evt);
+  onPlayer1Win(evt) {
+    alert('You win!');
+    window.location = '/win';
+  }
+
+  onPlayer2Win(evt) {
+    alert('You lose!');
+    window.location = '/win';
   }
 }

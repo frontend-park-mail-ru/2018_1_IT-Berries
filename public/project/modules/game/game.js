@@ -1,6 +1,6 @@
 import GAME_MODES from './modes.js';
-import GameScene from './GameScene.js';
-import OfflineEngine from './engine/Offline-engine.js';
+import GameScene from './game-scene.js';
+import OfflineEngine from './engine/offline-engine.js';
 
 
 export default class Game {
