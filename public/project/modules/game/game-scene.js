@@ -29,9 +29,9 @@ export default class GameScene {
 
   stepUfoTo(cell) {
     this.removeCallImgClass(this.ufoStartPosition.x, this.ufoStartPosition.y, 'ufo');
-    this.addCallImgClass(this.ufoStartPosition.x, this.ufoStartPosition.y, 'empty-cell');
+    this.addCallClassImgClass(this.ufoStartPosition.x, this.ufoStartPosition.y, 'empty_cell', 'empty-cell');
+    this.removeCallClassImgClass(cell.x, cell.y, 'empty_cell', 'empty-cell');
     this.addCallImgClass(cell.x, cell.y, 'ufo');
-    this.removeCallImgClass(cell.x, cell.y, 'empty-cell');
     this.ufoStartPosition = {x: cell.x, y: cell.y};
   }
 
@@ -39,13 +39,15 @@ export default class GameScene {
     this.setUfoPosition(Math.ceil(this.x / 2) - 1, Math.ceil(this.y / 2) - 1);
   }
 
-  async playerOneTurn() {
+  playerOneTurn() {
     this.player_turn = 1;
     this.gameField._el.classList.add('player_1_turn');
   }
 
-  async playerTwoTurn(event) {
-    if (this.player_turn == 1 && !event.target.classList.contains('ufo')) {
+  playerTwoTurn(event) {
+    if (this.player_turn === 1 &&
+      !event.target.classList.contains('ufo') &&
+      !event.target.classList.contains('rocket')) {
       this.gameField._el.classList.remove('player_1_turn');
       this.setRocket(event.target);
       this.eventsBus.emit(gameEvents.PLAYER_2_TURN, event.target);
@@ -54,14 +56,16 @@ export default class GameScene {
   }
 
   setRocket(cell) {
-    cell.style.opacity = '1';
+    cell.classList.remove('empty-cell');
+    cell.parentNode.classList.remove('empty_cell');
+    cell.classList.add('rocket');
     this.player_turn = 2;
   }
 
-  setUfoPosition(x, y) {
+  async setUfoPosition(x, y) {
     this.ufoStartPosition = {x: x, y: y};
     this.addCallImgClass(x, y, 'ufo');
-    this.removeCallImgClass(x, y, 'empty-cell');
+    this.removeCallClassImgClass(x, y, 'empty_cell', 'empty-cell');
   }
 
   turnOnCellIlluminationOnHover(x, y) {
@@ -126,7 +130,7 @@ export default class GameScene {
   removeCallClassImgClass(x, y, callClass, imgClass) {
     let cell = this.removeCallClass(x, y, callClass);
     let img = cell.getElementsByClassName('cell')[0];
-    img.classList.add(imgClass);
+    img.classList.remove(imgClass);
   }
 
 

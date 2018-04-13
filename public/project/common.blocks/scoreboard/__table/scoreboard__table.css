@@ -94,13 +94,13 @@
     width: 45vmin;
 }
 
-.scoreboard__table tbody tr td:nth-child(1), td:nth-child(2) {
+.scoreboard__table>tbody tr td:nth-child(1), .scoreboard__table>tbody tr td:nth-child(2) {
     border-right-style: solid;
     border-right-width: 0.3vmin;
     border-right-color: rgb(68, 0, 168);
 }
 
-.scoreboard__table thead tr th:nth-child(1), th:nth-child(2) {
+.scoreboard__table>thead tr th:nth-child(1), .scoreboard__table>thead tr th:nth-child(2) {
     border-right-style: solid;
     border-right-width: 0.3vmin;
     border-right-color: rgb(68, 0, 168);
