@@ -73,4 +73,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
+  eventBus.on('win', async () => {
+    await new Router().open('/win');
+  });
+
+  eventBus.on('lose', async () => {
+    await new Router().open('/lose');
+  });
+
 });

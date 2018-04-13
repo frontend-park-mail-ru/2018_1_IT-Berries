@@ -22,8 +22,8 @@ export default class OfflineEngine extends Engine{
   async onPlayer1Turn(evt) {
     const ufoX = this.bot.getPosition().x;
     const ufoY = this.bot.getPosition().y;
-    if (ufoX === 0 || ufoX === this.gameScene.getX() || ufoY === 0 || ufoY + 1 === this.gameScene.getY()) {
-      this.eventBus.emit(this.events.PLAYER_2_WIN);
+    if (ufoX === 0 || ufoX + 1 === this.gameScene.getX() + (ufoY) % 2 || ufoY === 0 || ufoY + 1 === this.gameScene.getY()) {
+      this.eventBus.emit(this.events.FINISH_GAME, this.events.PLAYER_2_WIN);
     } else {
       this.gameScene.playerOneTurn();
     }
@@ -35,23 +35,28 @@ export default class OfflineEngine extends Engine{
     this.map[rocketrow][rocketcolumn].isRocket = true;
     let newStep = this.bot.searchWay();
     if (newStep === 'No way!') {
-      this.eventBus.emit(this.events.PLAYER_1_WIN);
+      this.eventBus.emit(this.events.onGameFinished, this.events.PLAYER_1_WIN);
     }
     await this.gameScene.stepUfoTo(newStep);
     this.eventBus.emit(this.events.PLAYER_1_TURN);
   }
 
-  onGameFinished(evt) {
-    this.eventBus.emit('CLOSE_GAME');
+  onGameFinished(callingEvents) {
+    const endGamePanel = document.getElementsByClassName('end-game-panel')[0];
+    endGamePanel.style.visibility = 'visible';
+    endGamePanel.getElementsByClassName('end-game-panel__button')[0].addEventListener('click', () => {
+      endGamePanel.style.visibility = 'hidden';
+      this.eventBus.emit(callingEvents);
+    });
   }
 
   onPlayer1Win(evt) {
-    alert('You win!');
-    window.location = '/win';
+    this.eventBus.emit('win');
+    this.destroy();
   }
 
   onPlayer2Win(evt) {
-    alert('You lose!');
-    window.location = '/lose';
+    this.eventBus.emit('lose');
+    this.destroy();
   }
 }
