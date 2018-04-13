@@ -7,10 +7,13 @@
 if listCount != 0
     if listNumber != 1
         a(href='' class='scoreboard__paginator-left' name='paginator-link' value=listNumber - 1)='<'
+        |&nbsp;
     while n <= listCount && n < max_n
         if n != listNumber
             a(href='' value=n class='scoreboard__paginator-link' name='paginator-link')= n++
         else
             b= n++
+        |&nbsp;
     if listNumber != listCount
         a(href='' class='scoreboard__paginator-right' value=listNumber + 1 name='paginator-link')='>'
+        |&nbsp;
