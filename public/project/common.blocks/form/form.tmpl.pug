@@ -33,6 +33,7 @@ form(class=form.type + '-form').js-form
                     a(href=val.href class='form__link') #{val.title}
     button(
         class='form__button'
+        class=form.type + '-form__button'
         type='submit'
         value=form.submitText
     ) #{form.submitText}

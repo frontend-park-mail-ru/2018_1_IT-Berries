@@ -1,22 +1,29 @@
 section.view.profile-view
     header.view__header.view-header
-        div.view-header__controls
-            a(href='/') Back
-        h1.view-header__head Your profile
-    div.view-content
-        div.profile-view__data
-            div.profile-view__datarow
-                img(src='/avatar?'+Math.random() + '&avatar=' + profile.avatar height='100' width='100')
-            div.profile-view__datarow
-                p Username: #{profile.username}
-            div.profile-view__datarow
-                p Email: #{profile.email}
-            div.profile-view__datarow
-                p Score: #{profile.score}
-            div.profile-view__datarow.js-additional-links
-                if additional_links
-                    each val, index in additional_links
-                        a(href=val.href name=val.event) #{val.title}
-                    br
-        div.profile-view__form.js-profile-form
-            include ../../common.blocks/form/form.tmpl.pug
+        a(href='/')
+            div.view-header__home
+        div.view-header__head Profile
+    article
+        div.view__content
+            div.profile-box
+                div.profile-data
+                    div.avatar-img
+                        img(src='/avatar?'+Math.random() + '&avatar=' + profile.avatar height='100' width='100')
+                    table.user-data
+                        tr
+                            td Username:
+                            td #{profile.username}
+                        tr
+                            td Email:
+                            td #{profile.email}
+                        tr
+                            td Score:
+                            td #{profile.score}
+                    div.js-additional-links
+                        if additional_links
+                            each val, index in additional_links
+                                a(href=val.href name=val.event) #{val.title}
+                div.js-profile-form
+                        include ../../common.blocks/form/form.tmpl.pug
+    footer
+        div.footer__fore
