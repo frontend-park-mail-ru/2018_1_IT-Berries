@@ -9,6 +9,9 @@ export default class OfflineEngine extends Engine{
   }
 
   start() {
+    document.getElementsByClassName('view-header__home')[0].addEventListener('click', () => {
+      this.destroy();
+    });
     super.start();
     this.eventBus.emit(this.events.START_GAME);
   }
