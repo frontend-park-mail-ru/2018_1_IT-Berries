@@ -62,9 +62,5 @@ export default class Map {
         gameScene.setRocketByCoordinates(rocketX, rocketY);
       }
     }
-    /*let ufo = this.map[ufoPosition.y][ufoPosition.x];
-    for (let i = 0; i < ufo.ways.length; i++) {
-      ufo.ways[i]
-    }*/
   }
 }
