@@ -1,12 +1,17 @@
 import Cell from './cell.js';
 
 export default class Map {
-  constructor(x, y) {
+  constructor(gameScene) {
+    let x = gameScene.getX();
+    let y = gameScene.getY();
     this.map = new Array(y);
     for (let i = 0; i < y; i++) {
       this.map[i] = new Array(x + i % 2);
       for (let j = 0; j < x + i % 2; j++) {
         this.map[i][j] = new Cell(j, i, x);
+        if (j === gameScene.getUfoStartPosition().x && i === gameScene.getUfoStartPosition().y) {
+          this.map[i][j].isAlian = true;
+        }
       }
     }
 
@@ -45,6 +50,16 @@ export default class Map {
             }
           }
         }
+      }
+    }
+    for (let i = 0; i < 20; i++) {
+      let rocketY = Math.trunc(Math.random() * this.map.length);
+      let rocketX = Math.trunc(Math.random() * this.map[rocketY].length);
+      if (this.map[rocketY][rocketX].isAlian === true) {
+        i--;
+      } else {
+        this.map[rocketY][rocketX].isRocket = true;
+        gameScene.setRocketByCoordinates(rocketX, rocketY);
       }
     }
   }
