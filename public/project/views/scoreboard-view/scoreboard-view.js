@@ -10,6 +10,15 @@ export default class ScoreboardView extends View {
     this.listNumber = 1;
   }
 
+  render() {
+    const profile = UsersModel.getCurrentUser();
+    const attrs = {
+      profile
+    };
+
+    return super.render(attrs);
+  }
+
   async create(attrs, listSize = this.listSize, listNumber = this.listNumber) {
     super.create(attrs);
     const scoreboardTableRoot = this.el.querySelector('.js-scoreboard-table');
