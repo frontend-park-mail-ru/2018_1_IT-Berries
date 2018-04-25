@@ -117,16 +117,18 @@ footer {
 
 .profile-icon {
     position: absolute;
-    display: inline-block;
     border-radius: 100%;
     width: 8vmin;
     height: 8vmin;
     background-image: url("../../images/no-avatar-white.png");
     background-size: 100% 100%;
     top: -0.5vmin;
+    right: 2vmin;
 }
 
 .profile_bar_tittle {
+    position: absolute;
     color: azure;
     text-decoration: none;
+    right: 10vmin;
 }
