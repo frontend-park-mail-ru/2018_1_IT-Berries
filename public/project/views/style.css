@@ -125,3 +125,8 @@ footer {
     background-size: 100% 100%;
     top: -0.5vmin;
 }
+
+.profile_bar_tittle {
+    color: azure;
+    text-decoration: none;
+}
