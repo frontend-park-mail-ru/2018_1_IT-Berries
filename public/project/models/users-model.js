@@ -11,6 +11,7 @@ export default class UsersModel {
     this.email = data.email;
     this.score = data.score;
     this.avatar = data.avatar;
+    this.profileBarAvatar = '/avatar?' + Math.random() + '&avatar=' + data.avatar;
   }
 
   /**
@@ -117,6 +118,7 @@ export default class UsersModel {
 
     response.ok = true;
     currentUser = response.data;
+    currentUser.profileBarAvatar = '/avatar?' + Math.random() + '&avatar=' + currentUser.avatar;
     return response;
 
     //  .then(() => UsersModel.loadMe());
@@ -204,6 +206,7 @@ export default class UsersModel {
 
     response.ok = true;
     currentUser = response.data;
+    currentUser.profileBarAvatar = '/avatar?' + Math.random() + '&avatar=' + currentUser.avatar;
     return response;
 
     //  .then(() => UsersModel.loadMe());

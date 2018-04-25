@@ -4,8 +4,8 @@ import Bot from './bot.js';
 
 export default class OfflineEngine extends Engine{
 
-  constructor(gameScene, eventBus) {
-    super(gameScene, eventBus);
+  constructor(gameScene, eventBus, profile) {
+    super(gameScene, eventBus, profile);
   }
 
   start() {
@@ -20,7 +20,11 @@ export default class OfflineEngine extends Engine{
     this.gameScene.reset();
     this.map = new Map(this.gameScene).map;
     this.bot = new Bot(this.map, this.gameScene.getUfoStartPosition());
-    this.gameScene.setPanelName(0, 'Guest');
+    if (this.player != null) {
+      this.gameScene.setPanelName(0, this.player.username);
+    } else {
+      this.gameScene.setPanelName(0, 'Guest');
+    }
     this.gameScene.setPanelName(1, 'Bot');
     this.eventBus.emit(this.events.PLAYER_1_TURN);
   }
@@ -54,6 +58,14 @@ export default class OfflineEngine extends Engine{
   onGameFinished(callingEvents) {
     const endGamePanel = document.getElementsByClassName('end-game-panel')[0];
     endGamePanel.style.visibility = 'visible';
+    const endGamePanelTittle = endGamePanel.getElementsByClassName('end-game-panel__tiitle')[0];
+    let winnerNickName = '';
+    if (callingEvents === this.events.PLAYER_1_WIN) {
+      winnerNickName = this.gameScene.getPanelName(0);
+    } else {
+      winnerNickName = this.gameScene.getPanelName(1);
+    }
+    endGamePanelTittle.innerHTML = winnerNickName + ' win!';
     endGamePanel.getElementsByClassName('end-game-panel__button')[0].addEventListener('click', () => {
       endGamePanel.style.visibility = 'hidden';
       let moves = document.getElementsByClassName('player-moves')[0];

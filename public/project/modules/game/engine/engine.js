@@ -2,7 +2,8 @@ import gameEvents from './game-events.js';
 
 export default class Engine {
 
-  constructor(Scene, eventBus) {
+  constructor(Scene, eventBus, profile) {
+    this.player = profile;
     this.gameScene = Scene;
     this.eventBus = eventBus;
     this.events = gameEvents;

@@ -1,6 +1,8 @@
 div.profile-bar
     if profile
-        | #{profile.username}
+        a #{profile.username}
+        a(href='/profile' class='view-header__profile-icon profile-icon'
+        style={'background-image': 'url(' + profile.profileBarAvatar + ')'})
     else
-        | Guest
-    a(href='/profile' class='view-header__profile-icon profile-icon')
+        a Guest
+        a(href='/profile' class='view-header__profile-icon profile-icon' style={'background-image': 'url(../../images/no-avatar-white.png)'})
