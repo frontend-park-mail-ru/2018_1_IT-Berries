@@ -7,8 +7,7 @@ section.view.profile-view
         div.view__content
             div.profile-box
                 div.profile-data
-                    div.avatar-img
-                        img(src='/avatar?'+Math.random() + '&avatar=' + profile.avatar height='100' width='100')
+                    div(class='avatar-img' style={'background-image': 'url(' + profile.profileBarAvatar + ')'})
                     table.user-data
                         tr
                             td Username:

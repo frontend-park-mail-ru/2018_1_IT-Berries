@@ -18,7 +18,7 @@
 }
 
 .game-view__game table[class*=playing-field-row]:nth-of-type(2n+1) {
-    margin-left: 4.5vmin;
+    margin-left: 3.5vmin;
     width: 64vmin;
 }
 

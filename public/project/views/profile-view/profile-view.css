@@ -1,8 +1,8 @@
 .profile-box {
-    margin-top: 16vh;
+    margin-top: 14vh;
 
     width: 70vmin;
-    height: 65vmin;
+    height: 70vmin;
     background-color: rgba(228, 116, 255, 0.4);
     border-radius: 5vmin;
     border-color: rgb(17, 0, 168);
@@ -15,15 +15,20 @@
     justify-content: center;
     align-items: center;
     flex-direction: row;
+    font-size: 3vmin;
+    text-decoration: none;
 }
 
 .profile-input {
     width: 25vmin;
+    height: 5vmin;
+    margin: 1vmin;
 }
 
 .profile__input {
     margin: 2vmin;
     width: 25vmin;
+    height: 5vmin;
 }
 
 .profile-data {
@@ -36,45 +41,86 @@
 
     color: azure;
 
-    margin-left: 1vmin;
+    margin-left: 3vmin;
 }
 
 .user-data {
-    width: 20vmin;
-    height: 18vmin;
-
+    width: 35vmin;
+    height: 15vmin;
     border-spacing: 0;
-
     font-size: 3.5vmin;
+    display: table;
+    table-layout: fixed;
+    top: 0;
+    left:0;
+    position: relative;
+    float: left;
 }
 
-.user-data tr td {
-    padding: 0;
+.user-data>tbody {
+    display: table;
+    width: 35vmin;
+    height: 15vmin;
+    table-layout: fixed;
+    top: 0;
+    left:0;
+    position: relative;
+    float: left;
+
+}
+
+.user-data tbody tr {
+    display: table;
+    width: 35vmin;
+    height: 3vmin;
+    table-layout: fixed;
+    top: 0;
+    left:0;
+    position: relative;
+    float: left;
+}
+
+.user-data tbody tr td {
+    height: 3vmin;
+    font-size: 3vmin;
+    display: table-cell;
+    vertical-align: center;
+    text-decoration: none;
+    table-layout: fixed;
+    top: 0;
+    left:0;
     margin: 0;
 }
 
-.user-data tr {
-    padding: 0;
-    margin: 0;
-}
-
-.user-data tr td:nth-child(1) {
-    text-align: right;
-    padding-right: 2vmin;
-
+.user-data tbody tr td:nth-child(1) {
     border-right-color: azure;
     border-right-style: solid;
     border-right-width: 0.3vmin;
+    text-align: right;
+    padding: 0 1vmin 0 0;
+    left:0;
+    width: 13vmin;
 }
 
-.user-data tr td:nth-child(2) {
-    text-align: left;
-    padding-left: 2vmin;
+.user-data tbody tr td:nth-child(2) {
+    padding: 0 0 0 1vmin;
+    width: 22vmin;
+    word-wrap: break-word;
+}
+
+
+.js-profile-form {
+    width: 35vmin;
+    height: 60vmin;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 .profile-form {
+    height: 50vmin;
     width: 30vmin;
-    margin-bottom: 7vmin;
 }
 
 .avatar-img {
@@ -87,26 +133,29 @@
     border-color: #6035db;
     border-width: 0.5vmin;
     border-style: solid;
-    box-shadow: 0 3px 20px rgba(33, 5, 168, 0.6),
+    box-shadow: 0 1vmin 2vmin rgba(33, 5, 168, 0.6),
     0 0.1vmin 0 rgb(53, 0, 168);
 
     font-size: 3vmin;
 }
 
 .profile-form__button {
-    width: 25vmin;
-    margin-top: 0;
-    text-align: center;
+    width: 30vmin;
     position: absolute;
     right: 20vmin;
+    text-decoration: none;
+    padding: 0;
 }
 
 .profile-form__avatar-choose {
     margin: 2vmin;
+    margin-bottom: 3vmin;
+    padding: 0;
 }
 
 .profile-form__avatar-button {
     width: 15vmin;
+
 }
 
 .profile-form__avatar-text {
@@ -115,4 +164,10 @@
     font-size: 3vmin;
     width: 13vmin;
     word-wrap: break-word;
+}
+
+.js-additional-links {
+    position: absolute;
+    left: 2vmin;
+    bottom: 2vmin;
 }

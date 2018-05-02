@@ -3,11 +3,12 @@ section.view.game-view
     header.view__header.view-header
         div.view-header__home
             a(href='/')
-        div.view-header__head Cath the Alien!
-        div.view-header__profile Guest
-            a(href='/profile' class='view-header__profile-icon profile-icon')
+        div.view-header__head Catch the Alien!
     article
         div.view__content
+            div(class='end-game-panel')
+                div.end-game-panel__tiitle Game over
+                input(type='button' class='end-game-panel__button' value='ok')
             div.players-tables
                 each val in [1, 2]
                     table(class='player-panel player-' + val + '-panel')
@@ -24,8 +25,6 @@ section.view.game-view
                     if val==1
                         div.stretching
             div.game-view__game
-            div(class='end-game-panel' hidden)
-                div.end-game-panel__tiitle
-                input.end-game-panel__button
+
     footer
         div.footer__fore

@@ -8,8 +8,10 @@ export default class MenuView extends View {
   }
 
   render() {
+    const profile = UsersModel.getCurrentUser();
     const attrs = {
-      navItems: []
+      navItems: [],
+      profile
     };
 
     if (UsersModel.isAuthorized()) {

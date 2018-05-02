@@ -3,8 +3,6 @@ section.view.win-game-view
         a(href='/')
             div.view-header__home
         div.view-header__head You lose :(
-        div.view-header__profile Guest
-            div.view-header__profile-icon.profile-icon
     article
         div.view__content
             div.end-game-board
@@ -14,14 +12,14 @@ section.view.win-game-view
                 table.end-game-board__total-table
                     tr
                         td Game moves:
-                        td 35
+                        td #{moves}
                     tr
                         td Score:
-                        td -100500
+                        td -#{score}
                 div.end-game-board__controls
                     input(type='button' value='Back to menu' class='end-game-board__control')
                     a(class='toMenu' href='/' hidden)
                     input(type='button' value='Play again' class='end-game-board__control')
-                    a(class='button' href='/game' hidden)
+                    a(class='newGame' href='/game' hidden)
     footer
         div.footer__fore

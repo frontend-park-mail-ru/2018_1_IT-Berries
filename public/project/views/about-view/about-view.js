@@ -1,4 +1,5 @@
 import View from '../view/view.js';
+import UsersModel from '../../models/users-model.js';
 
 export default class AboutView extends View {
 
@@ -11,7 +12,10 @@ export default class AboutView extends View {
   }
 
   render() {
-    const attrs = {};
+    const profile = UsersModel.getCurrentUser();
+    const attrs = {
+      profile
+    };
 
     return super.render(attrs);
   }
