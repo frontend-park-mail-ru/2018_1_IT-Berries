@@ -51,7 +51,7 @@ export default class ProfileView extends View {
             inputPlaceholder: 'Current password'
           },
         ],
-        submitText: 'Change profile'
+        submitText: 'Save profile'
       },
       profile: profile,
       additional_links: [
