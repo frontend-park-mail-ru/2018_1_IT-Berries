@@ -169,3 +169,12 @@
     box-shadow: 0 0 4vmin 1vmin rgba(255, 184, 0, 0.7),
     inset 0 0 5vmin rgba(255, 208, 86, 0.7);
 }
+
+@media only screen
+and (min-device-width: 320px)
+and (max-device-width: 480px)
+and (-webkit-min-device-pixel-ratio: 2) {
+    .menu__button {
+        margin-top: 5vh;
+    }
+}

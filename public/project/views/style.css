@@ -132,3 +132,25 @@ footer {
     text-decoration: none;
     right: 10vmin;
 }
+
+@media only screen
+and (min-device-width: 320px)
+and (max-device-width: 480px)
+and (-webkit-min-device-pixel-ratio: 2) {
+    .view-header__head {
+        margin-top: 10vh;
+    }
+
+    .view-header__profile {
+        font-size: 7vh;
+    }
+
+    .profile-icon {
+        width: 8vh;
+        height: 8vh;
+    }
+
+    .profile_bar_tittle {
+        right: 10vh;
+    }
+}
