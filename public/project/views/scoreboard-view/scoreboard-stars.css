@@ -38,3 +38,14 @@
     transform: rotate(-90deg) translateY(-20vmin);
     background-size: 100% 100%;
 }
+
+@media only screen
+and (min-device-width: 320px)
+and (max-device-width: 850px)
+and (-webkit-min-device-pixel-ratio: 2) {
+
+    .star-icon {
+        visibility: hidden;
+    }
+
+}

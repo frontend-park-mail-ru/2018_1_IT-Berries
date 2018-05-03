@@ -21,7 +21,7 @@ export default class SettingsView extends View {
           type: 'sound'
         },
         {
-          setup_name: 'Music::',
+          setup_name: 'Music:',
           type: 'music'
         }
       ]

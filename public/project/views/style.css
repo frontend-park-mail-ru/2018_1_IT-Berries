@@ -135,22 +135,29 @@ footer {
 
 @media only screen
 and (min-device-width: 320px)
-and (max-device-width: 480px)
+and (max-device-width: 850px)
 and (-webkit-min-device-pixel-ratio: 2) {
     .view-header__head {
-        margin-top: 10vh;
+        margin-top: 20vmin;
     }
 
     .view-header__profile {
-        font-size: 7vh;
+        font-size: 12vmin;
     }
 
     .profile-icon {
-        width: 8vh;
-        height: 8vh;
+        width: 14vmin;
+        height: 14vmin;
+        top: 2.3vmin;
     }
 
     .profile_bar_tittle {
-        right: 10vh;
+        right: 16vmin;
+        top: 2.3vmin;
+    }
+
+    .view-header__home > a {
+        width: 14vmin;
+        height: 14vmin;
     }
 }

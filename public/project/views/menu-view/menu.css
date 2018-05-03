@@ -71,7 +71,7 @@
 .about-button {
     background-size: 135% 135%;
     background-position: 47% 49%;
-    transform: rotate(15deg) translate(190%) rotate(-15deg);
+    transform: rotate(15deg) translate(38vmin) rotate(-15deg);
     background-image: url("../../../images/about-btn-original.png");
 
     box-shadow: 0 0 7vmin 1vmin rgba(255, 244, 18, 0.6),
@@ -80,7 +80,7 @@
 .settings-button {
     background-size: 142% 142%;
     background-position: 42% 45%;
-    transform: rotate(65deg) translate(170%) rotate(-65deg);
+    transform: rotate(65deg) translate(34vmin) rotate(-65deg);
     background-image: url("../../../images/settings-btn-original.png");
 
     box-shadow: 0 0 5vmin 1vmin rgba(0, 220, 255, 0.3),
@@ -89,7 +89,7 @@
 .score-board-button {
     background-size: 142% 142%;
     background-position: 38% 48%;
-    transform: rotate(115deg) translate(170%) rotate(-115deg);
+    transform: rotate(115deg) translate(34vmin) rotate(-115deg);
     background-image: url("../../../images/scoreboard-btn-original.png");
 
     box-shadow: 0 0 5.5vmin 1vmin rgba(150, 53, 148, 0.7),
@@ -99,7 +99,7 @@
 .login-button {
     background-size: 142% 142%;
     background-position: 41% 44%;
-    transform: rotate(165deg) translate(190%) rotate(-165deg);
+    transform: rotate(165deg) translate(38vmin) rotate(-165deg);
     background-image: url("../../../images/login-btn-original.png");
 
     box-shadow: 0 0 4vmin 1vmin rgba(178, 129, 0, 0.7),
@@ -172,9 +172,36 @@
 
 @media only screen
 and (min-device-width: 320px)
-and (max-device-width: 480px)
+and (max-device-width: 850px)
 and (-webkit-min-device-pixel-ratio: 2) {
+
     .menu__button {
-        margin-top: 5vh;
+        margin-top: 6vmin;
     }
+
+    .secondary-button {
+        width: 25vmin;
+        height: 25vmin;
+    }
+
+    .settings-button, .score-board-button {
+        margin-top: 10vmin;
+    }
+
+    .settings-button {
+        margin-left: 1.5vmin;
+    }
+
+    .score-board-button {
+        margin-left: -1.5vmin;
+    }
+
+    .login-button {
+        margin-left: 2vmin;
+    }
+
+    .about-button {
+        margin-left: -2vmin;
+    }
+
 }

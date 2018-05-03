@@ -129,33 +129,19 @@
     display: table;
     width: 100%;
 }
-/*
-.scoreboard-table > div {
-    text-align: center;
-    font-size: 4vmin;
-}
 
-.grid-number {
-    grid-column-start: 1;
-    grid-column-end: 3;
-}
+@media only screen
+and (min-device-width: 320px)
+and (max-device-width: 850px)
+and (-webkit-min-device-pixel-ratio: 2) {
 
-.grid-user {
-    grid-column-start: 3;
-    grid-column-end: 9;
-}
+    .scoreboard__table {
+        height: 70vmin;
+        font-size: 6vmin;
+    }
 
-.grid-scores {
-    grid-column-start: 9;
-    grid-column-end: 12;
-}
+    .scoreboard-view__table {
+        margin-top: 5vmin;
+    }
 
-.grid-header {
-    color: azure;
-    background-color: rgba(176, 86, 212, 0.58);
 }
-
-.scoreboard-table-pagination {
-    grid-column-start: 1;
-    grid-column-end: 12;
-}*/
