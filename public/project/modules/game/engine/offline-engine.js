@@ -21,14 +21,14 @@ export default class OfflineEngine extends Engine{
     this.map = new Map(this.gameScene).map;
     this.bot = new Bot(this.map, this.gameScene.getUfoStartPosition());
     if (this.player != null) {
-      if (this.player.username.length > 10) {
-        this.gameScene.setPanelName(0, this.player.username.substr(0, 10) + '...');
+      if (this.player.username.length > 20) {
+        this.gameScene.setPanelName(0, this.player.username.substr(0, 20) + '...');
       } else {
         this.gameScene.setPanelName(0, this.player.username);
       }
 
     } else {
-      this.gameScene.setPanelName(0, 'Guest');
+      this.gameScene.setPanelName(0, 'Player');
     }
     this.gameScene.setPanelName(1, 'Bot');
     this.eventBus.emit(this.events.PLAYER_1_TURN);
