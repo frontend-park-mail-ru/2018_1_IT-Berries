@@ -1,1 +1,2 @@
 public/**/*.tmpl.js
+public/dist/*.js
