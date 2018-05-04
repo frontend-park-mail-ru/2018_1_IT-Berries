@@ -5,6 +5,8 @@ import UsersModel from '../../models/users-model.js';
 export default class SettingsView extends View {
   constructor() {
     super('settingsViewTmplTemplate');
+
+
   }
 
   allowed() {
@@ -26,8 +28,8 @@ export default class SettingsView extends View {
         }
       ]
     };
-    const reternParam = super.render(attrs);
+    const returnParam = super.render(attrs);
     settingsEffects();
-    return reternParam;
+    return returnParam;
   }
 }

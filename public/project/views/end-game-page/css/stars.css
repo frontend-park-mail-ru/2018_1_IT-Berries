@@ -13,7 +13,7 @@
 .dark-star {
     position: absolute;
     background-size: 100% 100%;
-    background-image: url("../icons/dark-star.png");
+    /*background-image: url("../icons/dark-star.png");*/
 }
 
 .light-star {
@@ -21,7 +21,7 @@
     width: 13.5vmin;
     position: absolute;
     background-size: 100% 100%;
-    background-image: url("../../icons/star.png");
+    /*background-image: url("../../icons/star.png");*/
 }
 
 .end-game-board__star-1 {

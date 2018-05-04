@@ -2,9 +2,11 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+
 module.exports = {
   entry: [
     './public/project/application.js',
+    './public/webpack_entries.js',
     './public/sw.js'
   ],
 
@@ -38,8 +40,26 @@ module.exports = {
           fallback: 'style-loader',
           use: 'css-loader'
         })
-      }]
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'images/[name].[ext]'
+            }
+          }
+        ]
+      }
+    ]
   },
+
+  plugins: [
+    new ExtractTextPlugin({
+      filename: 'bundle.css',
+    })
+  ],
 
   resolve: {
     extensions: ['*', '.js']
