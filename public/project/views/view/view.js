@@ -3,9 +3,8 @@ import eventBus from '../../modules/event-bus.js';
 
 export default class View {
   constructor(templateName) {
-    this.tmplName = templateName;
     this.attrs = {};
-    this.tmpl = window[this.tmplName];
+    this.tmpl = templateName;
     this.router = new Router;
     this.eventBus = eventBus;
     this.active = false;

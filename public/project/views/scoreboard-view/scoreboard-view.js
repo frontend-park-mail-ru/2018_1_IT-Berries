@@ -2,10 +2,11 @@ import View from '../view/view.js';
 import ScoreboardTableBlock from '../../common.blocks/scoreboard/__table/scoreboard__table.js';
 import ScoreboardPaginatorBlock from '../../common.blocks/scoreboard/__paginator/scoreboard__paginator.js';
 import UsersModel from '../../models/users-model.js';
+import scoreboardViewTemplate from './scoreboard-view.tmpl.pug';
 
 export default class ScoreboardView extends View {
   constructor() {
-    super('scoreboardViewTmplTemplate');
+    super(scoreboardViewTemplate);
     this.listSize = 3;
     this.listNumber = 1;
   }

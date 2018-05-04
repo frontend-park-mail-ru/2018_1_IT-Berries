@@ -1,3 +1,5 @@
+import scoreboardPaginatorTemplate from './scoreboard__paginator.tmpl.pug';
+
 /** Class representing a scoreboard paginator block. */
 export default class ScoreboardPaginatorBlock {
 
@@ -48,7 +50,7 @@ export default class ScoreboardPaginatorBlock {
       listCount = Math.ceil(this._usersCount / listSize);
     }
     const count = {listCount : listCount, listNumber : listNumber};
-    const template = window.scoreboardPaginatorTmplTemplate(count);
+    const template = scoreboardPaginatorTemplate(count);
     this._el.innerHTML = template;
     const paginatorLinks = document.getElementsByClassName('scoreboard__paginator-link');
     Array.prototype.forEach.call(paginatorLinks, (paginatorLink) => {

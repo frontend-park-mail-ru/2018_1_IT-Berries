@@ -2,11 +2,12 @@ import View from '../view/view.js';
 import Game from '../../modules/game/game.js';
 import GAME_MODES from '../../modules/game/modes.js';
 import UsersModel from '../../models/users-model.js';
+import gameViewTemplate from './game-view.tmpl.pug';
 
 export default class GameView extends View {
 
   constructor() {
-    super('gameViewTmplTemplate');
+    super(gameViewTemplate);
   }
 
   allowed() {

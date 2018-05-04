@@ -1,9 +1,10 @@
 import View from '../view/view.js';
+import winGameViewTemplate from './win-game-view.tmpl.pug';
 
 export default class WinGameView extends View {
 
   constructor() {
-    super('winGameViewTmplTemplate');
+    super(winGameViewTemplate);
     this.attrs = {};
     this.eventBus.on('WIN_TOTALS', async (gameTotals) => {
       this.attrs = gameTotals;

@@ -1,3 +1,5 @@
+import gameFieldTemplate from './game-field.tmpl.pug';
+
 /** Class representing a scoreboard paginator block. */
 export default class gameFieldBlock {
 
@@ -22,7 +24,7 @@ export default class gameFieldBlock {
    */
   render() {
     const sizes = {x: this.x, y: this.y};
-    const template = window.gameFieldTmplTemplate(sizes);
+    const template = gameFieldTemplate(sizes);
     this._el.innerHTML = template;
     this._el.style.width = (this.x + 1) * 7 + 'vmin';
     this._el.style.height = this.y * 7 + 'vmin';
