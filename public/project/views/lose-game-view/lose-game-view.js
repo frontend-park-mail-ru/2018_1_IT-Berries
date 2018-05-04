@@ -1,9 +1,10 @@
 import View from '../view/view.js';
+import loseGameViewTemplate from './lose-game-view.tmpl.pug';
 
 export default class LoseGameView extends View {
 
   constructor() {
-    super('loseGameViewTmplTemplate');
+    super(loseGameViewTemplate);
     this.attrs = {};
     this.eventBus.on('LOSE_TOTALS', async (gameTotals) => {
       this.attrs = gameTotals;

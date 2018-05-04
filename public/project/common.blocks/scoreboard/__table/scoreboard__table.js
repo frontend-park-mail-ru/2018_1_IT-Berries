@@ -1,3 +1,5 @@
+import scoreboardTableTemplate from './scoreboard__table.tmpl.pug';
+
 /** Class representing a scoreboard table block. */
 export default class ScoreboardTableBlock {
 
@@ -40,7 +42,7 @@ export default class ScoreboardTableBlock {
       return;
     }
     const data = {'data' : this._data};
-    const template = window.scoreboardTableTmplTemplate(data);
+    const template = scoreboardTableTemplate(data);
     this._el.innerHTML = template;
   }
 

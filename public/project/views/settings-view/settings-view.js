@@ -1,10 +1,11 @@
 import View from '../view/view.js';
 import settingsEffects from './settings.js';
 import UsersModel from '../../models/users-model.js';
+import settingsViewTemplate from './settings-view.tmpl.pug';
 
 export default class SettingsView extends View {
   constructor() {
-    super('settingsViewTmplTemplate');
+    super(settingsViewTemplate);
   }
 
   allowed() {
@@ -26,8 +27,8 @@ export default class SettingsView extends View {
         }
       ]
     };
-    const reternParam = super.render(attrs);
+    const returnParam = super.render(attrs);
     settingsEffects();
-    return reternParam;
+    return returnParam;
   }
 }

@@ -81,7 +81,7 @@ export default class GameScene {
   setRocketByCoordinates(x, y) {
     const row = this.gameField._el.getElementsByClassName('playing-field-row-' + y)[0];
     const cell = row.getElementsByClassName('playing-field-column-' + x)[0];
-    this.setRocket(cell.firstChild);
+    this.setRocket(cell.firstElementChild);
   }
 
   async setUfoPosition(x, y) {

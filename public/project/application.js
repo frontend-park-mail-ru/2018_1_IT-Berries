@@ -17,11 +17,11 @@ import LoseGameView from './views/lose-game-view/lose-game-view.js';
 // Import models
 import UsersModel from './models/users-model.js';
 
-import { addServiceWorker } from './modules/add-sw.js';
+// import { addServiceWorker } from './modules/add-sw.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-  addServiceWorker();
+  // addServiceWorker();
 
   const application = document.getElementsByClassName('application')[0];
 

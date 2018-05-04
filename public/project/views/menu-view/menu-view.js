@@ -1,10 +1,11 @@
 import View from '../view/view.js';
 import UsersModel from '../../models/users-model.js';
+import menuViewTemplate from './menu-view.tmpl.pug';
 
 export default class MenuView extends View {
 
   constructor() {
-    super('menuViewTmplTemplate');
+    super(menuViewTemplate);
   }
 
   render() {

@@ -3,11 +3,12 @@ import FormBlock from '../../common.blocks/form/form.js';
 import FormMessageBlock from '../../common.blocks/form/__message/form__message.js';
 import UsersModel from '../../models/users-model.js';
 import eventBus from '../../modules/event-bus.js';
+import profileViewTemplate from './profile-view.tmpl.pug';
 
 export default class ProfileView extends View {
 
   constructor() {
-    super('profileViewTmplTemplate');
+    super(profileViewTemplate);
 
     this.eventBus.on('change-profile-error', this.onError.bind(this));
   }
