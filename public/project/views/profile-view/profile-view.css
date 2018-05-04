@@ -20,14 +20,14 @@
 }
 
 .profile-input {
-    width: 25vmin;
+    width: 27vmin;
     height: 5vmin;
-    margin: 1vmin;
+    font-size: 3vmin;
 }
 
 .profile__input {
     margin: 2vmin;
-    width: 25vmin;
+    width: 27vmin;
     height: 5vmin;
 }
 
@@ -170,4 +170,105 @@
     position: absolute;
     left: 2vmin;
     bottom: 2vmin;
+}
+
+@media only screen
+and (min-device-width: 320px)
+and (max-device-width: 850px)
+and (-webkit-min-device-pixel-ratio: 2) {
+
+    .profile-box {
+        margin-top: 30vmin;
+        width: 90vmin;
+        height: 90vmin;
+    }
+
+    .profile-data {
+        width: 40vmin;
+        height: 80vmin;
+        margin-left: -3vmin;
+    }
+
+    .js-profile-form {
+        width: 40vmin;
+        height: 80vmin;
+    }
+
+    .avatar-img {
+        width: 40vmin;
+        height: 40vmin;
+        border-radius: 5vmin;
+    }
+
+    .user-data {
+        width: 40vmin;
+        height: 32vmin;
+        margin-left: -7vmin;
+    }
+
+    .user-data>tbody {
+        width: 40vmin;
+        height: 32vmin;
+    }
+
+    .user-data tbody tr {
+        width: 40vmin;
+        height: 8vmin;
+    }
+
+    .user-data tbody tr td {
+        height: 8vmin;
+        font-size: 4.5vmin;
+    }
+
+    .user-data tbody tr td:nth-child(1) {
+        width: 20vmin;
+    }
+
+    .profile-form {
+        width: 40vmin;
+        height: 80vmin;
+    }
+
+    .profile-input {
+        width: 40vmin;
+        height: 9vmin;
+        font-size: 4.5vmin;
+    }
+
+    .profile__input {
+        margin: 2vmin;
+        width: 25vmin;
+        height: 9vmin;
+    }
+
+    .profile-form__avatar-choose {
+        width: 40vmin;
+        height: 27vmin;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        margin-top: 1vmin;
+    }
+
+    .profile-form__avatar-button {
+        width: 20vmin;
+        height: 12vmin;
+        text-align: center;
+    }
+
+    .profile-form__avatar-text {
+        font-size: 3.5vmin;
+    }
+
+    .profile-form__button {
+        right: 30vmin;
+        bottom: 0;
+        font-size: 5.5vmin;
+    }
+
+    .js-additional-links {
+        font-size: 6vmin;
+    }
+
 }

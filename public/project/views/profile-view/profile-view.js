@@ -43,7 +43,7 @@ export default class ProfileView extends View {
           {
             inputType: 'password',
             inputName: 'new_password_repeat',
-            inputPlaceholder: 'Repeat your new password'
+            inputPlaceholder: 'Repeat new password'
           },
           {
             inputType: 'password',

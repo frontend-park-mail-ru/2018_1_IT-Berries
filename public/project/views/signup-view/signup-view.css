@@ -86,3 +86,40 @@
     width: 42vmin;
     height: 5vmin;
 }
+
+@media only screen
+and (max-device-aspect-ratio: 5/7 ){
+
+    .signup-form {
+        margin-top: 30vmin;
+        width: 80vmin;
+        height: 100vmin;
+    }
+
+    .signup__input {
+        margin: 2vmin;
+    }
+
+    .signup-input {
+        width: 70vmin;
+    }
+
+    .avatar {
+        width: 70vmin;
+    }
+
+    .avatar-button {
+        height: 9vmin;
+        width: 32vmin;
+        font-size: 5vmin;
+    }
+
+    .avatar-text {
+        font-size: 5vmin;
+        width: 40vmin;
+    }
+
+    .signup-form__button {
+        width: 68vmin;
+    }
+}
