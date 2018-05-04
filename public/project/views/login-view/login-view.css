@@ -121,9 +121,7 @@
 }
 
 @media only screen
-and (min-device-width: 320px)
-and (max-device-width: 850px)
-and (-webkit-min-device-pixel-ratio: 2) {
+and (max-device-aspect-ratio: 5/7 ){
 
     .form__message, .js-form-message {
         font-size: 6vmin;
@@ -134,6 +132,7 @@ and (-webkit-min-device-pixel-ratio: 2) {
     .login-form {
         width: 80vmin;
         height: 60vmin;
+        margin-top: 11vh;
     }
 
     .login__input {

@@ -10,12 +10,11 @@
     border-color: rgb(17, 0, 168);
     box-shadow: 0 0 1vmin 0.5vmin rgba(73, 0, 199, 0.55);
 
-    margin-top: 10vh;
+    margin-top: 15vh;
 
     border-radius: 10%;
     border-style: solid;
     border-width: 0.3vmin;
-    border-color: ;
     position: absolute;
 
     color: whitesmoke;
@@ -74,9 +73,7 @@
 }
 
 @media only screen
-and (min-device-width: 320px)
-and (max-device-width: 850px)
-and (-webkit-min-device-pixel-ratio: 2) {
+and (max-device-aspect-ratio: 5/7 ) {
     .settings-view__settings {
         width: 80vmin;
         height: 70vmin;
