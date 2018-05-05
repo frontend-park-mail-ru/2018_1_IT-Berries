@@ -2,11 +2,12 @@ import View from '../view/view.js';
 import FormBlock from '../../common.blocks/form/form.js';
 import FormMessageBlock from '../../common.blocks/form/__message/form__message.js';
 import UsersModel from '../../models/users-model.js';
+import loginViewTemplate from './login-view.tmpl.pug';
 
 export default class LoginView extends View {
 
   constructor() {
-    super('loginViewTmplTemplate');
+    super(loginViewTemplate);
     this.attrs = {
       form: {
         type: 'login',

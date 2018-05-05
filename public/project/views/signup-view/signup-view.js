@@ -2,10 +2,11 @@ import View from '../view/view.js';
 import FormBlock from '../../common.blocks/form/form.js';
 import FormMessageBlock from '../../common.blocks/form/__message/form__message.js';
 import UsersModel from '../../models/users-model.js';
+import signupViewTemplate from './signup-view.tmpl.pug';
 
 export default class SignupView extends View {
   constructor() {
-    super('signupViewTmplTemplate');
+    super(signupViewTemplate);
     this.attrs = {
       form: {
         type: 'signup',

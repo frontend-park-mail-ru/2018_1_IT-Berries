@@ -1,10 +1,11 @@
 import View from '../view/view.js';
 import UsersModel from '../../models/users-model.js';
+import aboutViewTemplate from './about-view.tmpl.pug';
 
 export default class AboutView extends View {
 
   constructor() {
-    super('aboutViewTmplTemplate');
+    super(aboutViewTemplate);
   }
 
   allowed() {

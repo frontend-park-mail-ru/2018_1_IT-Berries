@@ -1,4 +1,5 @@
 import eventBus from '../../modules/event-bus.js';
+import formTemplate from './form.tmpl.pug';
 
 export default class FormBlock {
 
@@ -28,7 +29,7 @@ export default class FormBlock {
 
   render(attrs) {
     this._attrs = attrs || this._attrs;
-    this._el.innerHTML = window.formTmplTemplate(this._attrs);
+    this._el.innerHTML = formTemplate(this._attrs);
   }
 
 }

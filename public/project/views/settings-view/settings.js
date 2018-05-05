@@ -15,7 +15,7 @@ export default function settingsEffects() {
       soundOn = false;
     } else {
       soundOn = true;
-      checkAudeo();
+      checkAudio();
     }
   });
 
@@ -32,14 +32,14 @@ export default function settingsEffects() {
   soundInput.addEventListener('change', () => {
     soundOn = true;
     clearInterval(timerId);
-    checkAudeo();
+    checkAudio();
   });
 
   let timerId = 0;
   soundInput.addEventListener('focus', () => {
     soundOn = true;
-    checkAudeo();
-    timerId = setInterval(checkAudeo, 250);
+    checkAudio();
+    timerId = setInterval(checkAudio, 250);
   });
 
   musicInpit.addEventListener('focus', () => {
@@ -47,7 +47,7 @@ export default function settingsEffects() {
     musicIcon.style.backgroundImage = 'url(../../../images/musicOn.png)';
   });
 
-  function checkAudeo() {
+  function checkAudio() {
     if (soundOn) {
       const value = soundInput.value;
       if (value <= 33) {
