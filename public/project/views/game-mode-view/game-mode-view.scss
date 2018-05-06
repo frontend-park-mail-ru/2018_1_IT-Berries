@@ -1,0 +1,128 @@
+$font-stack: Helvetica, sans-serif;
+$primary-color: #333;
+$mars-like-planet-icon: '../../../images/mars-like-planet.png';
+$game-mode-view__left-arrow-icon: '../../../images/game-mode-view__left-arrow.png';
+$game-mode-view__right-arrow-icon: '../../../images/game-mode-view__right-arrow.png';
+$single-player-icon : '../../../images/singleplayer.png';
+
+.game-mode-view__game-mode {
+
+  height: 40vmin;
+  width: 80vmin;
+  background-color: transparent;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+
+  margin-top: 10vmin;
+
+  .game-mode-view__middle-icon {
+    height: 40vmin;
+    width: 40vmin;
+    background-image: url($mars-like-planet-icon);
+    background-size: 100% 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .game-mode-view__middle-shadows {
+      position: absolute;
+      height: 39vmin;
+      width: 40vmin;
+      border-radius: 100%;
+      box-shadow: 0 0 9vmin 2vmin rgba(255, 149, 5, 0.77),
+      inset 0 0 9vmin rgba(255, 245, 13, 0.7);
+    }
+
+    .game-mode-view__middle-inner-icon {
+      position: absolute;
+      height: 25vmin;
+      width: 25vmin;
+      border-radius: 100%;
+      background-image: url($single-player-icon);
+      background-size: 100% 100%;
+      top: 2vmin;
+    }
+
+    .game-mode-view__middle-inner-text {
+      user-select: none;
+      bottom: 9vmin;
+      position: absolute;
+      font-size: 5vmin;
+      color: azure;
+    }
+  }
+
+  .game-mode-view__left-arrow, .game-mode-view__right-arrow {
+
+    height: 40vmin;
+    width: 20vmin;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .game-mode-view__arrow-icon {
+      width: 8vmin;
+      height: 7.5vmin;
+      background-size: 100% 100%;
+      position: absolute;
+      z-index: 1;
+      opacity: 0.9;
+    }
+
+    .game-mode-view__super-selector {
+
+      position: absolute;
+      width: 4.7vmin;
+      height: 7.5vmin;
+      background-color: transparent;
+      z-index: 2;
+      margin-left: 0.5vmin;
+
+      .game-move-view__arrow-icon-shadow {
+        position: absolute;
+        width: 10vmin;
+        height: 9.4vmin;
+        background-size: 100% 100%;
+        opacity: 0;
+        z-index: 999;
+        left: -3.1vmin;
+        top: -1vmin;
+      }
+    }
+
+    .game-mode-view__super-selector:hover {
+      cursor: pointer;
+      opacity: 1;
+    }
+
+    .game-mode-view__super-selector:hover .game-move-view__arrow-icon-shadow {
+      opacity: 0.5;
+    }
+
+  }
+
+  .game-mode-view__icon:hover {
+
+  }
+
+  .left-arrow-icon, .left-arrow-icon-shadow {
+    background-image: url($game-mode-view__left-arrow-icon);
+  }
+
+  .left-arrow-icon {
+    margin-left: 0.1vmin;
+  }
+
+  .right-arrow-icon, .right-arrow-icon-shadow {
+    background-image: url($game-mode-view__right-arrow-icon);
+  }
+
+  .right-arrow-icon {
+    margin-left: -0.1vmin;
+  }
+}

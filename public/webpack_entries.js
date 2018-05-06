@@ -7,3 +7,4 @@ function includeContextModules(context) {
 // true - include recursive
 includeContextModules(require.context('./project', true, /\.(css)$/));
 includeContextModules(require.context('./project', true, /\.(js)$/));
+includeContextModules(require.context('./project', true, /\.(scss)$/));
