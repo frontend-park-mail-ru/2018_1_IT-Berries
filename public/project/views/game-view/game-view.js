@@ -25,7 +25,7 @@ export default class GameView extends View {
 
   doGame(attrs) {
     let mode = GAME_MODES;
-    if (attrs.pathname === '/game/online-mode') {
+    if (attrs.profile === undefined) {
       mode = GAME_MODES.ONLINE;
     } else {
       mode = GAME_MODES.OFFLINE;
