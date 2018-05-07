@@ -5,10 +5,21 @@ export default class GameSocket {
     this.socket.onmessage = (event) => {
       this.onMessage(event);
     };
+    this.socket.onopen = (event) => {
+      alert('Connection established');
+      this.readyForJoinGame();
+    };
+    this.socket.onclose = (event) => {
+      alert('Connection closed with messegae: ' + event.data);
+    };
+  }
+
+  readyForJoinGame() {
+    this.socket.send('waiting for opponent');
   }
 
   onMessage(event) {
-    document.writeln(event.data);
+    alert('New message: ' + event.data);
   }
 
 }

@@ -25,10 +25,10 @@ export default class GameView extends View {
 
   doGame(attrs) {
     let mode = GAME_MODES;
-    if (attrs.profile === undefined) {
-      mode = GAME_MODES.ONLINE;
-    } else {
+    if (attrs.profile === null) {
       mode = GAME_MODES.OFFLINE;
+    } else {
+      mode = GAME_MODES.ONLINE;
     }
     this.game = new Game(mode, this.eventBus, attrs.profile);
     this.game.start();

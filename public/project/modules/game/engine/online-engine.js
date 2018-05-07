@@ -10,7 +10,6 @@ export default class OnlineEngine extends Engine {
 
   start() {
     super.start();
-    this.socket.send('player-status', 'waiting for opponent');
   }
 
   onGameStarted(evt) {

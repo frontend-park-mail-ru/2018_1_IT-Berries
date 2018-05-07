@@ -31,6 +31,7 @@ export default class GameModeView extends View {
     this.arrows = this.el.getElementsByClassName('game-mode-view__super-selector');
     this.singlePlayerPLanet = this.el.getElementsByClassName('game-mode-view__single-player-planet')[0];
     this.multiPlayerPlanet = this.el.getElementsByClassName('game-mode-view__multi-player-planet')[0];
+    this.link = this.el.getElementsByClassName('game-mode-view__middle-planets')[0].getElementsByTagName('a')[0];
     this.status = 'single';
     for (let i = 0; i < this.arrows.length; i++) {
       this.arrows[i].addEventListener('click', () => {
@@ -46,10 +47,12 @@ export default class GameModeView extends View {
       this.singlePlayerPLanet.style.visibility = 'hidden';
       this.multiPlayerPlanet.style.visibility = 'visible';
       this.status = 'multi';
+      this.link.href = '/side';
     } else {
       this.multiPlayerPlanet.style.visibility = 'hidden';
       this.singlePlayerPLanet.style.visibility = 'visible';
       this.status = 'single';
+      this.link.href = '/game';
     }
   }
 }
