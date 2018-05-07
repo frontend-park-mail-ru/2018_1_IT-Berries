@@ -17,7 +17,7 @@ export default class Engine {
 
   start() {
     this.eventBus.on(this.events.START_GAME, this.onGameStarted);
-    this.eventBus.on(this.events.FINISH_GAME, this.onGameFinished);this.eventBus.on(this.events.GAME_STATE_CHANGED, this.onGameStateChanged);
+    this.eventBus.on(this.events.FINISH_GAME, this.onGameFinished);
     this.eventBus.on(this.events.PLAYER_1_TURN, this.onPlayer1Turn);
     this.eventBus.on(this.events.PLAYER_2_TURN, this.onPlayer2Turn);
     this.eventBus.on(this.events.PLAYER_1_WIN, this.onPlayer1Win);

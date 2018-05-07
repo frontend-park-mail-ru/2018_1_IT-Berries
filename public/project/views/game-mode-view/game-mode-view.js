@@ -1,5 +1,6 @@
 import View from '../view/view.js';
 import gameModeViewTemplate from './game-mode-view.tmpl.pug';
+import UsersModel from '../../models/users-model';
 
 export default class GameModeView extends View {
 
@@ -12,7 +13,9 @@ export default class GameModeView extends View {
   }
 
   render() {
+    const profile = UsersModel.getCurrentUser();
     const attrs = {
+      profile,
       planets: [
         {
           name: 'single-player',

@@ -5,7 +5,7 @@ import OnlineEngine from './engine/online-engine.js';
 
 
 export default class Game {
-  constructor(mode, eventBus, profile) {
+  constructor(mode, eventBus, profile, side) {
     let GameEngine = null;
     switch (mode) {
     case GAME_MODES.ONLINE: {
@@ -20,7 +20,7 @@ export default class Game {
     default:
       throw new Error('Invalid game mode ' + mode);
     }
-    this.engine = new GameEngine(this.gameScene, eventBus, profile);
+    this.engine = new GameEngine(this.gameScene, eventBus, profile, side);
   }
   start() {
     this.engine.start();
