@@ -20,7 +20,7 @@ export default class MenuView extends View {
         {
           button_style: 'main-button',
           type: 'play',
-          href: '/game'
+          href: '/mode'
         },
         {
           button_style: 'secondary-button',
@@ -75,7 +75,5 @@ export default class MenuView extends View {
 
     return super.render(attrs);
   }
-
-  
 
 }

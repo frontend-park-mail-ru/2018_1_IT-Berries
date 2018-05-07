@@ -10,10 +10,9 @@ section.view.game-mode-view
                     div.game-mode-view__super-selector
                         div.game-move-view__arrow-icon-shadow.left-arrow-icon-shadow
                     div.game-mode-view__arrow-icon.left-arrow-icon
-                div.game-mode-view__middle-icon
-                    div.game-mode-view__middle-shadows
-                    div.game-mode-view__middle-inner-icon
-                    div.game-mode-view__middle-inner-text Signleplayer
+                div.game-mode-view__middle-planets
+                    include ../../common.blocks/gameModePlanet/game-mode-planet.tmpl.pug
+                    a(href='/game')
                 div.game-mode-view__right-arrow
                     div.game-mode-view__super-selector
                         div.game-move-view__arrow-icon-shadow.right-arrow-icon-shadow
