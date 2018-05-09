@@ -228,31 +228,31 @@ app.put('/me', function (req, res) {
       logger('Неверный пароль');
       return res.status(400).json({error: 'Неверный пароль'});
     }
-    if (newEmail != '') {
+    if (newEmail !== '') {
       if (!newEmail.match(/@/)) {
         logger('Не валидный email');
         return res.status(400).json({error: 'Не валидный email'});
       }
-      if ( newEmail != oldEmail && (newEmail in users)) {
+      if ( newEmail !== oldEmail && (newEmail in users)) {
         logger('Пользователь уже существует');
         return res.status(400).json({error: 'Пользователь уже существует'});
       }
       userData.email = newEmail;
     }
 
-    if (newPassword != '') {
+    if (newPassword !== '') {
       if (!newPassword.match(/^\S{4,}$/)) {
         logger('New password must be longer than 3 characters');
         return res.status(400).json({error: 'New password must be longer than 3 characters'});
       }
-      if (newPassword != newPasswordRepeat) {
+      if (newPassword !== newPasswordRepeat) {
         logger('New passwords do not match');
         return res.status(400).json({error: 'New passwords do not match'});
       }
       userData.password = newPassword;
     }
 
-    if (newUsername != '') {
+    if (newUsername !== '') {
       userData.username = newUsername;
     }
   }

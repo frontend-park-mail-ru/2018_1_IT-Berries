@@ -36,6 +36,19 @@
     background-size: 100% 100%;
 }
 
+.ufo_hidden {
+    background-color: #ffdb00;
+}
+
+.ufo-hidden {
+    position: relative;
+    background-image: url("../../../images/ufo.png");
+    height: 100%;
+    width: 100%;
+    background-size: 100% 100%;
+    opacity: 0;
+}
+
 .empty-cell {
     opacity: 0;
     background-image: url("../../../images/rocket.png");
@@ -52,11 +65,20 @@
     background-size: 100% 100%;
 }
 
-.player_1_turn table tbody tr td:hover .empty-cell:hover {
+.player_human_turn table tbody tr td:hover .empty-cell:hover {
     opacity: 0.8;
 }
 
-.player_1_turn table tbody tr .empty_cell:hover {
+.player_human_turn table tbody tr .empty_cell:hover {
+    box-shadow: 0 0 2vmin 1vmin azure;
+    cursor: pointer;
+}
+
+.player_ufo_turn table tbody tr td:hover .ufo-hidden {
+    opacity: 0.8;
+}
+
+.player_ufo_turn table tbody tr .ufo_hidden:hover {
     box-shadow: 0 0 2vmin 1vmin azure;
     cursor: pointer;
 }
@@ -67,7 +89,7 @@ and (max-device-aspect-ratio: 5/7 ) {
     .game-view__game {
         width: 90vmin;
         height: 81vmin;
-        margin-top: 17vmin;
+        margin-top: 16vmin;
     }
 
     .game-view__game-table {
