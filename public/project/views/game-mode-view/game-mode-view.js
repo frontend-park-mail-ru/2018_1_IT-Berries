@@ -50,12 +50,12 @@ export default class GameModeView extends View {
       this.singlePlayerPLanet.style.visibility = 'hidden';
       this.multiPlayerPlanet.style.visibility = 'visible';
       this.status = 'multi';
-      this.link.href = '/side';
+      this.link.href = '/side/online-mode';
     } else {
       this.multiPlayerPlanet.style.visibility = 'hidden';
       this.singlePlayerPLanet.style.visibility = 'visible';
       this.status = 'single';
-      this.link.href = '/game';
+      this.link.href = '/side/offline-mode';
     }
   }
 }

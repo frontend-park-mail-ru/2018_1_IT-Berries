@@ -14,7 +14,8 @@ export default class GameView extends View {
     return true;
   }
 
-  async create(attrs) {
+  async create(path) {
+
     const profile = UsersModel.getCurrentUser();
     let side;
     try {
@@ -22,7 +23,7 @@ export default class GameView extends View {
     } catch (e) {
       side = null;
     }
-    attrs = {profile, side};
+    let attrs = {profile, side, path};
     super.create(attrs);
     this.doGame(attrs);
     
@@ -31,7 +32,7 @@ export default class GameView extends View {
 
   doGame(attrs) {
     let mode = GAME_MODES;
-    if (attrs.side === 'humans' || attrs.side === 'aliens') {
+    if (attrs.path === '/game/online-mode') {
       mode = GAME_MODES.ONLINE;
     } else {
       mode = GAME_MODES.OFFLINE;

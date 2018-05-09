@@ -9,28 +9,28 @@ export default class Engine {
     this.events = gameEvents;
     this.onGameStarted = this.onGameStarted.bind(this);
     this.onGameFinished = this.onGameFinished.bind(this);
-    this.onPlayer1Turn = this.onPlayer1Turn.bind(this);
-    this.onPlayer2Turn = this.onPlayer2Turn.bind(this);
-    this.onPlayer1Win = this.onPlayer1Win.bind(this);
-    this.onPlayer2Win = this.onPlayer2Win.bind(this);
+    this.onHumansTurn = this.onHumansTurn.bind(this);
+    this.onUfoTurn = this.onUfoTurn.bind(this);
+    this.onHumansWin = this.onHumansWin.bind(this);
+    this.onUfoWin = this.onUfoWin.bind(this);
   }
 
   start() {
     this.eventBus.on(this.events.START_GAME, this.onGameStarted);
     this.eventBus.on(this.events.FINISH_GAME, this.onGameFinished);
-    this.eventBus.on(this.events.PLAYER_1_TURN, this.onPlayer1Turn);
-    this.eventBus.on(this.events.PLAYER_2_TURN, this.onPlayer2Turn);
-    this.eventBus.on(this.events.PLAYER_1_WIN, this.onPlayer1Win);
-    this.eventBus.on(this.events.PLAYER_2_WIN, this.onPlayer2Win);
+    this.eventBus.on(this.events.HUMANS_TURN, this.onHumansTurn);
+    this.eventBus.on(this.events.UFO_TURN, this.onUfoTurn);
+    this.eventBus.on(this.events.HUMANS_WIN, this.onHumansWin);
+    this.eventBus.on(this.events.UFO_WIN, this.onUfoWin);
   }
 
   destroy() {
     this.eventBus.off(this.events.START_GAME, this.onGameStarted);
     this.eventBus.off(this.events.FINISH_GAME, this.onGameFinished);
-    this.eventBus.off(this.events.PLAYER_1_TURN, this.onPlayer1Turn);
-    this.eventBus.off(this.events.PLAYER_2_TURN, this.onPlayer2Turn);
-    this.eventBus.off(this.events.PLAYER_1_WIN, this.onPlayer1Win);
-    this.eventBus.off(this.events.PLAYER_2_WIN, this.onPlayer2Win);
+    this.eventBus.off(this.events.HUMANS_TURN, this.onHumansTurn);
+    this.eventBus.off(this.events.UFO_TURN, this.onUfoTurn);
+    this.eventBus.off(this.events.HUMANS_WIN, this.onHumansWin);
+    this.eventBus.off(this.events.UFO_WIN, this.onUfoWin);
   }
 
   onGameStarted(evt) {
@@ -41,19 +41,19 @@ export default class Engine {
     throw new Error('This method must be overridden');
   }
 
-  onPlayer1Turn(evt) {
+  onHumansTurn(evt) {
     throw new Error('This method must be overridden');
   }
 
-  onPlayer2Turn(evt) {
+  onUfoTurn(evt) {
     throw new Error('This method must be overridden');
   }
 
-  onPlayer1Win(evt) {
+  onHumansWin(evt) {
     throw new Error('This method must be overridden');
   }
 
-  onPlayer2Win(evt) {
+  onUfoWin(evt) {
     throw new Error('This method must be overridden');
   }
 }

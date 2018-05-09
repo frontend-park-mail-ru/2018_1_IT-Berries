@@ -48,7 +48,7 @@ export default class MenuView extends View {
         {
           button_style: 'main-button',
           type: 'play',
-          href: '/game'
+          href: '/side/offline-mode'
         },
         {
           button_style: 'secondary-button',

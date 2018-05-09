@@ -31,7 +31,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (loadMeResponse.ok) {
     await new Router(application, '/login')
       .add('/', MenuView)
-      .add('/game', GameView)
+      .add('/game/online-mode', GameView)
+      .add('/game/offline-mode', GameView)
       .add('/login', LoginView)
       .add('/signup', SignupView)
       .add('/profile', ProfileView)
@@ -41,7 +42,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       .add('/win', WinGameView)
       .add('/lose', LoseGameView)
       .add('/mode', GameModeView)
-      .add('/side', ChooseSideView)
+      .add('/side/online-mode', ChooseSideView)
+      .add('/side/offline-mode', ChooseSideView)
       .start();
   }
 
