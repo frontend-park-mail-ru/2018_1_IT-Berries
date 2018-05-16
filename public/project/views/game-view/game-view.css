@@ -114,3 +114,31 @@
             inset 0 2px 0 rgba(0, 0, 0, 0.2);
     text-shadow: none;
 }
+
+@media only screen
+and (max-device-aspect-ratio: 5/7 ) {
+
+    .players-tables {
+        bottom: 2vmin;
+        height: 30vmin;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .player-panel {
+        height: 12vh;
+        width: 30vmin;
+        bottom: -1vmin;
+        font-size: 4vmin;
+        margin-bottom: 0;
+    }
+
+    .player-1-panel {
+        position: absolute;
+        left: 7vmin;
+    }
+    .player-2-panel {
+        position: absolute;
+        right: 7vmin;
+    }
+}

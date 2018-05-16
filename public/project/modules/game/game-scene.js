@@ -2,7 +2,7 @@ import gameFieldBlock from '../../common.blocks/game-field/game-field.js';
 import gameEvents from './engine/game-events.js';
 
 export default class GameScene {
-  constructor(x = 8, y = 7, eventBus) {
+  constructor(x = 8, y = 7, eventBus, side) {
     this.eventsBus = eventBus;
     const gameFieldRoot = document.getElementsByClassName('game-view__game')[0];
     this.panels = document.getElementsByClassName('player-panel');
@@ -11,9 +11,26 @@ export default class GameScene {
     this.x = x;
     this.y = y;
     this.cells = this.gameField._el.getElementsByClassName('cell');
-    for (let i = 0; i < this.cells.length; i++) {
-      this.cells[i].addEventListener('click', this.playerTwoTurn.bind(this));
+    this.side = side;
+    if (this.side !== 'aliens') {
+      for (let i = 0; i < this.cells.length; i++) {
+        this.cells[i].addEventListener('click', this.opponentUfoTurn.bind(this));
+      }
     }
+    this.onScoreChange = this.onScoreChange.bind(this);
+    this.eventsBus.on(gameEvents.SCORE_CHANGE, this.onScoreChange);
+  }
+
+  onScoreChange(evt) {
+    for (let i = 0; i < this.panels.length; i++) {
+      if (this.getPanelName(i) === evt.name) {
+        this.panels[i].getElementsByClassName('player-score')[0].innerHTML = evt.score;
+      }
+    }
+  }
+
+  setPanelScore(index, score) {
+    this.panels[index].getElementsByClassName('player-score')[0].innerHTML = score;
   }
 
   setPanelName(index, name) {
@@ -39,36 +56,101 @@ export default class GameScene {
     return this.y;
   }
 
-  getUfoStartPosition() {
-    return this.ufoStartPosition;
+  getUfoPosition() {
+    return this.ufoPosition;
   }
 
   stepUfoTo(cell) {
-    this.removeCallImgClass(this.ufoStartPosition.x, this.ufoStartPosition.y, 'ufo');
-    this.addCallClassImgClass(this.ufoStartPosition.x, this.ufoStartPosition.y, 'empty_cell', 'empty-cell');
+    this.removeCallImgClass(this.ufoPosition.x, this.ufoPosition.y, 'ufo');
+    this.addCallClassImgClass(this.ufoPosition.x, this.ufoPosition.y, 'empty_cell', 'empty-cell');
     this.removeCallClassImgClass(cell.x, cell.y, 'empty_cell', 'empty-cell');
     this.addCallImgClass(cell.x, cell.y, 'ufo');
-    this.ufoStartPosition = {x: cell.x, y: cell.y};
+    this.ufoPosition = {x: cell.x, y: cell.y};
+    this.player_turn = 1;
   }
 
   reset() {
     this.setUfoPosition(Math.ceil(this.x / 2) - 1, Math.ceil(this.y / 2) - 1);
   }
 
-  playerOneTurn() {
+  playerHumanTurn() {
     this.player_turn = 1;
-    this.gameField._el.classList.add('player_1_turn');
+    this.gameField._el.classList.add('player_human_turn');
   }
 
-  playerTwoTurn(event) {
+  playerUfoTurn() {
+    const ufo = this.getUfoPosition();
+    ufo.x = Number(ufo.x);
+    ufo.y = Number(ufo.y);
+    let ufoCells = new Array(0);
+    ufoCells.push({y: ufo.y, x: ufo.x + 1});
+    ufoCells.push({y: ufo.y, x: ufo.x - 1});
+    if (ufo.y % 2 === 1) {
+      ufoCells.push({y: ufo.y + 1, x: ufo.x});
+      ufoCells.push({y: ufo.y + 1, x: ufo.x - 1});
+      ufoCells.push({y: ufo.y - 1, x: ufo.x - 1});
+      ufoCells.push({y: ufo.y - 1, x: ufo.x});
+    } else {
+      ufoCells.push({y: ufo.y + 1, x: ufo.x + 1});
+      ufoCells.push({y: ufo.y + 1, x: ufo.x});
+      ufoCells.push({y: ufo.y - 1, x: ufo.x});
+      ufoCells.push({y: ufo.y - 1, x: ufo.x + 1});
+    }
+    this.gameField._el.classList.add('player_ufo_turn'); //ufo-hidden
+    this.ufoPosibleTurns = new Array(0);
+    for (let i = 0; i < ufoCells.length; i++) {
+      const cell = this.getCell(ufoCells[i].x, ufoCells[i].y);
+      const img = cell.getElementsByClassName('cell')[0];
+      if (!img.classList.contains('rocket')) {
+        this.cellChangeClass(cell, 'empty_cell', 'ufo_hidden');
+        this.cellChangeImgClass(cell, 'empty-cell', 'ufo-hidden');
+        cell.addEventListener('click', this.opponentHumanTurn.bind(this));
+        this.ufoPosibleTurns.push(cell);
+      }
+    }
+  }
+
+  opponentUfoTurn(event) {
     if (this.player_turn === 1 &&
       !event.target.classList.contains('ufo') &&
       !event.target.classList.contains('rocket')) {
-      this.gameField._el.classList.remove('player_1_turn');
+      this.gameField._el.classList.remove('player_human_turn');
       this.setRocket(event.target);
-      this.eventsBus.emit(gameEvents.PLAYER_2_TURN, event.target);
+      this.eventsBus.emit(gameEvents.UFO_TURN, event.target);
     }
+  }
 
+  cellChangeClass(cell, oldClass, newClass) {
+    cell.classList.remove(oldClass);
+    cell.classList.add(newClass);
+  }
+
+  cellChangeImgClass(cell, oldClass, newClass) {
+    const img = cell.getElementsByClassName('cell')[0];
+    img.classList.remove(oldClass);
+    img.classList.add(newClass);
+  }
+
+  opponentHumanTurn(event) {
+    if (this.player_turn === 2 &&
+      !event.target.classList.contains('ufo') &&
+      !event.target.classList.contains('rocket')) {
+      this.gameField._el.classList.remove('player_ufo_turn');
+      if (this.ufoPosibleTurns !== undefined) {
+        for (let i = 0; i < this.ufoPosibleTurns.length; i++) {
+          const cell = this.ufoPosibleTurns[i];
+          cell.removeEventListener('click', this.opponentHumanTurn.bind(this));
+          this.cellChangeClass(cell, 'ufo_hidden', 'empty_cell');
+          this.cellChangeImgClass(cell, 'ufo-hidden', 'empty-cell');
+        }
+        delete this.ufoPosibleTurns;
+      }
+      const ufoColumn = event.target.parentNode.className.match(/\d+/g)[0];
+      const ufoRow = event.target.parentNode.parentNode.parentNode.parentNode.classList[0].match(/\d+/g)[0];
+      const cell = {x: ufoColumn, y: ufoRow};
+      this.stepUfoTo(cell);
+      this.eventsBus.emit(gameEvents.HUMANS_TURN, event.target);
+    }
   }
 
   setRocket(cell) {
@@ -85,7 +167,7 @@ export default class GameScene {
   }
 
   async setUfoPosition(x, y) {
-    this.ufoStartPosition = {x: x, y: y};
+    this.ufoPosition = {x: x, y: y};
     this.addCallImgClass(x, y, 'ufo');
     this.removeCallClassImgClass(x, y, 'empty_cell', 'empty-cell');
   }

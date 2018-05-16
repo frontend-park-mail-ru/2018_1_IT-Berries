@@ -119,3 +119,44 @@
     inset 0 0.3vmin 0 rgba(0, 0, 0, 0.2);
     text-shadow: none;
 }
+
+@media only screen
+and (max-device-aspect-ratio: 5/7 ){
+
+    .form__message, .js-form-message {
+        font-size: 6vmin;
+        position: absolute;
+        top: 0.5vmin;
+    }
+
+    .login-form {
+        width: 80vmin;
+        height: 60vmin;
+        margin-top: 11vh;
+    }
+
+    .login__input {
+        margin: 2vmin;
+        height: 10vmin;
+        width: 70vmin;
+    }
+
+    .form-input {
+        height: 10vmin;
+        width: 70vmin;
+        border-radius: 3vmin;
+        font-size: 8vmin;
+    }
+
+    .form__links {
+        width: 70vmin;
+        font-size: 4vmin;
+    }
+    .form__button {
+        width: 68vmin;
+        height: 12vmin;
+        border-radius: 3vmin;
+        font-size: 7vmin;
+    }
+
+}

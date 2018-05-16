@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode development",
+    "build": "pug -c public --name-after-file && webpack --mode development",
     "webpack-dev": "webpack --mode development --watch",
     "start": "npm run eslint && npm run build && DEBUG=mylogger node server",
     "start:raw": "node server",
@@ -30,6 +30,7 @@
     "jsdoc": "^3.5.5",
     "morgan": "^1.9.0",
     "mylogger": "^1.1.5",
+    "node-sass": "^4.9.0",
     "parse-formdata": "^1.0.2",
     "pug": "^2.0.0",
     "pug-cli": "^1.0.0-alpha6",

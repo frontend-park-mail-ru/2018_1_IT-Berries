@@ -91,3 +91,40 @@ input:checked + .slider:before {
 input[type=checkbox] {
     display: none;
 }
+
+@media only screen
+and (min-device-width: 320px)
+and (max-device-width: 850px)
+and (-webkit-min-device-pixel-ratio: 2) {
+
+    .input-range {
+        width: 36vmin;
+        margin-bottom: 0;
+    }
+
+    .sound-input {
+        height: 4vmin;
+    }
+
+    .music-input {
+        height: 4vmin;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+        height: 5vmin;
+    }
+
+    .switch {
+        width: 20vmin;
+        height: 8vmin;
+    }
+
+    .slider:before {
+        height: 6vmin;
+        width: 6vmin;;
+    }
+
+    input:checked + .slider:before {
+        transform: translateX(11.5vmin);
+    }
+}
