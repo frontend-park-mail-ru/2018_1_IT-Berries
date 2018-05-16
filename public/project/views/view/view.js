@@ -10,17 +10,25 @@ export default class View {
     this.active = false;
 
     this.el = document.createElement('div');
-    this.hide();
+    this.el.classList.add('view-hidden');
+
+    // this.hide();
   }
 
   hide() {
-    this.el.setAttribute('hidden', 'hidden');
+
+    // this.el.setAttribute('hidden', 'hidden');
+    this.el.classList.add('view-hidden');
+    this.el.classList.remove('view-shown');
     this.active = false;
     return this;
   }
 
   show() {
-    this.el.removeAttribute('hidden');
+
+    // this.el.removeAttribute('hidden');
+    this.el.classList.add('view-shown');
+    this.el.classList.remove('view-hidden');
     this.active = true;
     return this;
   }
