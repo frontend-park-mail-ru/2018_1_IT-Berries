@@ -19,11 +19,12 @@ import UsersModel from './models/users-model.js';
 
 // import { addServiceWorker } from './modules/add-sw.js';
 
-document.addEventListener('DOMContentLoaded', async () => {
+async function startApplication() {
 
   // addServiceWorker();
 
   const application = document.getElementsByClassName('application')[0];
+  application.innerHTML = '';
 
   const loadMeResponse = await UsersModel.loadMe();
   if (loadMeResponse.ok) {
@@ -81,4 +82,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     await new Router().open('/lose');
   });
 
-});
+}
+
+startApplication();

@@ -9,7 +9,7 @@ html, body, section, .application, .application>div {
     background-image: url("../../images/sky.png");
     background-size: 100% 100%;
     /*animation: stars 40s linear infinite;*/
-    color: #B130D4;
+    color: azure;
     font-family: 'Chicle', cursive, fantasy;
 }
 
@@ -131,4 +131,84 @@ footer {
     color: azure;
     text-decoration: none;
     right: 10vmin;
+}
+
+.view-hidden {
+    display: none;
+    opacity: 0;
+}
+
+.view-shown {
+    -webkit-animation: fadeInFromNone 1.5s ease-in;
+    -moz-animation: fadeInFromNone 1.5s ease-in;
+    -o-animation: fadeInFromNone 1.5s ease-in;
+    animation: fadeInFromNone 1.5s ease-in;
+}
+
+@-webkit-keyframes fadeInFromNone {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: block;
+        opacity: 0;
+    }
+
+    100% {
+        display: block;
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadeInFromNone {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: block;
+        opacity: 0;
+    }
+
+    100% {
+        display: block;
+        opacity: 1;
+    }
+}
+
+@-o-keyframes fadeInFromNone {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: block;
+        opacity: 0;
+    }
+
+    100% {
+        display: block;
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInFromNone {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: block;
+        opacity: 0;
+    }
+
+    100% {
+        display: block;
+        opacity: 1;
+    }
 }
