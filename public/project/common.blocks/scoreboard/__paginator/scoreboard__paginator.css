@@ -1,5 +1,11 @@
 .scoreboard__pagination a {
     text-decoration: none;
+    margin: 0 2vmin;
+}
+
+.scoreboard__pagination b {
+    text-decoration: none;
+    margin: 0 2vmin;
 }
 
 @media only screen

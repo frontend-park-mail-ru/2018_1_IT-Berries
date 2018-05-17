@@ -1,18 +1,6 @@
-/*.scoreboard-table {
-    height: 60vmin;
-    width: 80vmin;
-    border-radius: 3vmin;
-    background-color: rgba(152, 95, 194, 0.4);
-    position: absolute;
-    margin-top: 14vmin;
-    border-width: 0.5vmin;
-    border-style: solid;
-    border-color: rgb(124, 0, 255);
-
-
-    !*display: grid;
-    grid-template-rows:  repeat(3, 5vmin);*!
-}*/
+$table-border-color: rgb(73, 43, 85);
+$table-item-border-color: rgb(67, 1, 113);
+$table-box-shadow-color: rgba(66, 6, 90, 0.55);
 
 .scoreboard-view__table {
     width: 100%;
@@ -33,13 +21,13 @@
     margin-top: 14vmin;
     border-width: 0.5vmin;
     border-style: solid;
-    border-color: rgb(17, 0, 168);
+    border-color: $table-border-color;
     font-size: 4vmin;
     color: azure;
 
     border-spacing: 0;
 
-    box-shadow: 0 0 1vmin 0.5vmin rgba(73, 0, 199, 0.55);
+    box-shadow: 0 0 1vmin 0.5vmin $table-box-shadow-color;
 }
 .scoreboard__table tr, .scoreboard__table td {
     text-align: center;
@@ -48,13 +36,13 @@
 .scoreboard__table > thead {
     background-color: rgba(228, 116, 255, 0.4);
     border-radius: 2.5vmin 2.5vmin 0 0;
-    border-bottom-color: rgb(68, 0, 168);
+    border-bottom-color: rgb(67, 1, 113);
     border-bottom-style: solid;
     border-bottom-width: 0.3vmin;
 }
 
 .scoreboard__table tbody tr td {
-    border-bottom-color: rgb(68, 0, 168);
+    border-bottom-color: $table-item-border-color;
     border-bottom-style: solid;
     border-bottom-width: 0.3vmin;
 }
@@ -63,7 +51,7 @@
     height:40vmin;
     overflow-y: auto;
     color: rgb(255, 231, 113);
-    border-bottom-color: rgb(68, 0, 168);
+    border-bottom-color: $table-item-border-color;
     border-bottom-style: solid;
     border-bottom-width: 0.3vmin;
 }
@@ -97,13 +85,13 @@
 .scoreboard__table>tbody tr td:nth-child(1), .scoreboard__table>tbody tr td:nth-child(2) {
     border-right-style: solid;
     border-right-width: 0.3vmin;
-    border-right-color: rgb(68, 0, 168);
+    border-right-color: $table-item-border-color;
 }
 
 .scoreboard__table>thead tr th:nth-child(1), .scoreboard__table>thead tr th:nth-child(2) {
     border-right-style: solid;
     border-right-width: 0.3vmin;
-    border-right-color: rgb(68, 0, 168);
+    border-right-color: $table-item-border-color;
 }
 
 .scoreboard__table tr {
