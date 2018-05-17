@@ -124,10 +124,10 @@ footer {
 }
 
 .view-shown {
-    -webkit-animation: fadeInFromNone 1.5s ease-in;
-    -moz-animation: fadeInFromNone 1.5s ease-in;
-    -o-animation: fadeInFromNone 1.5s ease-in;
-    animation: fadeInFromNone 1.5s ease-in;
+    -webkit-animation: fadeInFromNone 0.5s ease-in;
+    -moz-animation: fadeInFromNone 0.5s ease-in;
+    -o-animation: fadeInFromNone 0.5s ease-in;
+    animation: fadeInFromNone 0.5s ease-in;
 }
 
 @-webkit-keyframes fadeInFromNone {

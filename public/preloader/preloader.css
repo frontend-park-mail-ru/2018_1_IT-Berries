@@ -20,7 +20,6 @@ html, body, section, .application, .application>div {
     left: 50%;
     margin-top: -250px;
     margin-left: -250px;
-    overflow:hidden;
 }
 
 .preloader_planet{

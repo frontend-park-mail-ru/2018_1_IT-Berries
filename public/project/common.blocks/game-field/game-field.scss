@@ -1,3 +1,6 @@
+$game-field-background-color: rgba(108, 58, 118, 0.85);
+$game-field-border-color: #462663;
+
 .game-view__game {
     width: 72vmin;
     height: 63vmin;
@@ -8,13 +11,12 @@
 }
 
 .game-view__game tr>td {
-    background-color: rgba(147, 92, 173, 0.4);
-
-    border-color: #462663;
+    background-color: $game-field-background-color;
+    border-color: $game-field-border-color;
     border-style: solid;
     border-width: 0.2vmin;
-    box-shadow: 0 0 0.8vmin 0.5vmin azure, 0.5vmin 1vmin 1vmin 0.5vmin black,
-    -0.3vmin 1vmin 1vmin 0.5vmin black;
+    box-shadow: 0 0 0.8vmin 0.3vmin azure, 0.5vmin 1vmin 0.5vmin 0.1vmin black,
+    -0.3vmin 1vmin 0.5vmin 0.1vmin black;
 }
 
 .game-view__game table[class*=playing-field-row]:nth-of-type(2n+1) {
