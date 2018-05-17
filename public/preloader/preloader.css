@@ -1,84 +1,175 @@
-body {
-    background-color: #482d53;
-    font-size: 0;
-}
-
-
-.preloader-container {
-    font-size: 20px;
-    position: relative;
+html, body, section, .application, .application>div {
     width: 100%;
-    height: 400px;
-    display: block;
-    text-align: center;
-    border-collapse: collapse;
-    vertical-align: top;
-    color: white;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
-.preloader {
-    width: 50px;
-    height: 50px;
+.application {
+    background-image: url('../images/sky.png');
+    background-size: 100% 100%;
+    color: azure;
+    font-family: 'Chicle', cursive, fantasy;
+}
+
+.preloader{
+    width: 500px;
+    height: 500px;
+    position: fixed;
     top: 50%;
-    margin: -25px auto 0;
-    border-radius: 50%;
-    background: #ffffff;
-    background: -moz-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 50%);
-    background: -webkit-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 50%);
-    background: -o-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 50%);
-    background: -ms-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 50%);
-    background: linear-gradient(to right, #ffffff 10%, rgba(255, 255, 255, 0) 50%);
-    position: relative;
-    -webkit-animation: preloader 1.5s infinite linear;
-    animation: preloader 1.5s infinite linear;
-    -webkit-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    transform: translateZ(0);
+    left: 50%;
+    margin-top: -250px;
+    margin-left: -250px;
+    overflow:hidden;
 }
 
-.preloader:before {
-    content: '';
-    width: 25px;
-    height: 25px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: #ffffff;
-    border-radius: 100% 0 0 0;
+.preloader_planet{
+    width: 300px;
+    height: 300px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -150px;
+    margin-left: -150px;
+    background:url('../images/red-rocky-planet.png') no-repeat center center;
 }
 
-.preloader:after {
-    content: '';
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: #482d53;
-    margin: auto;
+.preloader_rocket{
+    width: 500px;
+    height: 500px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -250px;
+    margin-left: -250px;
+    background:url('../images/rocket-mini.png') no-repeat 0 center;
+
+    animation:orbit 2s linear infinite;
+    transition:background-position 0.8s;
+}
+
+.preloader:hover .preloader_rocket{
+    background-position:50px center;
+}
+
+/* Задаются кейфреймы для анимации */
+@keyframes orbit {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
+
+
+
+.preloader_text {
+    width: 250px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    font-family: helvetica, arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 900;
+    font-size:18px;
+    /* color: rgb(206,66,51);*/
+    color: azure;
+    letter-spacing: 0.2em;
+}
+.preloader_text::before, .preloader_text::after {
+    content: "";
+    display: block;
+    width: 15px;
+    height: 15px;
+    background: white;
     position: absolute;
+    animation: preloader_text 0.81s infinite alternate ease-in-out;
+    -o-animation: preloader_text 0.81s infinite alternate ease-in-out;
+    -webkit-animation: preloader_text 0.81s infinite alternate ease-in-out;
+    -moz-animation: preloader_text 0.81s infinite alternate ease-in-out;
+}
+.preloader_text::before {
     top: 0;
-    left: 0;
+}
+.preloader_text::after {
     bottom: 0;
-    right: 0;
 }
 
-@-webkit-keyframes preloader {
+
+
+@keyframes preloader_text {
     0% {
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
+        left: 0;
+        height: 29px;
+        width: 15px;
+    }
+    50% {
+        height: 8px;
+        width: 39px;
     }
     100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
+        left: 229px;
+        height: 29px;
+        width: 15px;
     }
 }
 
-@keyframes preloader {
+@-o-keyframes preloader_text {
     0% {
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
+        left: 0;
+        height: 29px;
+        width: 15px;
+    }
+    50% {
+        height: 8px;
+        width: 39px;
     }
     100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
+        left: 229px;
+        height: 29px;
+        width: 15px;
+    }
+}
+
+@-webkit-keyframes preloader_text {
+    0% {
+        left: 0;
+        height: 29px;
+        width: 15px;
+    }
+    50% {
+        height: 8px;
+        width: 39px;
+    }
+    100% {
+        left: 229px;
+        height: 29px;
+        width: 15px;
+    }
+}
+
+@-moz-keyframes preloader_text {
+    0% {
+        left: 0;
+        height: 29px;
+        width: 15px;
+    }
+    50% {
+        height: 8px;
+        width: 39px;
+    }
+    100% {
+        left: 229px;
+        height: 29px;
+        width: 15px;
     }
 }

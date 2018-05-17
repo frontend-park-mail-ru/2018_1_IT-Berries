@@ -20,8 +20,8 @@ new class Preloader {
   showLoader() {
     this.application = document.getElementsByClassName('application')[0];
     this.preloader = document.createElement('div');
-    this.preloader.classList.add('preloader-container');
-    this.preloader.innerHTML = '<div class=preloader></div>';
+    this.preloader.classList.add('preloader');
+    this.preloader.innerHTML = '<div class=preloader_planet><div class="preloader_text">Loading</div></div><div class=preloader_rocket></div>';
     this.application.appendChild(this.preloader);
   }
 
