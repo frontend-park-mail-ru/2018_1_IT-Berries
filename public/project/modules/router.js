@@ -50,7 +50,7 @@ export default class Router {
       this.active = null;
     }
 
-    this.active = await view.create();
+    this.active = await view.create(path);
     if (window.location.pathname !== path) {
       window.history.pushState(null, '', path);
     }

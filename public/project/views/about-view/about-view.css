@@ -24,3 +24,14 @@
 .about-view__about p {
     text-align: center;
 }
+
+@media only screen
+and (max-device-aspect-ratio: 5/7 ){
+
+    .about-view__about {
+        width: 70vmin;
+        height: 70vmin;
+        font-size: 8vmin;
+        margin-top: 16vh;
+    }
+}

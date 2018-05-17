@@ -1,7 +1,23 @@
 section.view.game-mode-view
     header.view__header.view-header
-        div.view-header__controls
-            a(href='/') Back
-        h1.view-header__head Select game mode
-    div.view__content
-        div.game-mode-view__game-mode
+        div.view-header__home
+            a(href='/')
+        div.view-header__head Select game mode
+        div.view-header__profile
+            include ../../common.blocks/profile-bar/profile-bar.tmpl.pug
+    article
+        div.view__content
+            div.game-mode-view__game-mode
+                div.game-mode-view__left-arrow
+                    div.game-mode-view__super-selector
+                        div.game-move-view__arrow-icon-shadow.left-arrow-icon-shadow
+                    div.game-mode-view__arrow-icon.left-arrow-icon
+                div.game-mode-view__middle-planets
+                    include ../../common.blocks/gameModePlanet/game-mode-planet.tmpl.pug
+                    a(href='/side/offline-mode')
+                div.game-mode-view__right-arrow
+                    div.game-mode-view__super-selector
+                        div.game-move-view__arrow-icon-shadow.right-arrow-icon-shadow
+                    div.game-mode-view__arrow-icon.right-arrow-icon
+    footer
+        div.footer__fore

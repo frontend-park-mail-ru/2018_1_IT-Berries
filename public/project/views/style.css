@@ -197,3 +197,31 @@ footer {
         opacity: 1;
     }
 }
+
+@media only screen
+and (max-device-aspect-ratio: 5/7 ) {
+    .view-header__head {
+        margin-top: 16vmin;
+        font-size: 14vmin;
+    }
+
+    .view-header__profile {
+        font-size: 12vmin;
+    }
+
+    .profile-icon {
+        width: 14vmin;
+        height: 14vmin;
+        top: 2.3vmin;
+    }
+
+    .profile_bar_tittle {
+        right: 16vmin;
+        top: 2.3vmin;
+    }
+
+    .view-header__home > a {
+        width: 14vmin;
+        height: 14vmin;
+    }
+}

@@ -1,0 +1,97 @@
+$side-width: 35vmin;
+
+$rocket-icon: '../../../images/rocket.png';
+$ufo-icon: '../../../images/ufo.png';
+$alien-icon: '../../../images/alien.png';
+
+.choose-side-view__sides {
+
+  width: 90vw;
+  height: 70vmin;
+  background-color: transparent;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+  margin-top: 20vmin;
+
+  .choose-side-view__side {
+    width: $side-width;
+    height: 70vmin;
+    background-color: transparent;
+
+    .choose-side-view__icon {
+      width: $side-width;
+      height: 50vmin;
+      background-size: 100% 100%;
+    }
+
+    .choose-side-view__side-text {
+      text-align: center;
+      vertical-align: center;
+      width: $side-width;
+      height: 10vmin;
+      font-size: 8vmin;
+      background-color: rgba(84, 32, 255, 0.51);
+      margin-top: 5vmin;
+      border-radius: 1vmin;
+      border: darkgray solid 0.1vmin;
+      box-shadow: 0.5vmin 0.5vmin 0.5vmin 0.1vmin #000066;
+    }
+  }
+
+  .choose-side-view__human-side {
+
+    .choose-side-view__icon {
+      background-image: url($rocket-icon);
+    }
+
+    .choose-side-view__side-text {
+      text-effect: none;
+      user-select: none;
+      color: #ffdb00;
+    }
+  }
+
+  .choose-side-view__side:hover .choose-side-view__side-text {
+    text-shadow: 0.1vmin 0.1vmin 1vmin black, 0 0 5vmin whitesmoke;
+    box-shadow: 0.5vmin 0.5vmin 0.5vmin 0.1vmin #000066, inset 0 0 1vmin 0.5vmin whitesmoke;
+  }
+
+  .choose-side-view__side:hover {
+    cursor: pointer;
+  }
+
+  .choose-side-view__ufo-side {
+
+    .choose-side-view__icon {
+
+      background-image: url($alien-icon);
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      width: 12vmin;
+      height: 25vmin;
+      margin-top: 15vmin;
+      margin-left: 11.5vmin;
+      margin-bottom: 15vmin;
+
+      .ship-icon {
+        height: 43vmin;
+        width: 50vmin;
+        margin-left: -18.0vmin;
+        background-image: url($ufo-icon);
+        background-size: 100% 100%;
+        position: absolute;
+        top: 6vmin;
+      }
+
+    }
+
+    .choose-side-view__side-text {
+      color: rgb(145, 220, 90);
+    }
+
+  }
+
+}

@@ -38,3 +38,15 @@
     transform: rotate(-90deg) translateY(-20vmin);
     background-size: 100% 100%;
 }
+
+@media only screen
+and (max-device-aspect-ratio: 5/7 ) {
+
+    .star-icon {
+        visibility: hidden;
+    }
+
+    .js-scoreboard-table {
+        margin-top: 7vh;
+    }
+}

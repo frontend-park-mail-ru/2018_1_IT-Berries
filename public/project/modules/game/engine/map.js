@@ -9,7 +9,7 @@ export default class Map {
       this.map[i] = new Array(x + i % 2);
       for (let j = 0; j < x + i % 2; j++) {
         this.map[i][j] = new Cell(j, i, x);
-        if (j === gameScene.getUfoStartPosition().x && i === gameScene.getUfoStartPosition().y) {
+        if (j === gameScene.getUfoPosition().x && i === gameScene.getUfoPosition().y) {
           this.map[i][j].isAlian = true;
         }
       }

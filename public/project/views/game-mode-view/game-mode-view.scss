@@ -1,0 +1,182 @@
+$font-stack: Helvetica, sans-serif;
+$primary-color: #333;
+$mars-like-planet-icon: '../../../images/mars-like-planet.png';
+$earth-like-planet-icon: '../../../images/earth-like-planet.png';
+$game-mode-view__left-arrow-icon: '../../../images/game-mode-view__left-arrow.png';
+$game-mode-view__right-arrow-icon: '../../../images/game-mode-view__right-arrow.png';
+$single-player-icon: '../../../images/singleplayer.png';
+$multi-player-icon: '../../../images/multiplayer.png';
+
+.game-mode-view__game-mode {
+
+  height: 40vmin;
+  width: 80vmin;
+  background-color: transparent;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+
+  margin-top: 10vmin;
+
+  .game-mode-view__middle-planets {
+
+    height: 40vmin;
+    width: 40vmin;
+
+    .game-mode-view__single-player-planet {
+      background-image: url($mars-like-planet-icon);
+
+      .single-player-planet-shadows {
+        box-shadow: 0 0 9vmin 2vmin rgba(215, 119, 5, 0.77),
+        inset 0 0 9vmin rgba(215, 205, 13, 0.7);
+      }
+
+      .single-player-planet-inner-icon {
+        background-image: url($single-player-icon);
+      }
+
+    }
+
+    .game-mode-view__single-player-planet, .game-mode-view__multi-player-planet {
+      position: absolute;
+      height: 40vmin;
+      width: 40vmin;
+
+      .single-player-planet-shadows, .multi-player-planet-shadows {
+        position: absolute;
+        height: 39vmin;
+        width: 40vmin;
+      }
+
+      .single-player-planet-inner-icon, .multi-player-planet-inner-icon {
+        position: absolute;
+        height: 25vmin;
+        width: 25vmin;
+        border-radius: 100%;
+        top: 2vmin;
+      }
+
+      .single-player-planet-inner-text, .multi-player-planet-inner-text {
+        bottom: 9vmin;
+        position: absolute;
+        font-size: 5vmin;
+        color: azure;
+      }
+
+    }
+
+    .game-mode-view__multi-player-planet {
+      visibility: hidden;
+      background-image: url($earth-like-planet-icon);
+
+      .multi-player-planet-shadows {
+        box-shadow: 0 0 9vmin 2vmin rgba(0, 58, 215, 0.77),
+        inset 0 0 9vmin rgba(0, 203, 215, 0.7);
+      }
+
+      .multi-player-planet-inner-icon {
+        background-image: url($multi-player-icon);
+      }
+
+    }
+
+    /*.game-mode-view__multi-player-planet:hover > .multi-player-planet-shadows {
+      box-shadow: 0 0 9vmin 2vmin rgb(0, 73, 255),
+      inset 0 0 9vmin rgb(0, 243, 255);
+    }*/
+
+  }
+
+  .game-mode-view__middle-planets:hover .multi-player-planet-shadows {
+    box-shadow: 0 0 9vmin 2vmin rgb(0, 73, 255),
+    inset 0 0 9vmin rgb(0, 243, 255);
+  }
+
+  .game-mode-view__middle-planets:hover .single-player-planet-shadows {
+    box-shadow: 0 0 9vmin 2vmin rgb(255, 149, 5),
+    inset 0 0 9vmin rgb(255, 245, 13);
+  }
+
+  .game-mode-view__middle-planets > a {
+    height: 40vmin;
+    width: 40vmin;
+    position: absolute;
+  }
+
+}
+
+.game-mode-view__game-mode {
+
+
+  .game-mode-view__left-arrow, .game-mode-view__right-arrow {
+
+    height: 40vmin;
+    width: 20vmin;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .game-mode-view__arrow-icon {
+      width: 8vmin;
+      height: 7.5vmin;
+      background-size: 100% 100%;
+      position: absolute;
+      z-index: 1;
+      opacity: 0.9;
+    }
+
+    .game-mode-view__super-selector {
+
+      position: absolute;
+      width: 4.7vmin;
+      height: 7.5vmin;
+      background-color: transparent;
+      z-index: 2;
+      margin-left: 0.5vmin;
+
+      .game-move-view__arrow-icon-shadow {
+        position: absolute;
+        width: 10vmin;
+        height: 9.4vmin;
+        background-size: 100% 100%;
+        opacity: 0;
+        z-index: 999;
+        left: -3.1vmin;
+        top: -1vmin;
+      }
+    }
+
+    .game-mode-view__super-selector:hover {
+      cursor: pointer;
+      opacity: 1;
+    }
+
+    .game-mode-view__super-selector:hover .game-move-view__arrow-icon-shadow {
+      opacity: 0.5;
+    }
+
+  }
+
+  .game-mode-view__icon:hover {
+
+  }
+
+  .left-arrow-icon, .left-arrow-icon-shadow {
+    background-image: url($game-mode-view__left-arrow-icon);
+  }
+
+  .left-arrow-icon {
+    margin-left: 0.1vmin;
+  }
+
+  .right-arrow-icon, .right-arrow-icon-shadow {
+    background-image: url($game-mode-view__right-arrow-icon);
+  }
+
+  .right-arrow-icon {
+    margin-left: -0.1vmin;
+  }
+}
