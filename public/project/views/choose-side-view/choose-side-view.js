@@ -21,6 +21,7 @@ export default class ChooseSideView extends View {
     } else {
       this.game = '/game/offline-mode';
     }
+    return this;
   }
 
   render() {

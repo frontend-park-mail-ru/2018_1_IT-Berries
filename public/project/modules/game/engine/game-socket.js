@@ -54,6 +54,9 @@ export default class GameSocket {
     case 'EVENTS.GAME.RESULT':
       this.eventBus.emit(this.events.FINISH_GAME, message.payload);
       break;
+    case 'EVENTS.SERVICE.CONNECT':
+      this.eventBus.emit(this.events.CONNECTING, message.payload);
+      break;
     default:
       alert('New message: ' + event.data);
     }

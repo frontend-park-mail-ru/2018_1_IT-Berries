@@ -8,12 +8,20 @@ export default class OnlineEngine extends Engine {
     super(null, eventBus, profile);
     this.side = side;
     this.onOpponentTurn = this.onOpponentTurn.bind(this);
+    this.onConnect = this.onConnect.bind(this);
     this.socket = new GameSocket('localhost:8080/game', eventBus);
   }
 
   start() {
     super.start();
     this.eventBus.on(this.events.OPPONENT_TURN, this.onOpponentTurn);
+    this.eventBus.on(this.events.CONNECTING, this.onConnect);
+  }
+
+  destroy() {
+    super.destroy();
+    this.eventBus.off(this.events.OPPONENT_TURN, this.onOpponentTurn);
+    this.eventBus.off(this.events.CONNECTING, this.onConnect);
   }
 
   onOpponentTurn(evt) {
@@ -67,7 +75,7 @@ export default class OnlineEngine extends Engine {
       let score = document.getElementsByClassName('player-score')[0];
       this.eventBus.emit(callingEvent, {moves: Number(moves.innerHTML),
         score: Number(score.innerHTML),
-        playAgainPath: '/side/online-mode'});
+        playAgainPath: '/mode'});
     });
     this.socket.close();
   }
@@ -127,4 +135,7 @@ export default class OnlineEngine extends Engine {
     }
   }
 
+  onConnect(evt) {
+    this.gameScene.showConnectMessage(evt);
+  }
 }

@@ -60,6 +60,9 @@ export default class GameScene {
     return this.ufoPosition;
   }
 
+  showConnectMessage(message) {
+  }
+
   stepUfoTo(cell) {
     this.removeCallImgClass(this.ufoPosition.x, this.ufoPosition.y, 'ufo');
     this.addCallClassImgClass(this.ufoPosition.x, this.ufoPosition.y, 'empty_cell', 'empty-cell');
