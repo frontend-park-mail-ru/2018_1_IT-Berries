@@ -15,13 +15,12 @@ export default class ChooseSideView extends View {
   }
 
   async create(path) {
-    super.create(path);
     if(path === '/side/online-mode') {
       this.game = '/game/online-mode';
     } else {
       this.game = '/game/offline-mode';
     }
-    return this;
+    return super.create(path);
   }
 
   render() {
