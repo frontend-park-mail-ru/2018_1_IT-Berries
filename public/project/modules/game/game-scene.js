@@ -61,6 +61,8 @@ export default class GameScene {
   }
 
   showConnectMessage(message) {
+    const body = document.getElementsByClassName('game-view__game')[0];
+    body.innerHTML = 'Waiting fo another player';
   }
 
   stepUfoTo(cell) {
