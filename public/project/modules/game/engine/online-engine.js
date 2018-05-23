@@ -20,7 +20,7 @@ export default class OnlineEngine extends Engine {
       //this._baseUrl = 'https://itberries-backend.herokuapp.com';
       break;
     case 'it-berries.neat.codes':
-      url = 'it-berries.neat.codes';
+      url = 'it-berries.neat.codes:8080';
       break;
     }
     this.socket = new GameSocket(url + '/game', eventBus);
