@@ -20,7 +20,7 @@ class HttpModule {
       //this._baseUrl = 'https://itberries-backend.herokuapp.com';
       break;
     case 'https://it-berries.neat.codes/':
-      this._baseUrl = 'http://localhost:8080';
+      this._baseUrl = 'https://it-berries.neat.codes/';
       break;
     }
   }
