@@ -4,7 +4,7 @@ import Game from '../game';
 export default class GameSocket {
 
   constructor(url, eventBus) {
-    this.socket = new WebSocket('ws://' + url);
+    this.socket = new WebSocket('wss://' + url);
     this.eventBus = eventBus;
     this.events = gameEvents;
     this.socket.onmessage = (event) => {
