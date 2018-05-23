@@ -132,7 +132,7 @@ export default class UsersModel {
 
     currentUser = null;
 
-    await httpModule.fetchGet({
+    await httpModule.fetchDelete({
       path: '/logout'
     });
   }
