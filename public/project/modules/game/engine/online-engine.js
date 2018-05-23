@@ -9,7 +9,21 @@ export default class OnlineEngine extends Engine {
     this.side = side;
     this.onOpponentTurn = this.onOpponentTurn.bind(this);
     this.onConnect = this.onConnect.bind(this);
-    this.socket = new GameSocket('localhost:8080/game', eventBus);
+    let url = '';
+    switch (window.location.hostname) {
+    case 'localhost':
+      url = 'localhost:8080';
+      break;
+    case 'itberries-frontend.herokuapp.com':
+      url = 'itberries-frontend.herokuapp.com';
+
+      //this._baseUrl = 'https://itberries-backend.herokuapp.com';
+      break;
+    case 'it-berries.neat.codes':
+      url = 'it-berries.neat.codes';
+      break;
+    }
+    this.socket = new GameSocket(url + '/game', eventBus);
   }
 
   start() {
