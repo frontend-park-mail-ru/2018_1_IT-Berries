@@ -9,6 +9,19 @@ section {
    /* animation: stars 40s linear infinite;*/
 }
 
+/* chicle-regular - latin */
+@font-face {
+    font-family: 'Chicle';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../../fonts/chicle-v6-latin-regular.eot');
+    src: local('Chicle Regular'), local('Chicle-Regular'),
+    url('../../fonts/chicle-v6-latin-regular.eot?#iefix') format('embedded-opentype'),
+    url('../../fonts/chicle-v6-latin-regular.woff2') format('woff2'),
+    url('../../fonts/chicle-v6-latin-regular.woff') format('woff'),
+    url('../../fonts/chicle-v6-latin-regular.ttf') format('truetype')
+}
+
 @keyframes stars {
     from { background-position-x: 0;}
     to { background-position: -100vw;}
