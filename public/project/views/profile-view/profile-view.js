@@ -64,7 +64,10 @@ export default class ProfileView extends View {
       ]
     };
 
-    return super.render(attrs);
+    super.render(attrs);
+    this.updateListeners();
+    
+    return this;
   }
 
   allowed() {
@@ -74,9 +77,26 @@ export default class ProfileView extends View {
   async create(attrs) {
     super.create(attrs);
 
-    const avatar_input = document.getElementsByClassName('hide-input-avatar')[0];
-    const avatar_button = document.getElementsByClassName('avatar-button')[0];
-    const avatar_text = document.getElementsByClassName('avatar-text')[0];
+    this.eventBus.on('profile-changed', function () {
+      this.render();
+      this.formMessageBlock.clear();
+      this.formMessageBlock.hide();
+    }.bind(this));
+
+    return this;
+  }
+
+  onError(err) {
+    if (this.active) {
+      this.formMessageBlock.setTextContent(err);
+      this.formMessageBlock.show();
+    }
+  }
+
+  updateListeners() {
+    const avatar_input = this.el.getElementsByClassName('hide-input-avatar')[0];
+    const avatar_button = this.el.getElementsByClassName('avatar-button')[0];
+    const avatar_text = this.el.getElementsByClassName('avatar-text')[0];
 
     avatar_button.addEventListener('click', () => {
       avatar_input.click();
@@ -94,12 +114,6 @@ export default class ProfileView extends View {
     this.formMessageBlock = new FormMessageBlock(this.profileFormMessageRoot);
     this.formMessageBlock.init();
 
-    this.eventBus.on('profile-changed', function () {
-      this.render();
-      this.formMessageBlock.clear();
-      this.formMessageBlock.hide();
-    }.bind(this));
-
     this.additionalLinks = [...this.el.querySelector('.js-additional-links').getElementsByTagName('a')];
     this.additionalLinks.forEach(function(link) {
       link.addEventListener('click', function (evt) {
@@ -107,15 +121,5 @@ export default class ProfileView extends View {
         eventBus.emit(link.name);
       }.bind(this));
     });
-
-    return this;
   }
-
-  onError(err) {
-    if (this.active) {
-      this.formMessageBlock.setTextContent(err);
-      this.formMessageBlock.show();
-    }
-  }
-
 }
