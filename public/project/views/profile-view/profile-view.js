@@ -66,7 +66,7 @@ export default class ProfileView extends View {
 
     super.render(attrs);
     this.updateListeners();
-    
+
     return this;
   }
 
