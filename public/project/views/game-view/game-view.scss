@@ -15,6 +15,44 @@
     width: 100%;
 }
 
+.game-time {
+    position: absolute;
+    width: 15vmin;
+    height: 5vmin;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    z-index: 2;
+    font-size: 5vmin;
+    top: -27vmin;
+}
+
+
+.player-info {
+    position: absolute;
+    width: 25vmin;
+    height: 25vmin;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    z-index: 2;
+}
+
+.player-1-info {
+    left: 5vmin;
+}
+
+.player-2-info {
+    right: 5vmin;
+}
+
+.player-info__timer {
+    width: 25vmin;
+    height: 5vmin;
+    text-align: center;
+    font-size: 3.5vmin;
+}
+
 .player-panel {
     width: 25vmin;
     height: 15vmin;
@@ -31,7 +69,7 @@
     border-width: 0.3vmin;
     box-shadow: 1vmin 1vmin 0.5vmin 0.1vmin black;
 
-    margin: 5vmin;
+    margin: 0 5vmin 5vmin 5vmin;
     z-index: 2;
 }
 
@@ -115,14 +153,66 @@
     text-shadow: none;
 }
 
+.conecting-panel {
+    width: 35vw;
+    height: 8vmin;
+    text-align: center;
+    visibility: hidden;
+    z-index: 2;
+}
+
+.conecting-panel__tittle {
+    width: 35vw;
+    height: 5vw;
+    text-align: center;
+    font-size: 4vw;
+}
+
+.conecting-panel__msg {
+    width: 35vw;
+    height: 3vw;
+    text-align: center;
+    font-size: 2vw;
+}
+
 @media only screen
 and (max-device-aspect-ratio: 5/7 ) {
 
+    .player-info__timer {
+        width: 30vmin;
+        font-size: 5vmin;
+    }
+
     .players-tables {
-        bottom: 2vmin;
+        top: 25vmin;
         height: 30vmin;
         width: 100%;
         justify-content: center;
+    }
+
+    .game-time {
+        width: 15vmin;
+        font-size: 7vmin;
+        top: auto;
+        height: 7vmin;
+    }
+
+    .player-info {
+        position: absolute;
+        width: 30vmin;
+        height: 25vmin;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        z-index: 2;
+    }
+
+    .player-1-info {
+        left: 5vmin;
+    }
+
+    .player-2-info {
+        right: 5vmin;
     }
 
     .player-panel {
@@ -134,11 +224,29 @@ and (max-device-aspect-ratio: 5/7 ) {
     }
 
     .player-1-panel {
-        position: absolute;
         left: 7vmin;
     }
     .player-2-panel {
-        position: absolute;
         right: 7vmin;
+    }
+
+
+    .conecting-panel {
+        width: 60vw;
+        height: 14vw;
+        margin-top: 20vh;
+        visibility: hidden;
+    }
+
+    .conecting-panel__tittle {
+        width: 60vw;
+        height: 8vw;
+        font-size: 7vw;
+    }
+
+    .conecting-panel__msg {
+        width: 60vw;
+        height: 6vw;
+        font-size: 5vw;
     }
 }

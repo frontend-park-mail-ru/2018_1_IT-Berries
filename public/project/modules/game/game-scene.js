@@ -19,6 +19,11 @@ export default class GameScene {
     }
     this.onScoreChange = this.onScoreChange.bind(this);
     this.eventsBus.on(gameEvents.SCORE_CHANGE, this.onScoreChange);
+    this.humansTimer =  document.getElementsByClassName('player-info__timer')[0];
+    this.humansTimer.style.visibility = 'hidden';
+    this.ufoTimer =  document.getElementsByClassName('player-info__timer')[1];
+    this.ufoTimer.style.visibility = 'hidden';
+    this.gameTime = document.getElementsByClassName('game-time')[0];
   }
 
   onScoreChange(evt) {
@@ -60,11 +65,6 @@ export default class GameScene {
     return this.ufoPosition;
   }
 
-  showConnectMessage(message) {
-    const body = document.getElementsByClassName('game-view__game')[0];
-    body.innerHTML = 'Waiting fo another player';
-  }
-
   stepUfoTo(cell) {
     this.removeCallImgClass(this.ufoPosition.x, this.ufoPosition.y, 'ufo');
     this.addCallClassImgClass(this.ufoPosition.x, this.ufoPosition.y, 'empty_cell', 'empty-cell');
@@ -75,12 +75,87 @@ export default class GameScene {
   }
 
   reset() {
+    if (this.gameTimeId !== undefined && this.gameTimeId !== null) {
+      clearInterval(this.gameTimeId);
+    }
+    if (this.gameTime.style.visibility === 'hidden') {
+      this.gameTime.style.visibility = 'visible';
+    }
     this.setUfoPosition(Math.ceil(this.x / 2) - 1, Math.ceil(this.y / 2) - 1);
+    this.gameTime.innerHTML = '0:00';
+    this.gameTimeValue = 0;
+    this.gameTimeId = setInterval(function() {
+      this.gameTimeValue++;
+      this.gameTime.innerHTML = (Math.floor(this.gameTimeValue / 60)).toString() + ':';
+      if (this.gameTimeValue % 60 < 10) {
+        this.gameTime.innerHTML += '0';
+      }
+      this.gameTime.innerHTML += (this.gameTimeValue % 60).toString();
+    }.bind(this), 1000);
   }
 
   playerHumanTurn() {
     this.player_turn = 1;
     this.gameField._el.classList.add('player_human_turn');
+  }
+
+  restartTimer(turn) {
+    if (this.timer !== undefined) {
+      clearInterval(this.timer);
+    }
+    this.timerValue = 30;
+    if (turn === 'humans') {
+      this.humansTimer.innerHTML = '0:30';
+      this.humansTimer.style.color = 'azure';
+      this.humansTimer.style.visibility = 'visible';
+      this.ufoTimer.style.visibility = 'hidden';
+      this.timer = setInterval(function() {
+        this.timerTick(this.humansTimer);
+      }.bind(this), 1000);
+    } else {
+      this.ufoTimer.innerHTML = '0:30';
+      this.ufoTimer.style.color = 'azure';
+      this.ufoTimer.style.visibility = 'visible';
+      this.humansTimer.style.visibility = 'hidden';
+      this.timer = setInterval(function() {
+        this.timerTick(this.ufoTimer);
+      }.bind(this), 1000);
+    }
+  }
+
+  timerTick(timer) {
+    this.timerValue--;
+    timer.innerHTML = '0:';
+    if (this.timerValue < 10) {
+      timer.innerHTML += '0';
+    }
+    timer.innerHTML += this.timerValue.toString();
+    if (this.timerValue <= 10) {
+      timer.style.color = 'red';
+    }
+    if (this.timerValue === 0) {
+      clearInterval(this.timer);
+      this.changeTurn();
+    }
+  }
+
+  changeTurn() {
+    if (this.player_turn === 1) {
+      if (this.side === 'humans') {
+        this.opponentUfoTurn('Time over!');
+      } else {
+        this.playerUfoTurn();
+      }
+      this.player_turn = 2;
+    } else {
+      if (this.side === 'aliens') {
+        this.opponentHumanTurn('Time over!');
+      } else {
+        this.playerHumanTurn();
+      }
+      this.player_turn = 1;
+
+    }
   }
 
   playerUfoTurn() {
@@ -115,13 +190,24 @@ export default class GameScene {
     }
   }
 
+  stopAllTimers() {
+    if (this.timer !== undefined && this.timer !== null) {
+      clearInterval(this.timer);
+    }
+    if (this.gameTimeId !== undefined && this.gameTimeId !== null) {
+      clearInterval(this.gameTimeId);
+    }
+  }
+
   opponentUfoTurn(event) {
-    if (this.player_turn === 1 &&
+    if (event === 'Time over!' || (this.player_turn === 1 &&
       !event.target.classList.contains('ufo') &&
-      !event.target.classList.contains('rocket')) {
+      !event.target.classList.contains('rocket'))) {
       this.gameField._el.classList.remove('player_human_turn');
-      this.setRocket(event.target);
-      this.eventsBus.emit(gameEvents.UFO_TURN, event.target);
+      if (event !== 'Time over!') {
+        this.setRocket(event.target);
+      }
+      this.eventsBus.emit(gameEvents.UFO_TURN, event);
     }
   }
 
@@ -137,9 +223,9 @@ export default class GameScene {
   }
 
   opponentHumanTurn(event) {
-    if (this.player_turn === 2 &&
+    if (event === 'Time over!' || (this.player_turn === 2 &&
       !event.target.classList.contains('ufo') &&
-      !event.target.classList.contains('rocket')) {
+      !event.target.classList.contains('rocket'))) {
       this.gameField._el.classList.remove('player_ufo_turn');
       if (this.ufoPosibleTurns !== undefined) {
         for (let i = 0; i < this.ufoPosibleTurns.length; i++) {
@@ -150,11 +236,13 @@ export default class GameScene {
         }
         delete this.ufoPosibleTurns;
       }
-      const ufoColumn = event.target.parentNode.className.match(/\d+/g)[0];
-      const ufoRow = event.target.parentNode.parentNode.parentNode.parentNode.classList[0].match(/\d+/g)[0];
-      const cell = {x: ufoColumn, y: ufoRow};
-      this.stepUfoTo(cell);
-      this.eventsBus.emit(gameEvents.HUMANS_TURN, event.target);
+      if (event !== 'Time over!') {
+        const ufoColumn = event.target.parentNode.className.match(/\d+/g)[0];
+        const ufoRow = event.target.parentNode.parentNode.parentNode.parentNode.classList[0].match(/\d+/g)[0];
+        const cell = {x: ufoColumn, y: ufoRow};
+        this.stepUfoTo(cell);
+      }
+      this.eventsBus.emit(gameEvents.HUMANS_TURN, event);
     }
   }
 

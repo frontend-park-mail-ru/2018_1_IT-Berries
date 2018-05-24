@@ -12,22 +12,28 @@ export default class OnlineEngine extends Engine {
     let url = '';
     switch (window.location.hostname) {
     case 'localhost':
-      url = 'localhost:8080';
+      url = 'ws://localhost:8080';
       break;
     case 'itberries-frontend.herokuapp.com':
-      url = 'itberries-frontend.herokuapp.com';
+      url = 'ws://itberries-frontend.herokuapp.com';
 
       //this._baseUrl = 'https://itberries-backend.herokuapp.com';
       break;
     case 'it-berries.neat.codes':
-      url = 'it-berries.neat.codes';
+      url = 'wss://it-berries.neat.codes';
       break;
     }
+    this.conectingPanel = document.getElementsByClassName('conecting-panel')[0];
+    this.conectingPanel.style.visibility = 'visible';
+    this.conectingPanelMsg = document.getElementsByClassName('conecting-panel__msg')[0];
     this.socket = new GameSocket(url + '/game', eventBus);
   }
 
   start() {
     super.start();
+    document.getElementsByClassName('view-header__home')[0].addEventListener('click', () => {
+      this.destroy();
+    });
     this.eventBus.on(this.events.OPPONENT_TURN, this.onOpponentTurn);
     this.eventBus.on(this.events.CONNECTING, this.onConnect);
   }
@@ -36,6 +42,7 @@ export default class OnlineEngine extends Engine {
     super.destroy();
     this.eventBus.off(this.events.OPPONENT_TURN, this.onOpponentTurn);
     this.eventBus.off(this.events.CONNECTING, this.onConnect);
+    this.gameScene.stopAllTimers();
   }
 
   onOpponentTurn(evt) {
@@ -47,6 +54,7 @@ export default class OnlineEngine extends Engine {
   }
 
   onGameStarted(payload) {
+    this.conectingPanel.style.visibility = 'hidden';
     this.map = payload.cells;
     this.gameScene = new GameScene(this.map[0].length, this.map.length, this.eventBus, this.side);
     this.gameScene.setPanelName(0, payload.humansPlayer.name);
@@ -73,6 +81,14 @@ export default class OnlineEngine extends Engine {
       callingEvent = this.events.HUMANS_WIN;
       this.gameScene.setPanelScore(0, evt.winner.score);
       this.gameScene.setPanelScore(1, evt.loser.score);
+    } else if (evt.reason === 'UFO_WIN'){
+      callingEvent = this.events.UFO_WIN;
+      this.gameScene.setPanelScore(1, evt.winner.score);
+      this.gameScene.setPanelScore(0, evt.loser.score);
+    } else if (this.side === 'humans') {
+      callingEvent = this.events.HUMANS_WIN;
+      this.gameScene.setPanelScore(0, evt.winner.score);
+      this.gameScene.setPanelScore(1, evt.loser.score);
     } else {
       callingEvent = this.events.UFO_WIN;
       this.gameScene.setPanelScore(1, evt.winner.score);
@@ -95,6 +111,7 @@ export default class OnlineEngine extends Engine {
   }
 
   onHumansTurn(evt) {
+    this.gameScene.restartTimer('humans');
     if (this.side === 'humans') {
       this.gameScene.playerHumanTurn();
     } else {
@@ -118,6 +135,7 @@ export default class OnlineEngine extends Engine {
   }
 
   onUfoTurn(evt) {
+    this.gameScene.restartTimer('ufo');
     if (this.side === 'aliens') {
       this.gameScene.playerUfoTurn();
     } else {
@@ -150,6 +168,6 @@ export default class OnlineEngine extends Engine {
   }
 
   onConnect(evt) {
-    this.gameScene.showConnectMessage(evt);
+    this.conectingPanelMsg.innerHTML = evt;
   }
 }
