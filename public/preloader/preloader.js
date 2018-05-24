@@ -39,11 +39,11 @@ new class Preloader {
       this.loadScript('/dist/bundle.js'),
       this.loadScript('/runtime.js'),
       this.loadCss('/dist/bundle.css'),
-      this.loadImage('/images/about-btn-original.png'),
-      this.loadImage('/images/settings-btn-original.png'),
-      this.loadImage('/images/scoreboard-btn-original.png'),
-      this.loadImage('/images/login-btn-original.png'),
-      this.loadImage('/images/play-btn-original.png'),
+      this.loadImage('/dist/images/about-btn-original.png'),
+      this.loadImage('/dist/images/settings-btn-original.png'),
+      this.loadImage('/dist/images/scoreboard-btn-original.png'),
+      this.loadImage('/dist/images/login-btn-original.png'),
+      this.loadImage('/dist/images/play-btn-original.png'),
       this.loadImage('/images/sky.jpg'),
     ]);
   }
