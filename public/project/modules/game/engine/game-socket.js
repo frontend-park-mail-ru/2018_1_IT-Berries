@@ -14,7 +14,8 @@ export default class GameSocket {
       this.readyForJoinGame();
     };
     this.socket.onclose = (event) => {
-      alert('Connection closed with messegae: ' + event.data);
+
+      /*alert('Connection closed with messegae: ' + event.data);*/
     };
   }
 
@@ -58,7 +59,7 @@ export default class GameSocket {
       this.eventBus.emit(this.events.CONNECTING, message.payload);
       break;
     default:
-      alert('New message: ' + event.data);
+      break;
     }
   }
 

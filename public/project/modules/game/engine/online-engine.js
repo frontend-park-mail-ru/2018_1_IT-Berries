@@ -43,6 +43,7 @@ export default class OnlineEngine extends Engine {
     this.eventBus.off(this.events.OPPONENT_TURN, this.onOpponentTurn);
     this.eventBus.off(this.events.CONNECTING, this.onConnect);
     this.gameScene.stopAllTimers();
+    this.socket.close();
   }
 
   onOpponentTurn(evt) {
@@ -57,6 +58,7 @@ export default class OnlineEngine extends Engine {
     this.conectingPanel.style.visibility = 'hidden';
     this.map = payload.cells;
     this.gameScene = new GameScene(this.map[0].length, this.map.length, this.eventBus, this.side);
+    this.gameScene.reset();
     this.gameScene.setPanelName(0, payload.humansPlayer.name);
     this.gameScene.setPanelName(1, payload.ufoPlayer.name);
     for (let i = 0; i < this.map.length; i++) {
@@ -76,6 +78,7 @@ export default class OnlineEngine extends Engine {
   }
 
   onGameFinished(evt) {
+    this.gameScene.stopAllTimers();
     let callingEvent;
     if (evt.reason === 'HUMANS_WIN') {
       callingEvent = this.events.HUMANS_WIN;
@@ -111,11 +114,14 @@ export default class OnlineEngine extends Engine {
   }
 
   onHumansTurn(evt) {
-    this.gameScene.restartTimer('humans');
+
+    /*this.gameScene.restartTimer('humans');*/
     if (this.side === 'humans') {
       this.gameScene.playerHumanTurn();
     } else {
-      this.socket.sendMessage('EVENTS.LOGIC.MOVE', this.makeMovePayload(evt));
+      if (evt !== undefined && evt !== null) {
+        this.socket.sendMessage('EVENTS.LOGIC.MOVE', this.makeMovePayload(evt.target));
+      }
     }
   }
 
@@ -135,11 +141,14 @@ export default class OnlineEngine extends Engine {
   }
 
   onUfoTurn(evt) {
-    this.gameScene.restartTimer('ufo');
+
+    /*this.gameScene.restartTimer('ufo');*/
     if (this.side === 'aliens') {
       this.gameScene.playerUfoTurn();
     } else {
-      this.socket.sendMessage('EVENTS.LOGIC.MOVE', this.makeMovePayload(evt));
+      if (evt !== undefined && evt !== null) {
+        this.socket.sendMessage('EVENTS.LOGIC.MOVE', this.makeMovePayload(evt.target));
+      }
     }
   }
 

@@ -67,6 +67,7 @@ export default class OfflineEngine extends Engine {
   }
 
   onGameFinished(callingEvents) {
+    this.gameScene.stopAllTimers();
     const endGamePanel = document.getElementsByClassName('end-game-panel')[0];
     endGamePanel.style.visibility = 'visible';
     const endGamePanelTittle = endGamePanel.getElementsByClassName('end-game-panel__tiitle')[0];
