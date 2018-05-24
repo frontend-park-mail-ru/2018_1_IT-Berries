@@ -1,4 +1,5 @@
 import scoreboardTableTemplate from './scoreboard__table.tmpl.pug';
+import scoreboardTbodyTemplate from './scoreboard__tbody.tmpl.pug';
 
 /** Class representing a scoreboard table block. */
 export default class ScoreboardTableBlock {
@@ -41,9 +42,20 @@ export default class ScoreboardTableBlock {
     if (!this._data) {
       return;
     }
+    this._el.innerHTML = scoreboardTableTemplate();
+    this._scoreboardTableBodyRoot = this._el.querySelector('.js-scoreboard-tbody');
+    this.renderData();
+  }
+
+  /**
+   * Render scoreboard data template in scoreboard table body.
+   */
+  renderData() {
+    if (!this._scoreboardTableBodyRoot) {
+      return;
+    }
     const data = {'data' : this._data};
-    const template = scoreboardTableTemplate(data);
-    this._el.innerHTML = template;
+    this._scoreboardTableBodyRoot.innerHTML = scoreboardTbodyTemplate(data);
   }
 
 }

@@ -179,7 +179,7 @@ app.get('/users/scoreboard/', function (req, res) {
   res.json({scorelist: scorelist, length: length});
 });
 
-app.get('/logout', function (req, res) {
+app.delete('/logout', function (req, res) {
   logger("Выход пользователя");
   let id = req.cookies['frontend'];
   const email = ids[id];
