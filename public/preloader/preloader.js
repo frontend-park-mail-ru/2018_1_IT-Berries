@@ -1,6 +1,14 @@
 new class Preloader {
 
   constructor() {
+    switch (window.location.hostname) {
+    case 'it-berries.neat.codes':
+      this._basePath = '';
+      break;
+    default:
+      this._basePath = '/dist';
+    }
+
     document.addEventListener('DOMContentLoaded', async () => {
       await this.start();
     });
@@ -28,31 +36,33 @@ new class Preloader {
   showErrorLoadResult() {
     this.application = document.getElementsByClassName('application')[0];
     this.errormsg = document.createElement('div');
-    this.errormsg.classList.add('preloader-container');
-    this.errormsg.innerHTML = 'Application loading failed.';
+    this.errormsg.classList.add('preloader');
+    this.errormsg.innerHTML = '<div class=preloader-error>Application loading failed:(</div>';
     this.application.removeChild(this.preloader);
     this.application.appendChild(this.errormsg);
   }
 
   async loadApplication() {
     return Promise.all([
-      this.loadScript('/bundle.js'),
+      this.loadScript(this._basePath + '/bundle.js'),
       this.loadScript('/runtime.js'),
-      this.loadCss('/bundle.css'),
+      this.loadCss(this._basePath + '/bundle.css'),
       this.loadImage('/images/about-btn-original.png'),
       this.loadImage('/images/settings-btn-original.png'),
       this.loadImage('/images/scoreboard-btn-original.png'),
       this.loadImage('/images/login-btn-original.png'),
       this.loadImage('/images/play-btn-original.png'),
-      this.loadImage('/images/sky.png'),
+      this.loadImage('/images/mid_ground.png'),
+      this.loadImage('/images/fore_ground.png')
     ]);
   }
 
   addLoadResultListeners(element, url) {
-    element.onload = function() {
+    element.onload = () => {
       return Promise.resolve(url);
     };
-    element.onerror = function() {
+    element.onerror = () => {
+      this.showErrorLoadResult();
       return Promise.reject(url);
     };
   }
