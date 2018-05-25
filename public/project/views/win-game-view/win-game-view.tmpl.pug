@@ -1,0 +1,27 @@
+section.view.win-game-view
+    header.view__header.view-header
+        a(href='/')
+            div.view-header__home
+        div.view-header__head You win!
+    article
+        div.view__content
+            div.end-game-board
+                div.end-game-board__stars
+                    each val in [1, 2, 3]
+                        div(class='end-game-board__star dark-star end-game-board__star-' + val)
+                    each val in [4, 5]
+                        div(class='end-game-board__star light-star end-game-board__star-' + val)
+                table.end-game-board__total-table
+                    tr
+                        td Game moves:
+                        td #{moves}
+                    tr
+                        td Score:
+                        td #{score}
+                div.end-game-board__controls
+                    input(type='button' value='Back to menu' class='end-game-board__control')
+                    a(class='toMenu' href='/' hidden)
+                    input(type='button' value='Play again' class='end-game-board__control')
+                    a(class='newGame' href=playAgainPath hidden)
+    footer
+        div.footer__fore

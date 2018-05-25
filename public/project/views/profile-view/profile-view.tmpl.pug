@@ -1,0 +1,28 @@
+section.view.profile-view
+    header.view__header.view-header
+        div.view-header__home
+            a(href='/')
+        div.view-header__head Profile
+    article
+        div.view__content
+            div.profile-box
+                div.profile-data
+                    div(class='avatar-img' style={'background-image': 'url(' + profile.profileBarAvatar + ')'})
+                    table.user-data
+                        tr
+                            td Username:
+                            td #{profile.username}
+                        tr
+                            td Email:
+                            td #{profile.email}
+                        tr
+                            td Score:
+                            td #{profile.score}
+                    div.js-additional-links
+                        if additional_links
+                            each val, index in additional_links
+                                a(href=val.href name=val.event) #{val.title}
+                div.js-profile-form
+                        include ../../common.blocks/form/form.tmpl.pug
+    footer
+        div.footer__fore

@@ -1,0 +1,133 @@
+$table-border-color: rgb(73, 43, 85);
+$table-item-border-color: rgb(67, 1, 113);
+$table-box-shadow-color: rgba(66, 6, 90, 0.55);
+
+.scoreboard-view__table {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center; /*Центрирование по горизонтали*/
+    align-items: center;     /*Центрирование по вертикали */
+    flex-direction: column;
+}
+
+.scoreboard__table {
+    height: 60vmin;
+    width: 90vmin;
+    border-radius: 3vmin;
+    background-color: rgba(152, 95, 194, 0.3);
+    position: absolute;
+    margin-top: 14vmin;
+    border-width: 0.5vmin;
+    border-style: solid;
+    border-color: $table-border-color;
+    font-size: 4vmin;
+    color: azure;
+
+    border-spacing: 0;
+
+    box-shadow: 0 0 1vmin 0.5vmin $table-box-shadow-color;
+}
+.scoreboard__table tr, .scoreboard__table td {
+    text-align: center;
+}
+
+.scoreboard__table > thead {
+    background-color: rgba(228, 116, 255, 0.4);
+    border-radius: 2.5vmin 2.5vmin 0 0;
+    border-bottom-color: rgb(67, 1, 113);
+    border-bottom-style: solid;
+    border-bottom-width: 0.3vmin;
+}
+
+.scoreboard__table tbody tr td {
+    border-bottom-color: $table-item-border-color;
+    border-bottom-style: solid;
+    border-bottom-width: 0.3vmin;
+}
+
+.scoreboard__table tbody {
+    height:40vmin;
+    overflow-y: auto;
+    color: rgb(255, 231, 113);
+    border-bottom-color: $table-item-border-color;
+    border-bottom-style: solid;
+    border-bottom-width: 0.3vmin;
+}
+
+.scoreboard__table tfoot {
+    font-size: 6vmin;
+}
+
+.scoreboard__table thead, .scoreboard__table tbody, .scoreboard__table tfoot tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;/* even columns width , fix width of table too*/
+}
+
+.scoreboard__table thead tr th:nth-child(1) {
+    width: 8vmin;
+}
+
+.scoreboard__table thead tr th:nth-child(2) {
+    width: 45vmin;
+}
+
+.scoreboard__table tbody tr td:nth-child(1) {
+    width: 8vmin;
+}
+
+.scoreboard__table tbody tr td:nth-child(2) {
+    width: 45vmin;
+}
+
+.scoreboard__table>tbody tr td:nth-child(1), .scoreboard__table>tbody tr td:nth-child(2) {
+    border-right-style: solid;
+    border-right-width: 0.3vmin;
+    border-right-color: $table-item-border-color;
+}
+
+.scoreboard__table>thead tr th:nth-child(1), .scoreboard__table>thead tr th:nth-child(2) {
+    border-right-style: solid;
+    border-right-width: 0.3vmin;
+    border-right-color: $table-item-border-color;
+}
+
+.scoreboard__table tr {
+    height: 5vmin;
+}
+
+.scoreboard__table tfoot tr {
+    height: 10vmin;
+    font-size: 5vmin;
+}
+
+.scoreboard__table tfoot tr td {
+    padding-bottom: 3vmin;
+}
+
+.scoreboard__table tbody tr:hover {
+    background-color: rgba(228, 116, 255, 0.2);
+    cursor: pointer;
+}
+
+.scoreboard__table tbody tr {
+    height: 13.35vmin;
+    display: table;
+    width: 100%;
+}
+
+@media only screen
+and (max-device-aspect-ratio: 5/7 ) {
+
+    .scoreboard__table {
+        height: 70vmin;
+        font-size: 6vmin;
+    }
+
+    .scoreboard-view__table {
+        margin-top: 5vmin;
+    }
+
+}

@@ -1,0 +1,108 @@
+$game-field-background-color: rgba(108, 58, 118, 0.85);
+$game-field-border-color: #462663;
+
+.game-view__game {
+    width: 72vmin;
+    height: 63vmin;
+    padding: 0;
+    position: absolute;
+    margin-top: 16vmin;
+    z-index: 1;
+}
+
+.game-view__game tr>td {
+    background-color: $game-field-background-color;
+    border-color: $game-field-border-color;
+    border-style: solid;
+    border-width: 0.2vmin;
+    box-shadow: 0 0 0.8vmin 0.3vmin azure, 0.5vmin 1vmin 0.5vmin 0.1vmin black,
+    -0.3vmin 1vmin 0.5vmin 0.1vmin black;
+}
+
+.game-view__game table[class*=playing-field-row]:nth-of-type(2n+1) {
+    margin-left: 3.5vmin;
+    width: 64vmin;
+}
+
+.game-view__game-table {
+    border-spacing: 1vmin;
+    width: 72vmin;
+    height: 8vmin;
+}
+
+.ufo {
+    position: relative;
+    background-image: url("../../../images/ufo.png");
+    height: 100%;
+    width: 100%;
+    background-size: 100% 100%;
+}
+
+.ufo_hidden {
+    background-color: #ffdb00;
+}
+
+.ufo-hidden {
+    position: relative;
+    background-image: url("../../../images/ufo.png");
+    height: 100%;
+    width: 100%;
+    background-size: 100% 100%;
+    opacity: 0;
+}
+
+.empty-cell {
+    opacity: 0;
+    background-image: url("../../../images/rocket.png");
+    height: 100%;
+    width: 100%;
+    background-size: 100% 100%;
+}
+
+.rocket {
+    opacity: 1;
+    background-image: url("../../../images/rocket.png");
+    height: 100%;
+    width: 100%;
+    background-size: 100% 100%;
+}
+
+.player_human_turn table tbody tr td:hover .empty-cell:hover {
+    opacity: 0.8;
+}
+
+.player_human_turn table tbody tr .empty_cell:hover {
+    box-shadow: 0 0 2vmin 1vmin azure;
+    cursor: pointer;
+}
+
+.player_ufo_turn table tbody tr td:hover .ufo-hidden {
+    opacity: 0.8;
+}
+
+.player_ufo_turn table tbody tr .ufo_hidden:hover {
+    box-shadow: 0 0 2vmin 1vmin azure;
+    cursor: pointer;
+}
+
+@media only screen
+and (max-device-aspect-ratio: 5/7 ) {
+
+    .game-view__game {
+        width: 90vmin;
+        height: 63vh;
+        margin-top: 47vmin;
+    }
+
+    .game-view__game-table {
+        border-spacing: 1vmin;
+        width: 90vmin;
+        height: 10vmin;
+    }
+
+    .game-view__game table[class*=playing-field-row]:nth-of-type(2n+1) {
+        margin-left: 5vmin;
+        width: 81vmin;
+    }
+
+}

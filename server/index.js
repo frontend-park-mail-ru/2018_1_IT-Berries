@@ -1,5 +1,6 @@
 'use strict';
 
+const fallback = require(`express-history-api-fallback`);
 const path = require('path');
 const express = require('express');
 const body = require('body-parser');
@@ -27,6 +28,9 @@ app.use(express.static(path.resolve(__dirname, '..', 'public')));
 app.use(body.json());
 app.use(cookie());
 app.use(fileUpload());
+
+
+const root = path.resolve(__dirname, '..', 'public');
 
 const users = {
   'ivan.nemshilov@park.mail.ru': {
@@ -103,7 +107,7 @@ app.post('/registration', function (req, res) {
   users[email] = user;
 
   res.cookie('frontend', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-  res.status(201).json({id});
+  res.status(201).json({username: users[email].username, email: email, score: users[email].score, avatar: users[email].avatar});
 });
 
 app.post('/login', function (req, res) {
@@ -121,19 +125,20 @@ app.post('/login', function (req, res) {
   ids[id] = email;
 
   res.cookie('frontend', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-  res.status(201).json({id});
+  res.status(200).json({username: users[email].username, email: email, score: users[email].score, avatar: users[email].avatar});
 });
 
 app.get('/me', function (req, res) {
   const id = req.cookies['frontend'];
   const email = ids[id];
+
   if (!email || !users[email]) {
-    return res.status(401).end();
+    return res.status(401).json({error: 'Пользователь не авторизован'});
   }
 
   users[email].score += 1;
 
-  res.json({username: users[email].username});
+  res.json({username: users[email].username, email: email, score: users[email].score, avatar: users[email].avatar});
 });
 
 app.get('/avatar', function (req, res) {
@@ -174,11 +179,12 @@ app.get('/users/scoreboard/', function (req, res) {
   res.json({scorelist: scorelist, length: length});
 });
 
-app.get('/logout', function (req, res) {
+app.delete('/logout', function (req, res) {
   logger("Выход пользователя");
   let id = req.cookies['frontend'];
   const email = ids[id];
   if (!email || !users[email]) {
+    logger('А он и не входил');
     return res.status(401).end();
   }
   logger("Пользователь вышел");
@@ -188,21 +194,11 @@ app.get('/logout', function (req, res) {
   res.status(202).end();
 });
 
-app.get('/me/profile', function (req, res) {
-  const id = req.cookies['frontend'];
-  const email = ids[id];
-  if (!email || !users[email]) {
-    return res.status(401).end();
-  }
-
-  res.json({username: users[email].username, email: email, score: users[email].score, avatar: users[email].avatar});
-});
-
 app.get('/runtime.js', function (req, res) {
   res.sendFile(path.resolve(__dirname, '..', 'node_modules', 'regenerator-runtime', 'runtime.js'));
 });
 
-app.post('/me/profile', function (req, res) {
+app.put('/me', function (req, res) {
 
   const id = req.cookies['frontend'];
   const oldEmail = ids[id];
@@ -232,31 +228,31 @@ app.post('/me/profile', function (req, res) {
       logger('Неверный пароль');
       return res.status(400).json({error: 'Неверный пароль'});
     }
-    if (newEmail != '') {
+    if (newEmail !== '') {
       if (!newEmail.match(/@/)) {
         logger('Не валидный email');
         return res.status(400).json({error: 'Не валидный email'});
       }
-      if ( newEmail != oldEmail && (newEmail in users)) {
+      if ( newEmail !== oldEmail && (newEmail in users)) {
         logger('Пользователь уже существует');
         return res.status(400).json({error: 'Пользователь уже существует'});
       }
       userData.email = newEmail;
     }
 
-    if (newPassword != '') {
+    if (newPassword !== '') {
       if (!newPassword.match(/^\S{4,}$/)) {
         logger('New password must be longer than 3 characters');
         return res.status(400).json({error: 'New password must be longer than 3 characters'});
       }
-      if (newPassword != newPasswordRepeat) {
+      if (newPassword !== newPasswordRepeat) {
         logger('New passwords do not match');
         return res.status(400).json({error: 'New passwords do not match'});
       }
       userData.password = newPassword;
     }
 
-    if (newUsername != '') {
+    if (newUsername !== '') {
       userData.username = newUsername;
     }
   }
@@ -283,9 +279,11 @@ app.post('/me/profile', function (req, res) {
   logger(userData);
 
   res.cookie('frontend', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-  res.status(201).json({id});
+  res.status(200).json(userData);
 
 });
+
+app.use(fallback('index.html', {root}));
 
 const port = process.env.PORT || 8081;
 

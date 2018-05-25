@@ -1,106 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <title>Catch the Alien!</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>MagicalPoints</title>
+
+        <!--styles-->
+        <link rel="stylesheet" type="text/css" href="/preloader/preloader.css">
+
+        <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     </head>
-    <body>
+    <body style="background-color: #482d53">
 
-    <main class="application">
+    <main class="application"></main>
 
-        <section class="menu" hidden="true">
-            <h1>Menu</h1>
-            <div class="menu__profile-subheader"></div>
-            <ul>
-                <li class="menu__gamesettings-link"><a href="" data-section="gameSettings">Start game</a></li>
-                <li class="menu__login-link unAuth"><a href="" data-section="login">Login</a></li>
-                <li class="menu__registration-link unAuth"><a href="" data-section="registration">Registration</a></li>
-                <li class="menu__profile-link auth"><a href="" data-section="profile">Profile</a></li>
-                <li class="menu__scoreboard-link"><a href="" data-section="scoreboard">Scoreboard</a></li>
-                <li class="menu__about-link"><a href="" data-section="about">About</a></li>
-            </ul>
-        </section>
+    <script type="module" src="/preloader/preloader.js" charset="UTF-8"></script>
 
-        <section class="registration" hidden="true">
-            <h1>Registration</h1>
-            <form class="registration-form" enctype="multipart/form-data" method="post" name="fileinfo">
-                <input type="text" name="username" class="registration-form__username" placeholder="Username">
-                <input type="email" name="email" class="registration-form__email" placeholder="Email">
-                <input type="password" name="password" class="registration-form__password" placeholder="Password">
-                <input type="password" name="password_repeat" class="registration-form__password_repeat"
-                       placeholder="Repeat password">
-                <input type="file" name="avatar" class="registration-form__avatar" placeholder="path"
-                       accept="image/jpeg,image/png"/>
-                <div class="registration-form__validation"></div>
-                <input class="registration-form__submit" type="submit">
-            </form>
-            <a href="" data-section="menu">Back</a>
-
-        </section>
-
-        <section class="login" hidden="true">
-            <h1>Login</h1>
-            <form class="login-form">
-                <input type="email" name="email" class="login-form__email" placeholder="Email">
-                <input type="password" name="password" class="login-form__password" placeholder="Password">
-                <div class="login-form__validation"></div>
-                <input class="login-form__submit" type="submit">
-            </form>
-            <a href="" data-section="registration">Registration</a>
-            <a href="" data-section="menu">Back</a>
-        </section>
-
-        <section class="profile" hidden="true">
-            <h1 class="profile__subheader">Your Profile</h1>
-            <div class="profile-data"></div>
-            <form class="profile-form">
-                <input type="text" name="username" class="profile-form__username profile-form__input" placeholder="Username">
-                <input type="email" name="email" class="profile-form__email profile-form__input" placeholder="Email">
-                <input type="password" name="new_password" class="profile-form__new-password profile-form__input" placeholder="New password">
-                <input type="password" name="new_password_repeat" class="profile-form__new-password-repeat profile-form__input"
-                       placeholder="Repeat new password">
-                <input type="file" name="avatar" class="profile-form__avatar" placeholder="path"
-                       accept="image/jpeg,image/png"/>
-                <div class="profile-form__validation"></div>
-                <input class="profile-form__submit" type="submit">
-                <input type="password" name="current_password" class="profile-form__current-password" placeholder="Current password">
-            </form>
-            <a href="" data-section="menu">Back</a>
-        </section>
-
-        <section class="game-settings" hidden="true">
-            <h1>Game settings</h1>
-            <div class="game-settings-container">
-
-            </div>
-            <a href="" data-section="menu">Back</a>
-        </section>
-
-        <section class="scoreboard" hidden="true">
-            <h1>Scoreboard</h1>
-            <div class="scoreboard__container"></div>
-            <div class="scoreboard__paginator"></div>
-            <a href="" data-section="menu">Back</a>
-        </section>
-
-        <section class="about" hidden="true">
-            <h1>About</h1>
-            <div class="about-container">
-                It will be very cool game ヽ(^◇^*)/
-            </div>
-            <a href="" data-section="menu">Back</a>
-        </section>
-        <a class="quit-link auth" data-section="menu" href="" hidden="true">Quit</a>
-    </main>
-
-    <!-- TODO: change common.blocks to modules -->
-    <script src="/runtime.js"></script>
-    <script src="/project/common.blocks/scoreboard/__container/scoreboard__container.tmpl.js"></script>
-    <script src="/project/common.blocks/scoreboard/__paginator/scoreboard__paginator.tmpl.js"></script>
-    <script src="/project/common.blocks/profile-data/profile-data.tmpl.js"></script>
-    <script type="module" src="/project/application.js"></script>
     </body>
 
 </html>

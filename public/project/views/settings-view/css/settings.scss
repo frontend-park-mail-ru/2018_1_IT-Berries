@@ -1,0 +1,112 @@
+$settings-border-color: rgb(73, 43, 85);
+$settings-box-shadow-color: rgba(66, 6, 90, 0.55);
+
+.settings-view__settings {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+
+    width: 50vmin;
+    height: 50vmin;
+    background-color: rgba(228, 116, 255, 0.4);
+    border-color: $settings-border-color;
+    box-shadow: 0 0 1vmin 0.5vmin $settings-box-shadow-color;
+
+    margin-top: 15vh;
+
+    border-radius: 10%;
+    border-style: solid;
+    border-width: 0.3vmin;
+    position: absolute;
+
+    color: whitesmoke;
+    font-size: 5vmin;
+}
+
+.settings__point {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 80%;
+    margin: 2vmin;
+}
+
+.settings__text {
+    display: flex;
+    justify-content: center; /*Центрирование по горизонтали*/
+    align-items: center;     /*Центрирование по вертикали */
+    flex-direction: column;
+    width: 13vmin;
+    margin: 2vmin 2vmin 2vmin 0vmin;
+}
+
+.settings-icon {
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 6vmin;
+    height: 6vmin;
+    opacity: 0.8;
+    margin: auto;
+}
+
+.settings-icon:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.settings-icon:active{
+    opacity: 1;
+    cursor: pointer;
+}
+
+.sound-icon {
+    background-image: url("../../../../images/audioOn-2.png");
+    width: 4vmin;
+    height: 4vmin;
+    margin-left: 1vmin;
+}
+
+.music-icon {
+    background-image: url("../../../../images/musicOn.png");
+}
+
+.swither {
+    margin: auto;
+}
+
+@media only screen
+and (max-device-aspect-ratio: 5/7 ) {
+    .settings-view__settings {
+        width: 80vmin;
+        height: 70vmin;
+        font-size: 7vmin;
+    }
+
+    .settings__text {
+        width: 24vmin;
+        margin-right: 0;
+    }
+
+    .swither {
+        margin-left: 8vmin;
+    }
+
+    .music-icon {
+        width: 10vmin;
+        height: 10vmin;
+        margin-left: 0vmin;
+    }
+
+    .sound-icon {
+        width: 7vmin;
+        height: 7vmin;
+        margin-top: 3.2vmin;
+        margin-left: 2vmin;
+    }
+
+    .settings__point {
+        width: 90%;
+    }
+
+}

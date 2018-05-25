@@ -1,0 +1,18 @@
+section.view.scoreboard-view
+    header.view__header.view-header
+        div.view-header__home
+            a(href='/')
+        div.view-header__head Scoreboard
+        div.view-header__profile
+            include ../../common.blocks/profile-bar/profile-bar.tmpl.pug
+    article
+        div.view__content
+            div.stars.top-left
+                each val in [1, 2, 3]
+                    div(class='star-icon star-' + val)
+            div.scoreboard-view__table.js-scoreboard-table
+            div.stars.bottom-right
+                each val in [1, 2, 3]
+                    div(class='star-icon star-' + val)
+    footer
+        div.footer__fore

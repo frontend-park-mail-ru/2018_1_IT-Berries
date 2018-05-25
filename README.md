@@ -1,5 +1,12 @@
 # 2018_1_IT-Berries
+Frontend course 02.2018. Team: IT-Berries
 
+
+## About project
+**"Catch the alien!"** - логическая настольная игра для двух человек, сочетающая позиционное стратегическое 
+планирование с тактическим перебором вариантов. Ведётся на плоском игровом поле, расчерченном на клетки 
+одинакового размера. Один из игроков старается окружить противника своими кораблями, цель второго 
+игрока - как можно быстрее покинуть поле и не дать себя окружить. 
 ## Our team
 - [Nemshilov Ivan](https://github.com/Rikud) (fullstack)
 - [Puchnina Anastasia](https://github.com/puchninanastya) (frontend)
@@ -7,9 +14,11 @@
 - [Drujinin Igor](https://github.com/Drujininii) (super mentor)
 
 ## Travis CI statuses
- [![Build Status](https://travis-ci.org/frontend-park-mail-ru/2018_1_IT-Berries.svg?branch=master)](https://travis-ci.org/frontend-park-mail-ru/2018_1_IT-Berries/) - master
+
+[![Build Status](https://travis-ci.org/frontend-park-mail-ru/2018_1_IT-Berries.svg?branch=master)](https://travis-ci.org/frontend-park-mail-ru/2018_1_IT-Berries/) - master
  
- [![Build Status](https://travis-ci.org/frontend-park-mail-ru/2018_1_IT-Berries.svg?branch=develop)](https://travis-ci.org/frontend-park-mail-ru/2018_1_IT-Berries/) - develop
+[![Build Status](https://travis-ci.org/frontend-park-mail-ru/2018_1_IT-Berries.svg?branch=develop)](https://travis-ci.org/frontend-park-mail-ru/2018_1_IT-Berries/) - develop
+
 
 ## Project links
 ### Frontend

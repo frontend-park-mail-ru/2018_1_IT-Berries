@@ -1,0 +1,11 @@
+div.profile-bar
+    if profile
+        if profile.username.length > 20
+            a(href='/profile' class='profile_bar_tittle') #{profile.username.substr(0, 20)}...
+        else
+            a(href='/profile' class='profile_bar_tittle') #{profile.username}
+        a(href='/profile' class='view-header__profile-icon profile-icon'
+        style={'background-image': 'url(' + profile.profileBarAvatar + ')'})
+    else
+        a(href='/profile' class='profile_bar_tittle') Guest
+        a(href='/profile' class='view-header__profile-icon profile-icon' style={'background-image': 'url(../../images/no-avatar-white.png)'})

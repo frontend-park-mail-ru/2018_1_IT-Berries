@@ -1,0 +1,56 @@
+form(class=form.type + '-form').js-form
+    div.form__message.js-form-message
+    each field in form.fields
+        div(class=form.type + '__input')
+            input(
+                class='form-input ' + form.type + '-input'
+                type=field.inputType
+                name=field.inputName
+                placeholder=field.inputPlaceholder
+                required=field.inputRequired
+                value=field.inputValue
+            )
+    if form.avatar
+        if form.type === 'profile'
+            div.avatar.profile-form__avatar-choose
+                div(
+                class='form__button avatar-button profile-form__avatar-button'
+                ) Choose avatar
+                div.avatar-text.profile-form__avatar-text No avatar choose!
+                div(
+                class='hide-input'
+                hidden
+                )
+                    input(
+                    class="hide-input-avatar"
+                    name=form.avatar.inputName
+                    placeholder=form.avatar.inputPlaceholder
+                    type="file"
+                    )
+        else
+            div.avatar
+                div(
+                    class='form__button avatar-button'
+                ) Choose avatar
+                div.avatar-text No avatar choose!
+                div(
+                    class='hide-input'
+                    hidden
+                )
+                    input(
+                        class="hide-input-avatar"
+                        name=form.avatar.inputName
+                        placeholder=form.avatar.inputPlaceholder
+                        type="file"
+                    )
+    if form.additional_links
+        div.form__links
+            each val, index in form.additional_links
+                div
+                    a(href=val.href class='form__link') #{val.title}
+    button(
+        class='form__button'
+        class=form.type + '-form__button'
+        type='submit'
+        value=form.submitText
+    ) #{form.submitText}

@@ -1,0 +1,252 @@
+.game-moves {
+    text-align: center;
+    font-size: 4vmin;
+    color: azure;
+}
+
+.players-tables {
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 5vmin;
+
+    width: 100%;
+}
+
+.game-time {
+    position: absolute;
+    width: 15vmin;
+    height: 5vmin;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    z-index: 2;
+    font-size: 5vmin;
+    top: -27vmin;
+}
+
+
+.player-info {
+    position: absolute;
+    width: 25vmin;
+    height: 25vmin;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    z-index: 2;
+}
+
+.player-1-info {
+    left: 5vmin;
+}
+
+.player-2-info {
+    right: 5vmin;
+}
+
+.player-info__timer {
+    width: 25vmin;
+    height: 5vmin;
+    text-align: center;
+    font-size: 3.5vmin;
+}
+
+.player-panel {
+    width: 25vmin;
+    height: 15vmin;
+    background-color: #8b21b7;
+    color: azure;
+    font-size: 3vmin;
+    padding: 0;
+    display:table;
+    table-layout:fixed;/* even columns width , fix width of table too*/
+
+    border-radius: 3vmin;
+    border-color: #a076ff;
+    border-style: solid;
+    border-width: 0.3vmin;
+    box-shadow: 1vmin 1vmin 0.5vmin 0.1vmin black;
+
+    margin: 0 5vmin 5vmin 5vmin;
+    z-index: 2;
+}
+
+.player-panel>tbody, .player-panel>tfoot .player-panel>tr {
+    display: table;
+    table-layout:fixed;/* even columns width , fix width of table too*/
+}
+
+.player-nickname {
+    width: 100%;
+    text-align: center;
+}
+
+.player-1-panel {
+    left: 5vmin;
+}
+
+.player-2-panel {
+    right: 5vmin;
+}
+
+.stretching {
+    width: 72vmin;
+}
+
+.end-game-panel {
+    visibility: hidden;
+    position: absolute;
+    width: 20vmin;
+    height: 15vmin;
+    z-index: 5;
+    background-color: #8b21b7;
+    color: azure;
+    font-size: 3vmin;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+
+    border-radius: 3vmin;
+    border-color: #a076ff;
+    border-style: solid;
+    border-width: 0.3vmin;
+    box-shadow: 1vmin 1vmin 0.5vmin 0.1vmin black;
+
+    margin: 5vmin;
+}
+
+.end-game-panel__button {
+    width: 10vmin;
+    background-color: #560188;
+    color: azure;
+
+    border-radius: 1.5vmin;
+    border: 0.4vmin solid #560188;
+    box-shadow: 0.5vmin 0.5vmin 2vmin  #430171;
+
+    font-family: 'Chicle', sans-serif, fantasy;
+    font-size: 3vmin;
+}
+
+.end-game-panel__button:hover {
+    cursor: pointer;
+    text-shadow: 0.1vmin 0.1vmin 1vmin black, 0 0 5vmin azure;
+
+    box-shadow: 0 3px 20px rgba(100, 1, 168, 0.6),
+    0 0.1vmin 0 rgb(100, 1, 168),
+    inset 0 0 20px rgb(184, 4, 255);
+}
+
+.end-game-panel__button:focus {
+    outline: none !important;
+}
+
+.end-game-panel__button:active {
+    box-shadow:
+            inset 0 0 20px rgba(0, 0, 0, 0.33),
+            0 2px 0 rgb(67, 1, 113),
+            inset 0 2px 0 rgba(0, 0, 0, 0.2);
+    text-shadow: none;
+}
+
+.conecting-panel {
+    width: 35vw;
+    height: 8vmin;
+    text-align: center;
+    visibility: hidden;
+    z-index: 2;
+}
+
+.conecting-panel__tittle {
+    width: 35vw;
+    height: 5vw;
+    text-align: center;
+    font-size: 4vw;
+}
+
+.conecting-panel__msg {
+    width: 35vw;
+    height: 3vw;
+    text-align: center;
+    font-size: 2vw;
+}
+
+@media only screen
+and (max-device-aspect-ratio: 5/7 ) {
+
+    .player-info__timer {
+        width: 30vmin;
+        font-size: 5vmin;
+    }
+
+    .players-tables {
+        top: 25vmin;
+        height: 30vmin;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .game-time {
+        width: 15vmin;
+        font-size: 7vmin;
+        top: auto;
+        height: 7vmin;
+    }
+
+    .player-info {
+        position: absolute;
+        width: 30vmin;
+        height: 25vmin;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        z-index: 2;
+    }
+
+    .player-1-info {
+        left: 5vmin;
+    }
+
+    .player-2-info {
+        right: 5vmin;
+    }
+
+    .player-panel {
+        height: 12vh;
+        width: 30vmin;
+        bottom: -1vmin;
+        font-size: 4vmin;
+        margin-bottom: 0;
+    }
+
+    .player-1-panel {
+        left: 7vmin;
+    }
+    .player-2-panel {
+        right: 7vmin;
+    }
+
+
+    .conecting-panel {
+        width: 60vw;
+        height: 14vw;
+        margin-top: 20vh;
+        visibility: hidden;
+    }
+
+    .conecting-panel__tittle {
+        width: 60vw;
+        height: 8vw;
+        font-size: 7vw;
+    }
+
+    .conecting-panel__msg {
+        width: 60vw;
+        height: 6vw;
+        font-size: 5vw;
+    }
+}

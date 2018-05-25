@@ -1,0 +1,24 @@
+section.view.settings-view
+    header.view__header.view-header
+        div.view-header__home
+            a(href='/')
+        div.view-header__head Settings
+        div.view-header__profile
+            include ../../common.blocks/profile-bar/profile-bar.tmpl.pug
+    article
+        div.view__content
+            div.settings-view__settings
+                each val in navItems
+                    div.settings__point
+                        div.settings__text.range-text #{val.setup_name}
+                        div.input-range
+                            input(type='range' class=(val.type + '-input'))
+                        div(class='settings-icon ' + val.type + '-icon')
+                div.settings__point
+                    div.settings__text.range-text Theme:
+                    div.swither
+                        label.switch
+                            input(type='checkbox' class='checker')
+                            span.slider.round
+    footer
+        div.footer__fore

@@ -1,0 +1,130 @@
+.input-range {
+    width: 25vmin;
+    margin-bottom: 1vmin;
+}
+
+input[type=range] {
+    top: 3%;
+    -webkit-appearance: none;
+    width: 100%;
+    background: rgba(255, 255, 255, 0);
+    margin: auto;
+}
+input[type=range]:focus {
+    outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 40%;
+    cursor: pointer;
+    animate: 0.2s;
+    box-shadow: 0px 0px 1vmin rgba(14, 14, 14, 0.51), 0px 0px 1vmin rgba(25, 25, 25, 0.51);
+    background: whitesmoke;
+    border-radius: 3vmin;
+    border: 0px solid #000101;
+}
+input[type=range]::-webkit-slider-thumb {
+    box-shadow: 0px 0px 1vmin rgba(0, 0, 0, 0.51), 0px 0px 1vmin rgba(13, 13, 13, 0.51);
+    border: 0px solid #000000;
+    height: 3vmin;
+    width: 30%;
+    border-radius: 1vmin;
+    background: #793aff;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -5%;
+}
+
+input[type=range]:active::-webkit-slider-runnable-track {
+    background: #a076ff;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color:whitesmoke;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 3vmin;
+    width: 3vmin;;
+    left: 6%;
+    bottom:12%;
+    background: #6636ff;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #a076ff;
+}
+
+input:checked + .slider:before {
+    transform: translateX(6vmin);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 4vmin;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 10vmin;
+    height: 4vmin;
+    margin-top: 15%;
+}
+
+input[type=checkbox] {
+    display: none;
+}
+
+@media only screen
+and (min-device-width: 320px)
+and (max-device-width: 850px)
+and (-webkit-min-device-pixel-ratio: 2) {
+
+    .input-range {
+        width: 36vmin;
+        margin-bottom: 0;
+    }
+
+    .sound-input {
+        height: 4vmin;
+    }
+
+    .music-input {
+        height: 4vmin;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+        height: 5vmin;
+    }
+
+    .switch {
+        width: 20vmin;
+        height: 8vmin;
+    }
+
+    .slider:before {
+        height: 6vmin;
+        width: 6vmin;;
+    }
+
+    input:checked + .slider:before {
+        transform: translateX(11.5vmin);
+    }
+}
