@@ -17,6 +17,9 @@ class HttpModule {
     case 'itberries-frontend.herokuapp.com':
       this._baseUrl = 'https://itberries-backend.herokuapp.com';
       break;
+    case 'it-berries.neat.codes':
+      this._baseUrl = 'https://it-berries.neat.codes';
+      break;
     }
   }
 

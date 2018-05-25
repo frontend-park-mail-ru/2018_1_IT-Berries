@@ -93,7 +93,7 @@ footer {
 
 .view-header__profile {
     width: 20vmin;
-    color: azure;
+    color: #e0fdef;
     font-size: 6vmin;
     opacity: 0.8;
     user-select: none;
