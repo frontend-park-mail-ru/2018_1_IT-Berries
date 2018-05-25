@@ -44,8 +44,10 @@ module.exports = {
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: 'css-loader'
+          loader: 'css-loader',
+          options: {
+            minimize: true,
+          }
         })
       },
       {
@@ -82,7 +84,7 @@ module.exports = {
 
   plugins: [
     new ExtractTextPlugin({
-      filename: 'bundle.css',
+      filename: 'bundle.css'
     })
   ],
 
