@@ -19,11 +19,11 @@ import ChooseSideView from './views/choose-side-view/choose-side-view';
 // Import models
 import UsersModel from './models/users-model.js';
 
-// import { addServiceWorker } from './modules/add-sw.js';
+import { addServiceWorker } from './modules/add-sw.js';
 
 async function startApplication() {
 
-  // addServiceWorker();
+  addServiceWorker();
 
   const application = document.getElementsByClassName('application')[0];
   application.innerHTML = '';
