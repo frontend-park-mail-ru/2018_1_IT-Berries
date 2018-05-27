@@ -60,6 +60,17 @@ module.exports = {
         ]
       },
       {
+        test: /\.(eot|woff2|woff|ttf)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'fonts/[name].[ext]'
+            }
+          }
+        ]
+      },
+      {
         test: /\.pug$/,
         loader: 'pug-loader',
         options: {

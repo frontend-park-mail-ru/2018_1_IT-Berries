@@ -34,7 +34,24 @@ export default class ScoreboardView extends View {
       this.scoreboardPaginator = new ScoreboardPaginatorBlock({el: scoreboardPaginationRoot});
       this.scoreboardPaginator.data = response.data.scorelist;
       this.scoreboardPaginator.usersCount = response.data.length;
-      this.scoreboardPaginator.render(listSize, listNumber, this.create.bind(this));
+      this.scoreboardPaginator.render(listSize, listNumber, this.update.bind(this));
+    } else {
+
+      // console.error('Scoreboard cannot be loaded.');
+    }
+
+    return this;
+  }
+
+  async update(attrs, listSize = this.listSize, listNumber = this.listNumber) {
+    const response = await UsersModel.loadList(listSize, listNumber);
+    if (response.ok) {
+      this.scoreboardTable.data = response.data.scorelist;
+      this.scoreboardTable.renderData();
+
+      this.scoreboardPaginator.data = response.data.scorelist;
+      this.scoreboardPaginator.usersCount = response.data.length;
+      this.scoreboardPaginator.render(listSize, listNumber, this.update.bind(this));
     } else {
 
       // console.error('Scoreboard cannot be loaded.');
