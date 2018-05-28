@@ -119,9 +119,9 @@ export default class OnlineEngine extends Engine {
     if (this.side === 'humans') {
       this.gameScene.playerHumanTurn();
     } else {
-      if (evt !== undefined && evt !== null) {
+      if (evt !== undefined && evt !== null && evt.payload === undefined) {
         this.socket.sendMessage('EVENTS.LOGIC.MOVE', this.makeMovePayload(evt.target));
-      } else if (evt !== undefined && evt.payload !== undefined && evt.payload !== null) {
+      } else if (evt.payload !== undefined && evt.payload !== null) {
         this.gameScene.opponentHumanTurn(evt);
       }
     }
@@ -148,9 +148,9 @@ export default class OnlineEngine extends Engine {
     if (this.side === 'aliens') {
       this.gameScene.playerUfoTurn();
     } else {
-      if (evt !== undefined && evt !== null) {
+      if (evt !== undefined && evt !== null && evt.payload === undefined) {
         this.socket.sendMessage('EVENTS.LOGIC.MOVE', this.makeMovePayload(evt.target));
-      }  else if (evt !== undefined && evt.payload !== undefined && evt.payload !== null) {
+      }  else if (evt.payload !== undefined && evt.payload !== null) {
         this.gameScene.opponentUfoTurn(evt);
       }
     }
