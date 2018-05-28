@@ -205,7 +205,7 @@ export default class GameScene {
   opponentUfoTurn(event) {
     if (event === 'Time over!' || (this.player_turn === 1 &&
       !event.target.classList.contains('ufo') &&
-      !event.target.classList.contains('rocket'))) {
+      !event.target.classList.contains('rocket')) || (event.payload !== undefined)) {
       this.gameField._el.classList.remove('player_human_turn');
       if (event !== 'Time over!' && event.payload === undefined) {
         this.setRocket(event.target);
@@ -230,7 +230,7 @@ export default class GameScene {
   opponentHumanTurn(event) {
     if (event === 'Time over!' || (this.player_turn === 2 &&
       !event.target.classList.contains('ufo') &&
-      !event.target.classList.contains('rocket'))) {
+      !event.target.classList.contains('rocket')) || (event.payload !== undefined)) {
       this.gameField._el.classList.remove('player_ufo_turn');
       if (this.ufoPosibleTurns !== undefined) {
         for (let i = 0; i < this.ufoPosibleTurns.length; i++) {
