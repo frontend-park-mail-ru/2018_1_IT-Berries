@@ -6,7 +6,7 @@ $game-field-border-color: #462663;
     height: 63vmin;
     padding: 0;
     position: absolute;
-    margin-top: 12vmin;
+    margin-top: 16vmin;
     z-index: 1;
 }
 
@@ -90,18 +90,14 @@ and (max-device-aspect-ratio: 5/7 ) {
 
     .game-view__game {
         width: 90vmin;
-        height: 81vmin;
-        margin-top: 16vmin;
+        height: 63vh;
+        margin-top: 47vmin;
     }
 
     .game-view__game-table {
         border-spacing: 1vmin;
         width: 90vmin;
         height: 10vmin;
-    }
-
-    .game-view__game {
-        width: 90vmin;
     }
 
     .game-view__game table[class*=playing-field-row]:nth-of-type(2n+1) {

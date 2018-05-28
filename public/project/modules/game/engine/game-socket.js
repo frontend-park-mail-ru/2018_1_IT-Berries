@@ -4,7 +4,7 @@ import Game from '../game';
 export default class GameSocket {
 
   constructor(url, eventBus) {
-    this.socket = new WebSocket('ws://' + url);
+    this.socket = new WebSocket(url);
     this.eventBus = eventBus;
     this.events = gameEvents;
     this.socket.onmessage = (event) => {
@@ -14,7 +14,8 @@ export default class GameSocket {
       this.readyForJoinGame();
     };
     this.socket.onclose = (event) => {
-      alert('Connection closed with messegae: ' + event.data);
+
+      /*alert('Connection closed with messegae: ' + event.data);*/
     };
   }
 
@@ -54,8 +55,11 @@ export default class GameSocket {
     case 'EVENTS.GAME.RESULT':
       this.eventBus.emit(this.events.FINISH_GAME, message.payload);
       break;
+    case 'EVENTS.SERVICE.CONNECT':
+      this.eventBus.emit(this.events.CONNECTING, message.payload);
+      break;
     default:
-      alert('New message: ' + event.data);
+      break;
     }
   }
 

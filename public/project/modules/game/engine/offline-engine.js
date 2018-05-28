@@ -36,6 +36,7 @@ export default class OfflineEngine extends Engine {
   }
 
   async onHumansTurn(evt) {
+    this.gameScene.restartTimer('humans');
     const ufoX = this.bot.getPosition().x;
     const ufoY = this.bot.getPosition().y;
     if (ufoX === 0 || ufoX + 1 === this.gameScene.getX() + (ufoY) % 2 || ufoY === 0 || ufoY + 1 === this.gameScene.getY()) {
@@ -46,10 +47,14 @@ export default class OfflineEngine extends Engine {
   }
 
   async onUfoTurn(evt) {
-    this.gameScene.addmove(0);
-    let rocketcolumn = evt.parentNode.className.match(/\d+/g)[0];
-    let rocketrow = evt.parentNode.parentNode.parentNode.parentNode.classList[0].match(/\d+/g)[0];
-    this.map[rocketrow][rocketcolumn].isRocket = true;
+    this.gameScene.restartTimer('ufo');
+    if (evt !== 'Time over!') {
+      this.gameScene.addmove(0);
+      evt = evt.target;
+      let rocketcolumn = evt.parentNode.className.match(/\d+/g)[0];
+      let rocketrow = evt.parentNode.parentNode.parentNode.parentNode.classList[0].match(/\d+/g)[0];
+      this.map[rocketrow][rocketcolumn].isRocket = true;
+    }
     let newStep = this.bot.searchWay();
     if (newStep === 'No way!') {
       this.eventBus.emit(this.events.FINISH_GAME, this.events.HUMANS_WIN);
@@ -62,6 +67,7 @@ export default class OfflineEngine extends Engine {
   }
 
   onGameFinished(callingEvents) {
+    this.gameScene.stopAllTimers();
     const endGamePanel = document.getElementsByClassName('end-game-panel')[0];
     endGamePanel.style.visibility = 'visible';
     const endGamePanelTittle = endGamePanel.getElementsByClassName('end-game-panel__tiitle')[0];
@@ -97,5 +103,10 @@ export default class OfflineEngine extends Engine {
     this.eventBus.emit('LOSE_TOTALS', evt);
     this.eventBus.emit('lose');
     this.destroy();
+  }
+
+  destroy() {
+    super.destroy();
+    this.gameScene.stopAllTimers();
   }
 }

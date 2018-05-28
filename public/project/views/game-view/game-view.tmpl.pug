@@ -6,24 +6,28 @@ section.view.game-view
         div.view-header__head Catch the Alien!
     article
         div.view__content
+            div.conecting-panel
+                div.conecting-panel__tittle Preparation for the game
+                div.conecting-panel__msg
             div(class='end-game-panel')
                 div.end-game-panel__tiitle Game over
                 input(type='button' class='end-game-panel__button' value='ok')
             div.players-tables
                 each val in [1, 2]
-                    table(class='player-panel player-' + val + '-panel')
-                        thead
-                            tr
-                                th(class='player-nickname') Player #{val}
-                        tbody
-                            tr
-                                td Moves:
-                                td.player-moves 0
-                            tr
-                                td Score:
-                                td.player-score 0
-                    if val==1
-                        div.stretching
+                    div(class='player-info player-' + val + '-info')
+                        div.player-info__timer 0:30
+                        table(class='player-panel player-' + val + '-panel')
+                            thead
+                                tr
+                                    th(class='player-nickname') Player #{val}
+                            tbody
+                                tr
+                                    td Moves:
+                                    td.player-moves 0
+                                tr
+                                    td Score:
+                                    td.player-score 0
+                div.game-time 0:00
             div.game-view__game
 
     footer

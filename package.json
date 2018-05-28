@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "pug -c public --name-after-file && webpack --mode development",
+    "build": "pug -c public --name-after-file && webpack --mode production",
+    "build-dev": "pug -c public --name-after-file && webpack --mode development",
     "webpack-dev": "webpack --mode development --watch",
     "start": "npm run eslint && npm run build && DEBUG=mylogger node server",
+    "start-dev": "npm run build-dev && DEBUG=mylogger node server",
     "start:raw": "node server",
     "eslint": "eslint 'public/**/*.js'"
   },
