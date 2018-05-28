@@ -2,7 +2,8 @@ import gameFieldBlock from '../../common.blocks/game-field/game-field.js';
 import gameEvents from './engine/game-events.js';
 
 export default class GameScene {
-  constructor(x = 8, y = 7, eventBus, side) {
+  constructor(x = 8, y = 7, eventBus, side, mode) {
+    this.mode = mode;
     this.eventsBus = eventBus;
     const gameFieldRoot = document.getElementsByClassName('game-view__game')[0];
     this.panels = document.getElementsByClassName('player-panel');
@@ -135,7 +136,9 @@ export default class GameScene {
     }
     if (this.timerValue === 0) {
       clearInterval(this.timer);
-      this.changeTurn();
+      if (this.mode === 'offline') {
+        this.changeTurn();
+      }
     }
   }
 

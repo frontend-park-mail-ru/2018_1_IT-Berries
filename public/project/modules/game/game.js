@@ -16,7 +16,7 @@ export default class Game {
     }
     case GAME_MODES.OFFLINE: {
       GameEngine = OfflineEngine;
-      this.gameScene = new GameScene(9, 9, eventBus, Game.getSide());
+      this.gameScene = new GameScene(9, 9, eventBus, Game.getSide(), 'offline');
       break;
     }
     default:
