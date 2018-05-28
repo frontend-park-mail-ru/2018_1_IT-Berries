@@ -207,10 +207,12 @@ export default class GameScene {
       !event.target.classList.contains('ufo') &&
       !event.target.classList.contains('rocket'))) {
       this.gameField._el.classList.remove('player_human_turn');
-      if (event !== 'Time over!') {
+      if (event !== 'Time over!' && event.payload === undefined) {
         this.setRocket(event.target);
       }
-      this.eventsBus.emit(gameEvents.UFO_TURN, event);
+      if (event.payload === undefined) {
+        this.eventsBus.emit(gameEvents.UFO_TURN, event);
+      }
     }
   }
 
@@ -239,13 +241,15 @@ export default class GameScene {
         }
         delete this.ufoPosibleTurns;
       }
-      if (event !== 'Time over!') {
+      if (event !== 'Time over!' && event.payload === undefined) {
         const ufoColumn = event.target.parentNode.className.match(/\d+/g)[0];
         const ufoRow = event.target.parentNode.parentNode.parentNode.parentNode.classList[0].match(/\d+/g)[0];
         const cell = {x: ufoColumn, y: ufoRow};
         this.stepUfoTo(cell);
       }
-      this.eventsBus.emit(gameEvents.HUMANS_TURN, event);
+      if (event.payload === undefined) {
+        this.eventsBus.emit(gameEvents.HUMANS_TURN, event);
+      }
     }
   }
 

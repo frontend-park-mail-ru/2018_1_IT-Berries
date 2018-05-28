@@ -121,6 +121,8 @@ export default class OnlineEngine extends Engine {
     } else {
       if (evt !== undefined && evt !== null) {
         this.socket.sendMessage('EVENTS.LOGIC.MOVE', this.makeMovePayload(evt.target));
+      } else if (evt !== undefined && evt.payload !== undefined && evt.payload !== null) {
+        this.gameScene.opponentHumanTurn(evt);
       }
     }
   }
@@ -148,6 +150,8 @@ export default class OnlineEngine extends Engine {
     } else {
       if (evt !== undefined && evt !== null) {
         this.socket.sendMessage('EVENTS.LOGIC.MOVE', this.makeMovePayload(evt.target));
+      }  else if (evt !== undefined && evt.payload !== undefined && evt.payload !== null) {
+        this.gameScene.opponentUfoTurn(evt);
       }
     }
   }
