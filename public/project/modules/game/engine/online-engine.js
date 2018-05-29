@@ -12,15 +12,15 @@ export default class OnlineEngine extends Engine {
     let url = '';
     switch (window.location.hostname) {
     case 'localhost':
-      url = 'ws://localhost:8080';
+      url = 'ws://localhost:8080/api';
       break;
     case 'itberries-frontend.herokuapp.com':
-      url = 'ws://itberries-frontend.herokuapp.com';
+      url = 'ws://itberries-frontend.herokuapp.com/api';
 
       //this._baseUrl = 'https://itberries-backend.herokuapp.com';
       break;
     case 'it-berries.neat.codes':
-      url = 'wss://it-berries.neat.codes';
+      url = 'wss://it-berries.neat.codes/api';
       break;
     }
     this.conectingPanel = document.getElementsByClassName('conecting-panel')[0];
