@@ -45,7 +45,6 @@ new class Preloader {
   async loadApplication() {
     return Promise.all([
       this.loadScript(this._basePath + '/bundle.js'),
-      this.loadScript('/runtime.js'),
       this.loadCss(this._basePath + '/bundle.css'),
       this.loadImage('/images/about-btn-original.png'),
       this.loadImage('/images/settings-btn-original.png'),
