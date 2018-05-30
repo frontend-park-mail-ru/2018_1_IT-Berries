@@ -15,7 +15,7 @@ export default class OnlineEngine extends Engine {
       url = 'ws://localhost:8080/api';
       break;
     case 'itberries-frontend.herokuapp.com':
-      url = 'ws://itberries-frontend.herokuapp.com/api';
+      url = 'wss://itberries-frontend.herokuapp.com/api';
 
       //this._baseUrl = 'https://itberries-backend.herokuapp.com';
       break;
