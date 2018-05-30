@@ -100,7 +100,7 @@ export default class UsersModel {
       }
     }
 
-    if (email === '') {
+    if (!this.validateEmail(email)) {
       response.error = 'Enter your email!';
       return response;
     }
