@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "clear": "rm -r public/dist",
+    "clear": "rm -fr public/dist",
     "build": "pug -c public --name-after-file && webpack --mode production",
     "build-dev": "pug -c public --name-after-file && webpack --mode development",
     "webpack-dev": "webpack --mode development --watch",
