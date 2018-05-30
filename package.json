@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "clear": "rm -fr public/dist",
-    "build": "pug -c public --name-after-file && webpack --mode production",
+    "build": "pug -c public --name-after-file && webpack --mode development",
     "build-dev": "pug -c public --name-after-file && webpack --mode development",
     "webpack-dev": "webpack --mode development --watch",
     "start": "npm run eslint && npm run clear && npm run build && DEBUG=mylogger node server",

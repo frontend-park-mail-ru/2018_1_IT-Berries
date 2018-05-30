@@ -35,7 +35,7 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
         query: {
-          presets: ['es2015'],
+          presets: ['env'],
           plugins: [
             'transform-runtime',
             'transform-async-to-generator'
