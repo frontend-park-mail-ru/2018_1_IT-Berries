@@ -96,14 +96,14 @@ export default class ProfileView extends View {
   updateListeners() {
     const avatar_input = this.el.getElementsByClassName('hide-input-avatar')[0];
     const avatar_button = this.el.getElementsByClassName('avatar-button')[0];
-    const avatar_text = this.el.getElementsByClassName('avatar-text')[0];
 
     avatar_button.addEventListener('click', () => {
       avatar_input.click();
     });
 
     avatar_input.addEventListener('change', () => {
-      avatar_text.innerHTML = avatar_input.value.split(/(\\|\/)/g).pop();
+      avatar_button.innerText = 'Change avatar...';
+      avatar_button.classList.add('avatar-button_choosed');
     });
 
     this.profileFormRoot = this.el.querySelector('.js-profile-form');
