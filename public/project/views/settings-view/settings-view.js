@@ -34,12 +34,12 @@ export default class SettingsView extends View {
         {
           theme_name: 'PinkPlanet',
           theme_id: 1,
-          theme_selected: (this._currentThemeVal === 1) ? 'selected' : false,
+          theme_selected: (this._currentThemeVal == 1) ? 'selected' : false,
         },
         {
           theme_name: 'PurplePlanet',
           theme_id: 2,
-          theme_selected: (this._currentThemeVal === 2) ? 'selected' : false
+          theme_selected: (this._currentThemeVal == 2) ? 'selected' : false
         }
       ]
     };
