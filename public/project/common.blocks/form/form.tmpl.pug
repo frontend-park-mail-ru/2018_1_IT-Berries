@@ -1,5 +1,8 @@
+if form.type === 'profile'
+    div.form__message.js-form-message.profile__message
 form(class=form.type + '-form').js-form
-    div.form__message.js-form-message
+    if form.type !== 'profile'
+        div.form__message.js-form-message
     if form.type === 'signup'
         div.signup__message-margin
     each field in form.fields

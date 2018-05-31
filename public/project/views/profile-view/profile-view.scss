@@ -165,6 +165,10 @@
     bottom: 2vmin;
 }
 
+.profile__message {
+    left: 10vmin;
+}
+
 @media only screen
 and (max-device-aspect-ratio: 5/7 ) {
 
@@ -256,6 +260,10 @@ and (max-device-aspect-ratio: 5/7 ) {
 
     .js-additional-links {
         font-size: 6vmin;
+    }
+
+    .profile__message {
+        left: 20vmin;
     }
 
 }
