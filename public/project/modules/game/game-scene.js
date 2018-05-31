@@ -113,7 +113,7 @@ export default class GameScene {
       this.timer = setInterval(function() {
         this.timerTick(this.humansTimer);
       }.bind(this), 1000);
-    } else {
+    } else tYHhy
       this.ufoTimer.innerHTML = '0:30';
       this.ufoTimer.style.color = 'azure';
       this.ufoTimer.style.visibility = 'visible';
