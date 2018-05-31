@@ -25,6 +25,7 @@ export default class GameScene {
     this.ufoTimer =  document.getElementsByClassName('player-info__timer')[1];
     this.ufoTimer.style.visibility = 'hidden';
     this.gameTime = document.getElementsByClassName('game-time')[0];
+    this.moves = [0, 0];
   }
 
   onScoreChange(evt) {
@@ -202,6 +203,11 @@ export default class GameScene {
     }
   }
 
+  increaseTheNumberOfSteps(index) {
+    this.moves[index]++;
+    document.getElementsByClassName('player-moves')[index].innerHTML = this.moves[index].toString();
+  }
+
   opponentUfoTurn(event) {
     if (event === 'Time over!' || (this.player_turn === 1 &&
       !event.target.classList.contains('ufo') &&
@@ -209,6 +215,9 @@ export default class GameScene {
       this.gameField._el.classList.remove('player_human_turn');
       if (event !== 'Time over!' && event.payload === undefined) {
         this.setRocket(event.target);
+        if (this.mode === 'online') {
+          this.increaseTheNumberOfSteps(0);
+        }
       }
       if (event.payload === undefined) {
         this.eventsBus.emit(gameEvents.UFO_TURN, event);
@@ -246,6 +255,9 @@ export default class GameScene {
         const ufoRow = event.target.parentNode.parentNode.parentNode.parentNode.classList[0].match(/\d+/g)[0];
         const cell = {x: ufoColumn, y: ufoRow};
         this.stepUfoTo(cell);
+        if (this.mode === 'online') {
+          this.increaseTheNumberOfSteps(1);
+        }
       }
       if (event.payload === undefined) {
         this.eventsBus.emit(gameEvents.HUMANS_TURN, event);

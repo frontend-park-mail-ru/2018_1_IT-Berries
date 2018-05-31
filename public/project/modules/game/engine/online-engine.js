@@ -50,8 +50,10 @@ export default class OnlineEngine extends Engine {
 
   onOpponentTurn(evt) {
     if (this.side === 'humans') {
+      this.gameScene.increaseTheNumberOfSteps(1);
       this.gameScene.stepUfoTo({x: evt.xval, y: evt.yval});
     } else {
+      this.gameScene.increaseTheNumberOfSteps(0);
       this.gameScene.setRocketByCoordinates(evt.xval, evt.yval);
     }
   }
@@ -106,8 +108,15 @@ export default class OnlineEngine extends Engine {
     endGamePanelTittle.innerHTML = winnerNickName + ' win!';
     endGamePanel.getElementsByClassName('end-game-panel__button')[0].addEventListener('click', () => {
       endGamePanel.style.visibility = 'hidden';
-      let moves = document.getElementsByClassName('player-moves')[0];
-      let score = document.getElementsByClassName('player-score')[0];
+      let moves = 0;
+      let score = 0;
+      if (this.side === 'humans') {
+        moves = document.getElementsByClassName('player-moves')[0];
+        score = document.getElementsByClassName('player-score')[0];
+      } else {
+        moves = document.getElementsByClassName('player-moves')[1];
+        score = document.getElementsByClassName('player-score')[1];
+      }
       this.eventBus.emit(callingEvent, {moves: Number(moves.innerHTML),
         score: Number(score.innerHTML),
         playAgainPath: '/mode'});
