@@ -42,7 +42,9 @@ export default class OnlineEngine extends Engine {
     super.destroy();
     this.eventBus.off(this.events.OPPONENT_TURN, this.onOpponentTurn);
     this.eventBus.off(this.events.CONNECTING, this.onConnect);
-    this.gameScene.stopAllTimers();
+    if (this.gameScene !== undefined && this.gameScene !== null) {
+      this.gameScene.stopAllTimers();
+    }
     this.socket.close();
   }
 

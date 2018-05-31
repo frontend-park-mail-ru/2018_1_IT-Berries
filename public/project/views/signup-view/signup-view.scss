@@ -90,6 +90,11 @@ $avatar-button-choosed-color: #341b67;
     height: 5vmin;
 }
 
+.signup__message-margin {
+    width: 5vmin;
+    height: 5vmin;
+}
+
 @media only screen
 and (max-device-aspect-ratio: 5/7 ){
 
@@ -119,5 +124,10 @@ and (max-device-aspect-ratio: 5/7 ){
 
     .signup-form__button {
         width: 68vmin;
+    }
+
+    .signup__message-margin {
+        width: 0vmin;
+        height: 0vmin;
     }
 }
