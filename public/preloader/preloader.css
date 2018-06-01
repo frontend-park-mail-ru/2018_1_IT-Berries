@@ -11,14 +11,19 @@ html, body, section, .application, .application>div {
     transition: background-image 0.7s linear, color 0.7s linear;
 }
 
-.application_theme1 {
+.application_theme-1 {
     background-image: url('../images/sky.jpg');
     color: azure;
 }
 
-.application_theme2 {
+.application_theme-2 {
     background-image: url('../images/sky2.jpg');
     color: goldenrod;
+}
+
+.application_theme-vpn{
+    background-image: url('../images/matrix.jpg');
+    color: deepskyblue;
 }
 
 .preloader{
