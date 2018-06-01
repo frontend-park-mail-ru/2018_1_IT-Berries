@@ -1,6 +1,7 @@
 import View from '../view/view.js';
 import UsersModel from '../../models/users-model.js';
 import menuViewTemplate from './menu-view.tmpl.pug';
+import settings from '../../modules/settings';
 
 export default class MenuView extends View {
 
@@ -12,7 +13,9 @@ export default class MenuView extends View {
     const profile = UsersModel.getCurrentUser();
     const attrs = {
       navItems: [],
-      profile
+      profile,
+      theme: settings.getCurrentThemeOrVpn(),
+      header: settings.getHeader()
     };
 
     if (UsersModel.isAuthorized()) {

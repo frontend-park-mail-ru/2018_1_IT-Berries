@@ -14,6 +14,7 @@ export default class Router {
     this.map = {};
     this.active = null;
     this.unallowed = unallowed;
+    this.notfound = '/404';
 
     Router.__instance = this;
   }
@@ -36,7 +37,12 @@ export default class Router {
    */
   async open(path) {
     const view = this.map[path];
-    if (!view || view === this.active) {
+    if (view === this.active) {
+      return this;
+    }
+
+    if (!view) {
+      await this.open(this.notfound);
       return this;
     }
 

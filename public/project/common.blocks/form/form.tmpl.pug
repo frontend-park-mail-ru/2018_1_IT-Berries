@@ -1,5 +1,10 @@
-form(class=form.type + '-form').js-form
-    div.form__message.js-form-message
+if form.type === 'profile'
+    div.form__message.js-form-message.profile__message
+form(class=form.type + '-form' ).js-form
+    if form.type !== 'profile'
+        div.form__message.js-form-message
+    if form.type === 'signup'
+        div.signup__message-margin
     each field in form.fields
         div(class=form.type + '__input')
             input(
@@ -15,8 +20,7 @@ form(class=form.type + '-form').js-form
             div.avatar.profile-form__avatar-choose
                 div(
                 class='form__button avatar-button profile-form__avatar-button'
-                ) Choose avatar
-                div.avatar-text.profile-form__avatar-text No avatar choose!
+                ) Choose avatar...
                 div(
                 class='hide-input'
                 hidden
@@ -26,13 +30,13 @@ form(class=form.type + '-form').js-form
                     name=form.avatar.inputName
                     placeholder=form.avatar.inputPlaceholder
                     type="file"
+                    accept="image/*"
                     )
         else
             div.avatar
                 div(
                     class='form__button avatar-button'
-                ) Choose avatar
-                div.avatar-text No avatar choose!
+                ) Choose avatar...
                 div(
                     class='hide-input'
                     hidden
@@ -42,6 +46,7 @@ form(class=form.type + '-form').js-form
                         name=form.avatar.inputName
                         placeholder=form.avatar.inputPlaceholder
                         type="file"
+                        accept="image/*"
                     )
     if form.additional_links
         div.form__links

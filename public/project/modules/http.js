@@ -12,13 +12,15 @@ class HttpModule {
   constructor() {
     switch (window.location.hostname) {
     case 'localhost':
-      this._baseUrl = 'https://itberries-backend.herokuapp.com';
+      this._baseUrl = 'http://localhost:8080/api';
       break;
     case 'itberries-frontend.herokuapp.com':
-      this._baseUrl = 'https://itberries-backend.herokuapp.com';
+      this._baseUrl = 'https://itberries-backend.herokuapp.com/api';
+
+      // this._baseUrl = 'https://itberries-frontend.herokuapp.com/api';
       break;
     case 'it-berries.neat.codes':
-      this._baseUrl = 'https://it-berries.neat.codes';
+      this._baseUrl = 'https://it-berries.neat.codes/api';
       break;
     }
   }

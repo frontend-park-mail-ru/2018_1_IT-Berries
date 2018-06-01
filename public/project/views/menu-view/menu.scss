@@ -1,0 +1,250 @@
+$vpn-theme-shadow-color: #00bfff;
+$vpn-theme-shadow-inset-color: #007da7;
+
+.main-button {
+    width:30vmin;
+    height:30vmin;
+}
+
+.secondary-button {
+    width:20vmin;
+    height:20vmin;
+}
+
+.menu__button {
+    border-radius: 100%;
+    transition: box-shadow 0.2s ease-in-out;
+    position: absolute;
+    display: flex;
+    justify-content: center; /*Центрирование по горизонтали*/
+    align-items: center;     /*Центрирование по вертикали */
+}
+
+.menu__button>a {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.menu-icon {
+    opacity: 0.9;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.menu__button:hover .menu-icon {
+    opacity: 1;
+}
+
+.menu__button:hover {
+    cursor: pointer;
+}
+
+.menu__button:active .menu-icon {
+    opacity: 1;
+}
+
+.play-button {
+    background-size: 140% 140%;
+    background-position: 36% 48%;
+
+    &_theme-1, &_theme-2  {
+        background-image: url("../../../images/play-btn-original.png");
+        box-shadow: 0 0 9vmin 1vmin rgba(228, 255, 0, 0.6),
+        inset 0 0 9vmin rgba(84, 255, 0, 0.6);
+    }
+
+    &_theme-vpn {
+        background-image: none;
+        box-shadow: 0 0 9vmin 1vmin $vpn-theme-shadow-color,
+        inset 0 0 9vmin $vpn-theme-shadow-inset-color;
+    }
+}
+
+.play-button:hover {
+    box-shadow: 0 0 7vmin 1vmin rgb(228, 255, 0),
+    inset 0 0 2vmin rgb(84, 255, 0);
+}
+
+.play-button:active {
+    box-shadow: 0 0 4vmin 1vmin rgb(98, 255, 2),
+    inset 0 0 4vmin 1vmin rgb(228, 255, 0);
+}
+
+.menu-play-icon {
+    background-image: url("../../../images/play.png");
+    width: 12vmin;
+    height: 12vmin;
+    background-size: 100% 100%;
+    margin-left: 2vmin;
+    margin-top: 1vmin;
+}
+
+.about-button {
+    background-size: 135% 135%;
+    background-position: 47% 49%;
+    transform: rotate(15deg) translate(38vmin) rotate(-15deg);
+
+    &_theme-1, &_theme-2  {
+        background-image: url("../../../images/about-btn-original.png");
+        box-shadow: 0 0 7vmin 1vmin rgba(255, 244, 18, 0.6),
+        inset 0 0 1vmin rgba(255, 212, 12, 0.6);
+    }
+
+    &_theme-vpn {
+        background-image: none;
+        box-shadow: 0 0 9vmin 1vmin $vpn-theme-shadow-color,
+        inset 0 0 9vmin $vpn-theme-shadow-inset-color;
+    }
+}
+
+.settings-button {
+    background-size: 142% 142%;
+    background-position: 42% 45%;
+    transform: rotate(65deg) translate(34vmin) rotate(-65deg);
+
+    &_theme-1, &_theme-2  {
+        background-image: url("../../../images/settings-btn-original.png");
+        box-shadow: 0 0 5vmin 1vmin rgba(0, 220, 255, 0.3),
+        inset 0 0 1vmin rgba(0, 48, 255, 0.3);
+    }
+
+    &_theme-vpn {
+        background-image: none;
+        box-shadow: 0 0 9vmin 1vmin $vpn-theme-shadow-color,
+        inset 0 0 9vmin $vpn-theme-shadow-inset-color;
+    }
+}
+.score-board-button {
+    background-size: 142% 142%;
+    background-position: 38% 48%;
+    transform: rotate(115deg) translate(34vmin) rotate(-115deg);
+
+    &_theme-1, &_theme-2  {
+        background-image: url("../../../images/scoreboard-btn-original.png");
+        box-shadow: 0 0 5.5vmin 1vmin rgba(150, 53, 148, 0.7),
+        inset 0 0 5vmin rgba(149, 0, 195, 0.7);
+    }
+
+    &_theme-vpn {
+        background-image: none;
+        box-shadow: 0 0 9vmin 1vmin $vpn-theme-shadow-color,
+        inset 0 0 9vmin $vpn-theme-shadow-inset-color;
+    }
+}
+
+.login-button {
+    background-size: 142% 142%;
+    background-position: 41% 44%;
+    transform: rotate(165deg) translate(38vmin) rotate(-165deg);
+
+    &_theme-1, &_theme-2  {
+        background-image: url("../../../images/login-btn-original.png");
+        box-shadow: 0 0 4vmin 1vmin rgba(178, 129, 0, 0.7),
+        inset 0 0 2vmin rgba(173, 71, 0, 0.7);
+    }
+
+    &_theme-vpn {
+        background-image: none;
+        box-shadow: 0 0 9vmin 1vmin $vpn-theme-shadow-color,
+        inset 0 0 9vmin $vpn-theme-shadow-inset-color;
+    }
+}
+
+.menu-about-icon {
+    background-image: url("../../../images/about.png");
+    width: 40%;
+    height: 40%;
+}
+
+.about-button:hover {
+    box-shadow: 0 0 7vmin 1vmin rgb(252, 255, 0),
+    inset 0 0 1vmin rgb(255, 212, 12);
+}
+
+.about-button:active {
+    box-shadow: 0 0 7vmin 1vmin rgb(255, 217, 4),
+    inset 0 0 3vmin 1vmin rgb(255, 251, 9);
+}
+
+.menu-settings-icon {
+    background-image: url("../../../images/settings.png");
+    width: 10vmin;
+    height: 10vmin;
+}
+
+.settings-button:hover {
+    box-shadow: 0 0 5vmin 1vmin rgba(0, 220, 255, 0.6),
+    inset 0 0 1vmin rgba(0, 48, 255, 0.6);
+}
+
+.settings-button:active {
+    box-shadow: 0 0 4vmin 1.2vmin rgba(0, 94, 255, 0.6),
+    inset 0 0 2vmin 1vmin rgb(0, 204, 255);
+}
+
+.menu-score-board-icon {
+    background-image: url("../../../images/cup.png");
+    width: 10vmin;
+    height: 10vmin;
+}
+
+.score-board-button:hover {
+    box-shadow: 0 0 6vmin 1.2vmin rgb(255, 88, 253),
+    inset 0 0 2vmin rgb(195, 0, 255);
+}
+
+.score-board-button:active {
+    box-shadow: 0 0 4vmin 1vmin rgb(195, 0, 255),
+    inset 0 0 5vmin rgb(255, 1, 255);
+}
+
+.menu-login-icon {
+    background-image: url("../../../images/singleplayer.png");
+    width: 15vmin;
+    height: 15vmin;
+}
+
+.login-button:hover {
+    box-shadow: 0 0 6vmin 1vmin rgba(255, 208, 86, 0.7),
+    inset 0 0 2vmin rgba(255, 184, 0, 0.7);
+}
+
+.login-button:active {
+    box-shadow: 0 0 4vmin 1vmin rgba(255, 184, 0, 0.7),
+    inset 0 0 5vmin rgba(255, 208, 86, 0.7);
+}
+
+@media only screen
+and (max-device-aspect-ratio: 5/7 ){
+
+    .menu__button {
+        margin-top: 6vmin;
+    }
+
+    .secondary-button {
+        width: 25vmin;
+        height: 25vmin;
+    }
+
+    .settings-button, .score-board-button {
+        margin-top: 10vmin;
+    }
+
+    .settings-button {
+        margin-left: 1.5vmin;
+    }
+
+    .score-board-button {
+        margin-left: -1.5vmin;
+    }
+
+    .login-button {
+        margin-left: 2vmin;
+    }
+
+    .about-button {
+        margin-left: -2vmin;
+    }
+
+}

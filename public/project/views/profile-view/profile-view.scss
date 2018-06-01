@@ -1,0 +1,269 @@
+.profile-box {
+    margin-top: 14vh;
+
+    width: 70vmin;
+    height: 70vmin;
+    background-color: rgba(228, 116, 255, 0.4);
+    border-radius: 5vmin;
+    border-color: rgb(17, 0, 168);
+    box-shadow: 0 0 1vmin 0.5vmin rgba(73, 0, 199, 0.55);
+
+
+    position: absolute;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    font-size: 3vmin;
+    text-decoration: none;
+}
+
+.profile-input {
+    width: 27vmin !important;
+    height: 5vmin !important;
+    font-size: 3vmin !important;
+}
+
+.profile__input {
+    margin: 2vmin !important;
+    width: 27vmin !important;
+    height: 5vmin !important;
+}
+
+.profile-data {
+    width: 35vmin;
+    height: 60vmin;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    color: azure;
+
+    margin-left: 3vmin;
+}
+
+.user-data {
+    width: 35vmin;
+    height: 15vmin;
+    border-spacing: 0;
+    font-size: 3.5vmin;
+    display: table;
+    table-layout: fixed;
+    top: 0;
+    left:0;
+    position: relative;
+    float: left;
+}
+
+.user-data>tbody {
+    display: table;
+    width: 35vmin;
+    height: 15vmin;
+    table-layout: fixed;
+    top: 0;
+    left:0;
+    position: relative;
+    float: left;
+
+}
+
+.user-data tbody tr {
+    display: table;
+    width: 35vmin;
+    height: 3vmin;
+    table-layout: fixed;
+    top: 0;
+    left:0;
+    position: relative;
+    float: left;
+}
+
+.user-data tbody tr td {
+    height: 3vmin;
+    font-size: 3vmin;
+    display: table-cell;
+    vertical-align: center;
+    text-decoration: none;
+    table-layout: fixed;
+    top: 0;
+    left:0;
+    margin: 0;
+}
+
+.user-data tbody tr td:nth-child(1) {
+    border-right-color: azure;
+    border-right-style: solid;
+    border-right-width: 0.3vmin;
+    text-align: right;
+    padding: 0 1vmin 0 0;
+    left:0;
+    width: 13vmin;
+}
+
+.user-data tbody tr td:nth-child(2) {
+    padding: 0 0 0 1vmin;
+    width: 22vmin;
+    word-wrap: break-word;
+}
+
+
+.js-profile-form {
+    width: 35vmin;
+    height: 60vmin;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.profile-form {
+    height: 50vmin;
+    width: 30vmin;
+}
+
+.avatar-img {
+    width: 30vmin;
+    height: 30vmin;
+    background-size: 100% 100%;
+    border-radius: 2vmin;
+    margin-top: 1vmin;
+    margin-bottom: 2vmin;
+    border-color: #6035db;
+    border-width: 0.5vmin;
+    border-style: solid;
+    box-shadow: 0 1vmin 2vmin rgba(33, 5, 168, 0.6),
+    0 0.1vmin 0 rgb(53, 0, 168);
+
+    font-size: 3vmin;
+}
+
+.profile-form__button {
+    width: 30vmin !important;
+    position: absolute !important;
+    right: 20vmin !important;
+    text-decoration: none !important;
+    padding: 0 !important;
+}
+
+.profile-form__avatar-choose {
+    margin: 2vmin !important;
+    margin-bottom: 3vmin !important;
+    padding: 0 !important;
+}
+
+.profile-form__avatar-button {
+    height: 7vmin !important;
+    width: 26vmin !important;
+    text-align: center !important;
+}
+
+.js-additional-links {
+    position: absolute;
+    left: 2vmin;
+    bottom: 2vmin;
+}
+
+.profile__message {
+    left: 10vmin;
+}
+
+@media only screen
+and (max-device-aspect-ratio: 5/7 ) {
+
+    .profile-box {
+        margin-top: 30vmin;
+        width: 90vmin;
+        height: 90vmin;
+    }
+
+    .profile-data {
+        width: 40vmin;
+        height: 80vmin;
+        margin-left: -3vmin;
+    }
+
+    .js-profile-form {
+        width: 40vmin;
+        height: 80vmin;
+    }
+
+    .avatar-img {
+        width: 40vmin;
+        height: 40vmin;
+        border-radius: 5vmin;
+    }
+
+    .user-data {
+        width: 40vmin;
+        height: 32vmin;
+        margin-left: -7vmin;
+    }
+
+    .user-data>tbody {
+        width: 40vmin;
+        height: 32vmin;
+    }
+
+    .user-data tbody tr {
+        width: 40vmin;
+        height: 8vmin;
+    }
+
+    .user-data tbody tr td {
+        height: 8vmin;
+        font-size: 4.5vmin;
+    }
+
+    .user-data tbody tr td:nth-child(1) {
+        width: 20vmin;
+    }
+
+    .profile-form {
+        width: 40vmin;
+        height: 80vmin;
+    }
+
+    .profile-input {
+        width: 40vmin !important;
+        height: 9vmin !important;
+        font-size: 4.5vmin !important;
+    }
+
+    .profile__input {
+        margin: 2vmin !important;
+        width: 25vmin !important;
+        height: 9vmin !important;
+    }
+
+    .profile-form__avatar-choose {
+        width: 40vmin !important;
+        height: 27vmin !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: flex-start !important;
+        margin-top: 1vmin !important;
+    }
+
+    .profile-form__avatar-button {
+        width: 20vmin !important;
+        height: 12vmin !important;
+        text-align: center !important;
+    }
+
+    .profile-form__button {
+        right: 30vmin !important;
+        bottom: 0 !important;
+        font-size: 5.5vmin !important;
+    }
+
+    .js-additional-links {
+        font-size: 6vmin;
+    }
+
+    .profile__message {
+        left: 20vmin;
+    }
+
+}

@@ -21,10 +21,12 @@ Frontend course 02.2018. Team: IT-Berries
 
 
 ## Project links
-### Frontend
+### Production
+- [Web](https://it-berries.neat.codes/)
+### Frontend dev
 - [Repository](https://github.com/frontend-park-mail-ru/2018_1_IT-Berries)
 - [Web](https://itberries-frontend.herokuapp.com)
-### Backend
+### Backend dev
 - [Repository](https://github.com/java-park-mail-ru/IT-Berries-02-2018)
 - [Web](http://itberries-backend.herokuapp.com)
 ### Documentation

@@ -1,0 +1,240 @@
+section {
+    /*background-image: url("../../images/sky.png");
+    background-size: 100% 100%;*/
+
+    display: flex;
+    justify-content: center; /*Центрирование по горизонтали*/
+    align-items: center;     /*Центрирование по вертикали */
+    flex-direction: column;
+   /* animation: stars 40s linear infinite;*/
+}
+
+/* chicle-regular - latin */
+@font-face {
+    font-family: 'Chicle';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../../fonts/chicle-v6-latin-regular.eot');
+    src: local('Chicle Regular'), local('Chicle-Regular'),
+    url('../../fonts/chicle-v6-latin-regular.eot?#iefix') format('embedded-opentype'),
+    url('../../fonts/chicle-v6-latin-regular.woff2') format('woff2'),
+    url('../../fonts/chicle-v6-latin-regular.woff') format('woff'),
+    url('../../fonts/chicle-v6-latin-regular.ttf') format('truetype')
+}
+
+@keyframes stars {
+    from { background-position-x: 0;}
+    to { background-position: -100vw;}
+}
+
+
+
+header {
+    width: 100%;
+    height: 20%;
+}
+
+article {
+    width: 100%;
+    height: 30%;
+}
+
+section {
+    width: 100%;
+    height: 100%;
+}
+
+.view__content {
+    margin-top: 8vh;
+    width: 100%;
+    height: 75%;
+    display: flex;
+    justify-content: center; /*Центрирование по горизонтали*/
+    align-items: center;     /*Центрирование по вертикали */
+    flex-direction: row;
+}
+
+.view-header__head {
+    margin-top:6vh;
+    font-size: 10vh;
+    width: 100%;
+    text-align: center;
+    user-select: none;
+    text-shadow: 1px 1px 2px black, 0 0 4vmin rgba(126, 3, 255, 0.77);
+}
+
+footer {
+    width: 100%;
+    height: 50%;
+
+    display: flex;
+    justify-content: center; /*Центрирование по горизонтали*/
+    align-items: flex-end;    /*Центрирование по вертикали */
+
+    background-size: 100% 90%;
+}
+
+.footer__fore {
+    width: 100%;
+    height: 40%;
+    background-size: 100% 100%;
+}
+
+.view-header__home > a {
+    position: absolute;
+    width: 7vmin;
+    height: 7vmin;
+    background-image: url("../../images/home.png");
+    background-size: 100% 100%;
+    left: 2vmin;
+    top: 2vmin;
+    opacity: 0.8;
+}
+
+.view-header__profile {
+    width: 20vmin;
+    color: #e0fdef;
+    font-size: 6vmin;
+    opacity: 0.8;
+    user-select: none;
+    position: absolute;
+    right: 2vmin;
+    top: 2vmin;
+}
+
+.view-header__home:hover, .view-header__profile:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.view-header__home:active, .view-header__profile:active {
+    opacity: 1;
+    cursor: pointer;
+}
+
+
+.profile-icon {
+    position: absolute;
+    border-radius: 100%;
+    width: 8vmin;
+    height: 8vmin;
+    background-image: url("../../images/no-avatar-white.png");
+    background-size: 100% 100%;
+    top: -0.5vmin;
+    right: 2vmin;
+}
+
+.profile_bar_tittle {
+    position: absolute;
+    color: azure;
+    text-decoration: none;
+    right: 10vmin;
+}
+
+.view-hidden {
+    display: none;
+    opacity: 0;
+}
+
+.view-shown {
+    -webkit-animation: fadeInFromNone 0.5s ease-in;
+    -moz-animation: fadeInFromNone 0.5s ease-in;
+    -o-animation: fadeInFromNone 0.5s ease-in;
+    animation: fadeInFromNone 0.5s ease-in;
+}
+
+@-webkit-keyframes fadeInFromNone {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: block;
+        opacity: 0;
+    }
+
+    100% {
+        display: block;
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadeInFromNone {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: block;
+        opacity: 0;
+    }
+
+    100% {
+        display: block;
+        opacity: 1;
+    }
+}
+
+@-o-keyframes fadeInFromNone {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: block;
+        opacity: 0;
+    }
+
+    100% {
+        display: block;
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInFromNone {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: block;
+        opacity: 0;
+    }
+
+    100% {
+        display: block;
+        opacity: 1;
+    }
+}
+
+@media only screen
+and (max-device-aspect-ratio: 5/7 ) {
+    .view-header__head {
+        margin-top: 16vmin;
+        font-size: 14vmin;
+    }
+
+    .view-header__profile {
+        font-size: 12vmin;
+    }
+
+    .profile-icon {
+        width: 14vmin;
+        height: 14vmin;
+        top: 2.3vmin;
+    }
+
+    .profile_bar_tittle {
+        right: 16vmin;
+        top: 2.3vmin;
+    }
+
+    .view-header__home > a {
+        width: 14vmin;
+        height: 14vmin;
+    }
+}

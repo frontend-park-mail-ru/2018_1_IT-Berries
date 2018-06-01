@@ -1,0 +1,133 @@
+$avatar-button-not-choosed-color: #6035db;
+$avatar-button-choosed-color: #341b67;
+
+.signup-form {
+    margin-top: 14vh;
+
+    width: 50vmin;
+    height: 65vmin;
+    background-color: rgba(228, 116, 255, 0.4);
+    border-radius: 5vmin;
+    border-color: rgb(17, 0, 168);
+    box-shadow: 0 0 1vmin 0.5vmin rgba(73, 0, 199, 0.55);
+
+
+    position: absolute;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.avatar {
+    width: 42vmin;
+    height: 10vmin;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+
+    margin-bottom: 2vmin;
+}
+
+.avatar-button {
+    height: 4vmin;
+    width: 47vmin;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    font-size: 3vmin;
+    user-select: none;
+
+    background-color: $avatar-button-not-choosed-color;
+    border-color: $avatar-button-not-choosed-color;
+
+    transition:background-color 0.5s linear, border-color 0.5s linear;
+}
+
+.avatar-button_choosed {
+    background-color: $avatar-button-choosed-color;
+    border-color: $avatar-button-choosed-color;
+}
+
+.avatar-button:hover {
+    cursor: pointer;
+    text-shadow: 0.1vmin 0.1vmin 1vmin black, 0 0 3vmin azure;
+
+    box-shadow: 0 3px 20px rgba(33, 5, 168, 0.6),
+    0 0.1vmin 0 rgb(53, 0, 168),
+    inset 0 0 20px rgb(66, 0, 255);
+}
+
+.avatar-button:active {
+    box-shadow:
+            inset 0 0 20px rgba(0, 0, 0, 0.24),
+            0 2px 0 rgb(3, 0, 113),
+            inset 0 2px 0 rgba(0, 0, 0, 0.16);
+    text-shadow: none;
+}
+
+.signup__input {
+    margin: 2vmin;
+}
+
+.signup-input {
+    width: 42vmin;
+}
+
+.hide-input {
+    position: absolute;
+    width: 42vmin;
+    height: 5vmin;
+}
+
+.hide-input-avatar {
+    position: relative;
+    width: 42vmin;
+    height: 5vmin;
+}
+
+.signup__message-margin {
+    width: 5vmin;
+    height: 5vmin;
+}
+
+@media only screen
+and (max-device-aspect-ratio: 5/7 ){
+
+    .signup-form {
+        margin-top: 30vmin;
+        width: 80vmin;
+        height: 100vmin;
+    }
+
+    .signup__input {
+        margin: 2vmin;
+    }
+
+    .signup-input {
+        width: 70vmin;
+    }
+
+    .avatar {
+        width: 70vmin;
+    }
+
+    .avatar-button {
+        height: 9vmin;
+        width: 69vmin;
+        font-size: 5vmin;
+    }
+
+    .signup-form__button {
+        width: 68vmin;
+    }
+
+    .signup__message-margin {
+        width: 0vmin;
+        height: 0vmin;
+    }
+}
