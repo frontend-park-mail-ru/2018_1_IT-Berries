@@ -1,0 +1,43 @@
+$icon-width: 100%;
+
+$text-color: rgba(217, 232, 237, 0.88);
+
+$button-width: 40vmin;
+$button-bg-color: rgba(142, 101, 255, 0.43);
+$button-text-color: rgba(216, 183, 255, 0.8);
+$button-box-shadow-color: #000066;
+
+.notfound {
+  width: $icon-width;
+  height: 70vmin;
+
+  &__ufo {
+    background-image: url("../../../images/notfound-ufo.png");
+    background-size: 100% 100%;
+    width: $icon-width;
+    height: 70vmin;
+  }
+
+  &__text {
+    font-size: 8vmin;
+    color: $text-color;
+    text-align: center;
+    vertical-align: center;
+    margin: 2.5vmin auto;
+  }
+
+  &__mainmenu {
+    display: block;
+    text-align: center;
+    vertical-align: center;
+    width: $button-width;
+    height: 10vmin;
+    font-size: 8vmin;
+    background-color: $button-bg-color;
+    margin: 2.5vmin auto;
+    border-radius: 1vmin;
+    border: darkgray solid 0.1vmin;
+    box-shadow: 0.5vmin 0.5vmin 0.5vmin 0.1vmin $button-box-shadow-color;
+    color: $button-text-color;
+  }
+}
