@@ -128,6 +128,8 @@ export default class OnlineEngine extends Engine {
   onHumansTurn(evt) {
     this.gameScene.player_turn = 1;
     this.gameScene.restartTimer('humans');
+    document.getElementsByClassName('player-2-panel')[0].classList.remove('onTurn');
+    document.getElementsByClassName('player-1-panel')[0].classList.add('onTurn');
     if (this.side === 'humans') {
       this.gameScene.playerHumanTurn();
     } else {
@@ -157,6 +159,8 @@ export default class OnlineEngine extends Engine {
   onUfoTurn(evt) {
     this.gameScene.player_turn = 2;
     this.gameScene.restartTimer('ufo');
+    document.getElementsByClassName('player-1-panel')[0].classList.remove('onTurn');
+    document.getElementsByClassName('player-2-panel')[0].classList.add('onTurn');
     if (this.side === 'aliens') {
       this.gameScene.playerUfoTurn();
     } else {

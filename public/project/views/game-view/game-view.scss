@@ -67,7 +67,7 @@
     border-color: #a076ff;
     border-style: solid;
     border-width: 0.3vmin;
-    box-shadow: 1vmin 1vmin 0.5vmin 0.1vmin black;
+    box-shadow: 1vmin 1vmin 0.5vmin 0.1vmin rgba(58, 20, 64, 0.64);
 
     margin: 0 5vmin 5vmin 5vmin;
     z-index: 2;
@@ -177,6 +177,11 @@
 
 .players-tables_hidden {
     visibility: hidden;
+}
+
+.onTurn {
+    text-shadow: 0.1vmin 0.1vmin 1vmin black, 0 0 5vmin whitesmoke;
+    box-shadow: 0 0 1vmin 0.5vmin #6e5f73, inset 0 0 1vmin 0.5vmin whitesmoke;
 }
 
 @media only screen
