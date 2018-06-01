@@ -1,9 +1,10 @@
 import View from '../view/view.js';
-import setSettingsEffectsListeners from './settings.js';
+import setSettingsEffectsListeners from './settings-effects.js';
 import UsersModel from '../../models/users-model.js';
 import settingsViewTemplate from './settings-view.tmpl.pug';
 import SelectBoxBlock from '../../common.blocks/select-box/select-box';
 import eventBus from '../../modules/event-bus';
+import settings from '../../modules/settings';
 
 export default class SettingsView extends View {
   constructor() {
@@ -33,16 +34,16 @@ export default class SettingsView extends View {
         {
           theme_name: 'PinkPlanet',
           theme_id: 1,
-          theme_selected: this.isCurrentTheme('1') ? 'selected' : false,
+          theme_selected: settings.isCurrentTheme('1') ? 'selected' : false,
         },
         {
           theme_name: 'PurplePlanet',
           theme_id: 2,
-          theme_selected: this.isCurrentTheme('2') ? 'selected' : false
+          theme_selected: settings.isCurrentTheme('2') ? 'selected' : false
         }
       ],
       vpn: {
-        checked: this.isVpnEnabled() ? 'checked' : false
+        checked: settings.isVpnEnabled() ? 'checked' : false
       }
     };
     const returnParam = super.render(attrs);
@@ -62,9 +63,9 @@ export default class SettingsView extends View {
   }
 
   onChangeTheme(newThemeVal) {
-    this._application.classList.remove('application_theme-' + localStorage.getItem('theme'));
+    this._application.classList.remove('application_theme-' + settings.getCurrentTheme());
     this._application.classList.add('application_theme-' + newThemeVal);
-    localStorage.setItem('theme', newThemeVal);
+    settings.setCurrentTheme(newThemeVal);
   }
 
   onChangeVpn() {
@@ -77,33 +78,16 @@ export default class SettingsView extends View {
     }
   }
 
-  isCurrentTheme(themeVal) {
-    if (localStorage) {
-      const currentTheme = localStorage.getItem('theme');
-      return (currentTheme && currentTheme === themeVal);
-    } else {
-      return false;
-    }
-  }
-
-  isVpnEnabled() {
-    if (localStorage) {
-      return (localStorage.getItem('vpn') === 'true');
-    } else {
-      return false;
-    }
-  }
-
   static changeVpnModeStyles(doEnable) {
-    const isEnable = localStorage.getItem('vpn');
-    if (doEnable && isEnable !== 'true') {
+    const isEnable = settings.isVpnEnabled();
+    if (doEnable && !isEnable) {
       let application = document.getElementsByClassName('application')[0];
-      application.classList.remove('application_theme-' + localStorage.getItem('theme'));
+      application.classList.remove('application_theme-' + settings.getCurrentTheme());
       application.classList.add('application_theme-vpn');
-    } else if (!doEnable && isEnable === 'true') {
+    } else if (!doEnable && isEnable) {
       let application = document.getElementsByClassName('application')[0];
       application.classList.remove('application_theme-vpn');
-      application.classList.add('application_theme-' + localStorage.getItem('theme'));
+      application.classList.add('application_theme-' + settings.getCurrentTheme());
     }
   }
 }
