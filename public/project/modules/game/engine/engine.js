@@ -13,7 +13,7 @@ export default class Engine {
     this.onUfoTurn = this.onUfoTurn.bind(this);
     this.onHumansWin = this.onHumansWin.bind(this);
     this.onUfoWin = this.onUfoWin.bind(this);
-    document.getElementsByClassName('game-platform-checker').style.visibility = 'hidden';
+    document.getElementsByClassName('game-platform-checker')[0].classList.add('game-platform-checker');
   }
 
   start() {
@@ -32,7 +32,7 @@ export default class Engine {
     this.eventBus.off(this.events.UFO_TURN, this.onUfoTurn);
     this.eventBus.off(this.events.HUMANS_WIN, this.onHumansWin);
     this.eventBus.off(this.events.UFO_WIN, this.onUfoWin);
-    document.getElementsByClassName('game-platform-checker').style.visibility = 'visible';
+    document.getElementsByClassName('game-platform-checker')[0].classList.remove('game-platform-checker');
   }
 
   onGameStarted(evt) {
