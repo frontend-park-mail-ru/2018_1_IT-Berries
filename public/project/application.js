@@ -90,6 +90,24 @@ async function startApplication() {
     await new Router().open('/lose');
   });
 
+  const imagesToLoad = [
+    '../images/matrix.jpg',
+    '../images/sky2.jpg',
+    '../images/sky1.jpg',
+    '../images/rocket.png',
+    '../images/ufo.png',
+    '../images/rkn.png',
+    '../images/telegram.png',
+    '../images/star.png',
+    '../images/dark-star.png',
+    '../images/end-game-board.png',
+  ];
+
+  for (let imageToLoad of imagesToLoad) {
+    let img = new Image(), url = imageToLoad;
+    img.src = url;
+  }
+
 }
 
 startApplication();
