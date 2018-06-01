@@ -5,13 +5,18 @@ export default new class Settings {
       this.theme = localStorage.getItem('theme');
       this.vpn = localStorage.getItem('vpn');
       this.musicVolume = localStorage.getItem('musicVolume');
+      this.musicIsOn = localStorage.getItem('musicIsOn');
       this.soundVolume = localStorage.getItem('soundVolume');
+      this.soundIsOn = localStorage.getItem('soundIsOn');
     } else {
       this.theme = '1';
       this.vpn = 'false';
-      this.musicVolume = 70;
-      this.soundVolume = 70;
+      this.musicVolume = 100;
+      this.musicIsOn = true;
+      this.soundIsOn = true;
+      this.soundVolume = 100;
     }
+    this.audioPlayer = document.getElementById('audioPlayer');
   }
 
   isCurrentTheme(themeVal) {
@@ -60,6 +65,29 @@ export default new class Settings {
   getHeader() {
     this.header = (this.isVpnEnabled()) ? 'Catch the Telegram!' : 'Catch the Alien!';
     return this.header;
+  }
+
+  isEnabledMusic() {
+    if (localStorage) {
+      this.musicIsOn = localStorage.getItem('musicIsOn');
+    }
+    return (this.musicIsOn === 'true');
+  }
+
+  enableMusic() {
+    this.musicIsOn = 'true';
+    if (localStorage) {
+      localStorage.setItem('musicIsOn', this.musicIsOn);
+    }
+    this.audioPlayer.play();
+  }
+
+  disableMusic() {
+    this.musicIsOn = 'false';
+    if (localStorage) {
+      localStorage.setItem('musicIsOn', this.musicIsOn);
+    }
+    this.audioPlayer.pause();
   }
 
 };

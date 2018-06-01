@@ -9,6 +9,8 @@ new class Preloader {
       this._basePath = '/dist';
     }
 
+    document.getElementById('audioPlayer').play();
+
     this._application = document.getElementsByClassName('application')[0];
 
     document.addEventListener('DOMContentLoaded', async () => {
@@ -26,7 +28,7 @@ new class Preloader {
       } catch (error) {
         this.showErrorLoadResult();
       }
-    }, 2000);
+    }, 4000);
   }
 
   showLoader() {
