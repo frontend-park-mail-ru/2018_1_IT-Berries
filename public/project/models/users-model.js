@@ -306,7 +306,7 @@ export default class UsersModel {
     // Отправляем в виде поля avatar имя аватара
     formData.append('avatar', avatar);
 
-    const resp = await httpModule.fetchPut({
+    const resp = await httpModule.fetchPost({
       path: '/me',
       formData: formData
     });

@@ -9,27 +9,31 @@ $button-box-shadow-color: #000066;
 
 .notfound {
   width: $icon-width;
-  height: 70vmin;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 
   &__ufo {
     background-image: url("../../../images/notfound-ufo.png");
     background-size: 100% 100%;
-    width: $icon-width;
-    height: 70vmin;
+    width: 80vmin;
+    height: 90vh;
+    position: absolute;
+    bottom: 0;
   }
 
   &__text {
     font-size: 8vmin;
     color: $text-color;
     text-align: center;
-    vertical-align: center;
     margin: 2.5vmin auto;
+    margin-top: 40vh;
   }
 
   &__mainmenu {
     display: block;
     text-align: center;
-    vertical-align: center;
     width: $button-width;
     height: 10vmin;
     font-size: 8vmin;
@@ -38,6 +42,13 @@ $button-box-shadow-color: #000066;
     border-radius: 1vmin;
     border: darkgray solid 0.1vmin;
     box-shadow: 0.5vmin 0.5vmin 0.5vmin 0.1vmin $button-box-shadow-color;
-    color: $button-text-color;
+    color: orange;
+    position: absolute;
+    bottom: 10vh;
+  }
+
+  &__mainmenu:hover {
+    text-shadow: 0.1vmin 0.1vmin 1vmin black, 0 0 5vmin whitesmoke;
+    box-shadow: 0.5vmin 0.5vmin 0.5vmin 0.1vmin #000066, inset 0 0 1vmin 0.5vmin whitesmoke;
   }
 }

@@ -14,7 +14,8 @@ import AboutView from './views/about-view/about-view.js';
 import WinGameView from './views/win-game-view/win-game-view.js';
 import LoseGameView from './views/lose-game-view/lose-game-view.js';
 import GameModeView from './views/game-mode-view/game-mode-view.js';
-import ChooseSideView from './views/choose-side-view/choose-side-view';
+import ChooseSideView from './views/choose-side-view/choose-side-view.js';
+import NotFoundView from './views/not-found-view/not-found-view.js';
 
 // Import models
 import UsersModel from './models/users-model.js';
@@ -45,6 +46,7 @@ async function startApplication() {
       .add('/mode', GameModeView)
       .add('/side/online-mode', ChooseSideView)
       .add('/side/offline-mode', ChooseSideView)
+      .add('/404', NotFoundView)
       .start();
   }
 
