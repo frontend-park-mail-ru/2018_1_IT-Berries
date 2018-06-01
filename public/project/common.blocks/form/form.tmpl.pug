@@ -1,6 +1,6 @@
 if form.type === 'profile'
     div.form__message.js-form-message.profile__message
-form(class=form.type + '-form').js-form
+form(class=form.type + '-form' ).js-form
     if form.type !== 'profile'
         div.form__message.js-form-message
     if form.type === 'signup'
