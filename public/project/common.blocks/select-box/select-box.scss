@@ -1,0 +1,140 @@
+// Colors
+$c-background: #ffffff;
+$c-text: rgba(66, 6, 90, 0.55);
+$c-hover-text: #ffffff;
+$c-hover-background: #6636ff;
+$c-selected-text: #ffffff;
+$c-selected-background: #6636ff;
+$c-border-color: #eeeeee;
+$c-border-between: #ffffff;
+
+// Fonts
+$font-family: 'Chicle', sans-serif, fantasy;
+$font-size: 9pt;
+
+// Other
+$width: 27vmin;
+$border-radius: 1vmin;
+
+.selectbox {
+  box-sizing: border-box;
+  font-family: $font-family;
+  font-size: $font-size;
+  display: inline-block;
+  float: left;
+  margin: 2px;
+  background: $c-background;
+  width: $width;
+  position: relative;
+  border-radius: $border-radius;
+
+  &-options {
+    position: absolute;
+    width: 100%;
+    overflow: visible;
+    z-index: 1000;
+
+    &--hidden {
+      display: none;
+    }
+  }
+
+  &__option {
+
+    padding: 5px 10px;
+    cursor: pointer;
+    color: $c-text;
+    background: $c-background;
+    // border-bottom: 1px solid $c-border-between;
+    border-left: 1px solid $c-border-color;
+    border-right: 1px solid $c-border-color;
+    display: flex;
+    align-items: center;
+    transition: 100ms linear all;
+
+    &:first-child {
+      border-top: 1px solid $c-border-color;
+      border-top-left-radius: $border-radius;
+      border-top-right-radius: $border-radius;
+    }
+
+    &:last-child {
+      border-bottom: 1px solid $c-border-color;
+      border-bottom-left-radius: $border-radius;
+      border-bottom-right-radius: $border-radius;
+    }
+
+    &:hover {
+      background: $c-hover-background;
+      color: $c-hover-text;
+    }
+
+    &--selected {
+      color: $c-selected-text;
+      background: $c-selected-background;
+    }
+
+  }
+
+  &__label {
+    cursor: pointer;
+    padding: 5px 10px;
+    background: $c-background;
+    color: $c-text;
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: $border-radius;
+    border: 1px solid $c-border-color;
+    transition: 150ms linear all;
+    box-shadow: 1px 1px 10px #eeeeee;
+
+    &:after {
+      content: "";
+      display: inline;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 6px solid $c-text;
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: 150ms linear all;
+    }
+
+    &:hover {
+      border: 1px solid $c-hover-background;
+      color: $c-hover-background;
+
+      &:after {
+        border-top: 6px solid $c-hover-background;
+      }
+    }
+
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .selector-container {
+    position: relative;
+    display: block;
+    float: left;
+    width: $width;
+    min-height: 30px;
+  }
+
+  .selector {
+    width: $width - 1vmin;
+    display: block !important;
+    position: absolute;
+    margin: 2px 3px;
+    height: 26px;
+    z-index: 900;
+  }
+
+  .selectbox {
+    position: absolute !important;
+    z-index: 1000;
+    pointer-events: none;
+  }
+}

@@ -6,10 +6,24 @@ html, body, section, .application, .application>div {
 }
 
 .application {
-    background-image: url('../images/sky.jpg');
     background-size: 100% 100%;
-    color: azure;
     font-family: 'Chicle', sans-serif, fantasy;
+    transition: background-image 0.7s linear, color 0.7s linear;
+}
+
+.application_theme-1 {
+    background-image: url('../images/sky.jpg');
+    color: azure;
+}
+
+.application_theme-2 {
+    background-image: url('../images/sky2.jpg');
+    color: goldenrod;
+}
+
+.application_theme-vpn{
+    background-image: url('../images/matrix.jpg');
+    color: deepskyblue;
 }
 
 .preloader{

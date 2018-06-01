@@ -9,9 +9,13 @@ new class Preloader {
       this._basePath = '/dist';
     }
 
+    this._application = document.getElementsByClassName('application')[0];
+
     document.addEventListener('DOMContentLoaded', async () => {
       await this.start();
+      this.showCurrentTheme();
     });
+
   }
 
   async start() {
@@ -87,6 +91,37 @@ new class Preloader {
     script.async = true;
     script['src'] = url;
     document['body'].appendChild(script);
+  }
+
+  showCurrentTheme() {
+    if (localStorage) {
+
+      this.theme = localStorage.getItem('theme');
+      this.vpn = localStorage.getItem('vpn');
+
+      if (!this.vpn) {
+        this.vpn = localStorage.setItem('vpn', 'false');
+      }
+
+      if (this.theme !== '1' && this.theme !== '2') {
+        this.theme = localStorage.setItem('theme', '1');
+      }
+
+      if (this.vpn == 'true') {
+        this._application.classList.remove('application_theme-1');
+        this._application.classList.add('application_theme-vpn');
+      } else {
+        switch (this.theme) {
+        case '1':
+          break;
+        case '2':
+          this._application.classList.remove('application_theme-1');
+          this._application.classList.add('application_theme-2');
+          break;
+        }
+      }
+
+    }
   }
 
 };

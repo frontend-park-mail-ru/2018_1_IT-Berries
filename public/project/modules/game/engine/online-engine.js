@@ -12,15 +12,15 @@ export default class OnlineEngine extends Engine {
     let url = '';
     switch (window.location.hostname) {
     case 'localhost':
-      url = 'ws://localhost:8080';
+      url = 'ws://localhost:8080/api';
       break;
     case 'itberries-frontend.herokuapp.com':
-      url = 'ws://itberries-frontend.herokuapp.com';
+      url = 'wss://itberries-frontend.herokuapp.com/api';
 
       //this._baseUrl = 'https://itberries-backend.herokuapp.com';
       break;
     case 'it-berries.neat.codes':
-      url = 'wss://it-berries.neat.codes';
+      url = 'wss://it-berries.neat.codes/api';
       break;
     }
     this.conectingPanel = document.getElementsByClassName('conecting-panel')[0];
@@ -57,7 +57,7 @@ export default class OnlineEngine extends Engine {
   onGameStarted(payload) {
     this.conectingPanel.style.visibility = 'hidden';
     this.map = payload.cells;
-    this.gameScene = new GameScene(this.map[0].length, this.map.length, this.eventBus, this.side);
+    this.gameScene = new GameScene(this.map[0].length, this.map.length, this.eventBus, this.side, 'online');
     this.gameScene.reset();
     this.gameScene.setPanelName(0, payload.humansPlayer.name);
     this.gameScene.setPanelName(1, payload.ufoPlayer.name);
@@ -114,13 +114,15 @@ export default class OnlineEngine extends Engine {
   }
 
   onHumansTurn(evt) {
-
-    /*this.gameScene.restartTimer('humans');*/
+    this.gameScene.player_turn = 1;
+    this.gameScene.restartTimer('humans');
     if (this.side === 'humans') {
       this.gameScene.playerHumanTurn();
     } else {
-      if (evt !== undefined && evt !== null) {
+      if (evt !== undefined && evt !== null && evt.payload === undefined) {
         this.socket.sendMessage('EVENTS.LOGIC.MOVE', this.makeMovePayload(evt.target));
+      } else if (evt.payload !== undefined && evt.payload !== null) {
+        this.gameScene.opponentHumanTurn(evt);
       }
     }
   }
@@ -141,13 +143,15 @@ export default class OnlineEngine extends Engine {
   }
 
   onUfoTurn(evt) {
-
-    /*this.gameScene.restartTimer('ufo');*/
+    this.gameScene.player_turn = 2;
+    this.gameScene.restartTimer('ufo');
     if (this.side === 'aliens') {
       this.gameScene.playerUfoTurn();
     } else {
-      if (evt !== undefined && evt !== null) {
+      if (evt !== undefined && evt !== null && evt.payload === undefined) {
         this.socket.sendMessage('EVENTS.LOGIC.MOVE', this.makeMovePayload(evt.target));
+      }  else if (evt.payload !== undefined && evt.payload !== null) {
+        this.gameScene.opponentUfoTurn(evt);
       }
     }
   }

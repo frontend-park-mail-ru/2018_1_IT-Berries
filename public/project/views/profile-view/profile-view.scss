@@ -158,14 +158,6 @@
 
 }
 
-.profile-form__avatar-text {
-    margin-left: 1vmin;
-    color: azure;
-    font-size: 3vmin;
-    width: 13vmin;
-    word-wrap: break-word;
-}
-
 .js-additional-links {
     position: absolute;
     left: 2vmin;
@@ -253,10 +245,6 @@ and (max-device-aspect-ratio: 5/7 ) {
         width: 20vmin;
         height: 12vmin;
         text-align: center;
-    }
-
-    .profile-form__avatar-text {
-        font-size: 3.5vmin;
     }
 
     .profile-form__button {

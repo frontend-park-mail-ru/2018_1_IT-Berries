@@ -2,7 +2,8 @@ import gameFieldBlock from '../../common.blocks/game-field/game-field.js';
 import gameEvents from './engine/game-events.js';
 
 export default class GameScene {
-  constructor(x = 8, y = 7, eventBus, side) {
+  constructor(x = 8, y = 7, eventBus, side, mode) {
+    this.mode = mode;
     this.eventsBus = eventBus;
     const gameFieldRoot = document.getElementsByClassName('game-view__game')[0];
     this.panels = document.getElementsByClassName('player-panel');
@@ -135,7 +136,9 @@ export default class GameScene {
     }
     if (this.timerValue === 0) {
       clearInterval(this.timer);
-      this.changeTurn();
+      if (this.mode === 'offline') {
+        this.changeTurn();
+      }
     }
   }
 
@@ -202,12 +205,14 @@ export default class GameScene {
   opponentUfoTurn(event) {
     if (event === 'Time over!' || (this.player_turn === 1 &&
       !event.target.classList.contains('ufo') &&
-      !event.target.classList.contains('rocket'))) {
+      !event.target.classList.contains('rocket')) || (event.payload !== undefined)) {
       this.gameField._el.classList.remove('player_human_turn');
-      if (event !== 'Time over!') {
+      if (event !== 'Time over!' && event.payload === undefined) {
         this.setRocket(event.target);
       }
-      this.eventsBus.emit(gameEvents.UFO_TURN, event);
+      if (event.payload === undefined) {
+        this.eventsBus.emit(gameEvents.UFO_TURN, event);
+      }
     }
   }
 
@@ -225,7 +230,7 @@ export default class GameScene {
   opponentHumanTurn(event) {
     if (event === 'Time over!' || (this.player_turn === 2 &&
       !event.target.classList.contains('ufo') &&
-      !event.target.classList.contains('rocket'))) {
+      !event.target.classList.contains('rocket')) || (event.payload !== undefined)) {
       this.gameField._el.classList.remove('player_ufo_turn');
       if (this.ufoPosibleTurns !== undefined) {
         for (let i = 0; i < this.ufoPosibleTurns.length; i++) {
@@ -236,13 +241,15 @@ export default class GameScene {
         }
         delete this.ufoPosibleTurns;
       }
-      if (event !== 'Time over!') {
+      if (event !== 'Time over!' && event.payload === undefined) {
         const ufoColumn = event.target.parentNode.className.match(/\d+/g)[0];
         const ufoRow = event.target.parentNode.parentNode.parentNode.parentNode.classList[0].match(/\d+/g)[0];
         const cell = {x: ufoColumn, y: ufoRow};
         this.stepUfoTo(cell);
       }
-      this.eventsBus.emit(gameEvents.HUMANS_TURN, event);
+      if (event.payload === undefined) {
+        this.eventsBus.emit(gameEvents.HUMANS_TURN, event);
+      }
     }
   }
 

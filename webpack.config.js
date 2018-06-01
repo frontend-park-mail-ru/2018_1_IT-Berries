@@ -1,8 +1,11 @@
 const path = require('path');
+const argv = require('yargs').argv;
 const nodeExternals = require('webpack-node-externals');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+const isDevelopment = argv.mode === 'development';
+const isProduction = !isDevelopment;
 const distPath = path.join(__dirname, 'public/dist');
 
 module.exports = {
@@ -35,7 +38,7 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
         query: {
-          presets: ['es2015'],
+          presets: ['env'],
           plugins: [
             'transform-runtime',
             'transform-async-to-generator'
@@ -52,7 +55,7 @@ module.exports = {
               loader: 'css-loader',
               options: {
                 url: true,
-                minimize: true,
+                minimize: isProduction,
                 sourceMap: true
               }
             },

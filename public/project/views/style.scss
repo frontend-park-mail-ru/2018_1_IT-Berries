@@ -27,6 +27,8 @@ section {
     to { background-position: -100vw;}
 }
 
+
+
 header {
     width: 100%;
     height: 20%;
@@ -69,14 +71,12 @@ footer {
     justify-content: center; /*Центрирование по горизонтали*/
     align-items: flex-end;    /*Центрирование по вертикали */
 
-    background-image: url("../../images/mid_ground.png");
     background-size: 100% 90%;
 }
 
 .footer__fore {
     width: 100%;
     height: 40%;
-    background-image: url("../../images/fore_ground.png");
     background-size: 100% 100%;
 }
 

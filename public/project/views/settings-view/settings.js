@@ -1,5 +1,5 @@
 // Settings.js
-export default function settingsEffects() {
+export default function setSettingsEffectsListeners() {
   const soundIcon = document.getElementsByClassName('sound-icon')[0];
   const musicIcon = document.getElementsByClassName('music-icon')[0];
 

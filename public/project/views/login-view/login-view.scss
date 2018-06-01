@@ -52,6 +52,7 @@ $login-form-box-shadow-color: rgba(66, 6, 90, 0.55);
 
 .form__message, .js-form-message {
     font-size: 3vmin;
+    text-align: center;
 }
 
 .form-input:focus {
@@ -129,7 +130,7 @@ and (max-device-aspect-ratio: 5/7 ){
     .form__message, .js-form-message {
         font-size: 6vmin;
         position: absolute;
-        top: 0.5vmin;
+        top: -8vh;
     }
 
     .login-form {

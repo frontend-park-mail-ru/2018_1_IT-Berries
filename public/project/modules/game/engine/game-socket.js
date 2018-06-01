@@ -41,9 +41,9 @@ export default class GameSocket {
       break;
     case 'EVENTS.GAME.TURN':
       if ( message.payload.turn === 'human') {
-        this.eventBus.emit(this.events.HUMANS_TURN);
+        this.eventBus.emit(this.events.HUMANS_TURN, message);
       } else {
-        this.eventBus.emit(this.events.UFO_TURN);
+        this.eventBus.emit(this.events.UFO_TURN, message);
       }
       break;
     case 'EVENTS.LOGIC.SCORE' :

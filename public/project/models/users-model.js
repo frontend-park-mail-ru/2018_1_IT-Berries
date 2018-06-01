@@ -14,6 +14,11 @@ export default class UsersModel {
     this.profileBarAvatar = '/avatar?' + Math.random() + '&avatar=' + data.avatar;
   }
 
+  static validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
+
   /**
    * Проверяет авторизацию текущего пользователя
    * если пользователь авторизован, возвращает его модель
@@ -95,7 +100,7 @@ export default class UsersModel {
       }
     }
 
-    if (email === '') {
+    if (!this.validateEmail(email)) {
       response.error = 'Enter your email!';
       return response;
     }
@@ -175,7 +180,7 @@ export default class UsersModel {
       return response;
     }
 
-    if (email === '') {
+    if (!this.validateEmail(email)) {
       response.error = 'Email is invalid';
       return response;
     }
