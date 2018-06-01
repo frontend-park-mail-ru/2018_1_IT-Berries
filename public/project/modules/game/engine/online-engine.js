@@ -60,6 +60,7 @@ export default class OnlineEngine extends Engine {
 
   onGameStarted(payload) {
     this.conectingPanel.style.visibility = 'hidden';
+    document.getElementsByClassName('players-tables')[0].classList.remove('players-tables_hidden');
     this.map = payload.cells;
     this.gameScene = new GameScene(this.map[0].length, this.map.length, this.eventBus, this.side, 'online');
     this.gameScene.reset();
