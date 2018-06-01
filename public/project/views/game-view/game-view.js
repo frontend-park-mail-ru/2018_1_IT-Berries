@@ -3,6 +3,7 @@ import Game from '../../modules/game/game.js';
 import GAME_MODES from '../../modules/game/modes.js';
 import UsersModel from '../../models/users-model.js';
 import gameViewTemplate from './game-view.tmpl.pug';
+import settings from '../../modules/settings';
 
 export default class GameView extends View {
 
@@ -23,7 +24,13 @@ export default class GameView extends View {
     } catch (e) {
       side = null;
     }
-    let attrs = {profile, side, path};
+    let attrs = {
+      profile,
+      side,
+      path,
+      theme: settings.getCurrentThemeOrVpn(),
+      header: settings.getHeader()
+    };
     super.create(attrs);
     this.doGame(attrs);
     

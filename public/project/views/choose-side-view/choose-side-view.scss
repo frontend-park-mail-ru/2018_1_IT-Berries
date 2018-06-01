@@ -2,7 +2,9 @@ $side-width: 35vmin;
 
 $rocket-icon: '../../../images/rocket.png';
 $ufo-icon: '../../../images/ufo.png';
-$alien-icon: '../../../images/alien.png';
+
+$rkn-icon: '../../../images/rkn.png';
+$telegram-icon: '../../../images/telegram.png';
 
 .choose-side-view__sides {
 
@@ -44,13 +46,28 @@ $alien-icon: '../../../images/alien.png';
   .choose-side-view__human-side {
 
     .choose-side-view__icon {
-      background-image: url($rocket-icon);
+
+      &_theme-1, &_theme-2 {
+        background-image: url($rocket-icon);
+      }
+
+      &_theme-vpn {
+        background-image: url($rkn-icon);
+      }
+
     }
 
     .choose-side-view__side-text {
       text-effect: none;
       user-select: none;
-      color: #ffdb00;
+
+      &_theme-1, &_theme-2 {
+        color: #ffdb00;
+      }
+
+      &_theme-vpn {
+        color: #fff;
+      }
     }
   }
 
@@ -67,7 +84,6 @@ $alien-icon: '../../../images/alien.png';
 
     .choose-side-view__icon {
 
-      background-image: url($alien-icon);
       background-size: 100% 100%;
       background-repeat: no-repeat;
       width: 12vmin;
@@ -80,16 +96,31 @@ $alien-icon: '../../../images/alien.png';
         height: 43vmin;
         width: 50vmin;
         margin-left: -18.0vmin;
-        background-image: url($ufo-icon);
         background-size: 100% 100%;
         position: absolute;
         top: 6vmin;
+
+        &_theme-1, &_theme-2 {
+          background-image: url($ufo-icon);
+        }
+
+        &_theme-vpn {
+          background-image: url($telegram-icon);
+        }
       }
 
     }
 
     .choose-side-view__side-text {
-      color: rgb(145, 220, 90);
+
+      &_theme-1, &_theme-2 {
+        color: rgb(145, 220, 90);
+      }
+
+      &_theme-vpn {
+        color: #fff;
+      }
+
     }
 
   }

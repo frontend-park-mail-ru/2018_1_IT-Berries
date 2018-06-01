@@ -71,10 +71,10 @@ export default class SettingsView extends View {
   onChangeVpn() {
     if (this.checked) {
       SettingsView.changeVpnModeStyles(true);
-      localStorage.setItem('vpn', 'true');
+      settings.setVpn(true);
     } else {
       SettingsView.changeVpnModeStyles(false);
-      localStorage.setItem('vpn', 'false');
+      settings.setVpn(false);
     }
   }
 

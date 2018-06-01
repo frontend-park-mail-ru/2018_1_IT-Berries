@@ -1,4 +1,5 @@
 import gameFieldTemplate from './game-field.tmpl.pug';
+import settings from '../../modules/settings';
 
 /** Class representing a scoreboard paginator block. */
 export default class gameFieldBlock {
@@ -23,16 +24,7 @@ export default class gameFieldBlock {
    * Render scoreboard paginator template in HTML component's body.
    */
   render() {
-    const sizes = {x: this.x, y: this.y};
-    const template = gameFieldTemplate(sizes);
-    this._el.innerHTML = template;
-
-    /*
-    const tables = document.getElementsByClassName('game-view__game-table');
-    for (let i = 0; i < this.y; ++i) {
-      tables[i].style.width = (this.x + i % 2) * 7 + 'vmin';
-    }
-
-    */
+    const sizes = {x: this.x, y: this.y, theme: settings.getCurrentThemeOrVpn()};
+    this._el.innerHTML = gameFieldTemplate(sizes);
   }
 }

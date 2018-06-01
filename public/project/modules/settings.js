@@ -14,13 +14,6 @@ export default new class Settings {
     }
   }
 
-  isVpnEnabled() {
-    if (localStorage) {
-      this.vpn = localStorage.getItem('vpn');
-    }
-    return (this.vpn === 'true');
-  }
-
   isCurrentTheme(themeVal) {
     if (localStorage) {
       this.theme = localStorage.getItem('theme');
@@ -42,12 +35,31 @@ export default new class Settings {
     }
   }
 
+  isVpnEnabled() {
+    if (localStorage) {
+      this.vpn = localStorage.getItem('vpn');
+    }
+    return (this.vpn === 'true');
+  }
+
+  setVpn(newVpnValue) {
+    this.vpn = (newVpnValue === true) ? 'true' : 'false';
+    if (localStorage) {
+      localStorage.setItem('vpn', newVpnValue);
+    }
+  }
+
   getCurrentThemeOrVpn() {
-    if (this.isVpnEnabled) {
+    if (this.isVpnEnabled()) {
       return 'vpn';
     } else {
       return this.getCurrentTheme();
     }
+  }
+
+  getHeader() {
+    this.header = (this.isVpnEnabled()) ? 'Catch the Telegram!' : 'Catch the Alien!';
+    return this.header;
   }
 
 };
