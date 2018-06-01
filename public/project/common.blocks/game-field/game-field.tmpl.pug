@@ -5,4 +5,4 @@ while i < y
         tr
             while j < x + (i + 1)%2
                 td(class='playing-field-column-' + j++ + ' empty_cell')
-                    div.cell.empty-cell
+                    div(class='cell empty-cell empty-cell_theme-' + theme)

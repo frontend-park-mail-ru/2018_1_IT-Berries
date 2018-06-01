@@ -1,5 +1,6 @@
 import gameFieldBlock from '../../common.blocks/game-field/game-field.js';
 import gameEvents from './engine/game-events.js';
+import settings from '../../modules/settings';
 
 export default class GameScene {
   constructor(x = 8, y = 7, eventBus, side, mode) {
@@ -69,9 +70,13 @@ export default class GameScene {
 
   stepUfoTo(cell) {
     this.removeCallImgClass(this.ufoPosition.x, this.ufoPosition.y, 'ufo');
+    this.removeCallImgClass(this.ufoPosition.x, this.ufoPosition.y, 'ufo_theme-' + settings.getCurrentThemeOrVpn());
     this.addCallClassImgClass(this.ufoPosition.x, this.ufoPosition.y, 'empty_cell', 'empty-cell');
+    this.addCallClassImgClass(this.ufoPosition.x, this.ufoPosition.y, 'empty_cell', 'empty-cell_theme-' + settings.getCurrentThemeOrVpn());
     this.removeCallClassImgClass(cell.x, cell.y, 'empty_cell', 'empty-cell');
+    this.removeCallClassImgClass(cell.x, cell.y, 'empty_cell', 'empty-cell_theme-' + settings.getCurrentThemeOrVpn());
     this.addCallImgClass(cell.x, cell.y, 'ufo');
+    this.addCallImgClass(cell.x, cell.y, 'ufo_theme-' + settings.getCurrentThemeOrVpn());
     this.ufoPosition = {x: cell.x, y: cell.y};
     this.player_turn = 1;
   }
@@ -188,6 +193,8 @@ export default class GameScene {
       if (!img.classList.contains('rocket')) {
         this.cellChangeClass(cell, 'empty_cell', 'ufo_hidden');
         this.cellChangeImgClass(cell, 'empty-cell', 'ufo-hidden');
+        this.cellChangeImgClass(cell, 'empty-cell_theme-' + settings.getCurrentThemeOrVpn(),
+          'ufo-hidden_theme-' + settings.getCurrentThemeOrVpn());
         cell.addEventListener('click', this.opponentHumanTurn.bind(this));
         this.ufoPosibleTurns.push(cell);
       }
@@ -247,6 +254,8 @@ export default class GameScene {
           cell.removeEventListener('click', this.opponentHumanTurn.bind(this));
           this.cellChangeClass(cell, 'ufo_hidden', 'empty_cell');
           this.cellChangeImgClass(cell, 'ufo-hidden', 'empty-cell');
+          this.cellChangeImgClass(cell, 'ufo-hidden_theme-' + settings.getCurrentThemeOrVpn(),
+            'empty-cell_theme-' + settings.getCurrentThemeOrVpn());
         }
         delete this.ufoPosibleTurns;
       }
@@ -267,8 +276,10 @@ export default class GameScene {
 
   setRocket(cell) {
     cell.classList.remove('empty-cell');
+    cell.classList.remove('empty-cell_theme-' + settings.getCurrentThemeOrVpn());
     cell.parentNode.classList.remove('empty_cell');
     cell.classList.add('rocket');
+    cell.classList.add('rocket_theme-' + settings.getCurrentThemeOrVpn());
     this.player_turn = 2;
   }
 
@@ -281,7 +292,9 @@ export default class GameScene {
   async setUfoPosition(x, y) {
     this.ufoPosition = {x: x, y: y};
     this.addCallImgClass(x, y, 'ufo');
+    this.addCallImgClass(x, y, 'ufo_theme-' + settings.getCurrentThemeOrVpn());
     this.removeCallClassImgClass(x, y, 'empty_cell', 'empty-cell');
+    this.removeCallClassImgClass(x, y, 'empty_cell', 'empty-cell_theme-' + settings.getCurrentThemeOrVpn());
   }
 
   turnOnCellIlluminationOnHover(x, y) {
@@ -294,18 +307,22 @@ export default class GameScene {
 
   turnOnCellUfoOnHover(x, y) {
     this.addCallClassImgClass(x, y, 'ufoHoverOn', 'ufo');
+    this.addCallClassImgClass(x, y, 'ufoHoverOn', 'ufo_theme-' + settings.getCurrentThemeOrVpn());
   }
 
   turnOffCellUfoOnHover(x, y) {
     this.removeCallClassImgClass(x, y, 'ufoHoverOn', 'ufo');
+    this.removeCallClassImgClass(x, y, 'ufoHoverOn', 'ufo_theme-' + settings.getCurrentThemeOrVpn());
   }
 
   turnOnCellRocketOnHover(x, y) {
     this.addCallClassImgClass(x, y, 'rocketHoverOn', 'rocket');
+    this.addCallClassImgClass(x, y, 'rocketHoverOn', 'rocket_theme-' + settings.getCurrentThemeOrVpn());
   }
 
   turnOffCellRocketOnHover(x, y) {
     this.removeCallClassImgClass(x, y, 'rocketHoverOn', 'rocket');
+    this.removeCallClassImgClass(x, y, 'rocketHoverOn', 'rocket_theme-' + settings.getCurrentThemeOrVpn());
   }
 
   getCell(x, y) {

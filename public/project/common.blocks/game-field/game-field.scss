@@ -1,6 +1,12 @@
 $game-field-background-color: rgba(108, 58, 118, 0.85);
 $game-field-border-color: #462663;
 
+$rocket-icon: '../../../images/rocket.png';
+$ufo-icon: '../../../images/ufo.png';
+
+$rkn-icon: '../../../images/rkn.png';
+$telegram-icon: '../../../images/telegram.png';
+
 .game-view__game {
     width: 72vmin;
     height: 63vmin;
@@ -32,10 +38,17 @@ $game-field-border-color: #462663;
 
 .ufo {
     position: relative;
-    background-image: url("../../../images/ufo.png");
     height: 100%;
     width: 100%;
     background-size: 100% 100%;
+
+    &_theme-1, &_theme-2 {
+        background-image: url($ufo-icon);
+    }
+
+    &_theme-vpn {
+        background-image: url($telegram-icon);
+    }
 }
 
 .ufo_hidden {
@@ -44,27 +57,48 @@ $game-field-border-color: #462663;
 
 .ufo-hidden {
     position: relative;
-    background-image: url("../../../images/ufo.png");
     height: 100%;
     width: 100%;
     background-size: 100% 100%;
     opacity: 0;
+
+    &_theme-1, &_theme-2 {
+        background-image: url($ufo-icon);
+    }
+
+    &_theme-vpn {
+        background-image: url($telegram-icon);
+    }
 }
 
 .empty-cell {
     opacity: 0;
-    background-image: url("../../../images/rocket.png");
     height: 100%;
     width: 100%;
     background-size: 100% 100%;
+
+    &_theme-1, &_theme-2 {
+        background-image: url($rocket-icon);
+    }
+
+    &_theme-vpn {
+        background-image: url($rkn-icon);
+    }
 }
 
 .rocket {
     opacity: 1;
-    background-image: url("../../../images/rocket.png");
     height: 100%;
     width: 100%;
     background-size: 100% 100%;
+
+    &_theme-1, &_theme-2 {
+        background-image: url($rocket-icon);
+    }
+
+    &_theme-vpn {
+        background-image: url($rkn-icon);
+    }
 }
 
 .player_human_turn table tbody tr td:hover .empty-cell:hover {

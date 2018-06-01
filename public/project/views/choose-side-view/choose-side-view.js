@@ -3,6 +3,7 @@ import chooseSideViewTemplate from './choose-side-view.tmpl.pug';
 import UsersModel from '../../models/users-model';
 import Router from '../../modules/router';
 import Game from '../../modules/game/game';
+import settings from '../../modules/settings';
 
 export default class ChooseSideView extends View {
 
@@ -26,7 +27,8 @@ export default class ChooseSideView extends View {
   render() {
     const profile = UsersModel.getCurrentUser();
     const attrs = {
-      profile
+      profile,
+      theme: settings.getCurrentThemeOrVpn()
     };
     const returnedValue = super.render(attrs);
     this.el.getElementsByClassName('choose-side-view__human-side')[0].addEventListener('click', async () => {
