@@ -105,9 +105,6 @@ async function startApplication() {
 
   for (let imageToLoad of imagesToLoad) {
     let img = new Image(), url = imageToLoad;
-    img.onload = function () {
-      alert('loaded ' + imageToLoad);
-    };
     img.src = url;
   }
 
