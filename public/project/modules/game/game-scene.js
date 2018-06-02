@@ -3,7 +3,7 @@ import gameEvents from './engine/game-events.js';
 import settings from '../../modules/settings';
 
 export default class GameScene {
-  constructor(x = 8, y = 7, eventBus, side, mode) {
+  constructor(x = 8, y = 7, eventBus, side = 'humans', mode) {
     this.mode = mode;
     this.eventsBus = eventBus;
     const gameFieldRoot = document.getElementsByClassName('game-view__game')[0];
@@ -13,7 +13,11 @@ export default class GameScene {
     this.x = x;
     this.y = y;
     this.cells = this.gameField._el.getElementsByClassName('cell');
-    this.side = side;
+    if (side === null) {
+      this.side = 'humans';
+    } else {
+      this.side = side;
+    }
     if (this.side !== 'aliens') {
       for (let i = 0; i < this.cells.length; i++) {
         this.cells[i].addEventListener('click', this.opponentUfoTurn.bind(this));
