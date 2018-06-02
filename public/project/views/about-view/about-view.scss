@@ -22,11 +22,24 @@ $about-box-shadow-color: rgba(66, 6, 90, 0.55);
 
     color: whitesmoke;
     font-size: 5vmin;
+
+    img {
+        margin-top: 2vmin;
+        max-height: 20vmin;
+        max-width: 20vmin;
+        border: 2px black solid;
+    }
+
+    p {
+        text-align: center;
+        font-size: 3vmin;
+    }
+
+    a {
+        color: #fff;
+    }
 }
 
-.about-view__about p {
-    text-align: center;
-}
 
 @media only screen
 and (max-device-aspect-ratio: 5/7 ){
@@ -37,4 +50,5 @@ and (max-device-aspect-ratio: 5/7 ){
         font-size: 8vmin;
         margin-top: 16vh;
     }
+
 }

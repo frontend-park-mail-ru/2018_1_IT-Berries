@@ -93,7 +93,7 @@ new class Preloader {
     let source = audioCtx.createBufferSource();
     let request = new XMLHttpRequest();
 
-    request.open('GET', 'Ingame - Planetarium.mp3', true);
+    request.open('GET', 'music.mp3', true);
 
     request.responseType = 'arraybuffer';
 
