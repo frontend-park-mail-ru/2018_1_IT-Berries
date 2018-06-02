@@ -77,6 +77,7 @@ export default class MenuView extends View {
     }
 
     const returnValue = super.render(attrs);
+
     /*const buttons = document.getElementsByClassName('menu__button');
     for (let i = 0; i < buttons.length; i++) {
       buttons[i].addEventListener('click', window.soundPlay);
