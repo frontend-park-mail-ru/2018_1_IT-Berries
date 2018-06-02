@@ -27,7 +27,31 @@ new class Preloader {
 
     window.musicCtx = new AudioContext();
     window.musicNode = window.musicCtx.createGain ? window.musicCtx.createGain() : window.musicCtx.createGainNode();
-    this.playSound(window.musicCtx, window.musicNode);
+    this.loadSound(window.musicCtx, window.musicNode);
+    window.soundCtx = new AudioContext();
+    window.soundNode = window.soundCtx.createGain ? window.soundCtx.createGain() : window.soundCtx.createGainNode();
+    window.soundNode.connect(window.soundCtx.destination);       // connect the source to the context's destination (the speakers)
+    if (localStorage) {
+      let vol = localStorage.getItem('soundVol');
+      if (vol === 0 || vol === null) {
+        window.soundNode.gain.value = 0.5;
+      } else {
+        window.soundNode.gain.value = vol;
+      }
+    } else {
+      window.soundNode.gain.value = 0.5;
+    }
+    this.loadBufer(window.soundCtx, window.soundNode);
+    
+    window.soundPlay = function() {
+      window.soundCtx.resume();
+      let source = window.soundCtx.createBufferSource(); // creates a sound source
+      source.buffer = window.soundBufer;                    // tell the source which sound to play
+      source.connect(window.soundNode);
+      window.sound = source;
+      window.sound.start();
+      window.soundCtx.suspend();
+    };
 
     this._application = document.getElementsByClassName('application')[0];
 
@@ -38,7 +62,34 @@ new class Preloader {
 
   }
 
-  playSound(audioCtx, node) {
+  loadBufer(audioCtx, node) {
+    let request = new XMLHttpRequest();
+    request.open('GET', 'pop.mp3', true);
+
+    request.responseType = 'arraybuffer';
+
+    request.onload = function() {
+      let audioData = request.response;
+
+      audioCtx.decodeAudioData(audioData, function(buffer) {
+        window.soundBufer = buffer;
+        let source = window.soundCtx.createBufferSource(); // creates a sound source
+        source.buffer = window.soundBufer;                    // tell the source which sound to play
+        source.connect(window.soundNode);
+        window.sound = source;
+        window.sound.start();
+        window.soundCtx.suspend();
+      },
+
+      function(e) {
+      });
+
+    };
+
+    request.send();
+  }
+
+  loadSound(audioCtx, node) {
     let source = audioCtx.createBufferSource();
     let request = new XMLHttpRequest();
 

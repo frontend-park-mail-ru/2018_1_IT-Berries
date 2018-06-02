@@ -51,7 +51,7 @@ export default class MenuView extends View {
         {
           button_style: 'main-button',
           type: 'play',
-          href: '/side/offline-mode'
+          href: '/game/offline-mode'
         },
         {
           button_style: 'secondary-button',
@@ -76,7 +76,13 @@ export default class MenuView extends View {
       ];
     }
 
-    return super.render(attrs);
+    const returnValue = super.render(attrs);
+    /*const buttons = document.getElementsByClassName('menu__button');
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].addEventListener('click', window.soundPlay);
+    }*/
+
+    return returnValue;
   }
 
 }
