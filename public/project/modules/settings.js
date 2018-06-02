@@ -80,6 +80,10 @@ export default new class Settings {
       localStorage.setItem('musicIsOn', this.musicIsOn);
     }
     this.audioPlayer.play();
+    if (localStorage) {
+      localStorage.setItem('musicVol', window.musicNode.gain.value);
+    }
+    window.musicCtx.resume();
   }
 
   disableMusic() {
@@ -88,6 +92,7 @@ export default new class Settings {
       localStorage.setItem('musicIsOn', this.musicIsOn);
     }
     this.audioPlayer.pause();
+    window.musicCtx.suspend();
   }
 
 };

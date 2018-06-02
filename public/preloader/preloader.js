@@ -1,3 +1,5 @@
+window.AudioContext = window.AudioContext || window.webkitAudioContext;
+
 new class Preloader {
 
   constructor() {
@@ -9,7 +11,47 @@ new class Preloader {
       this._basePath = '/dist';
     }
 
-    document.getElementById('audioPlayer').play();
+    //this.player = document.getElementById('audioPlayer');
+    //this.player.play();
+
+    //URL до аудио файла (mp3, ogg, wav)
+    //this.play('fault-the-police.mp3', 1);
+
+    /*window.audioCtx_1 = new AudioContext();
+    window.gainNode_1 = window.audioCtx_1.createGain ? window.audioCtx_1.createGain() : window.audioCtx_1.createGainNode();
+    window.audioCtx_2 = new AudioContext();
+    window.gainNode_2 = window.audioCtx_2.createGain ? window.audioCtx_2.createGain() : window.audioCtx_2.createGainNode();
+
+    this.play('star-trek.mp3', 0.5, window.audioCtx_1, window.gainNode_1);
+    this.play('fault-the-police.mp3', 0.5, window.audioCtx_2, window.gainNode_2);*/
+
+    window.musicCtx = new AudioContext();
+    window.musicNode = window.musicCtx.createGain ? window.musicCtx.createGain() : window.musicCtx.createGainNode();
+    this.loadSound(window.musicCtx, window.musicNode);
+    window.soundCtx = new AudioContext();
+    window.soundNode = window.soundCtx.createGain ? window.soundCtx.createGain() : window.soundCtx.createGainNode();
+    window.soundNode.connect(window.soundCtx.destination);       // connect the source to the context's destination (the speakers)
+    if (localStorage) {
+      let vol = localStorage.getItem('soundVol');
+      if (vol === 0 || vol === null) {
+        window.soundNode.gain.value = 0.5;
+      } else {
+        window.soundNode.gain.value = vol;
+      }
+    } else {
+      window.soundNode.gain.value = 0.5;
+    }
+    this.loadBufer(window.soundCtx, window.soundNode);
+    
+    window.soundPlay = function() {
+      window.soundCtx.resume();
+      let source = window.soundCtx.createBufferSource(); // creates a sound source
+      source.buffer = window.soundBufer;                    // tell the source which sound to play
+      source.connect(window.soundNode);
+      window.sound = source;
+      window.sound.start();
+      window.soundCtx.suspend();
+    };
 
     this._application = document.getElementsByClassName('application')[0];
 
@@ -19,6 +61,198 @@ new class Preloader {
     });
 
   }
+
+  loadBufer(audioCtx, node) {
+    let request = new XMLHttpRequest();
+    request.open('GET', 'pop.mp3', true);
+
+    request.responseType = 'arraybuffer';
+
+    request.onload = function() {
+      let audioData = request.response;
+
+      audioCtx.decodeAudioData(audioData, function(buffer) {
+        window.soundBufer = buffer;
+        let source = window.soundCtx.createBufferSource(); // creates a sound source
+        source.buffer = window.soundBufer;                    // tell the source which sound to play
+        source.connect(window.soundNode);
+        window.sound = source;
+        window.sound.start();
+        window.soundCtx.suspend();
+      },
+
+      function(e) {
+      });
+
+    };
+
+    request.send();
+  }
+
+  loadSound(audioCtx, node) {
+    let source = audioCtx.createBufferSource();
+    let request = new XMLHttpRequest();
+
+    request.open('GET', 'Ingame - Planetarium.mp3', true);
+
+    request.responseType = 'arraybuffer';
+
+    request.onload = function() {
+      let audioData = request.response;
+
+      audioCtx.decodeAudioData(audioData, function(buffer) {
+        let myBuffer = buffer;
+        source.buffer = myBuffer;
+        source.connect(node);
+        node.connect( audioCtx.destination );
+        if (localStorage) {
+          let vol = localStorage.getItem('musicVol');
+          if (vol === 0 || vol === null) {
+            node.gain.value = 0.5;
+          } else {
+            node.gain.value = vol;
+          }
+        } else {
+          node.gain.value = 0.5;
+        }
+        source.loop = true;
+        window.musicTheme = source;
+        window.musicTheme.start(0);
+        if (localStorage) {
+          let bool = localStorage.getItem('musicIsOn');
+          if (bool !== null
+            && bool !== undefined
+            && bool === 'false') {
+            window.musicCtx.suspend();
+          }
+        }
+
+      },
+
+      function(e) {
+      });
+
+    };
+
+    request.send();
+  }
+
+  /*async playerStart() {
+
+    function finishedLoading(bufferList) {
+
+      // Create two sources and play them both together.
+      let source1 = context.createBufferSource();
+      let source2 = context.createBufferSource();
+      source1.buffer = bufferList[0];
+      source2.buffer = bufferList[1];
+
+      source1.connect(context.destination);
+      source2.connect(context.destination);
+      source1.start(0);
+      source2.start(0);
+    }
+
+    class BufferLoader {
+      constructor(context, urlList, callback) {
+        this.context = context;
+        this.urlList = urlList;
+        this.onload = callback;
+        this.bufferList = new Array();
+        this.loadCount = 0;
+      }
+
+      loadBuffer(url, index) {
+
+        // Load buffer asynchronously
+        let request = new XMLHttpRequest();
+        request.open('GET', url, true);
+        request.responseType = 'arraybuffer';
+
+        let loader = this;
+
+        request.onload = async function () {
+          let audioData = request.response;
+
+          // Asynchronously decode the audio file data in request.response
+          await loader.context.decodeAudioData(
+            audioData,
+            function (buffer) {
+              if (!buffer) {
+                alert('error decoding file data: ' + url);
+                return;
+              }
+              loader.bufferList[index] = buffer;
+              if (++loader.loadCount === loader.urlList.length) {
+                loader.onload(loader.bufferList);
+              }
+            },
+            function (error) {
+              alert('decodeAudioData error: ' + error);
+            }
+          );
+        };
+
+        request.onerror = function () {
+          alert('BufferLoader: XHR error');
+        };
+
+        request.send();
+      }
+
+      async load() {
+        for (let i = 0; i < this.urlList.length; ++i) {
+          this.loadBuffer(this.urlList[i], i);
+        }
+        return Promise.resolve();
+      }
+    }
+
+    let context;
+    let bufferLoader;
+
+    context = new AudioContext();
+
+    bufferLoader = new BufferLoader(
+      context,
+      [
+        '/star-trek.mp3',
+        '/fault-the-police.mp3'
+      ],
+      finishedLoading
+    );
+
+    await bufferLoader.load();
+
+  }*/
+
+  /*play (snd, vol = 1, context, node) {
+
+    let request = new XMLHttpRequest();
+    request.open( 'GET', snd, true );
+    request.responseType = 'arraybuffer';
+    request.onload = function () {
+      let audioData = request.response;
+
+      context.decodeAudioData(
+        audioData,
+        function ( buffer ) {
+          let smp = context.createBufferSource();
+          smp.buffer = buffer;
+
+          //создание объекта GainNode и его привязка
+          smp.connect( node );
+          node.connect( context.destination );
+          node.gain.value = vol;
+          smp.start( 0 );
+        },
+        function ( e ) {
+          alert( 'Error with decoding audio data' + e.err );
+        }
+      );
+    };
+    request.send();
+  }*/
 
   async start() {
     this.showLoader();

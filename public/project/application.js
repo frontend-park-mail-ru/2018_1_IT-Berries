@@ -45,7 +45,6 @@ async function startApplication() {
       .add('/lose', LoseGameView)
       .add('/mode', GameModeView)
       .add('/side/online-mode', ChooseSideView)
-      .add('/side/offline-mode', ChooseSideView)
       .add('/404', NotFoundView)
       .start();
   }
