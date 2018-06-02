@@ -53,7 +53,7 @@ export default class GameModeView extends View {
       this.link.href = '/side/online-mode';
     } else {
       this.multiPlayerPlanet.style.visibility = 'hidden';
-      this.singlePlayerPLanet.style.visibility = 'visible';root
+      this.singlePlayerPLanet.style.visibility = 'visible';
 
       this.status = 'single';
       this.link.href = '/game/offline-mode';
