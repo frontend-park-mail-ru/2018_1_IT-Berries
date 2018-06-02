@@ -59,6 +59,14 @@ export default class SettingsView extends View {
     this.vpnSwither = this.el.getElementsByClassName('checker')[0];
     this.vpnSwither.addEventListener('click', this.onChangeVpn.bind(this.vpnSwither));
 
+    const musicInput = document.getElementsByClassName('music-input')[0];
+    if (localStorage && localStorage.getItem('musicVol') !== null && localStorage.getItem('musicVol') !== undefined) {
+      musicInput.value = localStorage.getItem('musicVol') * 100;
+    }
+    if (localStorage && localStorage.getItem('musicIsOn') === 'false') {
+      document.getElementsByClassName('music-icon')[0].style.backgroundImage = 'url(../../../images/musicOff.png)';
+    }
+
     return returnParam;
   }
 

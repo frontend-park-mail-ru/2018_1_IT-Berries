@@ -18,6 +18,7 @@ export default class OfflineEngine extends Engine {
   }
 
   onGameStarted(evt) {
+    document.getElementsByClassName('players-tables')[0].classList.remove('players-tables_hidden');
     this.gameScene.reset();
     this.map = new Map(this.gameScene).map;
     this.bot = new Bot(this.map, this.gameScene.getUfoPosition());
@@ -37,6 +38,8 @@ export default class OfflineEngine extends Engine {
 
   async onHumansTurn(evt) {
     this.gameScene.restartTimer('humans');
+    document.getElementsByClassName('player-2-panel')[0].classList.remove('onTurn');
+    document.getElementsByClassName('player-1-panel')[0].classList.add('onTurn');
     const ufoX = this.bot.getPosition().x;
     const ufoY = this.bot.getPosition().y;
     if (ufoX === 0 || ufoX + 1 === this.gameScene.getX() + (ufoY) % 2 || ufoY === 0 || ufoY + 1 === this.gameScene.getY()) {
@@ -47,6 +50,8 @@ export default class OfflineEngine extends Engine {
   }
 
   async onUfoTurn(evt) {
+    document.getElementsByClassName('player-1-panel')[0].classList.remove('onTurn');
+    document.getElementsByClassName('player-2-panel')[0].classList.add('onTurn');
     this.gameScene.restartTimer('ufo');
     if (evt !== 'Time over!') {
       this.gameScene.addmove(0);

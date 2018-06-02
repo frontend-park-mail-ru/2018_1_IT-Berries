@@ -22,7 +22,7 @@ export default class GameView extends View {
     try {
       side = UsersModel.getCurrentUser().side;
     } catch (e) {
-      side = null;
+      side = 'humans';
     }
     let attrs = {
       profile,

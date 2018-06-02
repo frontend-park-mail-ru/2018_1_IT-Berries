@@ -45,7 +45,6 @@ async function startApplication() {
       .add('/lose', LoseGameView)
       .add('/mode', GameModeView)
       .add('/side/online-mode', ChooseSideView)
-      .add('/side/offline-mode', ChooseSideView)
       .add('/404', NotFoundView)
       .start();
   }
@@ -93,14 +92,15 @@ async function startApplication() {
   const imagesToLoad = [
     '../images/matrix.jpg',
     '../images/sky2.jpg',
-    '../images/sky1.jpg',
+    '../images/sky.jpg',
     '../images/rocket.png',
     '../images/ufo.png',
     '../images/rkn.png',
     '../images/telegram.png',
     '../images/star.png',
     '../images/dark-star.png',
-    '../images/end-game-board.png',
+    '../images/eng-game-board.png',
+    '../images/howtoplay.png',
   ];
 
   for (let imageToLoad of imagesToLoad) {

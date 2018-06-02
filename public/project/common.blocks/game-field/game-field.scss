@@ -122,10 +122,14 @@ $telegram-icon: '../../../images/telegram.png';
 @media only screen
 and (max-device-aspect-ratio: 5/7 ) {
 
+    .game-platform-checker {
+        visibility: hidden;
+    }
+
     .game-view__game {
         width: 90vmin;
         height: 63vh;
-        margin-top: 47vmin;
+        margin-top: 41vmin;
     }
 
     .game-view__game-table {

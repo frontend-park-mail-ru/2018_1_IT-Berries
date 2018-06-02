@@ -12,7 +12,7 @@ section.view.game-view
             div(class='end-game-panel')
                 div.end-game-panel__tiitle Game over
                 input(type='button' class='end-game-panel__button' value='ok')
-            div.players-tables
+            div.players-tables.players-tables_hidden
                 each val in [1, 2]
                     div(class='player-info player-' + val + '-info')
                         div.player-info__timer 0:30
