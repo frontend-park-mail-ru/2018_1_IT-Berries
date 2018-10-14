@@ -24,7 +24,7 @@ import { addServiceWorker } from './modules/add-sw.js';
 
 async function startApplication() {
 
-  addServiceWorker();
+  //addServiceWorker();
 
   const application = document.getElementsByClassName('application')[0];
   application.innerHTML = '';
